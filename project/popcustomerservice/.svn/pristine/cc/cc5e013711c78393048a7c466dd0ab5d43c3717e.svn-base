@@ -1,0 +1,78 @@
+<!-- 回访列表高级筛选模板 -->
+<div th:fragment="visit_filter" class="visit-filter-box js-visit-filter-box">
+    <style th:inline="text">
+        .visit-filter-box{display: none;padding: 20px 20px 0;}
+        .form-section>form>h3{font-size: 16px;padding-bottom: 10px;margin-bottom: 15px;border-bottom: 1px solid #aaa;}
+       
+        .form-section .form-group{margin-bottom: 10px}
+        .form-section .visit-filter>label{width: 8em;}
+        .visit-filter .form-group ul{width:100%;}
+
+        .service-div>h3{font-size: 16px;margin-bottom: 15px;}
+        .service-div>div{margin-bottom: 10px;}
+    </style>
+    <div class="form-section visit-filter form-inline">
+        <form class="clearfix">
+            <h3>高级筛选项</h3>
+            <div class="col-md-12">
+                <div class="form-group col-md-12">
+                    <label for="">服务方式</label>
+                    <ul class="form-control checked-list js-checked-list" data-key='industry'>
+                        <li v-text="customer_info.enterpriseType || '请选择用户角色'"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="js-trees-industry">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <ul class="ztree js-trees-ele" id="js-trees-industry"></ul>
+                        <div class="text-right">
+                            <button class="btn btn-default btn-sm js-cancel-checked">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked">确定</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="">联络类型</label>
+                    <ul class="form-control checked-list js-checked-list" data-key='industry'>
+                        <li v-text="customer_info.enterpriseType || '请选择用户角色'"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="js-trees-industry">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <ul class="ztree js-trees-ele" id="js-trees-industry"></ul>
+                        <div class="text-right">
+                            <button class="btn btn-default btn-sm js-cancel-checked">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked">确定</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="">联络结果</label>
+                    <ul class="form-control checked-list js-checked-list" data-key='industry'>
+                        <li v-text="customer_info.enterpriseType || '请选择用户角色'"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="js-trees-industry">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <ul class="ztree js-trees-ele" id="js-trees-industry"></ul>
+                        <div class="text-right">
+                            <button class="btn btn-default btn-sm js-cancel-checked">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked">确定</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="">服务类型</label>
+                    <ul class="form-control checked-list js-checked-list" data-key='status'>
+                        <li v-text="customer_info.enterpriseType || '请选择用户状态'"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="js-trees-status">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <ul class="ztree js-trees-ele" id="js-trees-status"></ul>
+                        <div class="text-right">
+                            <button class="btn btn-default btn-sm js-cancel-checked">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </form>
+    </div>
+</div>

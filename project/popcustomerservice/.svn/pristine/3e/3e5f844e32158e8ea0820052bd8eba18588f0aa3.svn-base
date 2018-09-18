@@ -1,0 +1,327 @@
+/*
+    #author     lut000
+    #date       2017/07/16
+    #porpuse    客户列表
+*/
+require.config({
+    paths: {
+        'ztree-core':'lib/ztree/jquery.ztree.core.min',
+        'ztree-excheck':'lib/ztree/jquery.ztree.excheck.min',
+        'ztree-exhide':'lib/ztree/jquery.ztree.exhide.min',
+    },
+
+    shim: {
+        'ztree-excheck':{
+          deps:['css!lib/ztree/zTreeStyle.css','jquery','ztree-core']
+        },
+        'ztree-exhide':{
+          deps:['jquery','ztree-core']
+        }
+    }
+});
+require(['vue','jquery','general','layui','ztree-excheck','ztree-exhide'], function (Vue,jquery,general,layui) {
+    $(function () {
+        var def={
+            loading_ele:$('.js-loading-div')
+        };
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                ownerid:'728257',                                                      //用户id
+                get_opt:{},
+                list:[],
+                thead:[{name:'姓名',id:3,is_show:true},
+                       {name:'主联系人',id:4,is_show:true},
+                       {name:'所属客户',id:5,is_show:true},
+                       {name:'职务',id:6,is_show:true},
+                       {name:'角色',id:7,is_show:true},
+                       {name:'状态',id:8,is_show:true},
+                       {name:'移动电话',id:9,is_show:true},
+                       {name:'最后联络时间',id:10,is_show:true},
+                       {name:'最后联络方式',id:11,is_show:true},
+                       {name:'是否添加微信',id:12,is_show:true},
+                       {name:'微信号',id:13,is_show:true},
+                       {name:'用户来源',id:14,is_show:true}],
+                collect:{},                                                             //表单字段
+                list_info:{                                                             //显示隐藏列
+                    is_show_select:false,
+                    checked_all:true
+                },
+                is_first:true,                                                          //是否第一次调用加载数据
+                is_set_date:false,                                                      //是否已经建立时间控件
+                layer_index:null,                                                       //弹出层对象
+                layer:null,                                                             //构造方法
+
+
+                def:{
+                    trees:{
+                      industry:[
+                        { id:1, pId:0, name:'材质', open:false},
+                        { id:11, pId:1, name:'棉麻'},
+                        { id:12, pId:1, name:'丝绸'},
+                        { id:2, pId:0, name:'配饰', open:false},
+                        { id:21, pId:2, name:'手链'},
+                        { id:22, pId:2, name:'戒指'},
+                      ],
+                      style:[
+                        { id:1, pId:0, name:'流行', open:false},
+                        { id:11, pId:1, name:'坎肩'},
+                        { id:12, pId:1, name:'短袖'},
+                        { id:2, pId:0, name:'经典', open:false},
+                        { id:21, pId:2, name:'牛仔'},
+                        { id:22, pId:2, name:'麦子'},
+                      ],
+                      single:[
+                        { id:1, pId:0, name:'流行', open:false},
+                        { id:11, pId:1, name:'坎肩'},
+                        { id:12, pId:1, name:'短袖'},
+                        { id:2, pId:0, name:'经典', open:false},
+                        { id:21, pId:2, name:'牛仔'},
+                        { id:22, pId:2, name:'麦子'},
+                      ],
+                      season:[
+                        { id:1, pId:0, name:'流行', open:false},
+                        { id:11, pId:1, name:'坎肩'},
+                        { id:12, pId:1, name:'短袖'},
+                        { id:2, pId:0, name:'经典', open:false},
+                        { id:21, pId:2, name:'牛仔'},
+                        { id:22, pId:2, name:'麦子'},
+                      ],
+                      material:[
+                        { id:1, pId:0, name:'流行', open:false},
+                        { id:11, pId:1, name:'坎肩'},
+                        { id:12, pId:1, name:'短袖'},
+                        { id:2, pId:0, name:'经典', open:false},
+                        { id:21, pId:2, name:'牛仔'},
+                        { id:22, pId:2, name:'麦子'},
+                      ],
+                      process:[
+                        { id:1, pId:0, name:'流行', open:false},
+                        { id:11, pId:1, name:'坎肩'},
+                        { id:12, pId:1, name:'短袖'},
+                        { id:2, pId:0, name:'经典', open:false},
+                        { id:21, pId:2, name:'牛仔'},
+                        { id:22, pId:2, name:'麦子'},
+                      ],
+
+                    },
+                    trees_setting:{ 
+                            check: {
+                            enable: true
+                        },
+                        data:{
+                            simpleData: {
+                                enable: true
+                            }
+                        }
+                    }
+                },
+            },
+            mounted:function(){
+                this.getNewData({
+                    ownerId:this.ownerid,
+                    page:1,
+                    size:10
+                });
+            },
+            methods:{
+                getNewData:function(opt){
+                    def.loading_ele.fadeIn(200);
+                    this.get_opt=opt;
+                    general.fn.subAjax({
+                        // url:'http://192.168.1.38:8081/api/customer/list',
+                        url:'http://localhost:8081/api/contact/list',
+                        data:opt,
+                        success:this.setData,
+                        error:function(){
+                            def.loading_ele.fadeOut(400);
+                        }
+                    })
+                },
+                setData:function(data){
+                    var self=this;
+                    if(data!=undefined && data.data!=undefined){
+                        this.list=data.data;
+                        this.setPage();
+                    }
+                    def.loading_ele.fadeOut(400);
+                },
+                setPage:function(count){
+                    var self=this;
+                    if(self.is_first==true){
+                        self.is_first=false;
+                        layui.use('laypage', function(){
+                            var laypage = layui.laypage;
+                            //执行一个laypage实例
+                            laypage.render({
+                                elem: 'laypage-section'
+                                ,count: count
+                                ,layout: [ 'prev', 'page', 'next','limit','count', 'skip']
+                                ,jump: function(obj,first){
+                                    if(obj.count*1<=obj.limit){
+                                        $('#laypage-section').hide();
+                                    }else{
+                                        $('#laypage-section').show();
+                                    }
+                                    if(!first){
+                                        self.get_opt.size=obj.limit;
+                                        self.get_opt.page=obj.curr;
+                                        self.getNewData(self.get_opt);
+                                    }
+                                    
+                                }
+                            });
+                        });
+                    }
+                },
+                changeCol:function(event,id){                                               //单选
+                    var tag=event.target;
+                    var is_check=tag.checked;
+                    if(is_check==true){
+                        $('.js-list-table').find('.js-col'+id+'-ele').show();
+                    }else{
+                        $('.js-list-table').find('.js-col'+id+'-ele').hide();
+                    }
+                    var checked_len=0;
+                    this.thead.forEach(function(item){
+                        if(id==item.id){
+                            item.is_show=is_check;
+                        }
+                        item.is_show==true?checked_len++:checked_len;
+                    });
+                    // 全选判断
+                    if(is_check==true){
+                        if(this.list_info.checked_all==false && checked_len==this.thead.length){
+                            this.list_info.checked_all=true;
+                        }
+                    }else{
+                        if(checked_len==this.thead.length-1 && this.list_info.checked_all==true){
+                            this.list_info.checked_all=false;
+                        }
+                    }
+
+                },
+                changeAll:function(e){                                                      //全选
+                    var tag = e.target;
+                    var is_check = tag.checked;
+                    if(is_check==true){
+                        $('.js-list-table').find('.js-can-hide').show();
+                        this.thead.forEach(item=>item.is_show=true);
+                    }else{
+                        $('.js-list-table').find('.js-can-hide').hide();
+                        this.thead.forEach(item=>item.is_show=false);
+                    }
+
+                },
+                toggleSelect:function(){                                                    //显示隐藏
+                    this.list_info.is_show_select=!this.list_info.is_show_select;
+                },
+                saveSelect:function(){                                                      //确认提交选择
+                    console.log(this.thead);
+                    this.toggleSelect();
+                },
+
+                filterFunc:function(){                                                      //确认筛选列表
+                    var opt={};
+                    for(var key in this.collect){
+                        if(this.collect[key]!=""){
+                            opt[key]=this.collect[key];
+                        }
+                    }
+                    opt.ownerId=this.ownerid;
+                    opt.page=1;
+                    opt.size=this.get_opt.size;
+                    this.is_first=true;
+                    this.getNewData(opt);                    
+                },
+                showFilterBox:function(){                                                   //弹出层
+                    var self=this;
+                    layui.use('layer', function(){
+                        var layer=layui.layer;
+                        layer.open({
+                            title:'',
+                            type: 1, 
+                            area:['80%'],
+                            content: $('.js-user-filter-box'),
+                            shadeClose:true,
+                            closeBtn:1,
+                            fixed:false,
+                            btn: ['重置', '取消', '确认筛选'],
+                            yes:function(){
+                                console.log($(".js-user-filter-box form").eq(0));
+                                $(".js-user-filter-box form")[0].reset();
+                            },
+                            btn3:self.advancedFilterFunc,
+                            anim:1,
+                            success:function(){
+                                if(self.is_set_date==false){
+                                    layui.use('laydate', function(){
+                                        var laydate = layui.laydate;
+                                        laydate.render({
+                                            elem: '.js-date-area1'
+                                        });
+                                        laydate.render({
+                                            elem: '.js-date-area2'
+                                        });
+                                    });
+                                }
+                            }
+                        });
+                    });
+
+
+                    if(!this.isbind){
+                        this.isbind=true;
+                        this.bindFunc();
+                    }
+                },
+
+                advancedFilterFunc:function(){                                                //确认高级筛选
+                    return false;
+                },
+
+                bindFunc:function(){
+                    var self=this,d=self.def;
+                    // 点击获取焦点
+                    $('.js-checked-list').on('click',function(e){
+                        var $self=$(this),tag_ele=$self.siblings('.js-filter-div');
+                        var id=tag_ele.attr('data-id');
+                        if(d.trees[id]==undefined){
+                          var key=$self.attr('data-key') || '';
+                          if(key!=''){
+                            $.fn.zTree.init(tag_ele.children('.js-trees-ele'), d.trees_setting, d.trees[key]);
+                            d.trees[id]=$.fn.zTree.getZTreeObj(id);
+                          }
+                        }
+                        tag_ele.show();
+                        e.stopPropagation();
+                    });
+
+
+                    // 隐藏下拉选择层
+                    $('.js-filter-div').on('click',function(e){
+                        e.stopPropagation();
+                    });
+                    $('#page-wrapper').on('click',function(){
+                        $('.js-filter-div').hide();
+                    });
+                  
+                    
+                    // 确定筛选项
+                    $('.js-add-checked').on('click',function(){
+                        var id=$(this).parents('.js-filter-div').attr('data-id') || '';
+                        var ztree_obj=d.trees[id];
+                        var checked_obj=ztree_obj.getCheckedNodes();
+                        $(this).parents('.js-filter-div').hide();
+                        setFilterDom($(this).parents('.js-filter-div').siblings('.js-checked-list'),checked_obj);
+                    });
+                    // 取消筛选项
+                    $('.js-cancel-checked').on('click',function(){
+                        $(this).parents('.js-filter-div').hide();
+                    });
+                }
+            }
+        });
+
+    })
+})

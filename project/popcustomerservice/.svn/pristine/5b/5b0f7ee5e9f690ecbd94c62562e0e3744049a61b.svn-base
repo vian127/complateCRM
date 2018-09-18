@@ -1,0 +1,49 @@
+package com.pop136.customerservice.vo.customer.search;
+
+import com.pop136.customerservice.vo.common.Page;
+
+/**
+ *客户详情 表
+ */
+public class ContactSearchVo extends Page {
+
+  private String id;//id
+
+  private String contactId;//联系人id
+
+  private String startPage;//起始页面
+
+  private String endPage;//结束页面
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getContactId() {
+    return contactId;
+  }
+
+  public void setContactId(String contactId) {
+    this.contactId = contactId;
+  }
+
+  public String getStartPage() {
+    return startPage;
+  }
+
+  public void setStartPage(String startPage) {
+    this.startPage = startPage;
+  }
+
+  public String getEndPage() {
+    return endPage;
+  }
+
+  public void setEndPage(String endPage) {
+    this.endPage = endPage;
+  }
+}

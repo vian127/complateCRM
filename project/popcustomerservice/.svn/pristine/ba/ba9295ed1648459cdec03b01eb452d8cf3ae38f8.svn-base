@@ -1,0 +1,122 @@
+package com.pop136.customerservice.constant;
+
+public class CommonConstant {
+
+  /**
+   * 客户来源 webSource
+   */
+  public enum CUSTOMERCD1{
+    CLOTHING("580823",1) ,//服装
+    BAGS("580824",2),//箱包
+    SHOE("580825",3),//鞋子
+    JEWELRY("580826",4),//首饰
+    TEXTILES("580827",5),//家纺
+    OTHER("581223",12),//其他
+    WORLD("581556",6),//款世界
+    POP_REPORT("581616",7),//pop-report
+    POP_TENDENCY("581736",8),//POP高端趋势网
+    FABRIC("582846",9);//面料
+
+    public static String getKeyByType(Integer type){
+      if(type==null){
+        return CUSTOMERCD1.CLOTHING.getKey();
+      }
+      CUSTOMERCD1[] loginTypes = CUSTOMERCD1.values();
+      for(CUSTOMERCD1 loginType:loginTypes){
+        if(loginType.getType().equals(type)){
+          return loginType.getKey();
+        }
+      }
+      return CUSTOMERCD1.CLOTHING.getKey();
+    }
+
+    private CUSTOMERCD1(String key, Integer type) {
+      this.key = key;
+      this.type = type;
+    }
+    private String key ;
+    private Integer type ;
+    public String getKey() {
+      return key;
+    }
+    public Integer getType() {
+      return type;
+    }
+  }
+
+  /**
+   * 客户 来源
+   */
+  public enum CUSTOMER_SOURCE{
+    TYPE_0("网上自动注册",10301) ,
+    TYPE_1("数据收集组分配",10302),
+    TYPE_2("来电咨询客户",10303),
+    TYPE_3("其他注册客户",10304),
+    TYPE_4("普通销售后台注册客户",10305),
+    TYPE_5("老数据",10306),
+    TYPE_6("其他",580366),
+    TYPE_7("清洗数据",581084),
+    TYPE_8("行销收集数据（直销)",581085),
+    TYPE_9("数据收集",581086),
+    TYPE_10("数据收集",581086),
+    TYPE_11("客户主动注册",581087),
+    TYPE_12("服装协会",581088),
+    TYPE_13("网络组推广",581110),
+    TYPE_14("QQ咨询",581152),
+    TYPE_15("客服推荐",581204),
+    TYPE_16("第三方网络推广 赠七天",581356),
+    TYPE_17("pop商派合作-pop注册(不分给销售)",581589),
+    TYPE_18("pop商派合作-商派注册(分给销售)",581590),
+    TYPE_19("CRM组收集数据",581615),
+    TYPE_20("特殊数据",581946),
+    TYPE_21("百度推广",582041),
+    TYPE_22("讲堂数据",582068),
+    TYPE_23("微信活动",582086),
+    TYPE_24("门店数据（门店人员）",582132),
+    TYPE_25("客户转介绍",582133),
+    TYPE_26("代理客户",582134),
+    TYPE_27("总裁办贵宾",582136),
+    TYPE_28("订货会",582360),
+    TYPE_29("月享卡数据",582379),
+    TYPE_30("百宝箱数据",582483),
+    TYPE_31("展会数据",582507),
+    TYPE_32("360推广",582508),
+    TYPE_33("离线宝",582509),
+    TYPE_34("网盟推广",582690),
+    TYPE_35("搜狗推广",582749),
+    TYPE_36("手机百度",582798),
+    TYPE_37("优料宝数据",902053),
+    TYPE_38("供应商转介绍",903320),
+    TYPE_39("离职设计师",903323),
+    TYPE_40("微信咨询",903327),
+    TYPE_41("活动数据",903328);
+
+    public static String getKeyByType(Integer type){
+      if(type==null){
+        return CUSTOMER_SOURCE.TYPE_6.getKey();
+      }
+      CUSTOMER_SOURCE[] Types = CUSTOMER_SOURCE.values();
+      for(CUSTOMER_SOURCE Type:Types){
+        if(Type.getType().equals(type)){
+          return Type.getKey();
+        }
+      }
+      return CUSTOMER_SOURCE.TYPE_6.getKey();
+    }
+
+    private CUSTOMER_SOURCE(String key, Integer type) {
+      this.key = key;
+      this.type = type;
+    }
+    private String key ;
+    private Integer type ;
+    public String getKey() {
+      return key;
+    }
+    public Integer getType() {
+      return type;
+    }
+  }
+
+
+}

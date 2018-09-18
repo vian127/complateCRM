@@ -1,0 +1,15 @@
+/*
+    #author     lut000
+    #date       2018/08/07
+    #porpuse    全局变量
+*/
+define([], function(){
+    var global_info={
+        api_url:'http://localhost:8081',                                        //api接口
+        user_info:{                                                             //当前用户信息
+
+        }
+    };   
+
+    return global_info;
+});

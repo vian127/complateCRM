@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="CRM" />
+    <meta name="description" content="CRM" />
+    <title>回访详情</title>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/common/form-list.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/manage/visitdetail.css}" />
+</head>
+
+<body>
+    <!-- view -->
+    <div id="wrapper">
+        <!-- header -->  
+        <div class="header" th:include="./views/common/header :: headertpl"></div>
+        <div id="page-wrapper">
+            <!-- content -->
+            <div class="content" id='app'>
+                <!-- 页面位置 -->
+                <div class="page-header-section">
+                    <h3>回访详情</h3>
+                </div>     
+                <!-- 表单 -->
+                <div class="container-fluid form-section form-inline">
+                    <form class='js-form'>
+                        <div class="row">
+                            <div class='col-md-12 section-title'>
+                                <label class="slide-btn js-slide-btn"><button type='button'>－</button>信息管理</label>
+                            </div>
+                            <div class="form-section">
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-5">
+                                        <label for="">创建日期</label>
+                                        <input type="text" class='form-control' v-model="feedback_info.createTime" readonly>
+                                    </div>
+                                    <div class="form-group col-md-5">
+                                        <label for="">创建人</label>
+                                        <input type="text" class='form-control' v-model="manage_info.createName" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-5">
+                                        <label for="">最后修改日期</label>
+                                        <input type="text" class='form-control' v-model="manage_info.lastUpdateDate" readonly>
+                                    </div>
+                                    <div class="form-group col-md-5">
+                                        <label for="">修改人</label>
+                                        <input type="text" class='form-control' v-model="manage_info.lastUpdateDater" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-4">
+                                        <label for="">客户id</label>
+                                        <input type="text" class='form-control' v-model="manage_info.customerId" readonly>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">主账号</label>
+                                        <input type="text" class='form-control' v-model="manage_info.accountName" readonly>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">公司名称</label>
+                                        <a href="javascript:;" v-text='manage_info.companyName'></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-md-12 section-title'>
+                                <label class="slide-btn js-slide-btn"><button type='button'>－</button>回访信息</label>
+                            </div>
+                            <div class="form-section">
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-4">
+                                        <label for="">服务对象</label>
+                                        <input type="text" class="form-control" v-model="feedback_info.contactName" readonly>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">手机号码</label>
+                                        <input type="text" value='13865675455' class="form-control" readonly v-model="feedback_info.phone">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-4">
+                                        <label for="">服务方式</label>
+                                        <select name="" id="" class="form-control js-feedback-select" data-id="feedbtag00009" v-model="feedback_info.serviceWay" disabled>
+                                            <option value="">请选择</option>
+                                            <option value="feedbtagval0000000065">微信</option>
+                                            <option value="feedbtagval0000000066">QQ</option>
+                                            <option value="feedbtagval0000000067">短信</option>
+                                            <option value="feedbtagval0000000068">来电</option>
+                                            <option value="feedbtagval0000000069">去电</option>
+                                            <option value="feedbtagval0000000070">邮件</option>
+                                            <option value="feedbtagval0000000071">上门</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="necessary" for="">联络类型</label>
+                                        <select name="" id="" class="form-control js-feedback-select" v-model='feedback_info.contactType' data-id="feedbtag00006" disabled>
+                                            <option value="feedbtagval0000000053">有效</option>
+                                            <option value="feedbtagval0000000054">无效</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="necessary" for="">联络结果</label>
+                                        <select name="" id="" class="form-control js-feedback-select" data-id="feedbtag00007" v-model='feedback_info.contactResult' disabled>
+                                            <option v-for="item in service_tag.results[feedback_info.contactType]" :value="item.id" v-text="item.name"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-4">
+                                        <div>
+                                            <label for="">客户关注项</label>
+                                            <ul class="form-control checked-list js-checked-list" data-key="attention" :data-checkid="def.tags.attention">
+                                                <li v-for="(item,index) in ((feedback_info.attention && feedback_info.attention.length>0)?feedback_info.attention:[{value:'请选择客户关注项'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                                            </ul>
+                                            <div class="filter-div js-filter-div" data-id="tag00014">
+                                                <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                                                <div class="checkbox-container js-checkbox-container"></div>
+                                                <div class="btn-div">
+                                                    <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                                                    <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                        <div>
+                                            <label for="">关注项备注</label>
+                                            <textarea name="" id="" cols="60%" rows="1" class='form-control' v-model='feedback_info.attentionRemark' readonly></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-4">
+                                        <label for="">用户印象</label>
+                                        <select name="" id="" class='form-control js-feedback-select' data-id="tag00019" v-model="service_info.impression.impressionId" disabled>
+                                            <option value="">请选择</option>
+                                            <option value="tagval0000000310">I (很好沟通)</option>
+                                            <option value="tagval0000000311">II (一般)</option>
+                                            <option value="tagval0000000312">III (拒绝沟通)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-1">
+                                        <label for="">多产品</label>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <div class="col-md-4" v-for="(item,index) in service_info.products">
+                                            <div class="form-group">
+                                                <input :id="'checkbox-'+index" type="checkbox" :checked="item.status==1?true:false">
+                                                <label v-text="item.productName" :for="'checkbox-'+index"></label>
+                                            </div>
+                                            <div class="form-group">
+                                                <select name="" id="" class="form-control" v-model='item.productStatusId' disabled>
+                                                    <option value="0">不需要</option>
+                                                    <option value="1">免费试用</option>
+                                                    <option value="2">了解</option>
+                                                    <option value="3">高意向</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="service-section">
+                                    <h3 for="">服务详情</h3>
+                                    <div class="col-md-12 js-checked-section">
+                                        <div class="form-group th-group col-md-1">
+                                            <input class="js-feedback-check1" id="check-ele-1" type="checkbox" name='' data-id='feedbtag00001'>
+                                            <label for="check-ele-1">初次回访</label>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="form-group">
+                                                <select name="" id="" class='form-control js-service-select' data-id="feedbtag00001">
+                                                    <option value="feedbtagval0000000001">完善客户资料</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-11" type="checkbox" name='' data-id="feedbtagval0000000002">
+                                                <label for="check-ele-11">核实在职情况</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-12" type="checkbox" name='' data-id="feedbtagval0000000003">
+                                                <label for="check-ele-12">核实决策者情况</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-13" type="checkbox" name='' data-id="feedbtagval0000000004">
+                                                <label for="check-ele-13">核实使用者情况</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-14" type="checkbox" name='' data-id="feedbtagval0000000005">
+                                                <label for="check-ele-14">核实开发信息</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 js-checked-section">
+                                        <div class="form-group th-group col-md-1">
+                                            <input class="js-feedback-check1" id="check-ele-2" type="checkbox" name=''  data-id="feedbtag00002" :checked="feedback_info.invoice?true:false">
+                                            <label for="check-ele-2">发票项</label>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="form-group">
+                                                <select name="" id="" class='form-control js-service-select' data-id="feedbtag00002" v-model="visit.invoice">
+                                                    <option value="">请选择</option>
+                                                    <option value="feedbtagval0000000006">普通发票</option>
+                                                    <option value="feedbtagval0000000007">专用发票</option>
+                                                    <option value="feedbtagval0000000008">不需要发票</option>
+                                                    <option value="feedbtagval0000000009">暂缓开票</option>
+                                                    <option value="feedbtagval00000000010">提前开票</option>
+                                                    <option value="feedbtagval00000000011">未收到，催发票</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group" v-for="(item,index) in service_tag.cutomer_tags.invoice[visit.invoice]">
+                                                <input :id="'check-ele-2'+index" type="checkbox" name='' :data-id="item.id" v-model='item.is_checked'>
+                                                <label :for="'check-ele-2'+index" v-text="item.name"></label>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="col-md-12 js-checked-section">
+                                        <div class="form-group th-group col-md-1">
+                                            <input class="js-feedback-check1" id="check-ele-3" type="checkbox" name='' data-id="feedbtag00003">
+                                            <label for="check-ele-3">赠品项</label>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-31" type="checkbox" name='' data-id="feedbtagval0000000018">
+                                                <label for="check-ele-31">更换收件地址/收件人信息</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-32" type="checkbox" name='' data-id="feedbtagval0000000019">
+                                                <label for="check-ele-32">更换赠品</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-33" type="checkbox" name='' data-id="feedbtagval0000000020">
+                                                <label for="check-ele-33">签收查询</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-34" type="checkbox" name='' data-id="feedbtagval0000000021">
+                                                <label for="check-ele-34">快递问题</label>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+
+
+
+                                    <div class="col-md-12 js-checked-section">
+                                        <div class="form-group th-group col-md-1">
+                                            <input class="js-feedback-check1" id="check-ele-4" type="checkbox" name='' data-id="feedbtag00004">
+                                            <label for="check-ele-4">登陆使用项</label>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-41" type="checkbox" name='' data-id="feedbtagval0000000022">
+                                                <label for="check-ele-41">客户端问题</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-42" type="checkbox" name='' data-id="feedbtagval0000000023">
+                                                <label for="check-ele-42">客户端绑定数量问题</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-43" type="checkbox" name='' data-id="feedbtagval0000000024">
+                                                <label for="check-ele-43">客户端更换绑定</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-44" type="checkbox" name='' data-id="feedbtagval0000000025">
+                                                <label for="check-ele-44">账号密码问题</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-45" type="checkbox" name='' data-id="feedbtagval0000000026">
+                                                <label for="check-ele-45">IP问题</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-46" type="checkbox" name='' data-id="feedbtagval0000000027">
+                                                <label for="check-ele-46">手机/IPAD客户端</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-47" type="checkbox" name='' data-id="feedbtagval0000000028">
+                                                <label for="check-ele-47">浏览器问题</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-48" type="checkbox" name='' data-id="feedbtagval0000000029">
+                                                <label for="check-ele-48">下载问题</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="js-feedback-check2" id="check-ele-49" type="checkbox" name='' data-id="feedbtagval0000000030">
+                                                <label for="check-ele-49">我们公司问题</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 js-checked-section">
+                                        <div class="form-group th-group col-md-1">
+                                            <input class="js-feedback-check1" id="check-ele-5" type="checkbox" name='' data-id="feedbtag00005">
+                                            <label for="check-ele-5">网站服务项</label>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-51" type="checkbox" name='' data-id="feedbtagval0000000031">
+                                                        <label for="check-ele-51">网站登录情况</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select name="" id="" class='form-control js-service-select' data-id="feedbtag00005">
+                                                            <option value="feedbtagval0000000047">已正常登录</option>
+                                                            <option value="feedbtagval0000000048">未登录，已告知账号密码</option>
+                                                            <option value="feedbtagval0000000049">未登录，未联系上</option>     
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-522" type="checkbox" name='' data-id="feedbtagval0000000032">
+                                                        <label for="check-ele-522">网站使用介绍</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select name="" id="" class='form-control js-service-select' data-id="feedbtag00005">
+                                                            <option value="feedbtagval0000000050">已介绍</option>
+                                                            <option value="feedbtagval0000000051">未介绍</option>
+                                                            <option value="feedbtagval0000000052">客户表示不需要介绍</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-52" type="checkbox" name='' data-id="feedbtagval0000000033">
+                                                        <label for="check-ele-52">正常推荐资料</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-53" type="checkbox" name='' data-id="feedbtagval0000000034">
+                                                        <label for="check-ele-53">网站检索问题</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-54" type="checkbox" name='' data-id="feedbtagval0000000035">
+                                                        <label for="check-ele-54">子账号</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-55" type="checkbox" name='' data-id="feedbtagval0000000036">
+                                                        <label for="check-ele-55">网站资料少/或不集中，需单独对接</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-56" type="checkbox" name='' data-id="feedbtagval0000000037">
+                                                        <label for="check-ele-56">索要资料包</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-57" type="checkbox" name='' data-id="feedbtagval0000000038">
+                                                        <label for="check-ele-57">找品牌名</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-58" type="checkbox" name='' data-id="feedbtagval0000000039">
+                                                        <label for="check-ele-58">找细节/高清图</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-59" type="checkbox" name='' data-id="feedbtagval0000000040">
+                                                        <label for="check-ele-59">找类似款/花型</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-510" type="checkbox" name='' data-id="feedbtagval0000000041">
+                                                        <label for="check-ele-510">趋势少/慢/旧</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-511" type="checkbox" name='' data-id="feedbtagval0000000042">
+                                                        <label for="check-ele-511">款式少/慢/旧</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-512" type="checkbox" name='' data-id="feedbtagval0000000043">
+                                                        <label for="check-ele-512">花型少/慢/旧</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-513" type="checkbox" name='' data-id="feedbtagval0000000044">
+                                                        <label for="check-ele-513">商拍</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-514" type="checkbox" name='' data-id="feedbtagval0000000045">
+                                                        <label for="check-ele-514">网站出错</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input class="js-feedback-check2" id="check-ele-515" type="checkbox" name='' data-id="feedbtagval0000000046">
+                                                        <label for="check-ele-515">跟进投诉</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group th-group col-md-1">
+                                            <input class="js-feedback-check1" id="check-ele-6" type="checkbox" name='' data-id="" :checked="feedback_info.recommend?true:false">
+                                            <label for="check-ele-6">推荐项</label>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="form-group">
+                                                <select name="" id="" class='form-control js-service-select' data-id="" v-model="feedback_info.recommend">
+                                                    <option value="">请选择</option>
+                                                    <option value="1">升级</option>
+                                                    <option value="2">续费</option>
+                                                    <option value="3">销售</option>
+                                                    <option value="3">离职设计师</option>
+                                                    <option value="3">转介绍</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group th-group col-md-1">
+                                            <input id="check-ele-7" type="checkbox" name='' :checked="feedback_info.remark?true:false">
+                                            <label for="check-ele-7">备注</label>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <textarea rows="5" v-model="feedback_info.remark"></textarea>  
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- footer -->
+            <div class="footer" th:include="./views/common/footer :: footertpl"></div>
+        </div>
+    </div>
+    <!-- 共用模块 -->
+    <div th:include="./views/common/common :: commontpl"></div>
+    <!-- JS Scripts-->
+    <script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/manage/visitdetail.js}"></script>
+</body>
+
+</html>

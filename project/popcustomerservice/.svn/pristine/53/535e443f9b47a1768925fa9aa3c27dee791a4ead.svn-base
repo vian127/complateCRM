@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CustomerTagMapper">
+
+  <select id="findCustomerTagListByCustId"  resultType="com.pop136.customerservice.entity.tag.TagCustomer">
+  SELECT [id],[tagid],[tagvalid],[code],[value],[description],[lang]
+        ,[customerid],[createtime],[lastupdatetime],[deleteflag],[createroleid],[updateroleid]
+        ,[grpcode],[orgcode],[loccode],[creater],[updater]
+    FROM [ss_tagvalue_customer]
+    WHERE a.customerid = #{customerid}
+  </select>
+
+  <resultMap id="getAllTagsResult" type="HashMap">
+    <result property="key" column="tagvalid" />
+    <result property="value" column="code" />
+  </resultMap>
+
+  <select id="getAllTagsByCustomerId" resultMap="getAllTagsResult">
+    SELECT tagvalid,code
+    FROM ss_tagvalue_customer a
+    WHERE a.customerid = #{customerid}
+  </select>
+
+</mapper>

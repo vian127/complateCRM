@@ -1,0 +1,199 @@
+﻿<div th:fragment="headertpl">
+    <!-- 头部导航 -->
+    <nav class="navbar navbar-default top-navbar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/api/templates">
+                <i class="fa fa-gear"></i>
+                <strong>POP-CRM</strong>
+            </a>
+        </div>
+
+        <ul class="nav navbar-top-links navbar-right hidden-xs">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                    <i class="fa fa-envelope fa-fw"></i>
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-messages">
+                    <li>
+                        <a href="#">
+                            <div>
+                                <strong>里</strong>
+                                <span class="pull-right text-muted">
+                                    <em>今天</em>
+                                </span>
+                            </div>
+                            <div>详情</div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <strong>张</strong>
+                                <span class="pull-right text-muted">
+                                    <em>昨天</em>
+                                </span>
+                            </div>
+                            <div>详细</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                    <i class="fa fa-bell fa-fw"></i>
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-alerts">
+                    <li>
+                        <a href="#">
+                            <div>
+                                <i class="fa fa-comment fa-fw"></i>新消息
+                                <span class="pull-right text-muted small">4 min</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <i class="fa fa-twitter fa-fw"></i>通知
+                                <span class="pull-right text-muted small">12 min</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown" style="margin-right:20px;">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                    <i class="fa fa-user fa-fw"></i>
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-user fa-fw"></i>个人中心</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-gear fa-fw"></i> 设置</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="javascript:void(0);" class="js-sign-out">
+                            <i class="fa fa-sign-out fa-fw"></i>退出登录</a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+    </nav>
+    <!--/. NAV TOP  -->
+    <!-- 侧边栏 -->
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div id="sideNav" href="">
+            <i class="fa fa-caret-right"></i>
+        </div>
+        <div id="sidebar" class="sidebar-collapse">
+            <ul class="nav js-main-nav" id="main-menu">
+                <li data-str="customer">
+                    <a href="#">
+                        <i class="fa fa-sitemap"></i> 客户管理
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="js-second-nav nav nav-second-level nav-active collapse">
+                        <li>
+                            <a href="/api/web/customer/client">客户管理</a>
+                        </li>
+                        <li>
+                            <a href="/api/web/customer/userlist">用户管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li data-str="manage">
+                    <a href="#">
+                        <i class="fa fa-sitemap"></i> 管理工具
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="js-second-nav nav nav-second-level nav-active collapse">
+                        <li>
+                            <a href="/api/web/manage/taskmanagement">任务管理</a>
+                        </li>
+                        <li>
+                            <a href="/api/web/manage/taskstatistical">任务统计管理</a>
+                        </li>
+                        <li>
+                            <a href="/api/web/manage/tasktype">任务类型管理</a>
+                        </li>
+                        <li>
+                            <a href="/api/web/manage/visit">回访管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li data-str="workbench">
+                    <a href="#">
+                        <i class="fa fa-sitemap"></i> 客服工作台
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="js-second-nav nav nav-second-level nav-active collapse">
+                        <li>
+                            <a href="/api/web/workbench/userlist">我的客户</a>
+                        </li>
+                        <li>
+                            <a href="/api/web/workbench/tasklist">我的任务</a>
+                        </li>
+                        <li>
+                            <a href="/api/web/workbench/user_search">客户搜索</a>
+                        </li>
+                    </ul>
+                </li>
+                <li data-str="marketing">
+                    <a href="#">
+                        <i class="fa fa-sitemap"></i> 营销工具
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="js-second-nav nav nav-second-level nav-active collapse">
+                        <li>
+                            <a href="#">问卷管理</a>
+                        </li>
+                        <li>
+                            <a href="/api/web/marketing/notemanagement">短信管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li data-str="aside">
+                    <a href="./views/aside/system.html">
+                        <i class="fa fa-sitemap"></i>
+                        <span>系统设置</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="js-second-nav nav nav-second-level nav-active collapse">
+                        <li>
+                            <a href="./views/aside/branch.html">部门管理</a>
+                        </li>
+                        <li>
+                            <a href="./views/aside/staff.html">员工管理</a>
+                        </li>
+                        <li>
+                            <a href="./views/aside/account.html">账号管理</a>
+                        </li>
+                        <li>
+                            <a href="#">图片管理</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+
+    </nav>
+</div>

@@ -1,0 +1,10 @@
+@charset 'UTF-8';
+.info-wrap {border: 1px solid #ccc;}
+.tab-list { height: 500px;width: 15%;padding-left: 30px;padding-top:10px;float: left;border-right: 1px solid #ccc;overflow: auto;}
+.tab-list li {height: 30px;line-height: 30px;cursor: pointer;}
+.stats-info {width: 85%;height: 500px;float: left;position: relative;}
+.stats-info>div {display: none;margin: 10px;}
+.stats-info .title {padding: 10px 0;border-bottom: 1px solid #ccc;}
+.desc{padding: 10px;border-bottom: 1px solid #ccc;}
+.btn-wrap {position: absolute;left: 0;bottom: 60px;}
+.answer>li{margin-top:10px;}

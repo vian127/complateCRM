@@ -1,0 +1,31 @@
+package com.pop136.customerservice.controller.marketing;
+
+import com.pop136.customerservice.controller.BaseApiAction;
+import com.pop136.customerservice.vo.customer.search.FeedBackSearchVo;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * 短信 controller
+ */
+@RestController
+@RequestMapping("/note")
+public class NoteController extends BaseApiAction {
+
+
+  /**
+   * 创建 短信模版
+   */
+  @RequestMapping(value = "/list",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  private String list(HttpServletRequest request, @RequestBody FeedBackSearchVo searchVo) {
+    return success(null);
+  }
+
+
+}

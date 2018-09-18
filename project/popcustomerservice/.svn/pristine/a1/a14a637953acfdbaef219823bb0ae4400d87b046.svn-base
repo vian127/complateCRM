@@ -1,0 +1,7 @@
+@charset 'UTF-8';
+
+.btn-div>button{margin-left: 5px;}
+
+.form-inline .checked-list{max-width: 240px;}
+.checked-list>li{display: inline-block;display: 4px 8px;background-color: #fff}
+.filter-div{display: none;z-index: 10;position: absolute;left: 80px;top: 40px;padding: 10px;background-color: #fff;border:1px solid #aaa;}

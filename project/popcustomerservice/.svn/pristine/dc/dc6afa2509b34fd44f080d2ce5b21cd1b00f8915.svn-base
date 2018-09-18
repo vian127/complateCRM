@@ -1,0 +1,88 @@
+package com.pop136.customerservice.constant;
+
+public class CommonConstant {
+
+  /**
+   * 客户来源 webSource
+   */
+  public enum CUSTOMERCD1{
+    CLOTHING("580823",1) ,//服装
+    BAGS("580824",2),//箱包
+    SHOE("580825",3),//鞋子
+    JEWELRY("580826",4),//首饰
+    TEXTILES("580827",5),//家纺
+    OTHER("581223",12),//其他
+    WORLD("581556",6),//款世界
+    POP_REPORT("581616",7),//pop-report
+    POP_TENDENCY("581736",8),//POP高端趋势网
+    FABRIC("582846",9);//面料
+
+    public static String getKeyByType(Integer type){
+      if(type==null){
+        return CUSTOMERCD1.CLOTHING.getKey();
+      }
+      CUSTOMERCD1[] loginTypes = CUSTOMERCD1.values();
+      for(CUSTOMERCD1 loginType:loginTypes){
+        if(loginType.getType().equals(type)){
+          return loginType.getKey();
+        }
+      }
+      return CUSTOMERCD1.CLOTHING.getKey();
+    }
+
+    private CUSTOMERCD1(String key, Integer type) {
+      this.key = key;
+      this.type = type;
+    }
+    private String key ;
+    private Integer type ;
+    public String getKey() {
+      return key;
+    }
+    public Integer getType() {
+      return type;
+    }
+  }
+
+  /**
+   * 联系人 来源
+   */
+  public enum CONTACT_CUSTOMERCD5{
+    TYPE_0("其他",0) ,
+    TYPE_1("下载包",1),
+    TYPE_2("开启订货会",2),
+    TYPE_3("开启私人订制",3),
+    TYPE_4("开启下载包",4),
+    TYPE_5("子账号",5),
+    TYPE_6("无",-3);
+
+
+    public static String getKeyByType(Integer type){
+      if(type==null){
+        return CONTACT_CUSTOMERCD5.TYPE_0.getKey();
+      }
+      CONTACT_CUSTOMERCD5[] loginTypes = CONTACT_CUSTOMERCD5.values();
+      for(CONTACT_CUSTOMERCD5 loginType:loginTypes){
+        if(loginType.getType().equals(type)){
+          return loginType.getKey();
+        }
+      }
+      return CONTACT_CUSTOMERCD5.TYPE_0.getKey();
+    }
+
+    private CONTACT_CUSTOMERCD5(String key, Integer type) {
+      this.key = key;
+      this.type = type;
+    }
+    private String key ;
+    private Integer type ;
+    public String getKey() {
+      return key;
+    }
+    public Integer getType() {
+      return type;
+    }
+  }
+
+
+}

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ContactMapper">
+
+
+  <select id="getContactList"  resultType="com.pop136.customerservice.entity.customer.Contact"
+   parameterType="com.pop136.customerservice.vo.customer.search.ContactSearchVo">
+    SELECT * FROM (
+    SELECT
+      ROW_NUMBER()over(order by a.createtime DESC)as row_num, a.* , b.name as contactName
+
+      FROM mp_contact a
+      LEFT  JOIN  mp_customer b ON  a.customerid = b.id
+
+      <if test="startContactTime != null and startContactTime != '' ">
+        LEFT JOIN mp_feedback f on a.id = f.contactid
+      </if>
+
+      <if test="status != null or role != null or duty != null ">
+        LEFT JOIN ss_tagvalue_contact tag on a.id = tag.contactid
+      </if>
+
+     WHERE
+      a.deleteflag = '0'
+
+      <if test="id != null and id != '' ">
+          and a.id = #{id}
+      </if>
+
+      <if test="name != null and name != '' ">
+          and a.name like '%'+ #{name} + '%'
+      </if>
+
+      <if test="customerId != null and customerId != '' ">
+         and a.customerid = #{customerId}
+      </if>
+
+      <if test="customerName != null and customerName != '' ">
+         and b.customername like '%'+#{customerName}+'%'
+      </if>
+
+      <if test="mobile != null and mobile != '' ">
+         and a.mobile = #{mobile}
+      </if>
+
+      <if test="telephone != null and telephone != '' ">
+         and a.telephone = #{telephone}
+      </if>
+
+      <if test="qq != null and qq != '' ">
+         and a.qq = #{qq}
+      </if>
+
+      <if test="email != null and email != '' ">
+         and a.email = #{email}
+      </if>
+
+      <if test="weChat != null and weChat != '' ">
+         and a.relatecontactid5 = #{weChat}
+      </if>
+
+      <if test="main != null and main != '' ">
+         and a.iismain = #{main}
+      </if>
+
+      <if test="startContactTime != null and startContactTime != '' ">
+          AND  f.lastupdatetime BETWEEN  #{startContactTime} AND #{endContactTime}
+      </if>
+
+      <if test="status != null and status != '' ">
+          AND  tag.tagvalid = #{status}
+      </if>
+
+      <if test="roles != null and roles.size > 0 ">
+      AND  tag.tagvalid IN
+      <foreach collection="roles" item="item"  index="index"  open="(" separator="," close=")">
+          #{item}
+      </foreach>
+      </if>
+
+      <if test="duty != null and duty != '' ">
+          AND  tag.tagvalid  = #{duty}
+      </if>
+
+      ) result
+
+      <if test="page != null">
+          where result.row_num &gt; #{page} and result.row_num &lt;= #{size}
+      </if>
+
+  </select>
+
+
+    <select id="getContactCount" parameterType="com.pop136.customerservice.vo.customer.search.FeedBackSearchVo"
+    resultType="java.lang.String">
+        SELECT  count(*)
+
+        FROM mp_contact a
+        LEFT  JOIN  mp_customer b ON  a.customerid = b.id
+
+        <if test="startContactTime != null and startContactTime != '' ">
+            LEFT JOIN mp_feedback f on a.id = f.contactid
+        </if>
+
+        <if test="status != null or role != null or duty != null ">
+            LEFT JOIN ss_tagvalue_contact tag on a.id = tag.contactid
+        </if>
+
+        <if test="sex != null and sex != '' ">
+            LEFT JOIN ss_tagvalue_customer tag2 on tag2.customerid = b.id
+        </if>
+
+        WHERE
+        a.deleteflag = '0'
+
+        <if test="id != null and id != '' ">
+            and a.id = #{id}
+        </if>
+
+        <if test="name != null and name != '' ">
+            and a.name like '%'+ #{name} + '%'
+        </if>
+
+        <if test="customerId != null and customerId != '' ">
+            and a.customerid = #{customerId}
+        </if>
+
+        <if test="customerName != null and customerName != '' ">
+            and b.customername like '%'+#{customerName}+'%'
+        </if>
+
+        <if test="mobile != null and mobile != '' ">
+            and a.mobile = #{mobile}
+        </if>
+
+        <if test="telephone != null and telephone != '' ">
+            and a.telephone = #{telephone}
+        </if>
+
+        <if test="qq != null and qq != '' ">
+            and a.qq = #{qq}
+        </if>
+
+        <if test="email != null and email != '' ">
+            and a.email = #{email}
+        </if>
+
+        <if test="weChat != null and weChat != '' ">
+            and a.relatecontactid5 = #{weChat}
+        </if>
+
+        <if test="main != null and main != '' ">
+            and a.iismain = #{main}
+        </if>
+
+        <if test="startContactTime != null and startContactTime != '' ">
+            AND  f.lastupdatetime BETWEEN  #{startContactTime} AND #{endContactTime}
+        </if>
+
+        <if test="status != null and status != '' ">
+            AND  tag.tagvalid = #{status}
+        </if>
+
+        <if test="roles != null and roles.size > 0 ">
+            AND  tag.tagvalid IN
+            <foreach collection="roles" item="item"  index="index"  open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+        <if test="sexs != null and sexs.size > 0 ">
+            AND  tag2.tagvalid IN
+            <foreach collection="sexs" item="item"  index="index"  open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+        <if test="duty != null and duty != '' ">
+            AND  tag.tagvalid  = #{duty}
+        </if>
+
+    </select>
+
+
+</mapper>

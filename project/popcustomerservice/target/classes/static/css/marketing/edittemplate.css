@@ -1,0 +1,6 @@
+@charset 'UTF-8';
+.textbox{display:inline-block;position: relative;}
+.textnum{position:absolute;right:20px;bottom:0;}
+
+.sign-title{position: absolute;top:6px;left:10px;} 
+.text-area{text-indent: 5em;}

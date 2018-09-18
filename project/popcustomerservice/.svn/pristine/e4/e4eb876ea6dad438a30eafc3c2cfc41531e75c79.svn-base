@@ -1,0 +1,27 @@
+package com.pop136.customerservice.controller.integral;
+
+import com.pop136.customerservice.entity.BasePage;
+import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
+
+@Component
+public class CommdityPage extends BasePage implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+
+	public Commodity commodity;
+
+
+  public Commodity getCommodity() {
+    return commodity;
+  }
+
+  public void setCommodity(Commodity commodity) {
+    this.commodity = commodity;
+  }
+}

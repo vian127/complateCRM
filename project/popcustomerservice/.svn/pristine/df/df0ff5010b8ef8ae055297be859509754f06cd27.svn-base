@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FeedBackMapper">
+
+
+  <select id="getContactList"  resultType="com.pop136.customerservice.entity.customer.Contact"
+   parameterType="com.pop136.customerservice.vo.customer.search.ContactSearchVo">
+    SELECT * FROM (
+    SELECT
+      ROW_NUMBER()over(order by a.createtime DESC)as row_num, a.* , b.name as contactName
+
+      FROM mp_contact a
+      LEFT  JOIN  mp_customer b ON  a.customerid = b.id
+
+     WHERE
+      a.deleteflag = '0'
+
+      <if test="id != null">
+          and a.id = #{id}
+      </if>
+
+      <if test="customerId != null">
+         and a.customerid = #{customerId}
+      </if>
+
+      <if test="mobile != null">
+         and mobile = #{mobile}
+      </if>
+
+      <if test="telephone != null">
+         and telephone = #{telephone}
+      </if>
+
+      <if test="qq != null">
+         and qq = #{qq}
+      </if>
+
+      <if test="email != null">
+         and email = #{email}
+      </if>
+
+      <if test="weChat != null">
+         and relatecontactid5 = #{weChat}
+      </if>
+
+      ) result
+
+      <if test="page != null">
+          where result.row_num &gt; #{page} and result.row_num &lt;= #{size}
+      </if>
+
+  </select>
+
+
+    <select id="getContactCount" parameterType="com.pop136.customerservice.vo.customer.search.FeedBackSearchVo"
+    resultType="java.lang.String">
+        SELECT  count(*)
+
+        FROM  mp_contact
+
+        WHERE
+
+        deleteflag = '0'
+
+        <if test="id != null">
+            and a.id = #{id}
+        </if>
+
+        <if test="customerId != null">
+            and a.customerid = #{customerId}
+        </if>
+
+        <if test="mobile != null">
+            and mobile = #{mobile}
+        </if>
+
+        <if test="phone != null">
+            and phone = #{phone}
+        </if>
+
+        <if test="qq != null">
+            and qq = #{qq}
+        </if>
+
+        <if test="email != null">
+            and email = #{email}
+        </if>
+
+        <if test="weChat != null">
+            and relatecontactid5 = #{weChat}
+        </if>
+
+    </select>
+
+</mapper>

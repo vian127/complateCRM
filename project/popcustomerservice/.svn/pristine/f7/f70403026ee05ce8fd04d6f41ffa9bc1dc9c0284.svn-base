@@ -1,0 +1,163 @@
+package com.pop136.customerservice.service.marketing;
+
+import com.pop136.core.BeanUtil;
+import com.pop136.core.webservice.client.SMSClient;
+import com.pop136.customerservice.constant.Constant;
+import com.pop136.customerservice.entity.marketing.MsgBatch;
+import com.pop136.customerservice.entity.marketing.MsgSend;
+import com.pop136.customerservice.mapper.agent.marketing.MsgBatchMapper;
+import com.pop136.customerservice.mapper.agent.marketing.MsgSendMapper;
+import com.pop136.customerservice.service.AbstractBaseService;
+import com.pop136.customerservice.utils.GetRID;
+import com.pop136.customerservice.utils.TimeUtil;
+import com.pop136.customerservice.vo.marketing.MsgSendVo;
+import com.pop136.customerservice.vo.marketing.param.MsgParamVo;
+import com.pop136.customerservice.vo.marketing.param.MsgSendParamVo;
+import com.pop136.customerservice.vo.marketing.search.MsgSendSearchVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class MsgSendService extends AbstractBaseService {
+
+  @Autowired
+  private MsgSendMapper msgSendMapper;
+
+  @Autowired
+  private MsgBatchMapper batchMapper;
+
+
+  public void init() {
+    setMapper(msgSendMapper);
+  }
+
+
+  /**
+   *
+   * @param paramVo
+   * @return
+   */
+  public Map<String, Object> sendNote(MsgSendParamVo paramVo) {
+
+    Map<String, Object> resultMap = new HashMap<>();
+    //发送短信
+
+    List<String> phones = new ArrayList<>();
+
+    String batchId = createMsgBatch(paramVo);
+
+    for (MsgParamVo msgParamVo : paramVo.getParamVos()) {
+      //记录 每次发送信息
+
+      MsgSend msgSend = new MsgSend();
+      msgSend.setId(new GetRID(Constant.COMP_CODE, Constant.MSG_MODULE_ID, paramVo.getTemplateId()).getId());
+      msgSend.setBatchid(batchId);
+      msgSend.setContent(paramVo.getContent());//内容
+      msgSend.setTemplateid(paramVo.getTemplateId());//模版
+      msgSend.setPhonenumber(msgParamVo.getPhoneNumber());//电话号
+      msgSend.setCreatetime(TimeUtil.currentTime());
+      msgSend.setSendtime(TimeUtil.currentTime());//发送时间
+      msgSend.setCustomerid(msgParamVo.getCustomerId());//客户id
+      msgSend.setContactid(msgParamVo.getContactId());//联系人id
+
+      msgSend.setStatusid(0);//已经发送
+
+      msgSend.setTypeid(new Integer(paramVo.getTypeId()));//暂定
+
+      phones.add(msgSend.getPhonenumber());
+      this.create(msgSend, MsgSend.class);
+
+    }
+
+//    sendMsgNote(phones, paramVo.getContent());
+    //更新批次状态
+    updateMsgBatch(batchId);
+    return null;
+  }
+
+  /**
+   * 更新 批次状态
+   * @param batchId
+   */
+  private void updateMsgBatch(String batchId) {
+    MsgBatch msgBatch = new MsgBatch();
+    msgBatch.setId(batchId);
+    msgBatch.setStatusid(1);//已经发送
+    msgBatch.setStatusname("已发送");//已经发送
+    msgBatch.setSendtime(TimeUtil.currentTime());
+    msgBatch.setLastupdatetime(TimeUtil.currentTime());
+
+    batchMapper.updateBean("id", batchId, msgBatch);
+  }
+
+  /**
+   * 创建批次
+   * @param paramVo
+   * @return
+   */
+  private String createMsgBatch(MsgSendParamVo paramVo) {
+
+    String id = new GetRID(Constant.COMP_CODE, Constant.BATCH_MODULE_ID, paramVo.getTemplateId()).getId();
+
+    MsgBatch msgBatch = new MsgBatch();
+    msgBatch.setId(id);
+    msgBatch.setContent(paramVo.getContent());
+    msgBatch.setTotalnumber(paramVo.getParamVos().size());//总数
+    msgBatch.setTemplateid(paramVo.getTemplateId());//模版id
+    msgBatch.setCreatetime(TimeUtil.currentTime());
+    msgBatch.setLastupdatetime(TimeUtil.currentTime());
+    msgBatch.setSendnumber(paramVo.getParamVos().size());//发送数目
+    msgBatch.setCreater("测试账号");
+    msgBatch.setCreatorroleid("1");
+    msgBatch.setDeleteflag(0);
+    msgBatch.setStatusid(0);
+
+    batchMapper.createBean(msgBatch, MsgBatch.class);
+
+    return id;
+  }
+
+  /**
+   * 发送短信
+   * @param phones
+   */
+  private void sendMsgNote(List<String> phones, String content) {
+
+    for (int i = 0; i < phones.size(); i++ ){
+
+      for (int j = phones.size() - 1; j > i ;j --){
+
+        if (phones.get(i).equals(phones.get(j))){
+          phones.remove(j);
+        }
+
+      }
+    }
+
+    String phone = BeanUtil.ListToString(phones);
+
+    SMSClient smsClient = new SMSClient();
+
+    try {
+      smsClient.sendSms(Constant.MSG_USERNAME, Constant.MSG_PASSWORD, phone, content);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+  }
+
+  public List<MsgSendVo> findMsgList(MsgSendSearchVo searchVo) {
+
+    return msgSendMapper.findMsgList(searchVo);
+  }
+
+  public String getMsgCount(MsgSendSearchVo searchVo) {
+    return msgSendMapper.getMsgCount(searchVo);
+  }
+}

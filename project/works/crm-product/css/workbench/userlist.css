@@ -1,0 +1,57 @@
+@charset 'UTF-8';
+.header-title {
+    padding-top: 0px;
+    height: 30px;
+    border-bottom: 1px solid #797979;
+}
+
+.form-group>label{width: 4.5em;vertical-align:middle;}
+.form-section>div{margin-bottom: 20px}
+.mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: #000000;
+    filter: alpha(opacity=30);
+    -moz-opacity: 0.3;
+    -khtml-opacity: 0.3;
+    opacity: 0.3;
+    display:none;
+    z-index: 3;
+}
+
+.choice{
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background-color: #fff;
+    width: 175px;
+    text-align: left;
+    padding: 20px 15px;
+    display: none;
+    box-shadow: 0px 0px 10px #337ab7;
+}
+.choice:before{z-index: 10;position: absolute;left: 50%;top: -17px;display: block;content: "";border: 8px solid transparent;border-bottom-color: #337ab7;}
+.choice>div{margin-left: 10px}
+.choice li{margin-left: 10px;
+    height: 30px;
+    line-height: 30px;
+}
+.choice label{
+    display: inline-block;
+    padding-left: 8px;margin-bottom: 0px;
+    vertical-align:middle;
+    font-size: 12px;
+}
+.all-select {
+    padding-left: 10px;
+}
+
+.choice input {
+    vertical-align:middle;
+    margin: 0;
+}
+
+.control-item{margin-top: 20px;text-align: center;}

@@ -1,0 +1,63 @@
+/*
+    #author     gaofeng
+    #date       2017/07/25
+    #purpose    客户搜索
+*/
+
+require(['vue', 'msg', 'layui'], function (Vue, msg) {
+    $(function () {
+        var def = {
+            loading_ele: $('.js-loading-div')
+        };
+        def.loading_ele.fadeOut(400);
+        
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                list_data:[
+                    {id:1,account:'skyblue',company:'上海服装服务有限公司',receive:'客服A',status:'已领',time:'2018-12-12 12:12:00',expire:'2018-12-12 12:12:00'},
+                    {id:2,account:'skyblue',company:'上海服装服务有限公司',receive:'客服A',status:'已领',time:'2018-12-12 12:12:00',expire:'2018-12-12 12:12:00'},
+                    {id:3,account:'skyblue',company:'上海服装服务有限公司',receive:'客服A',status:'已领',time:'2018-12-12 12:12:00',expire:'2018-12-12 12:12:00'},
+                    {id:4,account:'skyblue',company:'上海服装服务有限公司',receive:'客服A',status:'已领',time:'2018-12-12 12:12:00',expire:'2018-12-12 12:12:00'},
+                    {id:5,account:'skyblue',company:'上海服装服务有限公司',receive:'客服A',status:'已领',time:'2018-12-12 12:12:00',expire:'2018-12-12 12:12:00'},
+                    {id:6,account:'skyblue',company:'上海服装服务有限公司',receive:'客服A',status:'已领',time:'2018-12-12 12:12:00',expire:'2018-12-12 12:12:00'},
+                    {id:7,account:'skyblue',company:'上海服装服务有限公司',receive:'客服A',status:'已领',time:'2018-12-12 12:12:00',expire:'2018-12-12 12:12:00'},
+                ],
+                collect:{
+                    account:'',
+                    company:'',
+                    brand:'',
+                    mobile:'',
+                    id:'',
+                    email:'',
+                    qq:'',
+                    wx:'',
+                },
+            },
+            mounted() {
+                this.page();
+            },
+            methods: {
+                filterFunc: function () {                                //确认筛选列表
+                    console.log(this.collect);
+                   
+                },
+                page: function () {                                      //分页
+                    layui.use('laypage', function () {
+                        var laypage = layui.laypage;
+                        //执行一个laypage实例
+                        laypage.render({
+                            elem: 'laypage-section',
+                            count: 50,
+                            layout: ['prev', 'page', 'next', 'limit', 'count', 'skip'],
+                            jump: function (obj) {
+                                console.log(obj)
+                                var curr = obj.curr;
+                            }
+                        });
+                    });
+                },
+            },
+        })
+    })
+})

@@ -1,0 +1,37 @@
+package com.pop136.customerservice.controller.integral;
+
+import com.pop136.customerservice.entity.BasePage;
+import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
+import java.util.List;
+
+@Component
+public class IntegeralPage extends BasePage implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+
+	public List<Commodity> list;
+
+	public String integeral;//积分
+
+  public String getIntegeral() {
+    return integeral;
+  }
+
+  public void setIntegeral(String integeral) {
+    this.integeral = integeral;
+  }
+
+  public List<Commodity> getList() {
+    return list;
+  }
+
+  public void setList(List<Commodity> list) {
+    this.list = list;
+  }
+}

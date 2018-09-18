@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>客户管理</title>
+  <!-- Bootstrap Styles-->
+  <link href="../../css/common/base.css" rel="stylesheet" />
+  <link href="../../css/lib/bootstrap.min.css" rel="stylesheet" />
+  <!-- FontAwesome Styles-->
+  <link href="../../css/common/font-awesome.css" rel="stylesheet" />
+  <!-- Custom Styles-->
+  <!-- Google Fonts-->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+  <link rel="stylesheet" href="../../js/lib/layui/css/layui.css">
+  <link href="../../css/common/common.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/workbench/userdetail.css">
+</head>
+
+<body>
+  <div id="wrapper">
+    <nav class="navbar navbar-default top-navbar" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          <i class="fa fa-gear"></i>
+          <strong>HYBRID</strong>
+        </a>
+      </div>
+
+      <ul class="nav navbar-top-links navbar-right hidden-xs">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+            <i class="fa fa-envelope fa-fw"></i>
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-messages">
+            <li>
+              <a href="#">
+                <div>
+                  <strong>John Doe</strong>
+                  <span class="pull-right text-muted">
+                    <em>Today</em>
+                  </span>
+                </div>
+                <div>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</div>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#">
+                <div>
+                  <strong>John Smith</strong>
+                  <span class="pull-right text-muted">
+                    <em>Yesterday</em>
+                  </span>
+                </div>
+                <div>Lorem Ipsum has been the industry's standard dummy text ever since an kwilnw...</div>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#">
+                <div>
+                  <strong>John Smith</strong>
+                  <span class="pull-right text-muted">
+                    <em>Yesterday</em>
+                  </span>
+                </div>
+                <div>Lorem Ipsum has been the industry's standard dummy text ever since the...</div>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a class="text-center" href="#">
+                <strong>Read All Messages</strong>
+                <i class="fa fa-angle-right"></i>
+              </a>
+            </li>
+          </ul>
+          <!-- /.dropdown-messages -->
+        </li>
+        <!-- /.dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+            <i class="fa fa-tasks fa-fw"></i>
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-tasks">
+            <li>
+              <a href="#">
+                <div>
+                  <p>
+                    <strong>Task 1</strong>
+                    <span class="pull-right text-muted">60% Complete</span>
+                  </p>
+                  <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                      style="width: 60%">
+                      <span class="sr-only">60% Complete (success)</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#">
+                <div>
+                  <p>
+                    <strong>Task 2</strong>
+                    <span class="pull-right text-muted">28% Complete</span>
+                  </p>
+                  <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100" style="width: 28%">
+                      <span class="sr-only">28% Complete</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#">
+                <div>
+                  <p>
+                    <strong>Task 3</strong>
+                    <span class="pull-right text-muted">60% Complete</span>
+                  </p>
+                  <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                      style="width: 60%">
+                      <span class="sr-only">60% Complete (warning)</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#">
+                <div>
+                  <p>
+                    <strong>Task 4</strong>
+                    <span class="pull-right text-muted">85% Complete</span>
+                  </p>
+                  <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"
+                      style="width: 85%">
+                      <span class="sr-only">85% Complete (danger)</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a class="text-center" href="#">
+                <strong>See All Tasks</strong>
+                <i class="fa fa-angle-right"></i>
+              </a>
+            </li>
+          </ul>
+          <!-- /.dropdown-tasks -->
+        </li>
+        <!-- /.dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+            <i class="fa fa-bell fa-fw"></i>
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-alerts">
+            <li>
+              <a href="#">
+                <div>
+                  <i class="fa fa-comment fa-fw"></i> New Comment
+                  <span class="pull-right text-muted small">4 min</span>
+                </div>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#">
+                <div>
+                  <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                  <span class="pull-right text-muted small">12 min</span>
+                </div>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#">
+                <div>
+                  <i class="fa fa-envelope fa-fw"></i> Message Sent
+                  <span class="pull-right text-muted small">4 min</span>
+                </div>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#">
+                <div>
+                  <i class="fa fa-tasks fa-fw"></i> New Task
+                  <span class="pull-right text-muted small">4 min</span>
+                </div>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#">
+                <div>
+                  <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                  <span class="pull-right text-muted small">4 min</span>
+                </div>
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a class="text-center" href="#">
+                <strong>See All Alerts</strong>
+                <i class="fa fa-angle-right"></i>
+              </a>
+            </li>
+          </ul>
+          <!-- /.dropdown-alerts -->
+        </li>
+        <!-- /.dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+            <i class="fa fa-user fa-fw"></i>
+            <i class="fa fa-caret-down"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-user">
+            <li>
+              <a href="#">
+                <i class="fa fa-user fa-fw"></i> User Profile</a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa fa-gear fa-fw"></i> Settings</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#">
+                <i class="fa fa-sign-out fa-fw"></i> Logout</a>
+            </li>
+          </ul>
+          <!-- /.dropdown-user -->
+        </li>
+        <!-- /.dropdown -->
+      </ul>
+    </nav>
+    <!--/. NAV TOP  -->
+    <!-- 侧边栏 -->
+    <nav class="navbar-default navbar-side" role="navigation">
+      <div id="sideNav" href="">
+        <i class="fa fa-caret-right"></i>
+      </div>
+      <div id="sidebar" class="sidebar-collapse">
+        <ul class="nav" id="main-menu">
+          <li>
+            <a href="#">
+              <i class="fa fa-sitemap"></i> 客户管理
+              <span class="fa arrow"></span>
+            </a>
+            <ul class="nav nav-second-level nav-active">
+              <li>
+                <a href="#">客户管理
+                  <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-third-level">
+                  <li>
+                    <a href="../customer/client.html">客户管理</a>
+                  </li>
+                  <li>
+                    <a href="../customer/clientdetail.html">客户详情</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">订单管理
+                  <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-third-level">
+                  <li>
+                    <a href="../customer/order.html">订单管理</a>
+                  </li>
+                  <li>
+                    <a href="../customer/orderdetail.html">订单详情</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">用户管理
+                  <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-third-level">
+                  <li>
+                    <a href="../customer/user.html">用户管理</a>
+                  </li>
+                  <li>
+                    <a href="../customer/userdetail.html">用户详情</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-sitemap"></i> 管理工具
+              <span class="fa arrow"></span>
+            </a>
+            <ul class="nav nav-second-level nav-active">
+              <li>
+                <a href="#">任务管理
+                  <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-third-level">
+                  <li>
+                    <a href="#">任务管理
+                      <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-third-level nav-3">
+                      <li>
+                        <a href="#">任务管理</a>
+                      </li>
+                      <li>
+                        <a href="#">新增任务
+                          <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-third-level nav-4">
+                          <li>
+                            <a href="#">新增任务</a>
+                          </li>
+                          <li>
+                            <a href="#">添加任务客户</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="#">查看任务-指派/终止/验收</a>
+                      </li>
+                      <li>
+                        <a href="#">查看任务-仅查看</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">任务类型管理
+                  <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-third-level">
+                  <li>
+                    <a href="#">任务类型管理</a>
+                  </li>
+                  <li>
+                    <a href="#">任务类型详情</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">预约管理
+                  <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-third-level">
+                  <li>
+                    <a href="#">预约管理</a>
+                  </li>
+                  <li>
+                    <a href="#">预约详情</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">回访管理
+                  <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-third-level">
+                  <li>
+                    <a href="#">回访管理</a>
+                  </li>
+                  <li>
+                    <a href="#">回访信息详情</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class='active'>
+            <a href="#">
+              <i class="fa fa-sitemap"></i> 客服工作台
+              <span class="fa arrow"></span>
+            </a>
+            <ul class="nav nav-second-level in nav-active">
+              <li>
+                <a href="#">首页-客服</a>
+              </li>
+              <li class='active'>
+                <a href="#">我的客户-客户列表
+                  <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-third-level">
+                  <li>
+                    <a href="./userlist.html">我的客户-客户列表</a>
+                  </li>
+                  <li>
+                    <a href="./userdetail.html">我的客户-客户详情</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">我的任务-任务列表
+                  <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-third-level">
+                  <li>
+                    <a href="./tasklist.html">我的任务-任务列表</a>
+                  </li>
+                  <li>
+                    <a href="./unclaimed.html">查看我的任务-待领取</a>
+                  </li>
+                  <li>
+                    <a href="./userdetail.html">我的任务-任务详情</a>
+                  </li>
+                  <li>
+                    <a href="./completed.html">查看我的任务-执行完毕</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-sitemap"></i> 营销工具
+              <span class="fa arrow"></span>
+            </a>
+            <ul class="nav nav-second-level nav-active">
+              <li>
+                <a href="#">问卷管理
+                  <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-third-level">
+                  <li>
+                    <a href="#">问卷管理</a>
+                  </li>
+                  <li>
+                    <a href="#">创建/编辑调查问卷</a>
+                  </li>
+                  <li>
+                    <a href="#">问卷预览</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">查看问卷结果
+                  <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-third-level">
+                  <li>
+                    <a href="#">查看问卷结果</a>
+                  </li>
+                  <li>
+                    <a href="#">问卷明细列表</a>
+                  </li>
+                  <li>
+                    <a href="#">问卷明细</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="./views/aside/system.html">
+              <i class="fa fa-sitemap"></i>
+              <span>系统设置</span>
+              <span class="fa arrow"></span>
+            </a>
+            <ul class="nav nav-second-level">
+              <li>
+                <a href="./views/aside/branch.html">部门管理</a>
+              </li>
+              <li>
+                <a href="./views/aside/staff.html">员工管理</a>
+              </li>
+              <li>
+                <a href="./views/aside/account.html">账号管理</a>
+              </li>
+              <li>
+                <a href="#">催销管理</a>
+              </li>
+              <li>
+                <a href="#">图片管理</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+      </div>
+
+    </nav>
+    <!-- /. NAV SIDE  -->
+    <div id="page-wrapper">
+      <!-- 内容 -->
+      <div class="content" id='app'>
+        <div class="container-fluid form-inline form-section">
+          <div class="row">
+            <div class='col-md-12'>
+              <div class="form-group col-md-4">
+                <label for="">主账号</label>
+                <input type="text" v-model='material.account' class="form-control">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="">客户id</label>
+                <input type="text" v-model='material.id' class="form-control">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="">品牌名称</label>
+                <input type="text" v-model='material.brand' class="form-control">
+              </div>
+            </div>
+            <div class='col-md-12'>
+              <div class="form-group col-md-4">
+                <label for="">公司名称</label>
+                <input type="text" v-model='material.company' class="form-control">
+              </div>
+              <div class="form-group col-md-4">
+                <label for="">邮箱</label>
+                <input type="text" v-model='material.email' class="form-control">
+              </div>
+            </div>
+            <div class='col-md-12'>
+              <div class="form-group col-md-4">
+                <label>城市</label>
+                <select name="checks" id="" class="form-control" v-model='material.pro'>
+                  <option :value='item.id' v-for='item in datas.pro'>{{ item.name }}</option>
+                </select>
+                <select name="checks" id="" class="form-control" v-model='material.city'>
+                  <option :value="item.id" v-for='item in datas.city'>{{ item.name }}</option>
+                </select>
+                <select name="checks" id="" class="form-control" v-model='material.district'>
+                  <option value="">区</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label>地址</label>
+                <input type="text" class="form-control" v-model='material.addr'>
+              </div>
+              <div class="form-group col-md-4">
+                <label>固定电话</label>
+                <input type="text" class="form-control" v-model='material.telephone'>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group col-md-4">
+                <label for="formele1">企业类型</label>
+                <select name="checks" id="formele1" class="form-control" v-model='material.genre'>
+                  <option value="1">原料商</option>
+                  <option value="2">辅料商</option>
+                  <option value="3">面料商（开发商）</option>
+                  <option value="3" selected>品牌</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="">行业类型</label>
+                <ul class="form-control checked-list js-checked-list" data-key='industry'>
+                  <li>请选择行业类型</li>
+                </ul>
+                <div class="filter-div js-filter-div" data-id="js-trees-industry">
+                  <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                  <ul class="ztree js-trees-ele" id="js-trees-industry">
+
+                  </ul>
+                  <div class="text-right">
+                    <button class="btn btn-default btn-sm js-cancel-checked">取消</button>
+                    <button class="btn btn-primary btn-sm js-add-checked">确定</button>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="form-group col-md-4">
+                <label for="formele3">贸易类型</label>
+                <select name="checks" id="formele3" class='form-control' v-model='material.trade'>
+                  <option value="1">内销</option>
+                  <option value="2">外销</option>
+                  <option value="3">内外销</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-4">
+                <label for="formele3">性别</label>
+                <select name="checks" id="formele3" class='form-control' v-model='material.sex'>
+                  <option value="1">童装</option>
+                  <option value="1">企业类型</option>
+                  <option value="1">企业类型</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="">风格</label>
+                <ul class="form-control checked-list js-checked-list" data-key='style'>
+                  <li>请选择风格</li>
+                </ul>
+                <div class="filter-div js-filter-div" data-id="js-trees-style">
+                  <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                  <ul class="ztree js-trees-ele" id="js-trees-style">
+
+                  </ul>
+                  <div class="text-right">
+                    <button class="btn btn-default btn-sm js-cancel-checked">取消</button>
+                    <button class="btn btn-primary btn-sm js-add-checked">确定</button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="">重点单品</label>
+                <ul class="form-control checked-list js-checked-list" data-key='single'>
+                  <li>请选择重点单品</li>
+                </ul>
+                <div class="filter-div js-filter-div" data-id="js-trees-single">
+                  <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                  <ul class="ztree js-trees-ele" id="js-trees-single">
+
+                  </ul>
+                  <div class="text-right">
+                    <button class="btn btn-default btn-sm js-cancel-checked">取消</button>
+                    <button class="btn btn-primary btn-sm js-add-checked">确定</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-4">
+                <label for="">重点开发季节</label>
+                <ul class="form-control checked-list js-checked-list" data-key='season'>
+                  <li>请选择重点开发季节</li>
+                </ul>
+                <div class="filter-div js-filter-div" data-id="js-trees-season">
+                  <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                  <ul class="ztree js-trees-ele" id="js-trees-season">
+
+                  </ul>
+                  <div class="text-right">
+                    <button class="btn btn-default btn-sm js-cancel-checked">取消</button>
+                    <button class="btn btn-primary btn-sm js-add-checked">确定</button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="">材质</label>
+                <ul class="form-control checked-list js-checked-list" data-key='material'>
+                  <li>请选择材质</li>
+                </ul>
+                <div class="filter-div js-filter-div" data-id="js-trees-material">
+                  <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                  <ul class="ztree js-trees-ele" id="js-trees-material">
+
+                  </ul>
+                  <div class="text-right">
+                    <button class="btn btn-default btn-sm js-cancel-checked">取消</button>
+                    <button class="btn btn-primary btn-sm js-add-checked">确定</button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="">面料工艺</label>
+                <ul class="form-control checked-list js-checked-list" data-key='process'>
+                  <li>请选择面料工艺</li>
+                </ul>
+                <div class="filter-div js-filter-div" data-id="js-trees-process">
+                  <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                  <ul class="ztree js-trees-ele" id="js-trees-process">
+
+                  </ul>
+                  <div class="text-right">
+                    <button class="btn btn-default btn-sm js-cancel-checked">取消</button>
+                    <button class="btn btn-primary btn-sm js-add-checked">确定</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class='row'>
+            <div class="col-md-12">
+              <div class="form-group col-md-3">
+                <label for="">服务阶段</label>
+                <select name="" id="" class='form-control' v-model='material.stage'>
+                  <option value="1">新客期</option>
+                  <option value="2">服务期</option>
+                  <option value="3">流转期</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="">客户情况</label>
+                <select name="" id="" class='form-control' v-model='material.state'>
+                  <option value="1">Z(正常)</option>
+                  <option value="2">Y(疑难客户)</option>
+                  <option value="3">Z(长期不登录客户)</option>
+                  <option value="4">Z(失联)</option>
+                  <option value="5">Z(转行/倒闭)</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="">发票项</label>
+                <select name="" id="" class='form-control' v-model='material.invoice'>
+                  <option value="1">提前开票</option>
+                  <option value="2">暂缓开票</option>
+                  <option value="3">普通发票</option>
+                  <option value="4">专用发票</option>
+                  <option value="5">不需要发票</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="">网站权限</label>
+                <input type="text" value='全网' class="form-control" v-model='material.limit'>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <label class='col-md-1'>赠品内容</label>
+              <label class='col-md-1'>快反应系列</label>
+              <label class='col-md-1'>APM男装</label>
+              <div class='col-md-4'>
+                <label for="">最后一本到期事件</label>
+                <input type="text" value='2018-12-15' class="form-control" disabled>
+              </div>
+              <div class='col-md-2'>
+                <label for="">总数</label>
+                <input type="text" value='24' class="form-control" disabled>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <label class='col-md-1 col-md-offset-2'>APM男装</label>
+              <div class='col-md-4'>
+                <label for="">最后一本到期事件</label>
+                <input type="text" value='2018-12-15' class="form-control" disabled>
+              </div>
+              <div class='col-md-2'>
+                <label for="">总数</label>
+                <input type="text" value='24' class="form-control" disabled>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <label class='col-md-1 col-md-offset-2'>APM男装</label>
+              <div class='col-md-4'>
+                <label for="">最后一本到期事件</label>
+                <input type="text" value='2018-12-15' class="form-control" disabled>
+              </div>
+              <div class='col-md-2'>
+                <label for="">总数</label>
+                <input type="text" value='24' class="form-control" disabled>
+              </div>
+              <div class='col-md-12'>
+                <button type="button" class="btn btn-primary basic-sure pull-right">保存资料</button>
+              </div>
+            </div>
+          </div>
+          <div class='linkman'>
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th width='1%'>
+                    <span>主</span>
+                  </th>
+                  <th>姓名</th>
+                  <th>角色</th>
+                  <th>职务</th>
+                  <th>状态</th>
+                  <th>移动电话</th>
+                  <th>工作电话</th>
+                  <th>微信号</th>
+                  <th>是否添加微信</th>
+                  <th>分机号</th>
+                  <th>QQ</th>
+                  <th>工作邮箱</th>
+                  <th>用户来源</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr align='center' v-for='item in list'>
+                  <td :data-id='item.id'>
+                    <input type="radio" name='duty' class='info-single'>
+                  </td>
+                  <td>
+                    <button @click='infoDetail(item.id)'> {{ item.name }}</button>
+                  </td>
+                  <td>{{ item.role }}</td>
+                  <td>{{ item.position }}</td>
+                  <td>{{ item.status }}</td>
+                  <td>{{ item.mobile }}</td>
+                  <td>{{ item.telephone }}</td>
+                  <td>{{ item.wx }}</td>
+                  <td>{{ item.judge }}</td>
+                  <td>{{ item.ext }}</td>
+                  <td>{{ item.qq }}</td>
+                  <td>{{ item.email }}</td>
+                  <td>{{ item.source }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="col-md-12">
+              <a href="./adduser.html" class='btn btn-primary'>+新增用户</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group col-md-4">
+                <label for="">服务对象</label>
+                <select name="" id="" class="form-control">
+                  <option value="1">张三</option>
+                  <option value="2">李四</option>
+                  <option value="3">王五</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="">手机号码</label>
+                <input type="text" value='13865675455' class="form-control" disabled='disabled'>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-4">
+                <label for="">服务方式</label>
+                <select name="" id="" class="form-control">
+                  <option value="1">去电</option>
+                  <option value="2">微信</option>
+                  <option value="3">QQ</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="">联络类型</label>
+                <select name="" id="" class="form-control">
+                  <option value="1">有效</option>
+                  <option value="2">无效</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="">联络结果</label>
+                <select name="" id="" class="form-control">
+                  <option value="1">稍后联系</option>
+                  <option value="2">无人接听</option>
+                  <option value="2">空号/错号</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-4">
+                <div>
+                  <label for="">客户关注项</label>
+                  <input type="text" class='form-control'>
+                </div>
+              </div>
+              <div class="form-group col-md-8">
+                <div>
+                  <label for="">关注项备注</label>
+                  <textarea name="" id="" cols="70%" rows="1" class='form-control'></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-4">
+                <label for="">用户印象</label>
+                <select name="" id="" class='form-control'>
+                  <option value="1">I (很好沟通)</option>
+                  <option value="2">II (一般)</option>
+                  <option value="4">III (拒绝沟通)</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-2">
+                <label for="">多产品</label>
+                <input type="checkbox" name='' value='APM'>
+                <span>APM</span>
+              </div>
+              <div class="form-group col-md-2">
+                <select name="" id="" class="form-control">
+                  <option value="1">不需要</option>
+                  <option value="2">免费试用</option>
+                  <option value="3">了解</option>
+                  <option value="4">高意向</option>
+                </select>
+              </div>
+              <div class="form-group col-md-1">
+                <input type="checkbox" name='' value='书籍'>
+                <span>书籍</span>
+              </div>
+              <div class="form-group col-md-2">
+                <select name="" id="" class="form-control">
+                  <option value="1">不需要</option>
+                  <option value="2">免费试用</option>
+                  <option value="3">了解</option>
+                  <option value="4">高意向</option>
+                </select>
+              </div>
+              <div class="form-group col-md-1">
+                <input type="checkbox" name='' value='总裁班'>
+                <span>总裁班</span>
+              </div>
+              <div class="form-group col-md-2">
+                <select name="" id="" class="form-control">
+                  <option value="1">不需要</option>
+                  <option value="2">免费试用</option>
+                  <option value="3">了解</option>
+                  <option value="4">高意向</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-2">
+                <label for=""></label>
+                <input type="checkbox" name='' value='云图'>
+                <span>云图</span>
+              </div>
+              <div class="form-group col-md-2">
+                <select name="" id="" class="form-control">
+                  <option value="1">不需要</option>
+                  <option value="2">免费试用</option>
+                  <option value="3">了解</option>
+                  <option value="4">高意向</option>
+                </select>
+              </div>
+              <div class="form-group col-md-1">
+                <input type="checkbox" name='' value='韩国行'>
+                <span>韩国行</span>
+              </div>
+              <div class="form-group col-md-2">
+                <select name="" id="" class="form-control">
+                  <option value="1">不需要</option>
+                  <option value="2">免费试用</option>
+                  <option value="3">了解</option>
+                  <option value="4">高意向</option>
+                </select>
+              </div>
+              <div class="form-group col-md-1">
+                <input type="checkbox" name='' value='展会'>
+                <span>展会</span>
+              </div>
+              <div class="form-group col-md-2">
+                <select name="" id="" class="form-control">
+                  <option value="1">不需要</option>
+                  <option value="2">免费试用</option>
+                  <option value="3">了解</option>
+                  <option value="4">高意向</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group col-md-12">
+                <label for="">服务详情</label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-4">
+                <div class="form-group col-md-5">
+                  <input type="checkbox" name='' value='初次回访'>
+                  <span>初次回访</span>
+                </div>
+                <div class="form-group col-md-6">
+                  <select name="" id="" class='form-control'>
+                    <option value="1">完善客户资料</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group col-md-2">
+                <input type="checkbox" name='' value='核实在职情况'>
+                <span>核实在职情况</span>
+              </div>
+              <div class="form-group col-md-2">
+                <input type="checkbox" name='' value='核实决策者情况'>
+                <span>核实决策者情况</span>
+              </div>
+              <div class="form-group col-md-2">
+                <input type="checkbox" name='' value='核实使用者情况'>
+                <span>核实使用者情况</span>
+              </div>
+              <div class="form-group col-md-2">
+                <input type="checkbox" name='' value='核实开发者信息'>
+                <span>核实开发信息</span>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-4">
+                <div class="form-group col-md-5">
+                  <input type="checkbox" name='' value='发票项'>
+                  <span>发票项</span>
+                </div>
+                <div class="form-group col-md-6">
+                  <select name="" id="" class='form-control'>
+                    <option value="1">普通发票</option>
+                    <option value="1">专用发票</option>
+                    <option value="1">不需要发票</option>
+                    <option value="1">暂缓开票</option>
+                    <option value="1">提前开票</option>
+                    <option value="1">未收到，催发票</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <div class="form-group col-md-2">
+                  <input type="checkbox" name='' value='完成'>
+                  <span>完成</span>
+                </div>
+                <div class="form-group col-md-2">
+                  <input type="checkbox" name='' value='缺税号'>
+                  <span>缺税号</span>
+                </div>
+                <div class="form-group col-md-2">
+                  <input type="checkbox" name='' value='缺委托书'>
+                  <span>缺委托书</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
+                  <input type="checkbox" name='' value='赠品项'>
+                  <span>赠品项赠品</span>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <input type="checkbox" name='' value='更换地址/收件人信息'>
+                  <span>更换收件地址/收件人信息</span>
+                </div>
+              </div>
+              <div class="form-group col-md-5">
+                <input type="checkbox" name='' value='更换赠品'>
+                <span>更换赠品</span>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-6">
+                <div class="form-group col-md-6 col-md-offset-3">
+                  <input type="checkbox" name='' value='签收查询'>
+                  <span>签收查询</span>
+                </div>
+              </div>
+              <div class="form-group col-md-5">
+                <input type="checkbox" name='' value='快递问题'>
+                <span>快递问题</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
+                  <input type="checkbox" name='' value='登录使用项'>
+                  <span>登录使用项</span>
+                </div>
+                <div class="form-group col-md-6">
+                  <input type="checkbox" name='' value='客户端问题'>
+                  <span>客户端问题</span>
+                </div>
+              </div>
+              <div class="form-group col-md-5">
+                <input type="checkbox" name='' value='客户绑定数量问题'>
+                <span>客户绑定数量问题</span>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-6">
+                <div class="form-group col-md-6 col-md-offset-3">
+                  <input type="checkbox" name='' value='客户端更换绑定'>
+                  <span>客户端更换绑定</span>
+                </div>
+              </div>
+              <div class="form-group col-md-5">
+                <input type="checkbox" name='' value='账号密码问题'>
+                <span>账号密码问题</span>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-6">
+                <div class="form-group col-md-6 col-md-offset-3">
+                  <input type="checkbox" name='' value='IP问题'>
+                  <span>IP问题</span>
+                </div>
+              </div>
+              <div class="form-group col-md-5">
+                <input type="checkbox" name='' value='手机/IPAD客户端'>
+                <span>手机/IPAD客户端</span>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-6">
+                <div class="form-group col-md-6 col-md-offset-3">
+                  <input type="checkbox" name='' value='浏览器问题'>
+                  <span>浏览器问题</span>
+                </div>
+              </div>
+              <div class="form-group col-md-5">
+                <input type="checkbox" name='' value='下载问题'>
+                <span>下载问题</span>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-6">
+                <div class="form-group col-md-6 col-md-offset-3">
+                  <input type="checkbox" name='' value='我们公司问题'>
+                  <span>我们公司问题</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
+                  <input type="checkbox" name='' value='网站服务问题'>
+                  <span>网站服务项</span>
+                </div>
+                <div class="form-group col-md-9">
+                  <input type="checkbox" name='' value='网站服务项'>
+                  <span>网站服务项</span>
+                  <select name="" id="" class='form-control'>
+                    <option value="1">已正常登录</option>
+                    <option value="2">未登录,已告知账号密码</option>
+                    <option value="3">未登录,未联系上</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group col-md-5">
+                <input type="checkbox" name='' value='网站使用介绍'>
+                <span>网站使用介绍</span>
+                <select name="" id="" class='form-control'>
+                  <option value="1">已介绍</option>
+                  <option value="2">未介绍</option>
+                  <option value="3">客户表示不需要介绍</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
+                  <input type="checkbox" name='' value='推荐项'>
+                  <span>推荐项</span>
+                </div>
+                <div class="form-group col-md-9">
+                  <select name="" id="" class='form-control'>
+                    <option value="1">升级</option>
+                    <option value="2">续费</option>
+                    <option value="3">销售</option>
+                    <option value="4">离职设计师</option>
+                    <option value="5">转介绍</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-9">
+                <div class="form-group col-md-2">
+                  <input type="checkbox" name='' value='APM'>
+                  <span>备注</span>
+                </div>
+                <div class="form-group col-md-10">
+                  <textarea name="" id="" cols="100%" rows="2" class='form-control'></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-12">
+                <button class='btn btn-primary pull-right'>保存回访记录</button>
+              </div>
+            </div>
+          </div>
+          <div class="account-info">
+            <table class="table table-condensed table-bordered table-hover">
+              <thead>
+                <tr class="warning">
+                  <th width='10%'>创建日期</th>
+                  <th width='5%'>服务对象</th>
+                  <th width='5%'>手机号</th>
+                  <th width='5%'>服务方式</th>
+                  <th width='5%'>联络类型</th>
+                  <th width='5%'>联络结果</th>
+                  <th width='8%'>用户印象</th>
+                  <th width='20%'>服务内容</th>
+                  <th width='20%'>服务详情</th>
+                  <th width='5%'>联络人</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr align='center' v-for='item in record'>
+                  <td width='10%'>{{ item.created }}</td>
+                  <td width='5%'>{{ item.session }}</td>
+                  <td width='5%'>{{ item.tel }}</td>
+                  <td width='5%'>{{ item.selation }}</td>
+                  <td width='5%'>{{ item.stage }}</td>
+                  <td width='5%'>{{ item.result }}</td>
+                  <td width='8%'>{{ item.impress }}</td>
+                  <td width='20%'>{{ item.content }}</td>
+                  <td width='20%'>{{ item.detail }}</td>
+                  <td width='5%'>{{ item.contact }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div id="test1"></div>
+          </div>
+
+          <div class="stats">
+            <ul class='clearfix'>
+              <li class='stats-active'>领</li>
+              <li>协</li>
+              <li>活</li>
+              <li>电</li>
+              <li>客</li>
+              <li>地</li>
+              <li>订</li>
+              <li>发</li>
+              <li>开</li>
+              <li>商</li>
+              <li>祥</li>
+              <li>统</li>
+            </ul>
+          </div>
+          <div class='stats-info'>
+            <div class='pr-quest' style="display:block;">
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>指派人</th>
+                    <th>状态</th>
+                    <th>员工</th>
+                    <th>状态</th>
+                    <th>开始时间</th>
+                    <th>结束时间</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr align='center' v-for='item in list'>
+                    <td>{{ item.role }}</td>
+                    <td>{{ item.position }}</td>
+                    <td>{{ item.status }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                    <td>{{ item.wx }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class='pr-assist'>
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>操作者</th>
+                    <th>协助人</th>
+                    <th>第二协助人</th>
+                    <th>开始时间</th>
+                    <th>开始时间</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr align='center' v-for='item in list'>
+                    <td>{{ item.role }}</td>
+                    <td>{{ item.position }}</td>
+                    <td>{{ item.status }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class='pr-activity'>
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>备注</th>
+                    <th>名单等级</th>
+                    <th>用户</th>
+                    <th>活动类型</th>
+                    <th>活动时间</th>
+                    <th>活动状态</th>
+                    <th>员工</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr align='center' v-for='item in list'>
+                    <td>{{ item.role }}</td>
+                    <td>{{ item.position }}</td>
+                    <td>{{ item.status }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class='pr-record'>
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-5">
+                      <table class="table table-bordered table-hover">
+                        <thead>
+                          <tr class="active">
+                            <th colspan="3">来电记录</th>
+                          </tr>
+                          <tr>
+                              <th>时间</th>
+                              <th>备注</th>
+                              <th>员工</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                         
+                          <tr align='center' v-for='item in list'>
+                            <td>{{ item.role }}</td>
+                            <td>{{ item.position }}</td>
+                            <td>{{ item.status }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-md-7">
+                      <table class="table table-bordered table-hover">
+                        <thead>
+                          <tr class="active">
+                            <th colspan="7">去电记录</th>
+                          </tr>
+                          <tr>
+                              <th>时间</th>
+                              <th>用户</th>
+                              <th>备注</th>
+                              <th>名单等级</th>
+                              <th>去电结果</th>
+                              <th>员工</th>
+                              <th>录音</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                         
+                          <tr align='center' v-for='item in list'>
+                            <td>{{ item.role }}</td>
+                            <td>{{ item.position }}</td>
+                            <td>{{ item.status }}</td>
+                            <td>{{ item.mobile }}</td>
+                            <td>{{ item.telephone }}</td>
+                            <td>{{ item.wx }}</td>
+                            <td>{{ item.wx }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='pr-client'>
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>时间</th>
+                    <th>用户</th>
+                    <th>服务方式</th>
+                    <th>服务内容</th>
+                    <th>备注</th>
+                    <th>回访级别</th>
+                    <th>满意度</th>
+                    <th>联络结果</th>
+                    <th>联络状态</th>
+                    <th>录音</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr align='center' v-for='item in list'>
+                    <td>{{ item.role }}</td>
+                    <td>{{ item.position }}</td>
+                    <td>{{ item.status }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                    <td>{{ item.telephone }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class='pr-service'>
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>时间</th>
+                    <th>用户</th>
+                    <th>备注</th>
+                    <th>地勤类型</th>
+                    <th>服务内容</th>
+                    <th>拜访次数</th>
+                    <th>员工</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr align='center' v-for='item in list'>
+                    <td>{{ item.role }}</td>
+                    <td>{{ item.position }}</td>
+                    <td>{{ item.status }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class='pr-plan'>
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th>计算业绩时间</th>
+                    <th>网站</th>
+                    <th>公司名称</th>
+                    <th>账号</th>
+                    <th>总金额</th>
+                    <th>业绩金额</th>
+                    <th>开始时间</th>
+                    <th>结束时间</th>
+                    <th>业务员</th>
+                    <th>状态</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr align='center' v-for='item in list'>
+                    <td></td>
+                    <td></td>
+                    <td>{{ item.role }}</td>
+                    <td>{{ item.position }}</td>
+                    <td>{{ item.status }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                    <td>{{ item.telephone }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class='pr-invoice'>
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>是否需要发票</th>
+                    <th>发票类型</th>
+                    <th>发票抬头</th>
+                    <th>开票内容</th>
+                    <th>邮寄地址</th>
+                    <th>联系人</th>
+                    <th>联系方式</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr align='center' v-for='item in list'>
+                    <td>{{ item.role }}</td>
+                    <td>{{ item.position }}</td>
+                    <td>{{ item.status }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class='pr-express'>
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>发票号</th>
+                    <th>邮寄地址</th>
+                    <th>联系人</th>
+                    <th>联系方式</th>
+                    <th>状态</th>
+                    <th>发票属性</th>
+                    <th>快递单号</th>
+                    <th>快递公司</th>
+                    <th>索取时间</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr align='center' v-for='item in list'>
+                    <td>{{ item.role }}</td>
+                    <td>{{ item.position }}</td>
+                    <td>{{ item.status }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                    <td>{{ item.telephone }}</td>
+                    <td>{{ item.mobile }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class='pr-Traders'>
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>用户账户名</th>
+                    <th>电话</th>
+                    <th>商拍地区</th>
+                    <th>品牌名称</th>
+                    <th>性别</th>
+                    <th>审核状态</th>
+                    <th>数据更新时间</th>
+                    <th>备注</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr align='center' v-for='item in list'>
+                    <td>{{ item.role }}</td>
+                    <td>{{ item.position }}</td>
+                    <td>{{ item.status }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.telephone }}</td>
+                    <td>{{ item.telephone }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class='pr-link'>133</div>
+            <div class='pr-statistics'>144</div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <p>Copyright &copy; 2016.Company name All rights reserved.More Templates
+          <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from
+          <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+        </p>
+      </footer>
+      <!-- /. PAGE WRAPPER  -->
+    </div>
+  </div>
+  <!-- /. WRAPPER  -->
+  <!-- JS Scripts-->
+
+  <script type="text/javascript" src="../../js/lib/require/require.js"></script>
+  <script type="text/javascript" src="../../js/common/main.js"></script>
+  <script type="text/javascript" src="../../js/workbench/userdetail.js"></script>
+</body>
+
+</html>

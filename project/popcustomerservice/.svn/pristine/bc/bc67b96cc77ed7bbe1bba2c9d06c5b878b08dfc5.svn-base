@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">
+
+
+  <select id="getUserInfo"  resultType="com.pop136.customerservice.entity.user.User">
+    select a.*
+
+    from
+
+    mp_user a
+
+    LEFT  JOIN  mp_userrole r on a.id = r.userid
+
+    WHERE  a.deleteflag = 0
+
+    AND  r.id = #{roleId}
+
+  </select>
+
+
+</mapper>

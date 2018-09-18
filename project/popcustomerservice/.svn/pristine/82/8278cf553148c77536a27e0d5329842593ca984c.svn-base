@@ -1,0 +1,508 @@
+package com.pop136.customerservice.controller.customer;
+
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
+import com.pop136.core.BeanUtil;
+import com.pop136.customerservice.constant.CustomerConstant;
+import com.pop136.customerservice.controller.BaseApiAction;
+import com.pop136.customerservice.entity.customer.*;
+import com.pop136.customerservice.entity.user.User;
+import com.pop136.customerservice.service.common.DataDictService;
+import com.pop136.customerservice.service.common.TagService;
+import com.pop136.customerservice.service.customer.*;
+import com.pop136.customerservice.service.tag.TagContactService;
+import com.pop136.customerservice.service.tag.TagCustomerService;
+import com.pop136.customerservice.service.user.UserRoleService;
+import com.pop136.customerservice.service.user.UserService;
+import com.pop136.customerservice.utils.BusinessException;
+import com.pop136.customerservice.utils.JsonParseUtil;
+import com.pop136.customerservice.utils.TimeUtil;
+import com.pop136.customerservice.utils.UserLocal;
+import com.pop136.customerservice.vo.common.SearchPageVo;
+import com.pop136.customerservice.vo.customer.*;
+import com.pop136.customerservice.vo.customer.param.CustomerParamVo;
+import com.pop136.customerservice.vo.customer.search.CustomerSearchVo;
+import com.pop136.customerservice.vo.customer.search.CustomerVo;
+import com.pop136.customerservice.vo.user.UserComm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 客服 controller
+ */
+@RestController
+@RequestMapping("/customer")
+public class CustomerController extends BaseApiAction {
+
+  @Autowired
+  private CustomerService customerService;
+
+  @Autowired
+  private DataDictService dataDictService;
+
+  @Autowired
+  private ContactService contactService;
+
+  @Autowired
+  private UserRoleService roleService;
+
+  @Autowired
+  private UserService userService;
+
+  @Autowired
+  private FeedBackService feedBackService;
+
+
+  @Autowired
+  private MsgOwnerService msgOwnerService;
+
+  @Autowired
+  private TagService tagService;
+
+  @Autowired
+  private TagCustomerService tagCustomerService;
+
+
+  @Autowired
+  private TagContactService tagContactService;
+
+
+  /**
+   * 获取 客户 列表
+   */
+  @RequestMapping(value = "/list",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String getCustomerList(HttpServletRequest request, @RequestBody CustomerSearchVo searchVo) {
+
+    UserComm userComm = UserLocal.get();
+
+    if (userComm == null || userComm.equals("")) {
+      return success(null);
+    }
+
+    searchVo.setOwnerIds(userComm.getStrAllSQLUserRoleID());
+
+    this.convertCustomerSearch(searchVo);//转换
+
+    List<CustomerVo> customerVos = customerService.getCustomerList(searchVo);
+
+    for (CustomerVo customerVo : customerVos) {
+      //转换时间
+      customerVo.setLoginDate(TimeUtil.getDifferTime(customerVo.getLoginDate()));//登陆天数
+      customerVo.setActivityDate(TimeUtil.getDifferTime(customerVo.getActivityDate()));//活动天数
+      customerVo.setReturnDate(TimeUtil.getDifferTime(customerVo.getReturnDate()));//回访天数
+      customerVo.setExpireDate(TimeUtil.format(customerVo.getExpireDate()));
+
+      customerVo.setReceiveDate(TimeUtil.format(customerVo.getReceiveDate()));//领用时间
+      customerVo.setExpireDate(TimeUtil.format(customerVo.getExpireDate()));//到期时间
+      customerVo.setReceiveStatus(customerVo.getReceiveStatus());//领用状态
+
+    }
+
+    PageInfo<CustomerVo> pageInfo = new PageInfo<>(customerVos);
+    return success(customerVos, convertPage(customerVos, pageInfo.getTotal()));
+  }
+
+
+  /**
+   * 获取 当前客户 领用人  列表
+   */
+  @RequestMapping(value = "/getReciveList",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String getReciveList(HttpServletRequest request) {
+
+    UserComm userComm = UserLocal.get();
+
+    if (userComm == null || userComm.equals("")) {
+      return success(null);
+    }
+
+    List<User> users = new ArrayList<>();
+
+    List<String> ids = BeanUtil.StringToList(userComm.getStrLowSQLUserRoleID());
+
+    List<String> userNames = BeanUtil.StringToList(userComm.getStrLowUserRoleName());
+
+
+    if (ids != null && !ids.isEmpty()){
+
+      for (int i = 0; i <= ids.size() - 1; i++){
+        User user = new User();
+        user.setId(ids.get(i));
+        user.setName(userNames.get(i));
+        users.add(user);
+      }
+    }
+
+
+    return success(users);
+  }
+
+
+  /**
+   * 根据id 获取 客户信息
+   */
+  @RequestMapping(value = "/info",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String getCustomerInfo(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+
+    String id = JsonParseUtil.parseRequiredStringValue(jsonObject, "id");
+
+    Customer customer = customerService.findBy("id", id, Customer.class);
+
+    Map<String, Object> result = new HashMap<>();
+
+    if (customer == null) {
+      throw new BusinessException("该客户不存在");
+    }
+
+    Map<String, Object> customerTag = customerService.getCustomerTagVal(customer);//获取客户标签
+
+    result.put("customerInfo", convertCustomerInfo(customer, customerTag));//客户信息
+    result.put("accountInfo", getCustomerAccountInfo(customer, customerTag));//用户主信息
+
+
+    result.put("contactList", getCustomerContactList(customer));//联系人信息
+    result.put("serviceInfo", getServiceInfo(customer, customerTag));//客服信息
+    result.put("customerTag", customerTag);//客户标签
+
+    return success(result);
+  }
+
+  /**
+   *更新 客户
+   */
+  @RequestMapping(value = "/update",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String update(HttpServletRequest request, @RequestBody CustomerParamVo paramVo) {
+
+    UserComm userComm = UserLocal.get();
+
+    if (userComm == null || userComm.equals("")) {
+      throw new BusinessException("请登入后操作");
+    }
+
+    String userRoleID = userComm.getUserRoleID();
+
+    if (paramVo.getId()  == null || paramVo.getId().equals("")){
+      throw  new  BusinessException("请输入正确客户id");
+    }
+
+    customerService.updateCustomerInfo(paramVo);//更新客户信息
+
+    if (paramVo.getTags() != null && !paramVo.getTags().isEmpty()){
+      //更新标签信息
+      customerService.updateCustomerTag(paramVo);
+    }
+
+    return success(null);
+  }
+
+  /**
+   * 获取 短信发送用户
+   * @return
+   */
+  @RequestMapping(value = "/getContacts",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String getContacts(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+    String ids = JsonParseUtil.parseRequiredStringValue(jsonObject, "ids");
+
+    List<String> customerIds = BeanUtil.StringToList(ids);
+
+    List<Object> resultList = new ArrayList<>();
+
+    for (String customerId : customerIds) {
+      Map<String, Object> result = new HashMap<>();
+
+      Customer customer = customerService.findBy("id", customerId, Customer.class, "id");
+      result.put("id", customerId);
+      result.put("contacts", getCustomersContactsList(customer));
+      resultList.add(result);
+    }
+
+    return success(resultList);
+  }
+
+  /**
+   * 转换 查询数据
+   * @param searchVo
+   */
+  private void convertCustomerSearch(@RequestBody CustomerSearchVo searchVo) {
+    searchVo.convertPage(searchVo);//转换查询
+
+    if (searchVo.getWebSource() != null && !searchVo.getWebSource().equals("")){
+      //转换 来源
+      searchVo.setWebSource(CustomerConstant.CUSTOMER_SOURCE.getKeyByType(new Integer(searchVo.getWebSource())));
+    }
+
+    if (searchVo.getServiceStage() != null && !searchVo.getServiceStage().equals("")){
+      //转换 服务阶段
+      searchVo.setServiceStage(CustomerConstant.CUSTOMER_SERVICE_STAGE.getValIdByType(new Integer(searchVo.getServiceStage())));
+    }
+
+    if (searchVo.getTags() != null && !searchVo.getTags().equals("")){
+      //标签id
+      searchVo.setTagIds(BeanUtil.StringToList(searchVo.getTags()));
+    }
+
+    SearchPageVo pageVo = new SearchPageVo();
+
+    if (searchVo.getLoginCount() != null && !searchVo.getLoginCount().equals("")){
+      //登陆天数
+      List<String> queryTime = BeanUtil.StringToList(searchVo.getLoginCount());
+      pageVo.setStartTime(TimeUtil.convertQueryDate(new Integer(queryTime.get(1))));//起始
+      pageVo.setEndTime(TimeUtil.convertQueryDate(new Integer(queryTime.get(0))));//结束
+
+      searchVo.setLoginPage(pageVo);
+    }
+    if (searchVo.getBackCount() != null && !searchVo.getBackCount().equals("")){
+      //回访
+      List<String> queryTime = BeanUtil.StringToList(searchVo.getBackCount());
+      pageVo.setStartTime(TimeUtil.convertQueryDate(new Integer(queryTime.get(1))));//起始
+      pageVo.setEndTime(TimeUtil.convertQueryDate(new Integer(queryTime.get(0))));//结束
+
+      searchVo.setBackPage(pageVo);
+    }
+
+    if (searchVo.getProducts() != null && !searchVo.getProducts().equals("")){
+      //多产品 id
+      List<String> products = BeanUtil.StringToList(searchVo.getProducts());
+
+      searchVo.setProductIds(products);
+    }
+
+  }
+
+  /**
+   * 获取 客户 联系人 信息
+   */
+  public List<Object> getCustomerContactList(Customer customer) {
+
+    List<Object> resultList = new ArrayList<>();//返回结果集
+
+    List<Contact> contacts = contactService.findListBy("customerid", customer.getId(), Contact.class);
+
+    if (contacts != null  && !contacts.isEmpty()) {
+
+      for (Contact contact : contacts) {
+        //获取 联系人详情
+        Map<String, Object> contactInfo = contactService.getContactListInfo(contact);
+        //获取 客户联系人 管理信息
+        Map<String, Object> manager = contactService.getContactManager(contact);
+
+        if (manager != null) {
+          contactInfo.putAll(manager );//合并 列表数据
+        }
+
+        resultList.add(contactInfo);
+      }
+    }
+
+    return resultList;
+  }
+
+
+  /**
+   * 获取 客服信息
+   * @param customer
+   * @param customerTag
+   * @return
+   */
+  private Map<String, Object> getServiceInfo(Customer customer, Map<String, Object> customerTag) {
+
+    Map<String, Object> result = new HashMap<>();
+
+    List<CustomerApm> apms = customerService.getApmBookInfo(customer.getId());
+
+    if (apms != null && !apms.isEmpty()) {
+      for (CustomerApm customerApm : apms) {
+        customerApm.setBooKDate(TimeUtil.format(customerApm.getBooKDate()));
+      }
+    }
+
+    result.put("attention",customerTag.remove("attention"));//关注
+    result.put("attentionRemark","备注信息");//关注备注
+    result.put("serviceStage",customerTag.remove("serviceStage"));//服务阶段
+    result.put("customerStatus",customerTag.remove("customerStatus"));//客户状态
+    result.put("invoice",customerTag.remove("invoice"));//发票
+    result.put("web",customerTag.remove("web"));//网站权限
+    result.put("complimentary",apms);//赠品
+
+    return result;
+  }
+
+
+  public List<Object> getCustomersContactsList(Customer customer) {
+
+    List<Object> resultList = new ArrayList<>();//返回结果集
+
+    List<Contact> contacts = contactService.findListBy("customerid", customer.getId(), Contact.class);
+
+    if (contacts != null  && !contacts.isEmpty()) {
+
+      for (Contact contact : contacts) {
+        //获取 联系人详情
+        Map<String, Object> contactInfo = contactService.getContactListInfo(contact);
+        resultList.add(contactInfo);
+      }
+    }
+
+    return resultList;
+  }
+
+
+  /**
+   *获取客户 账号信息
+   * @param customer
+   * @param customerTag
+   * @return
+   */
+  private Object getCustomerAccountInfo(Customer customer, Map<String, Object> customerTag) {
+    Map<String, Object> result = new HashMap<>();
+    result.put("accountName", customer.getBankaccounts());//账号
+    result.put("id", customer.getId());///客户id
+    result.put("type", "主账号");//类型
+    result.put("phone", customer.getPhone());//手机号
+    result.put("loginDate", TimeUtil.getDifferTime(customer.getFounddate()));//未登录天数
+    result.put("crateDate", TimeUtil.format(customer.getRegisterdate()));//创建时间//注册时间
+    result.put("LastLoginDate", TimeUtil.format(customer.getFounddate()));//最后登陆时间
+    result.put("UpdatePassDate", TimeUtil.format(customer.getLastupdatetime()));//最后修改时间
+
+    return result;
+  }
+
+
+
+  /**
+   * 转化 客户详细信息
+   * @param customer
+   * @param customerTag
+   */
+  private Map<String, Object> convertCustomerInfo(Customer customer, Map<String, Object> customerTag) {
+
+    Map<String, Object> result = new HashMap<>();
+    //管理信息
+    result.put("accountName", customer.getBankaccounts());//主账号
+    result.put("id", customer.getId());//id
+    result.put("loginDate", TimeUtil.getDifferTime(customer.getFounddate()));//未登录天数
+    result.put("returnDate", TimeUtil.getDifferTime(customer.getLastactivitydate()));//回访时间
+
+    User user = userService.getUserInfo(customer.getOwnerroleid());
+    result.put("receiveName", user == null ? null : user.getName());//获取领用人
+
+    //基本信息
+    result.put("companyName", customer.getName());//公司名
+    result.put("bank", customer.getBank());//品牌
+    result.put("province", customer.getCountryid());//省份id
+    result.put("city", customer.getProvinceid());//城市
+    result.put("district", customer.getCityid());//地区
+    result.put("address", customer.getAddress());//详细地址
+    result.put("email", customer.getEmail());//邮箱
+    result.put("phone", customer.getPhone());//电话
+    result.put("source",customerTag.remove("webSource"));//来源
+    result.put("customerSource",customerTag.remove("customerSource"));//来源
+
+    return result;
+  }
+
+  /**
+   * 获取 客户 跳转type 页面
+   */
+  @CrossOrigin
+  @RequestMapping(value = "/type",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String type(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+    String type = JsonParseUtil.parseRequiredStringValue(jsonObject, "type");
+    String customerId = JsonParseUtil.parseRequiredStringValue(jsonObject, "customerId");
+
+    //根据类型判断跳转 数据
+    if (type.equals("receive")){
+      //领用
+      List<ReceiveInfoVo> receiveInfoVos = customerService.getReceiveInfoByCustomerId(customerId);
+     
+      return  success(receiveInfoVos);
+
+    }else if (type.equals("assist")){
+      //协助
+      List<AssistInfoVo> customerOwners =  customerService.getAssistInfoByCustomerId(customerId);
+
+      return success(customerOwners);
+    }else if (type.equals("activity")){
+      //活动
+      List<ActivityInfoVo> activityInfoVos =  customerService.getActivityInfoByCustomerId(customerId);
+      return success(activityInfoVos);
+
+    }else if (type.equals("call")){
+      //电话 (来电,去电)
+      List<CallInfoVo> callIns =  customerService.getCallInByCustomerId(customerId);
+
+      List<CallInfoVo> callOuts =  customerService.getCallOutByCustomerId(customerId);
+
+      Map<String, Object> resultMap = new HashMap<>();
+
+      resultMap.put("callIns", callIns);
+      resultMap.put("callOuts", callOuts);
+
+      return  success(resultMap);
+    }else if (type.equals("service")){
+      //客服
+      List<ServiceInfoVo> serviceInfoVos = customerService.getServiceByCustomerId(customerId, "0");
+
+      return  success(serviceInfoVos);
+    }else if (type.equals("ground")){
+      //地勤
+      List<ServiceInfoVo> serviceInfoVos = customerService.getServiceByCustomerId(customerId, "1");
+
+      return success(serviceInfoVos);
+    }else if (type.equals("order")){
+      //订单
+      List<OrderInfoVo> orderInfoVos =  customerService.getOrderByCustomerId(customerId);
+
+      return success(orderInfoVos);
+    }else if (type.equals("invoice")){
+      //发票
+      List<InvoiceInfoVo> invoices = customerService.getInvoiceByCustomerId(customerId);
+
+      return success(invoices);
+
+    }else if (type.equals("open")){
+      //开
+      List<InvoiceLogInfoVo> invoiceLogs = customerService.getInvoiceLogByCustomerId(customerId);
+      return success(invoiceLogs);
+
+    }else if (type.equals("shop")){
+      //商
+      List<ShangpainfoVo> sPais = customerService.getShangPaiByCustomerId(customerId);
+      return  success(sPais);
+    }
+
+    return success(null);
+
+  }
+
+}

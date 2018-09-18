@@ -1,0 +1,41 @@
+package com.pop136.customerservice.mapper.agent.common;
+
+import com.pop136.core.mybatis.AbstractBaseMapper;
+import com.pop136.core.mybatis.annotation.Table;
+import com.pop136.core.mybatis.criteria.Condition;
+import com.pop136.core.mybatis.criteria.ConditionMapping;
+import com.pop136.customerservice.entity.tag.TagModule;
+import com.pop136.customerservice.entity.view.TagMappingVo;
+import com.pop136.customerservice.entity.view.TagValueMappingVo;
+import com.pop136.customerservice.entity.view.TagValueVo;
+import com.pop136.customerservice.vo.common.Tag;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by XH on 2018-7-25.
+ */
+@Repository
+public class TagMappingMapper extends AbstractBaseMapper {
+    @Override
+    public void init() {
+        ConditionMapping mapping = new ConditionMapping( ) ;
+        super.putMapping( DEF_MAPPING_KEY , mapping);
+        super.setUnityFlterCondition( new Condition[]{ new Condition("deleteflag" , 0 , Condition.SYMBOL.EQ )});
+    }
+
+    public List<Tag> findTagListByModule(Map<String, Object> param) {
+        return sqlTemplate.selectList("TagMappingMapper.findTagListByModule",param);
+    }
+
+    public List<TagValueVo> findTagValueListByModule (Map<String, Object> param) {
+        return sqlTemplate.selectList("TagMappingMapper.findTagValueListByModule",param);
+    }
+
+    public List<TagValueMappingVo> findValueMappingListByModule (Map<String, Object> param) {
+        return sqlTemplate.selectList("TagMappingMapper.findValueMappingListByModule",param);
+    }
+
+}

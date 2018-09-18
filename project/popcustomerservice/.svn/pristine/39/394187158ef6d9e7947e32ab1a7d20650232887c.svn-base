@@ -1,0 +1,354 @@
+package com.pop136.customerservice.constant;
+
+public class ContactConstant {
+
+
+  /**
+   * 联系人 职务
+   */
+  public enum CONTACT_CUSTOMDICT1{
+    TYPE_0("老板",580883, "0") ,
+    TYPE_1("设计总监",580884, "1"),
+    TYPE_2("财务",580885, "2"),
+    TYPE_3("设计师",580886, "3"),
+    TYPE_4("备用联系人",580887, "4"),
+    TYPE_5("其他",580888, "5"),
+    TYPE_6("离职设计师",581719, "6"),
+    TYPE_OTHER("无",0, "7");
+
+
+    public static String getKeyByType(Integer type){
+      if(type==null){
+        return CONTACT_CUSTOMDICT1.TYPE_5.getKey();
+      }
+      CONTACT_CUSTOMDICT1[] Types = CONTACT_CUSTOMDICT1.values();
+      for(CONTACT_CUSTOMDICT1 Type: Types){
+        if(Type.getType().equals(type)){
+          return Type.getKey();
+        }
+      }
+      return CONTACT_CUSTOMDICT1.TYPE_5.getKey();
+    }
+
+    public static String getParamByType(Integer type){
+      if(type==null){
+        return CONTACT_CUSTOMDICT1.TYPE_5.getParam();
+      }
+      CONTACT_CUSTOMDICT1[] Types = CONTACT_CUSTOMDICT1.values();
+      for(CONTACT_CUSTOMDICT1 Type: Types){
+        if(Type.getType().equals(type)){
+          return Type.getParam();
+        }
+      }
+      return CONTACT_CUSTOMDICT1.TYPE_5.getParam();
+    }
+
+    public static Integer getTypeByParam(String param){
+      if(param==null){
+        return CONTACT_CUSTOMDICT1.TYPE_OTHER.getType();
+      }
+      CONTACT_CUSTOMDICT1[] Types = CONTACT_CUSTOMDICT1.values();
+      for(CONTACT_CUSTOMDICT1 type: Types){
+        if(type.getParam().equals(param)){
+          return type.getType();
+        }
+      }
+      return CONTACT_CUSTOMDICT1.TYPE_OTHER.getType();
+    }
+
+    private CONTACT_CUSTOMDICT1(String key, Integer type, String param) {
+      this.key = key;
+      this.type = type;
+      this.param = param;
+    }
+    private String key ;
+    private Integer type ;
+    private String param;
+    public String getKey() {
+      return key;
+    }
+    public Integer getType() {
+      return type;
+    }
+
+    public String getParam() {
+      return param;
+    }
+  }
+
+  /**
+   * 联系人 状态
+   */
+  public enum CONTACT_STATUS{
+    TYPE_0("重要",0) ,
+    TYPE_1("普通",1),
+    TYPE_2("不重要",2),
+    TYPE_3("在职",3),
+    TYPE_4("离职",4),
+    TYPE_5("退休",5),
+    TYPE_6("其他",6),
+    TYPE_OTHER("无",-2);
+
+
+    public static String getKeyByType(Integer type){
+      if(type==null){
+        return CONTACT_STATUS.TYPE_OTHER.getKey();
+      }
+      CONTACT_STATUS[] Types = CONTACT_STATUS.values();
+      for(CONTACT_STATUS Type: Types){
+        if(Type.getType().equals(type)){
+          return Type.getKey();
+        }
+      }
+      return CONTACT_STATUS.TYPE_OTHER.getKey();
+    }
+
+    private CONTACT_STATUS(String key, Integer type) {
+      this.key = key;
+      this.type = type;
+    }
+    private String key ;
+    private Integer type ;
+    public String getKey() {
+      return key;
+    }
+    public Integer getType() {
+      return type;
+    }
+  }
+
+
+
+
+  /**
+   * 联系人 来源
+   */
+  public enum CONTACT_CUSTOMERCD5{
+    TYPE_0("其他",0) ,
+    TYPE_1("下载包",1),
+    TYPE_2("开启订货会",2),
+    TYPE_3("开启私人订制",3),
+    TYPE_4("开启下载包",4),
+    TYPE_5("子账号",5),
+    TYPE_6("无",-3);
+
+
+    public static String getKeyByType(Integer type){
+      if(type==null){
+        return CONTACT_CUSTOMERCD5.TYPE_0.getKey();
+      }
+      CONTACT_CUSTOMERCD5[] Types = CONTACT_CUSTOMERCD5.values();
+      for(CONTACT_CUSTOMERCD5 Type:Types){
+        if(Type.getType().equals(type)){
+          return Type.getKey();
+        }
+      }
+      return CONTACT_CUSTOMERCD5.TYPE_0.getKey();
+    }
+
+    private CONTACT_CUSTOMERCD5(String key, Integer type) {
+      this.key = key;
+      this.type = type;
+    }
+    private String key ;
+    private Integer type ;
+    public String getKey() {
+      return key;
+    }
+    public Integer getType() {
+      return type;
+    }
+  }
+
+
+  /**
+   * 回访 级别
+   */
+  public enum FeedBack_CUSTOMERCD2{
+    TYPE_0("Ⅰ",0) ,
+    TYPE_1("Ⅱ",1),
+    TYPE_2("Ⅲ",2),
+    TYPE_3("Ⅳ",3),
+    TYPE_4("无",-2);
+
+
+    public static String getKeyByType(Integer type){
+      if(type==null){
+        return FeedBack_CUSTOMERCD2.TYPE_0.getKey();
+      }
+      FeedBack_CUSTOMERCD2[] Types = FeedBack_CUSTOMERCD2.values();
+      for(FeedBack_CUSTOMERCD2 Type:Types){
+        if(Type.getType().equals(type)){
+          return Type.getKey();
+        }
+      }
+      return FeedBack_CUSTOMERCD2.TYPE_0.getKey();
+    }
+
+    private FeedBack_CUSTOMERCD2(String key, Integer type) {
+      this.key = key;
+      this.type = type;
+    }
+    private String key ;
+    private Integer type ;
+    public String getKey() {
+      return key;
+    }
+    public Integer getType() {
+      return type;
+    }
+  }
+
+
+  /**
+   * 联系人 多产品
+   */
+  public enum CONTACT_PRODUCTS{
+    TYPE_0("不需要",0) ,
+    TYPE_1("免费试用",1),
+    TYPE_2("了解",2),
+    TYPE_3("高意向",3);
+
+    public static String getKeyByType(Integer type){
+      if(type==null){
+        return CONTACT_PRODUCTS.TYPE_0.getKey();
+      }
+      CONTACT_PRODUCTS[] Types = CONTACT_PRODUCTS.values();
+      for(CONTACT_PRODUCTS Type:Types){
+        if(Type.getType().equals(type)){
+          return Type.getKey();
+        }
+      }
+      return CONTACT_PRODUCTS.TYPE_0.getKey();
+    }
+
+    private CONTACT_PRODUCTS(String key, Integer type) {
+      this.key = key;
+      this.type = type;
+    }
+    private String key ;
+    private Integer type ;
+    public String getKey() {
+      return key;
+    }
+    public Integer getType() {
+      return type;
+    }
+  }
+
+
+  /**
+   * 联系人 客服印象
+   */
+  public enum CONTACT_IMPRESSION{
+    TYPE_0("很好沟通",0) ,
+    TYPE_1("一般",1),
+    TYPE_3("拒绝沟通",2);
+
+    public static String getKeyByType(Integer type){
+      if(type==null){
+        return CONTACT_IMPRESSION.TYPE_0.getKey();
+      }
+      CONTACT_IMPRESSION[] Types = CONTACT_IMPRESSION.values();
+      for(CONTACT_IMPRESSION Type:Types){
+        if(Type.getType().equals(type)){
+          return Type.getKey();
+        }
+      }
+      return CONTACT_IMPRESSION.TYPE_0.getKey();
+    }
+
+    private CONTACT_IMPRESSION(String key, Integer type) {
+      this.key = key;
+      this.type = type;
+    }
+    private String key ;
+    private Integer type ;
+    public String getKey() {
+      return key;
+    }
+    public Integer getType() {
+      return type;
+    }
+  }
+
+
+  /**
+   * 联系人 多产品
+   */
+  public enum CONTACT_SERVER_PRODUCTS{
+    TYPE_1("APM",1) ,
+    TYPE_2("书籍",2),
+    TYPE_3("总裁班",3),
+    TYPE_4("云图",4),
+    TYPE_5("韩国行",5),
+    TYPE_6("展会",6);
+
+    public static String getKeyByType(Integer type){
+      if(type==null){
+        return CONTACT_SERVER_PRODUCTS.TYPE_1.getKey();
+      }
+      CONTACT_SERVER_PRODUCTS[] Types = CONTACT_SERVER_PRODUCTS.values();
+      for(CONTACT_SERVER_PRODUCTS Type:Types){
+        if(Type.getType().equals(type)){
+          return Type.getKey();
+        }
+      }
+      return CONTACT_SERVER_PRODUCTS.TYPE_1.getKey();
+    }
+
+    private CONTACT_SERVER_PRODUCTS(String key, Integer type) {
+      this.key = key;
+      this.type = type;
+    }
+    private String key ;
+    private Integer type ;
+    public String getKey() {
+      return key;
+    }
+    public Integer getType() {
+      return type;
+    }
+  }
+
+  /**
+   * 联系人 多产品 意向
+   */
+  public enum CONTACT_SERVER_PRODUCTS_CHECK{
+    TYPE_1("不需要",0) ,
+    TYPE_2("免费试用",1),
+    TYPE_3("了解",2),
+    TYPE_4("高意向",3);
+
+    public static String getKeyByType(Integer type){
+      if(type==null){
+        return CONTACT_SERVER_PRODUCTS_CHECK.TYPE_1.getKey();
+      }
+      CONTACT_SERVER_PRODUCTS_CHECK[] Types = CONTACT_SERVER_PRODUCTS_CHECK.values();
+      for(CONTACT_SERVER_PRODUCTS_CHECK Type:Types){
+        if(Type.getType().equals(type)){
+          return Type.getKey();
+        }
+      }
+      return CONTACT_SERVER_PRODUCTS_CHECK.TYPE_1.getKey();
+    }
+
+    private CONTACT_SERVER_PRODUCTS_CHECK(String key, Integer type) {
+      this.key = key;
+      this.type = type;
+    }
+    private String key ;
+    private Integer type ;
+    public String getKey() {
+      return key;
+    }
+    public Integer getType() {
+      return type;
+    }
+  }
+
+
+
+
+
+}

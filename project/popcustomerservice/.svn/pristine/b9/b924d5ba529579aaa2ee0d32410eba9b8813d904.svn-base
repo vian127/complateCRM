@@ -1,0 +1,1509 @@
+package com.pop136.customerservice.entity.customer;
+
+import java.util.Date;
+
+/**
+ *客户 表
+ */
+public class Customer {
+
+  private String id;
+
+  private String name;
+
+  private Integer areaid;
+
+  private Integer sourceid;
+
+  private String code;
+
+  private Integer countryid;
+
+  private Integer provinceid;
+
+  private Integer cityid;
+
+  private String address;
+
+  private String postcode;
+
+  private String phone;
+
+  private String fax;
+
+  private String website;
+
+  private String email;
+
+  private Integer tradeid;
+
+  private Integer companytypeid;
+
+  private Date registerdate;
+
+  private Integer companyscaleid;
+
+  private Integer personnelnumid;
+
+  private Integer sellamountid;
+
+  private String bank;
+
+  private String designation;
+
+  private String bankaccounts;
+
+  private String ratepaying;
+
+  private Integer paytypeid;
+
+  private String customfield1;
+
+  private String customfield2;
+
+  private String customfield3;
+
+  private String customfield4;
+
+  private String customfield5;
+
+  private Integer customdict1;
+
+  private Integer customdict2;
+
+  private Integer customdict3;
+
+  private Integer flag;
+
+  private Integer status;
+
+  private String ownerroleid;
+
+  private String creatorid;
+
+  private String createtime;
+
+  private String lastmenderid;
+
+  private String lastupdatetime;
+
+  private Integer deleteflag;
+
+  private String shortname;
+
+  private String bank2;
+
+  private String designation2;
+
+  private String bankaccounts2;
+
+  private String ratepaying2;
+
+  private Double creditvalue;
+
+  private Integer accountlimit;
+
+  private String updateroleid;
+
+  private String assignroleid;
+
+  private String faren;
+
+  private String lastactivity;
+
+  private String stype;
+
+  private Integer state;
+
+  private Integer svalue;
+
+  private Integer screade;
+
+  private Integer srelation;
+
+  private Integer customdict4;
+
+  private Integer customdict5;
+
+  private String assigndate;
+
+  private Integer annexflag;
+
+  private String pingying;
+
+  private String importid;
+
+  private String importdate;
+
+  private String importroleid;
+
+  private String founddate;
+
+  private Double customervalueamount;
+
+  private String phone2;
+
+  private String lastactivityroleid;
+
+  private String phonesearch;
+
+  private String mainphone;
+
+  private String estimatetime;
+
+  private String flagtime;
+
+  private String lastcalloutdate;
+
+  private String nextsfadate;
+
+  private String customeractiveenddate;
+
+  private Integer calloutdonestatus1;
+
+  private Integer calloutdonestatus2;
+
+  private String calloutdonestatusdate;
+
+  private String grpcode;
+
+  private String orgcode;
+
+  private String loccode;
+
+  private String customerfatherid;
+
+  private String mergecustomerid;
+
+  private String relatecustomerid1;
+
+  private String relatecustomerid2;
+
+  private String relatecustomerid3;
+
+  private String relatecustomerid4;
+
+  private String relatecustomerid5;
+
+  private String feedbackoptionid;
+
+  private String feedbackoptionname;
+
+  private String feedbackownerroleid;
+
+  private String feedbackownerrolename;
+
+  private Date feedbackenddate;
+
+  private Double rate1;
+
+  private Double rate2;
+
+  private Double rate3;
+
+  private Double rate4;
+
+  private Double rate5;
+
+  private String customerownerroleid1;
+
+  private String customerownername1;
+
+  private String customerownerdate1;
+
+  private String customerownerroleid2;
+
+  private String customerownername2;
+
+  private String customerownerdate2;
+
+  private String customerownerroleid3;
+
+  private String customerownername3;
+
+  private String customerownerdate3;
+
+  private Integer ctiscanstatus;
+
+  private String lastactivitydate;
+
+  private String nopass;
+
+  private String activitylevel;
+
+  private String dqfenggeremark;
+
+  private String dqquyuremark;
+
+  private Integer dqshejituanduiid;
+
+  private String dqshejituanduiname;
+
+  private String jinzhengduishouname;
+
+  private Date jinzhengduishouenddate;
+
+  private Date diqingactivedate;
+
+  private Integer servicelevelid;
+
+  private Integer rebuylevel;
+
+  private String carebranch;
+
+  private Integer contactnumber;
+
+  private String mobilephone;
+
+  private String secondassistid;
+
+  private String secondassitsdate;
+
+  private Integer companytypeid2;
+
+  private Integer positionS;
+
+  private Integer ageS;
+
+  private Integer contactSourceS;
+
+  private String focusBrandS;
+
+  private Integer companyScaleS;
+
+  private String manageRangeS;
+
+  private String manageCategoryS;
+
+  private String dealPeriodS;
+
+  private String serviceWayS;
+
+  private String serviceWaySname;
+
+  private Integer businessPeopleS;
+
+  private String competeResearchS;
+
+  private String vipResearchS;
+
+  private String giftOwnerRecordS;
+
+  private String researchTimeS;
+
+  private String researchThemeS;
+
+  private String problemS;
+
+  private String feedbackResultS;
+
+  private String vipStatusS;
+
+  private String shangpaiCommitStarttimeS;
+
+  private String shangpaiCommitEndtimeS;
+
+  private Short isulb;
+
+  private String adrconfirm;
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public Integer getAreaid() {
+    return areaid;
+  }
+
+  public void setAreaid(Integer areaid) {
+    this.areaid = areaid;
+  }
+
+  public Integer getSourceid() {
+    return sourceid;
+  }
+
+  public void setSourceid(Integer sourceid) {
+    this.sourceid = sourceid;
+  }
+
+  public String getCode() {
+    return code;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
+  }
+
+  public Integer getCountryid() {
+    return countryid;
+  }
+
+  public void setCountryid(Integer countryid) {
+    this.countryid = countryid;
+  }
+
+  public Integer getProvinceid() {
+    return provinceid;
+  }
+
+  public void setProvinceid(Integer provinceid) {
+    this.provinceid = provinceid;
+  }
+
+  public Integer getCityid() {
+    return cityid;
+  }
+
+  public void setCityid(Integer cityid) {
+    this.cityid = cityid;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public String getPostcode() {
+    return postcode;
+  }
+
+  public void setPostcode(String postcode) {
+    this.postcode = postcode;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
+  public String getFax() {
+    return fax;
+  }
+
+  public void setFax(String fax) {
+    this.fax = fax;
+  }
+
+  public String getWebsite() {
+    return website;
+  }
+
+  public void setWebsite(String website) {
+    this.website = website;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public Integer getTradeid() {
+    return tradeid;
+  }
+
+  public void setTradeid(Integer tradeid) {
+    this.tradeid = tradeid;
+  }
+
+  public Integer getCompanytypeid() {
+    return companytypeid;
+  }
+
+  public void setCompanytypeid(Integer companytypeid) {
+    this.companytypeid = companytypeid;
+  }
+
+  public Date getRegisterdate() {
+    return registerdate;
+  }
+
+  public void setRegisterdate(Date registerdate) {
+    this.registerdate = registerdate;
+  }
+
+  public Integer getCompanyscaleid() {
+    return companyscaleid;
+  }
+
+  public void setCompanyscaleid(Integer companyscaleid) {
+    this.companyscaleid = companyscaleid;
+  }
+
+  public Integer getPersonnelnumid() {
+    return personnelnumid;
+  }
+
+  public void setPersonnelnumid(Integer personnelnumid) {
+    this.personnelnumid = personnelnumid;
+  }
+
+  public Integer getSellamountid() {
+    return sellamountid;
+  }
+
+  public void setSellamountid(Integer sellamountid) {
+    this.sellamountid = sellamountid;
+  }
+
+  public String getBank() {
+    return bank;
+  }
+
+  public void setBank(String bank) {
+    this.bank = bank;
+  }
+
+  public String getDesignation() {
+    return designation;
+  }
+
+  public void setDesignation(String designation) {
+    this.designation = designation;
+  }
+
+  public String getBankaccounts() {
+    return bankaccounts;
+  }
+
+  public void setBankaccounts(String bankaccounts) {
+    this.bankaccounts = bankaccounts;
+  }
+
+  public String getRatepaying() {
+    return ratepaying;
+  }
+
+  public void setRatepaying(String ratepaying) {
+    this.ratepaying = ratepaying;
+  }
+
+  public Integer getPaytypeid() {
+    return paytypeid;
+  }
+
+  public void setPaytypeid(Integer paytypeid) {
+    this.paytypeid = paytypeid;
+  }
+
+  public String getCustomfield1() {
+    return customfield1;
+  }
+
+  public void setCustomfield1(String customfield1) {
+    this.customfield1 = customfield1;
+  }
+
+  public String getCustomfield2() {
+    return customfield2;
+  }
+
+  public void setCustomfield2(String customfield2) {
+    this.customfield2 = customfield2;
+  }
+
+  public String getCustomfield3() {
+    return customfield3;
+  }
+
+  public void setCustomfield3(String customfield3) {
+    this.customfield3 = customfield3;
+  }
+
+  public String getCustomfield4() {
+    return customfield4;
+  }
+
+  public void setCustomfield4(String customfield4) {
+    this.customfield4 = customfield4;
+  }
+
+  public String getCustomfield5() {
+    return customfield5;
+  }
+
+  public void setCustomfield5(String customfield5) {
+    this.customfield5 = customfield5;
+  }
+
+  public Integer getCustomdict1() {
+    return customdict1;
+  }
+
+  public void setCustomdict1(Integer customdict1) {
+    this.customdict1 = customdict1;
+  }
+
+  public Integer getCustomdict2() {
+    return customdict2;
+  }
+
+  public void setCustomdict2(Integer customdict2) {
+    this.customdict2 = customdict2;
+  }
+
+  public Integer getCustomdict3() {
+    return customdict3;
+  }
+
+  public void setCustomdict3(Integer customdict3) {
+    this.customdict3 = customdict3;
+  }
+
+  public Integer getFlag() {
+    return flag;
+  }
+
+  public void setFlag(Integer flag) {
+    this.flag = flag;
+  }
+
+  public Integer getStatus() {
+    return status;
+  }
+
+  public void setStatus(Integer status) {
+    this.status = status;
+  }
+
+  public String getOwnerroleid() {
+    return ownerroleid;
+  }
+
+  public void setOwnerroleid(String ownerroleid) {
+    this.ownerroleid = ownerroleid;
+  }
+
+  public String getCreatorid() {
+    return creatorid;
+  }
+
+  public void setCreatorid(String creatorid) {
+    this.creatorid = creatorid;
+  }
+
+  public String getCreatetime() {
+    return createtime;
+  }
+
+  public void setCreatetime(String createtime) {
+    this.createtime = createtime;
+  }
+
+  public String getLastmenderid() {
+    return lastmenderid;
+  }
+
+  public void setLastmenderid(String lastmenderid) {
+    this.lastmenderid = lastmenderid;
+  }
+
+  public String getLastupdatetime() {
+    return lastupdatetime;
+  }
+
+  public void setLastupdatetime(String lastupdatetime) {
+    this.lastupdatetime = lastupdatetime;
+  }
+
+  public Integer getDeleteflag() {
+    return deleteflag;
+  }
+
+  public void setDeleteflag(Integer deleteflag) {
+    this.deleteflag = deleteflag;
+  }
+
+  public String getShortname() {
+    return shortname;
+  }
+
+  public void setShortname(String shortname) {
+    this.shortname = shortname;
+  }
+
+  public String getBank2() {
+    return bank2;
+  }
+
+  public void setBank2(String bank2) {
+    this.bank2 = bank2;
+  }
+
+  public String getDesignation2() {
+    return designation2;
+  }
+
+  public void setDesignation2(String designation2) {
+    this.designation2 = designation2;
+  }
+
+  public String getBankaccounts2() {
+    return bankaccounts2;
+  }
+
+  public void setBankaccounts2(String bankaccounts2) {
+    this.bankaccounts2 = bankaccounts2;
+  }
+
+  public String getRatepaying2() {
+    return ratepaying2;
+  }
+
+  public void setRatepaying2(String ratepaying2) {
+    this.ratepaying2 = ratepaying2;
+  }
+
+  public Double getCreditvalue() {
+    return creditvalue;
+  }
+
+  public void setCreditvalue(Double creditvalue) {
+    this.creditvalue = creditvalue;
+  }
+
+  public Integer getAccountlimit() {
+    return accountlimit;
+  }
+
+  public void setAccountlimit(Integer accountlimit) {
+    this.accountlimit = accountlimit;
+  }
+
+  public String getUpdateroleid() {
+    return updateroleid;
+  }
+
+  public void setUpdateroleid(String updateroleid) {
+    this.updateroleid = updateroleid;
+  }
+
+  public String getAssignroleid() {
+    return assignroleid;
+  }
+
+  public void setAssignroleid(String assignroleid) {
+    this.assignroleid = assignroleid;
+  }
+
+  public String getFaren() {
+    return faren;
+  }
+
+  public void setFaren(String faren) {
+    this.faren = faren;
+  }
+
+  public String getLastactivity() {
+    return lastactivity;
+  }
+
+  public void setLastactivity(String lastactivity) {
+    this.lastactivity = lastactivity;
+  }
+
+  public String getStype() {
+    return stype;
+  }
+
+  public void setStype(String stype) {
+    this.stype = stype;
+  }
+
+  public Integer getState() {
+    return state;
+  }
+
+  public void setState(Integer state) {
+    this.state = state;
+  }
+
+  public Integer getSvalue() {
+    return svalue;
+  }
+
+  public void setSvalue(Integer svalue) {
+    this.svalue = svalue;
+  }
+
+  public Integer getScreade() {
+    return screade;
+  }
+
+  public void setScreade(Integer screade) {
+    this.screade = screade;
+  }
+
+  public Integer getSrelation() {
+    return srelation;
+  }
+
+  public void setSrelation(Integer srelation) {
+    this.srelation = srelation;
+  }
+
+  public Integer getCustomdict4() {
+    return customdict4;
+  }
+
+  public void setCustomdict4(Integer customdict4) {
+    this.customdict4 = customdict4;
+  }
+
+  public Integer getCustomdict5() {
+    return customdict5;
+  }
+
+  public void setCustomdict5(Integer customdict5) {
+    this.customdict5 = customdict5;
+  }
+
+  public String getAssigndate() {
+    return assigndate;
+  }
+
+  public void setAssigndate(String assigndate) {
+    this.assigndate = assigndate;
+  }
+
+  public Integer getAnnexflag() {
+    return annexflag;
+  }
+
+  public void setAnnexflag(Integer annexflag) {
+    this.annexflag = annexflag;
+  }
+
+  public String getPingying() {
+    return pingying;
+  }
+
+  public void setPingying(String pingying) {
+    this.pingying = pingying;
+  }
+
+  public String getImportid() {
+    return importid;
+  }
+
+  public void setImportid(String importid) {
+    this.importid = importid;
+  }
+
+  public String getImportdate() {
+    return importdate;
+  }
+
+  public void setImportdate(String importdate) {
+    this.importdate = importdate;
+  }
+
+  public String getImportroleid() {
+    return importroleid;
+  }
+
+  public void setImportroleid(String importroleid) {
+    this.importroleid = importroleid;
+  }
+
+  public String getFounddate() {
+    return founddate;
+  }
+
+  public void setFounddate(String founddate) {
+    this.founddate = founddate;
+  }
+
+  public Double getCustomervalueamount() {
+    return customervalueamount;
+  }
+
+  public void setCustomervalueamount(Double customervalueamount) {
+    this.customervalueamount = customervalueamount;
+  }
+
+  public String getPhone2() {
+    return phone2;
+  }
+
+  public void setPhone2(String phone2) {
+    this.phone2 = phone2;
+  }
+
+  public String getLastactivityroleid() {
+    return lastactivityroleid;
+  }
+
+  public void setLastactivityroleid(String lastactivityroleid) {
+    this.lastactivityroleid = lastactivityroleid;
+  }
+
+  public String getPhonesearch() {
+    return phonesearch;
+  }
+
+  public void setPhonesearch(String phonesearch) {
+    this.phonesearch = phonesearch;
+  }
+
+  public String getMainphone() {
+    return mainphone;
+  }
+
+  public void setMainphone(String mainphone) {
+    this.mainphone = mainphone;
+  }
+
+  public String getEstimatetime() {
+    return estimatetime;
+  }
+
+  public void setEstimatetime(String estimatetime) {
+    this.estimatetime = estimatetime;
+  }
+
+  public String getFlagtime() {
+    return flagtime;
+  }
+
+  public void setFlagtime(String flagtime) {
+    this.flagtime = flagtime;
+  }
+
+  public String getLastcalloutdate() {
+    return lastcalloutdate;
+  }
+
+  public void setLastcalloutdate(String lastcalloutdate) {
+    this.lastcalloutdate = lastcalloutdate;
+  }
+
+  public String getNextsfadate() {
+    return nextsfadate;
+  }
+
+  public void setNextsfadate(String nextsfadate) {
+    this.nextsfadate = nextsfadate;
+  }
+
+  public String getCustomeractiveenddate() {
+    return customeractiveenddate;
+  }
+
+  public void setCustomeractiveenddate(String customeractiveenddate) {
+    this.customeractiveenddate = customeractiveenddate;
+  }
+
+  public Integer getCalloutdonestatus1() {
+    return calloutdonestatus1;
+  }
+
+  public void setCalloutdonestatus1(Integer calloutdonestatus1) {
+    this.calloutdonestatus1 = calloutdonestatus1;
+  }
+
+  public Integer getCalloutdonestatus2() {
+    return calloutdonestatus2;
+  }
+
+  public void setCalloutdonestatus2(Integer calloutdonestatus2) {
+    this.calloutdonestatus2 = calloutdonestatus2;
+  }
+
+  public String getCalloutdonestatusdate() {
+    return calloutdonestatusdate;
+  }
+
+  public void setCalloutdonestatusdate(String calloutdonestatusdate) {
+    this.calloutdonestatusdate = calloutdonestatusdate;
+  }
+
+  public String getGrpcode() {
+    return grpcode;
+  }
+
+  public void setGrpcode(String grpcode) {
+    this.grpcode = grpcode;
+  }
+
+  public String getOrgcode() {
+    return orgcode;
+  }
+
+  public void setOrgcode(String orgcode) {
+    this.orgcode = orgcode;
+  }
+
+  public String getLoccode() {
+    return loccode;
+  }
+
+  public void setLoccode(String loccode) {
+    this.loccode = loccode;
+  }
+
+  public String getCustomerfatherid() {
+    return customerfatherid;
+  }
+
+  public void setCustomerfatherid(String customerfatherid) {
+    this.customerfatherid = customerfatherid;
+  }
+
+  public String getMergecustomerid() {
+    return mergecustomerid;
+  }
+
+  public void setMergecustomerid(String mergecustomerid) {
+    this.mergecustomerid = mergecustomerid;
+  }
+
+  public String getRelatecustomerid1() {
+    return relatecustomerid1;
+  }
+
+  public void setRelatecustomerid1(String relatecustomerid1) {
+    this.relatecustomerid1 = relatecustomerid1;
+  }
+
+  public String getRelatecustomerid2() {
+    return relatecustomerid2;
+  }
+
+  public void setRelatecustomerid2(String relatecustomerid2) {
+    this.relatecustomerid2 = relatecustomerid2;
+  }
+
+  public String getRelatecustomerid3() {
+    return relatecustomerid3;
+  }
+
+  public void setRelatecustomerid3(String relatecustomerid3) {
+    this.relatecustomerid3 = relatecustomerid3;
+  }
+
+  public String getRelatecustomerid4() {
+    return relatecustomerid4;
+  }
+
+  public void setRelatecustomerid4(String relatecustomerid4) {
+    this.relatecustomerid4 = relatecustomerid4;
+  }
+
+  public String getRelatecustomerid5() {
+    return relatecustomerid5;
+  }
+
+  public void setRelatecustomerid5(String relatecustomerid5) {
+    this.relatecustomerid5 = relatecustomerid5;
+  }
+
+  public String getFeedbackoptionid() {
+    return feedbackoptionid;
+  }
+
+  public void setFeedbackoptionid(String feedbackoptionid) {
+    this.feedbackoptionid = feedbackoptionid;
+  }
+
+  public String getFeedbackoptionname() {
+    return feedbackoptionname;
+  }
+
+  public void setFeedbackoptionname(String feedbackoptionname) {
+    this.feedbackoptionname = feedbackoptionname;
+  }
+
+  public String getFeedbackownerroleid() {
+    return feedbackownerroleid;
+  }
+
+  public void setFeedbackownerroleid(String feedbackownerroleid) {
+    this.feedbackownerroleid = feedbackownerroleid;
+  }
+
+  public String getFeedbackownerrolename() {
+    return feedbackownerrolename;
+  }
+
+  public void setFeedbackownerrolename(String feedbackownerrolename) {
+    this.feedbackownerrolename = feedbackownerrolename;
+  }
+
+  public Date getFeedbackenddate() {
+    return feedbackenddate;
+  }
+
+  public void setFeedbackenddate(Date feedbackenddate) {
+    this.feedbackenddate = feedbackenddate;
+  }
+
+  public Double getRate1() {
+    return rate1;
+  }
+
+  public void setRate1(Double rate1) {
+    this.rate1 = rate1;
+  }
+
+  public Double getRate2() {
+    return rate2;
+  }
+
+  public void setRate2(Double rate2) {
+    this.rate2 = rate2;
+  }
+
+  public Double getRate3() {
+    return rate3;
+  }
+
+  public void setRate3(Double rate3) {
+    this.rate3 = rate3;
+  }
+
+  public Double getRate4() {
+    return rate4;
+  }
+
+  public void setRate4(Double rate4) {
+    this.rate4 = rate4;
+  }
+
+  public Double getRate5() {
+    return rate5;
+  }
+
+  public void setRate5(Double rate5) {
+    this.rate5 = rate5;
+  }
+
+  public String getCustomerownerroleid1() {
+    return customerownerroleid1;
+  }
+
+  public void setCustomerownerroleid1(String customerownerroleid1) {
+    this.customerownerroleid1 = customerownerroleid1;
+  }
+
+  public String getCustomerownername1() {
+    return customerownername1;
+  }
+
+  public void setCustomerownername1(String customerownername1) {
+    this.customerownername1 = customerownername1;
+  }
+
+  public String getCustomerownerdate1() {
+    return customerownerdate1;
+  }
+
+  public void setCustomerownerdate1(String customerownerdate1) {
+    this.customerownerdate1 = customerownerdate1;
+  }
+
+  public String getCustomerownerroleid2() {
+    return customerownerroleid2;
+  }
+
+  public void setCustomerownerroleid2(String customerownerroleid2) {
+    this.customerownerroleid2 = customerownerroleid2;
+  }
+
+  public String getCustomerownername2() {
+    return customerownername2;
+  }
+
+  public void setCustomerownername2(String customerownername2) {
+    this.customerownername2 = customerownername2;
+  }
+
+  public String getCustomerownerdate2() {
+    return customerownerdate2;
+  }
+
+  public void setCustomerownerdate2(String customerownerdate2) {
+    this.customerownerdate2 = customerownerdate2;
+  }
+
+  public String getCustomerownerroleid3() {
+    return customerownerroleid3;
+  }
+
+  public void setCustomerownerroleid3(String customerownerroleid3) {
+    this.customerownerroleid3 = customerownerroleid3;
+  }
+
+  public String getCustomerownername3() {
+    return customerownername3;
+  }
+
+  public void setCustomerownername3(String customerownername3) {
+    this.customerownername3 = customerownername3;
+  }
+
+  public String getCustomerownerdate3() {
+    return customerownerdate3;
+  }
+
+  public void setCustomerownerdate3(String customerownerdate3) {
+    this.customerownerdate3 = customerownerdate3;
+  }
+
+  public Integer getCtiscanstatus() {
+    return ctiscanstatus;
+  }
+
+  public void setCtiscanstatus(Integer ctiscanstatus) {
+    this.ctiscanstatus = ctiscanstatus;
+  }
+
+  public String getLastactivitydate() {
+    return lastactivitydate;
+  }
+
+  public void setLastactivitydate(String lastactivitydate) {
+    this.lastactivitydate = lastactivitydate;
+  }
+
+  public String getNopass() {
+    return nopass;
+  }
+
+  public void setNopass(String nopass) {
+    this.nopass = nopass;
+  }
+
+  public String getActivitylevel() {
+    return activitylevel;
+  }
+
+  public void setActivitylevel(String activitylevel) {
+    this.activitylevel = activitylevel;
+  }
+
+  public String getDqfenggeremark() {
+    return dqfenggeremark;
+  }
+
+  public void setDqfenggeremark(String dqfenggeremark) {
+    this.dqfenggeremark = dqfenggeremark;
+  }
+
+  public String getDqquyuremark() {
+    return dqquyuremark;
+  }
+
+  public void setDqquyuremark(String dqquyuremark) {
+    this.dqquyuremark = dqquyuremark;
+  }
+
+  public Integer getDqshejituanduiid() {
+    return dqshejituanduiid;
+  }
+
+  public void setDqshejituanduiid(Integer dqshejituanduiid) {
+    this.dqshejituanduiid = dqshejituanduiid;
+  }
+
+  public String getDqshejituanduiname() {
+    return dqshejituanduiname;
+  }
+
+  public void setDqshejituanduiname(String dqshejituanduiname) {
+    this.dqshejituanduiname = dqshejituanduiname;
+  }
+
+  public String getJinzhengduishouname() {
+    return jinzhengduishouname;
+  }
+
+  public void setJinzhengduishouname(String jinzhengduishouname) {
+    this.jinzhengduishouname = jinzhengduishouname;
+  }
+
+  public Date getJinzhengduishouenddate() {
+    return jinzhengduishouenddate;
+  }
+
+  public void setJinzhengduishouenddate(Date jinzhengduishouenddate) {
+    this.jinzhengduishouenddate = jinzhengduishouenddate;
+  }
+
+  public Date getDiqingactivedate() {
+    return diqingactivedate;
+  }
+
+  public void setDiqingactivedate(Date diqingactivedate) {
+    this.diqingactivedate = diqingactivedate;
+  }
+
+  public Integer getServicelevelid() {
+    return servicelevelid;
+  }
+
+  public void setServicelevelid(Integer servicelevelid) {
+    this.servicelevelid = servicelevelid;
+  }
+
+  public Integer getRebuylevel() {
+    return rebuylevel;
+  }
+
+  public void setRebuylevel(Integer rebuylevel) {
+    this.rebuylevel = rebuylevel;
+  }
+
+  public String getCarebranch() {
+    return carebranch;
+  }
+
+  public void setCarebranch(String carebranch) {
+    this.carebranch = carebranch;
+  }
+
+  public Integer getContactnumber() {
+    return contactnumber;
+  }
+
+  public void setContactnumber(Integer contactnumber) {
+    this.contactnumber = contactnumber;
+  }
+
+  public String getMobilephone() {
+    return mobilephone;
+  }
+
+  public void setMobilephone(String mobilephone) {
+    this.mobilephone = mobilephone;
+  }
+
+  public String getSecondassistid() {
+    return secondassistid;
+  }
+
+  public void setSecondassistid(String secondassistid) {
+    this.secondassistid = secondassistid;
+  }
+
+  public String getSecondassitsdate() {
+    return secondassitsdate;
+  }
+
+  public void setSecondassitsdate(String secondassitsdate) {
+    this.secondassitsdate = secondassitsdate;
+  }
+
+  public Integer getCompanytypeid2() {
+    return companytypeid2;
+  }
+
+  public void setCompanytypeid2(Integer companytypeid2) {
+    this.companytypeid2 = companytypeid2;
+  }
+
+  public Integer getPositionS() {
+    return positionS;
+  }
+
+  public void setPositionS(Integer positionS) {
+    this.positionS = positionS;
+  }
+
+  public Integer getAgeS() {
+    return ageS;
+  }
+
+  public void setAgeS(Integer ageS) {
+    this.ageS = ageS;
+  }
+
+  public Integer getContactSourceS() {
+    return contactSourceS;
+  }
+
+  public void setContactSourceS(Integer contactSourceS) {
+    this.contactSourceS = contactSourceS;
+  }
+
+  public String getFocusBrandS() {
+    return focusBrandS;
+  }
+
+  public void setFocusBrandS(String focusBrandS) {
+    this.focusBrandS = focusBrandS;
+  }
+
+  public Integer getCompanyScaleS() {
+    return companyScaleS;
+  }
+
+  public void setCompanyScaleS(Integer companyScaleS) {
+    this.companyScaleS = companyScaleS;
+  }
+
+  public String getManageRangeS() {
+    return manageRangeS;
+  }
+
+  public void setManageRangeS(String manageRangeS) {
+    this.manageRangeS = manageRangeS;
+  }
+
+  public String getManageCategoryS() {
+    return manageCategoryS;
+  }
+
+  public void setManageCategoryS(String manageCategoryS) {
+    this.manageCategoryS = manageCategoryS;
+  }
+
+  public String getDealPeriodS() {
+    return dealPeriodS;
+  }
+
+  public void setDealPeriodS(String dealPeriodS) {
+    this.dealPeriodS = dealPeriodS;
+  }
+
+  public String getServiceWayS() {
+    return serviceWayS;
+  }
+
+  public void setServiceWayS(String serviceWayS) {
+    this.serviceWayS = serviceWayS;
+  }
+
+  public String getServiceWaySname() {
+    return serviceWaySname;
+  }
+
+  public void setServiceWaySname(String serviceWaySname) {
+    this.serviceWaySname = serviceWaySname;
+  }
+
+  public Integer getBusinessPeopleS() {
+    return businessPeopleS;
+  }
+
+  public void setBusinessPeopleS(Integer businessPeopleS) {
+    this.businessPeopleS = businessPeopleS;
+  }
+
+  public String getCompeteResearchS() {
+    return competeResearchS;
+  }
+
+  public void setCompeteResearchS(String competeResearchS) {
+    this.competeResearchS = competeResearchS;
+  }
+
+  public String getVipResearchS() {
+    return vipResearchS;
+  }
+
+  public void setVipResearchS(String vipResearchS) {
+    this.vipResearchS = vipResearchS;
+  }
+
+  public String getGiftOwnerRecordS() {
+    return giftOwnerRecordS;
+  }
+
+  public void setGiftOwnerRecordS(String giftOwnerRecordS) {
+    this.giftOwnerRecordS = giftOwnerRecordS;
+  }
+
+  public String getResearchTimeS() {
+    return researchTimeS;
+  }
+
+  public void setResearchTimeS(String researchTimeS) {
+    this.researchTimeS = researchTimeS;
+  }
+
+  public String getResearchThemeS() {
+    return researchThemeS;
+  }
+
+  public void setResearchThemeS(String researchThemeS) {
+    this.researchThemeS = researchThemeS;
+  }
+
+  public String getProblemS() {
+    return problemS;
+  }
+
+  public void setProblemS(String problemS) {
+    this.problemS = problemS;
+  }
+
+  public String getFeedbackResultS() {
+    return feedbackResultS;
+  }
+
+  public void setFeedbackResultS(String feedbackResultS) {
+    this.feedbackResultS = feedbackResultS;
+  }
+
+  public String getVipStatusS() {
+    return vipStatusS;
+  }
+
+  public void setVipStatusS(String vipStatusS) {
+    this.vipStatusS = vipStatusS;
+  }
+
+  public String getShangpaiCommitStarttimeS() {
+    return shangpaiCommitStarttimeS;
+  }
+
+  public void setShangpaiCommitStarttimeS(String shangpaiCommitStarttimeS) {
+    this.shangpaiCommitStarttimeS = shangpaiCommitStarttimeS;
+  }
+
+  public String getShangpaiCommitEndtimeS() {
+    return shangpaiCommitEndtimeS;
+  }
+
+  public void setShangpaiCommitEndtimeS(String shangpaiCommitEndtimeS) {
+    this.shangpaiCommitEndtimeS = shangpaiCommitEndtimeS;
+  }
+
+  public Short getIsulb() {
+    return isulb;
+  }
+
+  public void setIsulb(Short isulb) {
+    this.isulb = isulb;
+  }
+
+  public String getAdrconfirm() {
+    return adrconfirm;
+  }
+
+  public void setAdrconfirm(String adrconfirm) {
+    this.adrconfirm = adrconfirm;
+  }
+}

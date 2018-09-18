@@ -1,0 +1,460 @@
+package com.pop136.customerservice.service.customer;
+
+import com.pop136.core.BeanUtil;
+import com.pop136.customerservice.constant.Constant;
+import com.pop136.customerservice.constant.ContactConstant;
+import com.pop136.customerservice.entity.customer.*;
+import com.pop136.customerservice.mapper.agent.cusotmer.*;
+import com.pop136.customerservice.mapper.agent.tag.TagContactMapper;
+import com.pop136.customerservice.service.AbstractBaseService;
+import com.pop136.customerservice.utils.BusinessException;
+import com.pop136.customerservice.utils.GetRID;
+import com.pop136.customerservice.utils.TimeUtil;
+import com.pop136.customerservice.vo.customer.param.ContactParamVo;
+import com.pop136.customerservice.vo.customer.param.ContactServeProductParam;
+import com.pop136.customerservice.vo.customer.param.ContactoAllParamVo;
+import com.pop136.customerservice.vo.customer.search.ContactSearchVo;
+import com.pop136.customerservice.vo.customer.search.FeedBackSearchVo;
+import com.pop136.customerservice.vo.tag.TagValueVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class ContactService extends AbstractBaseService {
+
+  @Autowired
+  private ContactMapper contactMapper;
+
+  @Autowired
+  private CustomerMapper customerMapper;
+
+  @Autowired
+  private FeedBackMapper feedBackMapper;
+
+  @Autowired
+  private ContactServeMapper serveMapper;
+
+  @Autowired
+  private ContactServeProductMapper serveProductMapper;
+
+  @Autowired
+  private TagContactMapper tagContactMapper;
+
+
+  public void init() {
+    setMapper(contactMapper);
+  }
+
+
+  public String getContactCount(ContactSearchVo searchVo) {
+    return contactMapper.getContactCount(searchVo);
+  }
+
+
+  /**
+   * 获取 联系人列表 service
+   * @param searchVo
+   * @return
+   */
+  public List<Object> getContactList(ContactSearchVo searchVo) {
+    List<Contact> list = contactMapper.getContactList(searchVo);
+
+    List<Object> result = new ArrayList<>();
+
+    if (list == null && list.isEmpty()) {
+      return result;
+    }
+
+    for (Contact contact : list) {
+      Customer customer = customerMapper.findBeanBy("id", contact.getCustomerid(), Customer.class);
+
+      Map<String, Object> contactInfo = convertContact(contact, customer);
+
+      Map<String, Object> manager = getContactManager(contact);
+
+      if (manager != null) {
+
+        contactInfo.putAll(manager );
+      }
+
+
+      result.add(contactInfo);
+    }
+
+    return result;
+  }
+
+
+
+  /**
+   * 获取 联系人详情 service
+   * @param contactId
+   * @return
+   */
+  public Map<String, Object> getContactInfo(String contactId) {
+
+    Map<String, Object> result = new HashMap<>();
+
+    //获取 联系人基本信息
+    Contact contact = this.findBy("id", contactId, Contact.class);
+
+    if (contact == null) {
+      throw  new BusinessException("该联系人不存在");
+    }
+
+    Customer customer = customerMapper.findBeanBy("id", contact.getCustomerid(), Customer.class);
+
+    result.put("contactInfo", convertContact(contact, customer));//联系人信息
+    result.put("manager", getContactManager(contact));//联系人管理信息
+    result.put("customerInfo", getCustomerInfo(customer));//客户信息
+    result.put("contactServiceInfo", getContactServiceInfo(contact));//联系人客服信息
+
+    return result;
+  }
+
+  /**
+   * 获取 联系人服务信息
+   * @param contact
+   * @return
+   */
+  private Map<String, Object>  getContactServiceInfo(Contact contact) {
+    Map<String, Object> result = new HashMap<>();
+
+    //客服 印象
+    ContactServe contactServe = serveMapper.findBeanBy("contactid", contact.getId(), ContactServe.class);
+
+    Map<String, Object> result_customer = new HashMap<>();
+
+    if (contactServe != null) {
+
+      result_customer.put("impressionId", contactServe.getCustomerstatusid());
+      result_customer.put("impressionName", contactServe.getCustomerstatusname());
+    }
+
+    //联系人 关注产品
+    List<ContactServeProduct> productList = serveProductMapper.getProductList(contact.getId());
+    List<Map<String, Object>> result_product = getContactProducts(productList);
+
+
+    result.put("impression", result_customer);
+    result.put("products", result_product);
+
+    return result;
+  }
+
+  /**
+   * 获取 用户 多产品信息
+   * @param products
+   * @return
+   */
+  private List<Map<String, Object>> getContactProducts(List<ContactServeProduct> products) {
+    List<Map<String,Object>> result_product = new ArrayList<>();
+
+    for (ContactConstant.CONTACT_SERVER_PRODUCTS contact_server_products : ContactConstant.CONTACT_SERVER_PRODUCTS.values()) {
+
+      Map<String, Object> result2 = new HashMap<>();
+
+      //展示全部
+      result2.put("productId", contact_server_products.getType());
+      result2.put("productName", contact_server_products.getKey());
+      result2.put("productStatusId", ContactConstant.CONTACT_SERVER_PRODUCTS_CHECK.TYPE_1.getType());//状态
+      result2.put("productStatusName", ContactConstant.CONTACT_SERVER_PRODUCTS_CHECK.TYPE_1.getKey());//状态名称
+      result2.put("status", "0");//状态名称
+
+      result_product.add(result2);
+    }
+
+
+    if (products != null && products.size() > 0) {
+      //转换 产品信息
+      for (ContactServeProduct product : products) {
+        for (Map<String, Object> map : result_product) {
+          if (map.get("productId").toString().equals(product.getProductid())){
+            map.put("productStatusId", product.getProductstatusid());//状态
+            map.put("productStatusName", product.getProductstatusname());//状态名称
+            map.put("status", "1");//状态名称
+          }
+        }
+      }
+    }
+
+    return result_product;
+  }
+
+  /**
+   * 获取 联系人管理信息
+   * @param contact
+   * @return
+   */
+  private Map<String, Object> getContactManager(Contact contact) {
+    FeedBackSearchVo searchVo = new FeedBackSearchVo();
+    searchVo.setContactId(contact.getId());
+    searchVo.setSize(1);
+    List<FeedBack> feedBacks = feedBackMapper.getFeedBackList(searchVo);
+
+    if (feedBacks == null || feedBacks.isEmpty()) {
+      return null;
+    }
+
+    FeedBack feedBack = feedBacks.get(0);
+    Map<String, Object> result = new HashMap<>();
+    result.put("source", ContactConstant.CONTACT_CUSTOMERCD5.getKeyByType(contact.getCustomdict5()));//来源
+    result.put("sourceId", contact.getCustomdict5());//来源
+
+    result.put("creatorId", contact.getCreatorid());//创建人
+    result.put("LastUpdater", contact.getLastmenderid());//最新修改人
+
+    result.put("LastContactDate", TimeUtil.format(feedBack.getLastupdatetime()) );//最后联系时间
+    result.put("LastContactType", feedBack.getTypename());//最后联系方式
+    result.put("applicationDate", TimeUtil.format(feedBack.getApplicationdate()));//预约时间
+
+    return result;
+
+  }
+
+
+  /**
+   * 更新 联系人信息 service
+   * @param paramVo
+   * @return
+   */
+  public Map<String, Object> updateContact(ContactoAllParamVo paramVo) {
+
+    Map<String, Object> result = new HashMap<>();
+    Contact contact = new Contact();
+
+    ContactParamVo contactParam = paramVo.getContactParam();
+
+    BeanUtil.checkRequestParam(contactParam);
+    if (contactParam != null) {
+      //更新 联系人 操作
+      if (paramVo.getId() != null && !paramVo.getId().equals("")) {
+        contactParam.setId(paramVo.getId());//添加 id
+        convertContactParam(contactParam, contact);
+        this.update("id", contactParam.getId(), contact);
+
+        result.put("contactId", contactParam.getId());
+      }else{
+        //新增
+        convertContactParam(contactParam, contact);
+        this.create(contact, Contact.class);
+        paramVo.setId(contact.getId());//传递 联系人id
+
+        result.put("contactId", contact.getId());
+      }
+
+    }
+
+    if (paramVo.getImpressionId() != null ){
+      //转换 客服印象
+      convertContactServe(paramVo.getImpressionId(), paramVo.getId());
+    }
+
+    if (paramVo.getProductParams() != null && !paramVo.getProductParams().isEmpty()) {
+      //转换 联系人 多产品信息
+        convertContactProduct(paramVo.getProductParams(), paramVo.getId());
+    }
+
+    return result;
+  }
+
+
+  /**
+   * 获取 客户信息
+   * @return
+   */
+  private List<Object> getCustomerInfo(Customer customer) {
+
+    List<Object> returnList = new ArrayList<>();
+
+    Map<String, Object> result = new HashMap<>();
+    result.put("accountName", customer.getBankaccounts());//主账号
+    result.put("type", "主账号");//主账号
+    result.put("phone", customer.getPhone());//联系方式
+    result.put("loginDate", TimeUtil.getDifferTime(customer.getFounddate()));//未登录天数
+    result.put("crateDate", customer.getCreatetime());//创建时间
+    result.put("LastLoginDate", customer.getFounddate());//最后登陆时间
+    result.put("UpdatePassDate", customer.getLastupdatetime());//最后修改时间
+    result.put("Name", customer.getName());//名称
+
+    returnList.add(result);
+
+    return returnList;
+  }
+
+
+  /**
+   * 获取联系人 主信息
+   * @param contact
+   */
+  private Map<String, Object> convertContact(Contact contact, Customer customer) {
+
+    List<TagValueVo> dutys = new ArrayList<>();//职务
+
+    List<TagValueVo> contactStatus = new ArrayList<>();//联系人状态
+
+    List<TagValueVo> roles = new ArrayList<>();//联系人角色
+
+    List<TagValueVo> tagContacts = tagContactMapper.findTagValueByContactId(contact.getId());
+
+    if (tagContacts != null && !tagContacts.isEmpty()) {
+
+      for (TagValueVo tagContact : tagContacts) {
+        if (tagContact.getTagId().equals(ContactConstant.CONTACT_DUTY.TYPE_0.getTagId())) {
+          //获取 联系人职务
+          dutys.add(tagContact);
+        } else if (tagContact.getTagId().equals(ContactConstant.CONTACT_STATUS.TYPE_0.getTagId())) {
+          //获取 联系人状态
+          contactStatus.add(tagContact);
+        } else if (tagContact.getTagId().equals(ContactConstant.CONTACT_ROLE.TYPE_1.getTagId())) {
+          //获取 联系人角色
+          roles.add(tagContact);
+        }
+
+      }
+    }
+    Map<String, Object> result = new HashMap<>();
+    result.put("id", contact.getId());
+    result.put("customerId", customer.getId());
+    result.put("main", contact.getIismain());//是否主联系人
+    result.put("name", contact.getName());//名称
+    result.put("role", "");//角色
+    result.put("duty", dutys);//职务
+    result.put("status", contactStatus);//状态
+    result.put("telephone", contact.getTelephone());//电话
+    result.put("mobile", contact.getMobile());//移动电话
+    result.put("weChat", contact.getRelatecontactid5());//微信号
+    result.put("isWeChat", "0");//是否微信号
+    result.put("extensionPhone", contact.getExtensionphone());//分机号
+    result.put("qq", contact.getQq());//qq号
+    result.put("email", contact.getEmail());//邮箱
+    result.put("customerName", customer.getName());//所属客户
+    result.put("source", ContactConstant.CONTACT_CUSTOMERCD5.getKeyByType(contact.getCustomdict5()));//来源
+    result.put("sourceId", contact.getCustomdict5());//来源id
+    return result;
+  }
+
+
+  /**
+   * 转换  联系人param 参数
+   * @param paramVo
+   * @param contact
+   */
+  private void convertContactParam(ContactParamVo paramVo, Contact contact) {
+    contact.setName(paramVo.getName());
+    contact.setCustomdict1(contact.getCustomdict1());
+    contact.setStatusid(paramVo.getStatusId() == null ? null : new Integer(paramVo.getStatusId()));
+    contact.setMobile(paramVo.getMobile());
+    contact.setTelephone(paramVo.getTelephone());
+    contact.setExtensionphone(paramVo.getExtensionPhone());
+    contact.setQq(paramVo.getQq());
+    contact.setRelatecontactid5(paramVo.getWeChat());
+    contact.setCreatetime(TimeUtil.currentTime());
+    contact.setCustomerid(paramVo.getCustomerId());//新增 客户id
+    contact.setIismain(paramVo.getMain() == null ? 0 : 1);
+    contact.setLastupdatetime(TimeUtil.currentTime());
+
+
+    if (paramVo.getId() == null) {
+
+      //生成 联系人id
+      String id = new GetRID(Constant.COMP_CODE, paramVo.getId(), Constant.CONTACT_MODULE_ID).getId();
+
+      contact.setId(id);
+    }else {
+      contact.setId(paramVo.getId());
+    }
+
+    if (contact.getIismain().equals("1")){
+      //修改主要联系人
+      ContactSearchVo searchVo = new ContactSearchVo();
+      searchVo.setCustomerId(paramVo.getCustomerId());
+      searchVo.setMain("1");
+      searchVo.setSize(1);
+
+      List<Contact> contacts = contactMapper.getContactList(searchVo);
+
+      if (contacts != null && contacts.size() > 0) {
+        Contact iismain = contacts.get(0);
+        iismain.setIismain(0);//设为默认
+        this.update("id", iismain.getId(), iismain, "iismain");
+      }
+    }
+  }
+
+  /**
+   * 添加 客服印象
+   * @param impressionId
+   */
+  private void convertContactServe(String impressionId, String contactId) {
+
+    ContactServe contactServe = serveMapper.findBeanBy("contactid", contactId, ContactServe.class);
+
+    if (contactServe != null) {
+      //更新
+      contactServe.setLastupdatetime(TimeUtil.currentTime());
+      contactServe.setCustomerstatusid(impressionId);
+      contactServe.setCustomerstatusname(ContactConstant.CONTACT_IMPRESSION.getKeyByType(new Integer(impressionId)));
+      serveMapper.updateBean("id", contactServe.getId(), contactServe);
+
+    }else {
+      //新增
+      ContactServe param = new ContactServe();
+      param.setId(new GetRID(Constant.COMP_CODE, contactId, Constant.IMPRESSION_MODULE_ID).getId());
+      param.setContactid(contactId);
+      param.setCustomerstatusid(impressionId);
+      param.setCustomerstatusname(ContactConstant.CONTACT_IMPRESSION.getKeyByType(new Integer(impressionId)));
+      param.setCreatetime(TimeUtil.currentTime());
+      param.setDeleteflag(0);
+
+      serveMapper.createBean(param, ContactServe.class);
+    }
+
+  }
+
+  /**
+   * 转换 多产品信息
+   * @param productParams
+   */
+  private void convertContactProduct(List<ContactServeProductParam> productParams, String contactId) {
+    List<ContactServeProduct> products =  serveProductMapper.getProductList(contactId);
+
+    if (products != null && !products.isEmpty()) {
+      //清除数据
+      for (ContactServeProduct product : products) {
+          //更新
+          product.setLastupdatetime(TimeUtil.currentTime());
+          product.setDeleteflag(1);
+          serveProductMapper.updateBean("id", product.getId(), product);
+      }
+
+    }
+
+    for (ContactServeProductParam productParam : productParams) {
+        //新增
+        addContactProductInfo(contactId, productParam);
+      }
+  }
+
+  /**
+   * 新增 多产品信息
+   */
+  private void addContactProductInfo(String contactId, ContactServeProductParam productParam) {
+    ContactServeProduct serveProduct = new ContactServeProduct();
+    serveProduct.setId(new GetRID(Constant.COMP_CODE, contactId, Constant.Serve_MODULE_ID).getId());
+    serveProduct.setContactid(contactId);//联系人id
+    serveProduct.setProductid(productParam.getProductId());
+    serveProduct.setProductname(ContactConstant.CONTACT_SERVER_PRODUCTS.getKeyByType(new Integer(productParam.getProductId())));
+    serveProduct.setProductstatusid(productParam.getProductStatusId());
+    serveProduct.setProductstatusname(ContactConstant.CONTACT_PRODUCTS.getKeyByType(new Integer(productParam.getProductStatusId())));
+    serveProduct.setCreatetime(TimeUtil.currentTime());
+    serveProduct.setDeleteflag(0);
+
+    serveProductMapper.createBean(serveProduct, ContactServeProduct.class);
+  }
+}

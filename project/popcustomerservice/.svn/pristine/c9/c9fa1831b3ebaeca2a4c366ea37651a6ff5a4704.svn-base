@@ -1,0 +1,1868 @@
+
+package com.pop136.customerservice.constant;
+
+public class Constant {
+
+	/** 商户密钥 */
+	public final static String Weixin = "matchwechatpaykey201608305108757";
+	/** */
+	public static final String SYS_ENCODING = "UTF-8";
+
+	public static final String SPRING_CONFIG_XML = "applicationContext.xml";
+
+	public static final String STRING_RESOURCES = "globalMessages";
+
+	public static final String SYS_JSON_ENCODING = "APPLICATION/JSON; CHARSET=UTF-8";
+	/** 下载标志 */
+	public static final String SYS_DOWN_LOAD = "application/x-msdownload";
+	/** 下载文件名称标志 */
+	public static final String SYS_DOWN_LOAD_FILE_NAME = "Content-Disposition";
+
+	public static final String SOFT_COMPANY = "B-PSOFT";
+
+	public static final String PROJ_NAME = "bpcrm";
+
+	public static final String PROJ_TEAM = "B-PSOFT";
+
+	public static final String LANGUAGE = "EN";
+
+	public static final String LANGUAGE_CN = "CN";
+
+	public static final String LOCCODE_CN = "CHN";
+
+	public static final String REQUEST_CONN = "kconn";
+
+	public static final String COMMON_SPOT = ".";
+
+	public static final String COMMON_SEPARATOR = ",";
+
+	public static final String COMMON_SHARP = "#";
+
+	public static final String COMMON_UNDERLINE = "_";
+
+	public static final int COMMON_DEFAULT_COLUMN_WIDTH = 100;
+
+	public static final String GOL_DEFAULT_GRPCODE = "G";
+
+	public static final String GOL_DEFAULT_ORGCODE = "O";
+
+	public static final String GOL_DEFAULT_LOCCODE = "L";
+
+	public static final int LEADTICKET_LENGTH = 10;
+
+	// public static final int GOL_NONE = 0;
+	//
+	// public static final int GOL_G = 2;
+	//
+	// public static final int GOL_GO = 4;
+	//
+	// public static final int GOL_GOL = 8;
+	//
+	// public static final int GOL_GOLR = 16;
+	//
+	// public static final int GOL_GOLRD = 32;
+
+	public static final String SEARCH_ALL = "-3";
+	public static final String SEARCH_ALL_TEXT = "ALL";
+
+	public static final String SEARCH_BLANK = "-2";
+	public static final String SEARCH_BLANK_TEXT = "";
+
+	public static final String COMMON_BLANK = " ";
+
+	/**
+	 *
+	 */
+	public static final String USER_COMMON = "userCommon";
+
+	/**
+	 *
+	 */
+	public static final String RESOURCE_KEY = "BPCRM_RESOURCE";
+
+	/** import */
+	public static final String IMPORTDATA_KEY = "importdata";
+
+	public static final String IMPORTDATAFLAG_KEY = "importflagdata";
+
+	public static final String AND = " AND ";
+
+	public static final String OR = " OR ";
+
+	public static final String LEFT_BRACKET = " ( ";
+
+	public static final String RIGHT_BRACKET = " ) ";
+
+	public static final String ISTYPE_0 = " Compose ";
+
+	public static final String ISTYPE_1 = " SQL ";
+
+	//
+	public static final String PREFIX_ID = "_ID";
+
+	public static final String PREFIX_FATHERID = "_FATHERID";
+
+	public static final String PREFIX_SEARCH = "S_";
+
+	public static final String PREFIX_STRING = "C";
+
+	public static final String PREFIX_INTEGER = "I";
+
+	public static final String PREFIX_REMARK = "X";
+
+	public static final String PREFIX_DATE = "D";
+
+	public static final String PREFIX_DATETIME = "T";
+
+	public static final String PREFIX_FLOAT = "F";
+
+	public static final String PREFIX_DECIMAL = "B";
+
+	public static final String SUFFIX_DATADOCT = "_DD_ID";
+
+	public static final String SUFFIX_DATADOCT_NAME = "_DD_NAME";
+	//
+
+	public static final String SET_PREFIX = "set";
+	public static final String GET_PERFIX = "get";
+
+	/*
+	 *
+	 */
+	public static final int DELETEFLAG_0 = 0;
+
+	public static final int DELETEFLAG_1 = 1;
+
+	//
+	public static final String COLUMNNAME_PERFIX = "columnname";
+
+	public static final String COLUMNALIASNAME_PERFIX = "columnaliasname";
+
+	public static final String COLUMNFILTER_PERFIX = "columnfilter";
+
+	/** spring配置文件中Dao ID的后缀 */
+	public static final String DAOIMPL_SUFFIX = "Dao";
+
+	public static final String SERVICEIMPL_SUFFIX = "Service";
+
+	/** 新增记录标志位 */
+	public static final int NEW_LOG_FLAG = 0;
+	/** 修改记录标志位 */
+	public static final int EDIT_LOG_FLAG = 1;
+	/** 删除记录标志位 */
+	public static final int DEL_LOG_FLAG = 2;
+	/** 关闭记录标志位 */
+	public static final int CLOSE_LOG_FLAG = 3;
+	/** 激活记录标志位 */
+	public static final int ACTIVE_LOG_FLAG = 4;
+
+	/** 代替布尔值 true */
+	public static final int YES = 1;
+
+	/** 代替布尔值 false */
+	public static final int NO = 2;
+
+	/** 组织根节点ID */
+	public static final String U00100_C_FATHERID = "-1";
+	/** 登录失败 保存错误信息 */
+	public static final String LOGIN_FAILURE_INFO = "loginFailureInfo";
+	/** 下级组织ID */
+	public static final String ORG_LFI = "LFI";
+	/** 下级组织Name */
+	public static final String ORG_LFN = "LFN";
+	/** 下级Role ID */
+	public static final String ORG_LUI = "LUI";
+	/** 下级Role Name */
+	public static final String ORG_LUN = "LUN";
+	/** 没有权限 */
+	public static final String PERMISSION_ERROR = "permissionPage";
+	public static final String CLOSE = "close";
+	public static final String FORWARD = "forward";
+	public static final String REFRESH = "refresh";
+	public static final String OWNCLOSE = "ownclose";
+	/** 回到首页 */
+	public static final String HOME = "home";
+
+	/** Action 中要控制权限的方法 Start */
+	public static final String ACTION_LIST = "list";
+	public static final String ACTION_UPDATE = "update";
+	public static final String ACTION_ADD = "add";
+	public static final String ACTION_MODIFY = "modify";
+	/** Action 中要控制权限的方法 End */
+
+	/** Action 中doAction标识符 Start */
+	public static final String ACTION_DOACTION_ADD = "add";
+	public static final String ACTION_DOACTION_UPDATE = "edit";
+	public static final String ACTION_DOACTION_DELETE = "delete";
+	public static final String ACTION_DOACTION_DELETEMORE = "deletemore";
+	public static final String ACTION_DOACTION_SAVEADVANCESEARCH = "saveAdvanceSearch";
+	public static final String ACTION_DOACTION_UPDATEADVANCESEARCH = "updateAdvanceSearch";
+	/** Action 中doAction标识符 End */
+
+	/** 系统标准菜单第一层菜单I_MENUIDX长度---->2 */
+	public static final int S08100_FIRST_I_MENUIDX = 2;
+	/** 系统标准菜单第二层菜单I_MENUIDX长度---->4 */
+	public static final int S08100_SECOND_I_MENUIDX = 4;
+
+	public static String getGOLDEFAULT() {
+		return GOLLEVEL_GRP_ORG_LOC_LOW;
+	}
+
+	public static String getConditionPrefix() {
+		return " 1=1 ";
+	}
+
+	public static final String OP_FLAG_SAVE = "S06100_C_OPFLAG_0001";
+
+	public static final String OP_FLAG_UPDATE = "S06100_C_OPFLAG_0002";
+
+	public static final String OP_FLAG_VIEW = "S06100_C_OPFLAG_0003";
+
+	public static final String OP_FLAG_SEARCH = "S06100_C_OPFLAG_0004";
+
+	// TEMP
+	public static final String CONDITIONRELATE_RELATIONTYPE_IS = "S20100_C_RELATIONTYPE_0001";
+
+	public static final String CONDITIONRELATE_RELATIONTYPE_ISNOT = "S20100_C_RELATIONTYPE_0002";
+
+	public static final String CONDITIONRELATE_RELATIONTYPE_IN = "S20100_C_RELATIONTYPE_0003";
+
+	public static final String CONDITIONRELATE_RELATIONTYPE_NOTIN = "S20100_C_RELATIONTYPE_0004";
+
+	public static final String CONDITIONRELATE_RELATIONTYPE_BEGIN = "S20100_C_RELATIONTYPE_0005";
+
+	public static final String CONDITIONRELATE_RELATIONTYPE_END = "S20100_C_RELATIONTYPE_0006";
+
+	public static final String CONDITIONRELATE_RELATIONTYPE_ISNULL = "S20100_C_RELATIONTYPE_0007";
+
+	public static final String CONDITIONRELATE_RELATIONTYPE_ISNOTNULL = "S20100_C_RELATIONTYPE_0008";
+
+	//
+	public static final String CONDITIONRELATE_TYPE_INT = "S20100_C_TYPE_0001";
+
+	public static final String CONDITIONRELATE_TYPE_STRING = "S20100_C_TYPE_0002";
+
+	public static final String CONDITIONRELATE_TYPE_DATE = "S20100_C_TYPE_0003";
+
+	public static final String CONDITIONRELATE_TYPE_DATADICT = "S20100_C_TYPE_0004";
+
+	//
+	public static final String CONDITIONRULE_ACTIONTYPE_NOACTION = "S20200_C_ACTIONTYPE_0001";
+
+	public static final String CONDITIONRULE_ACTIONTYPE_WHENADD = "S20200_C_ACTIONTYPE_0002";
+
+	public static final String CONDITIONRULE_ACTIONTYPE_WHENADDANDUPDATE = "S20200_C_ACTIONTYPE_0003";
+
+	public static final String CONDITIONRULE_ACTIONTYPE_ALL = "S20200_C_ACTIONTYPE_0004";
+
+	//
+	public static final String CONDITIONRULEDETAIL_SEARCHRELATE_AND = "S20600_C_EQUALTYPE_0001";
+
+	public static final String CONDITIONRULEDETAIL_SEARCHRELATE_OR = "S20600_C_EQUALTYPE_0002";
+
+	//
+	public static final String CONDITIONRULEDETAIL_RELATETYPE_IS = "S20600_C_RELATETYPE_0001";
+
+	public static final String CONDITIONRULEDETAIL_RELATETYPE_ISNOT = "S20600_C_RELATETYPE_0002";
+
+	public static final String CONDITIONRULEDETAIL_RELATETYPE_IN = "S20600_C_RELATETYPE_0003";
+
+	public static final String CONDITIONRULEDETAIL_RELATETYPE_NOTIN = "S20600_C_RELATETYPE_0004";
+
+	public static final String CONDITIONRULEDETAIL_RELATETYPE_BEGIN = "S20600_C_RELATETYPE_0005";
+
+	public static final String CONDITIONRULEDETAIL_RELATETYPE_END = "S20600_C_RELATETYPE_0006";
+
+	public static final String CONDITIONRULEDETAIL_RELATETYPE_ISNULL = "S20600_C_RELATETYPE_0007";
+
+	public static final String CONDITIONRULEDETAIL_RELATETYPE_ISNOTNULL = "S20600_C_RELATETYPE_0008";
+
+	public static final String CONDITIONRULEDETAIL_RELATETYPE_GREATERTHAN = "S20600_C_RELATETYPE_0009";
+
+	public static final String CONDITIONRULEDETAIL_RELATETYPE_GREATERTHANOREQUAL = "S20600_C_RELATETYPE_0010";
+
+	public static final String CONDITIONRULEDETAIL_RELATETYPE_LESSTHAN = "S20600_C_RELATETYPE_0011";
+
+	public static final String CONDITIONRULEDETAIL_RELATETYPE_LESSTHANOREQUAL = "S20600_C_RELATETYPE_0012";
+
+	public static final String CONDITIONRULEDETAIL_RELATETYPE_LIKE = "S20600_C_RELATETYPE_0013";
+
+	//
+	public static final String CONDITIONRULEAPPROVER_I_TYPE_APPROVE = "0";
+
+	public static final String CONDITIONRULEAPPROVER_I_TYPE_COMMENTS = "1";
+
+	public static final String CONDITIONRULEAPPROVER_I_TYPE_SYSTEMMSG = "2";
+
+	public static final String CONDITIONRULEAPPROVER_I_TYPE_EMAILMSG = "3";
+
+	public static final String CONDITIONRULEAPPROVER_I_TYPE_MSMSG = "4";
+
+	//
+	public static final String CONDITIONRULEAPPROVELINK_I_CURRENT_CURRENT = "0";
+
+	public static final String CONDITIONRULEAPPROVELINK_I_CURRENT_LASTEST = "1";
+
+	//
+	public static final String APPROVE_I_TYPE_APPROVE = "0";
+
+	public static final String APPROVE_I_TYPE_COMMENTS = "1";
+
+	//
+	public static final String APPROVE_I_CURRENT_CURRENT = "0";
+
+	public static final String APPROVE_I_CURRENT_LASTEST = "1";
+
+	//
+	public static final String APPROVELINK_I_CURRENTLEVEL_ISCURRENT = "1";
+
+	public static final String APPROVELINK_I_CURRENTLEVEL_ISLASTEST = "0";
+
+	//
+	public static final String AGENT_APPROVEAGENT = "U20100_C_TYPE_0001";
+	public static final String AGENT_CREATE = "U20100_C_TYPE_0002";
+
+	//
+	public static final String APPROVE_STATUS_NULL = "A20100_C_STATUS_0001";
+
+	public static final String APPROVER_STATUS_SUBMITTED = "A20100_C_STATUS_0002";
+
+	public static final String APPROVE_STATUS_APPROVING = "A20100_C_STATUS_0003";
+
+	public static final String APPROVE_STATUS_APPROVED = "A20100_C_STATUS_0004";
+
+	public static final String APPROVE_STATUS_REJECT = "A20100_C_STATUS_0005";
+
+	public static final String APPROVE_STATUS_CLOSED = "A20100_C_STATUS_0006";
+
+	public static final String APPROVE_STATUS_WITHDRAW = "A20100_C_STATUS_0007";
+
+	//
+	public static final String APPROVECOMMENTS_STATUS_TEMPSAVE = "A20200_C_STATUS_0001";
+
+	public static final String APPROVECOMMENTS_STATUS_SUBMIT = "A20200_C_STATUS_0002";
+
+	public static final String APPROVECOMMENTS_STATUS_APPROVED = "A20200_C_STATUS_0003";
+
+	public static final String APPROVECOMMENTS_STATUS_REJECT = "A20200_C_STATUS_0004";
+
+	// 字段类型0:文本,1:数字,2:checkbox,3:radiobox,4:textarea,5:autocomplete;6:picker
+	public static final String COLUMN_COLUMNTYPE_TEXT = "S06400_C_COLUMNTYPE_0001";
+	public static final String COLUMN_COLUMNTYPE_NUMBER = "S06400_C_COLUMNTYPE_0002";
+	public static final String COLUMN_COLUMNTYPE_CHECKBOX = "S06400_C_COLUMNTYPE_0003";
+	public static final String COLUMN_COLUMNTYPE_RADIOBOX = "S06400_C_COLUMNTYPE_0004";
+	public static final String COLUMN_COLUMNTYPE_TEXTAREA = "S06400_C_COLUMNTYPE_0005";
+	public static final String COLUMN_COLUMNTYPE_AUTOCOMPLETE = "S06400_C_COLUMNTYPE_0006";
+	public static final String COLUMN_COLUMNTYPE_PICKER = "S06400_C_COLUMNTYPE_0007";
+	public static final String COLUMN_COLUMNTYPE_SELECTOR = "S06400_C_COLUMNTYPE_0008";
+	public static final String COLUMN_COLUMNTYPE_DATEPICKER = "S06400_C_COLUMNTYPE_0009";
+	public static final String COLUMN_COLUMNTYPE_NUMBERRANGE = "S06400_C_COLUMNTYPE_0010";
+	public static final String COLUMN_COLUMNTYPE_DATERANGE = "S06400_C_COLUMNTYPE_0011";
+
+	// 模块类别
+	public static final String COMPONENTMAPPING_USETYPE_SERVICE_COMPONENTGROUP = "S08100_C_USETYPE_0000";
+	public static final String COMPONENTMAPPING_USETYPE_SERVICE_COMPONENT = "S08100_C_USETYPE_0001";
+	public static final String COMPONENTMAPPING_USETYPE_SETTING_COMPONENT = "S08100_C_USETYPE_0002";
+	public static final String COMPONENTMAPPING_USETYPE_DATADICTTREE_COMPONENT = "S08100_C_USETYPE_0003";
+	public static final String COMPONENTMAPPING_USETYPE_UNIQUE_COMPONENT = "S08100_C_USETYPE_0004";
+	public static final String COMPONENTMAPPING_USETYPE_CONDITIONRULE_COMPONENT = "S08100_C_USETYPE_0005";
+	public static final String COMPONENTMAPPING_USETYPE_RIGHTTYPE_COMPONENT = "S08100_C_USETYPE_0006";
+
+	/** 必填项不能匹配值YES */
+	public static final String UNIQUE_NOTMATCHFLAG_YES = "S15100_C_NOTMATCHFLAG_0001";
+	/** 必填项不能匹配值NO */
+	public static final String UNIQUE_NOTMATCHFLAG_NO = "S15100_C_NOTMATCHFLAG_0002";
+	/** 必填项必须匹配值YES */
+	public static final String UNIQUE_MATCHFLAG_YES = "S15100_C_MATCHFLAG_0001";
+	/** 必填项必须匹配值NO */
+	public static final String UNIQUE_MATCHFLAG_NO = "S15100_C_MATCHFLAG_0002";
+
+	/** 数据字典是否为空，0:有为空；1:不能为空 */
+	public static final String DATADICTTREE_BLANK_YES = "S10100_C_BLANK_0001";
+	/** 数据字典是否为空，0:有为空；1:不能为空 */
+	public static final String DATADICTTREE_BLANK_NO = "S10100_C_BLANK_0002";
+
+	// 0：组装 1：from后的参数 2：where后的关联关系 3：sql
+	public static final String USERSEARCHDETAIL_COMPONENT = "U24200_C_TYPE_0001";
+	public static final String USERSEARCHDETAIL_AFTERFROM = "U24200_C_TYPE_0002";
+	public static final String USERSEARCHDETAIL_AFTERWHERE = "U24200_C_TYPE_0003";
+	public static final String USERSEARCHDETAIL_SQL = "U24200_C_TYPE_0004";
+
+	// 0:AND; 1:OR
+	public static final String USERSEARCHDETAIL_AND = "U24200_C_ANDOR_0001";
+	public static final String USERSEARCHDETAIL_OR = "U24200_C_ANDOR_0002";
+
+	// 0:= 1:LIKE 2:> 3:<
+	public static final String USERSEARCHDETAIL_EQUALRELATE_EQUAL = "U24200_C_EQUALRELATE_0001";
+	public static final String USERSEARCHDETAIL_EQUALRELATE_LIKE = "U24200_C_EQUALRELATE_0002";
+	public static final String USERSEARCHDETAIL_EQUALRELATE_BIG = "U24200_C_EQUALRELATE_0003";
+	public static final String USERSEARCHDETAIL_EQUALRELATE_SMALL = "U24200_C_EQUALRELATE_0004";
+
+	// 0:AND; 1:OR
+	public static final String USERCOLUMNDETAIL_AND = "U25300_C_ANDOR_0001";
+	public static final String USERCOLUMNDETAIL_OR = "U25300_C_ANDOR_0002";
+
+	// 0:= 1:LIKE 2:> 3:<
+	public static final String USERCOLUMNDETAIL_EQUALRELATE_EQUAL = "U25300_C_EQUALRELATE_0001";
+	public static final String USERCOLUMNDETAIL_EQUALRELATE_LIKE = "U25300_C_EQUALRELATE_0002";
+	public static final String USERCOLUMNDETAIL_EQUALRELATE_BIG = "U25300_C_EQUALRELATE_0003";
+	public static final String USERCOLUMNDETAIL_EQUALRELATE_SMALL = "U25300_C_EQUALRELATE_0004";
+
+	// 0：手写sql 1：页面中输入的detial 2：页面直接获取元素
+	public static final String USERCOLUMN_TYPE_SQL = "U25300_C_TYPE_0001";
+	public static final String USERCOLUMN_TYPE_DETAIL = "U25300_C_TYPE_0002";
+	public static final String USERCOLUMN_TYPE_PAGE = "U25300_C_TYPE_0003";
+
+	//
+	public static final String USERROLE_MAINTYPE_YES = "U05100_C_MAINTYPE_0001";
+	public static final String USERROLE_MAINTYPE_NO = "U05100_C_MAINTYPE_0002";
+
+	// 第一次登陆 是
+	public static final String USERROLE_FIRSTLOGIN_YES = "U03100_C_FIRSTLOGIN_0000";
+	public static final String USERROLE_FIRSTLOGIN_NO = "U03100_C_FIRSTLOGIN_0001";
+
+	// 初始视图0:是 ;1:否
+	public static final String USERVIEW_DEFAULTVIEW_YES = "U24100_C_DEFAULTVIEW_0001";
+	public static final String USERVIEW_DEFAULTVIEW_NO = "U24100_C_DEFAULTVIEW_0002";
+
+	// 高级视图0:是 ;1:否
+	public static final String USERVIEW_ADVANCEVIEW_YES = "U24100_C_ADVANCEVIEW_0001";
+	public static final String USERVIEW_ADVANCEVIEW_NO = "U24100_C_ADVANCEVIEW_0002";
+
+	// 首页视图0:是 ;1:否
+	public static final String USERVIEW_DESKTOPTVIEW_YES = "U24100_C_DEFAULTVIEW_0001";
+	public static final String USERVIEW_DESKTOPTVIEW_NO = "U24100_C_DEFAULTVIEW_0002";
+
+	// 首页视图0:模块默认字段；1:用户定义字段
+	public static final String USERCOLUMN_TYPE_YES = "U25100_C_TYPE_0001";
+	public static final String USERCOLUMN_TYPE_NO = "U25100_C_TYPE_0002";
+
+	// 是否主Role
+	public static final String USERROLE_MAINROLE_YES = "U05100_C_MAINTYPE_0001";
+	public static final String USERROLE_MAINROLE_NO = "U05100_C_MAINTYPE_0002";
+
+	// 维度都不加，只加上下级
+	public static final String GOLLEVEL_LOW = "S01000_C_GOLLEVEL_0001";
+	// 只加grpcode，只加上下级
+	public static final String GOLLEVEL_GRP_LOW = "S01000_C_GOLLEVEL_0002";
+	// 只加grpcode 和 orgcode 只加上下级
+	public static final String GOLLEVEL_GRP_ORG_LOW = "S01000_C_GOLLEVEL_0003";
+	// 只加grpcode 和 orgcode 和 loccode 只加上下级
+	public static final String GOLLEVEL_GRP_ORG_LOC_LOW = "S01000_C_GOLLEVEL_0004";
+	// 只加grpcode 和 orgcode 和 loccode 和 regcode 只加上下级
+	public static final String GOLLEVEL_GRP_ORG_LOC_REG_LOW = "S01000_C_GOLLEVEL_0005";
+	// 只加grpcode 和 orgcode 和 loccode 和 regcode 和 regcode 只加上下级
+	public static final String GOLLEVEL_GRP_ORG_LOC_REG_DEP_LOW = "S01000_C_GOLLEVEL_0006";
+	// 维度都不加, 不加上下级
+	public static final String GOLLEVEL_NONE_NONELOW = "S01000_C_GOLLEVEL_0007";
+	// 只加grpcode, 不加上下级
+	public static final String GOLLEVEL_GRP_NONELOW = "S01000_C_GOLLEVEL_0008";
+	// 只加grpcode 和 orgcode, 不加上下级
+	public static final String GOLLEVEL_GRP_ORG_NONELOW = "S01000_C_GOLLEVEL_0009";
+	// 只加grpcode 和 orgcode 和 loccode 不加上下级
+	public static final String GOLLEVEL_GRP_ORG_LOC_NONELOW = "S01000_C_GOLLEVEL_0010";
+	// 只加grpcode 和 orgcode 和 loccode 和 regcode 不加上下级
+	public static final String GOLLEVEL_GRP_ORG_LOC_REG_NONELOW = "S01000_C_GOLLEVEL_0011";
+	// 只加grpcode 和 orgcode 和 loccode 和 regcode 和 regcode 不加上下级
+	public static final String GOLLEVEL_GRP_ORG_LOC_REG_DEP_NONELOW = "S01000_C_GOLLEVEL_0012";
+
+	public static final String USERROLE_FRAMEWORKTYPE_NO = "userrole_frameworktype_0001";
+
+	public static final String USERROLE_FRAMEWORKTYPE_YES = "userrole_frameworktype_0002";
+
+	// U
+	public static final String USERROLE_DEPARTMENTTYPE_NO = "userrole_departmenttype_0001";
+
+	public static final String USERROLE_DEPARTMENTTYPE_YES = "userrole_departmenttype_0002";
+
+	//
+	public static final String USERROLE_REGIONTYPE_NO = "userrole_regiontype_0001";
+
+	public static final String USERROLE_REGIONTYPE_YES = "userrole_regiontype_0002";
+
+	/** 初始化card */
+	public static final String USERCARD_TYPE_INIT = "U22200_C_TYPE_0001";
+	/** 用户card */
+	public static final String USERCARD_TYPE_OWNER = "U22200_C_TYPE_0002";
+
+	/** 数据字典多层结构 */
+	public static final String DATADICTTREE_MULTILEVEL_YES = "S10100_C_MULTILEVEL_0001";
+	/** 数据字典多层结构 */
+	public static final String DATADICTTREE_MULTILEVEL_NO = "S10100_C_MULTILEVEL_0002";
+
+	/** 数据字典是否显示 */
+	public static final String DATADICTTREE_NORMAL_NO = "S10100_C_NORMAL_0001";
+	/** 数据字典是否显示 */
+	public static final String DATADICTTREE_NORMAL_YES = "S10100_C_NORMAL_0002";
+
+	/** 用户新增card */
+	public static final String ACTION_SETTING_ADD = "setting_add";
+	/** 用户修改card */
+	public static final String ACTION_SETTING_UPDATE = "setting_update";
+
+	// 0:系统；1：操作；2模块
+	public static final String COLUMN_TYPE_SYSTEM = "S04100_C_TYPECODE_0001";
+
+	public static final String COLUMN_TYPE_OP = "S04100_C_TYPECODE_0002";
+
+	public static final String COLUMN_TYPE_INFO = "S04100_C_TYPECODE_0003";
+
+	public static final String COLUMN_TYPE_MODULE = "S04100_C_TYPECODE_0004";
+
+	// 多媒体类型 1：服务号 2：订阅号 3:企业号
+	public static final String SOCIALMEDIA_TYPE_WEIXINFUWUHAO = "S27100_C_TYPE_0001";
+
+	public static final String SOCIALMEDIA_TYPE_WEIXINDINGYUEHAO = "S27100_C_TYPE_0002";
+
+	public static final String SOCIALMEDIA_TYPE_WEIXINQIYEHAO = "S27100_C_TYPE_0003";
+
+	// 多媒体状态 1：认证的 2：未认证的
+	public static final String SOCIALMEDIA_STATUS_WEIXINCONFIRM = "S27100_C_STATUS_0001";
+
+	public static final String SOCIALMEDIA_STATUS_WEIXINNOTCONFIRM = "S27100_C_STATUS_0002";
+
+	// 多媒体消息 1：文本 2：图片
+	public static final String SOCIALCONTENT_TYPE_TEXT = "S27200_C_TYPE_0001";
+
+	public static final String SOCIALCONTENT_TYPE_IMAGE = "S27200_C_TYPE_0002";
+
+	// 多媒体消息状态 1：准备 2;成功 3：失败
+	public static final String SOCIALCONTENT_STATUS_PANDING = "S27200_C_STATUS_0001";
+
+	public static final String SOCIALCONTENT_STATUS_SUCCESS = "S27200_C_STATUS_0002";
+
+	public static final String SOCIALCONTENT_STATUS_ERROR = "S27200_C_STATUS_0003";
+
+	// 多媒体接受对象 1：待接入 2：已接入 3：关闭
+	public static final String SOCIALOBJECT_STATUS_PANDING = "S27300_C_STATUS_0001";
+
+	public static final String SOCIALOBJECT_STATUS_GOT = "S27300_C_STATUS_0002";
+
+	public static final String SOCIALOBJECT_STATUS_CLOSE = "S27300_C_STATUS_0003";
+
+	// 多媒体粉丝 1：关注 2：取消关注
+	public static final String SOCIALFOLLOWER_STATUS_NORMAL = "S27400_C_STATUS_0001";
+
+	public static final String SOCIALFOLLOWER_STATUS_OUT = "S27400_C_STATUS_0002";
+
+	// 分配策略--最大接入人数 类别 1：服务号, 2：企业号
+	public static final String ALLOCATION_MAXRECEIVENUM_TYPE_FUWUHAO = "S27500_C_TYPE_0001";
+
+	public static final String ALLOCATION_MAXRECEIVENUM_TYPE_QIYEHAO = "S27500_C_TYPE_0002";
+
+	// 分配策略--最大接入人数 状态 1：生效 2：失效
+	public static final String ALLOCATION_MAXRECEIVENUM_STATUS_ENABLE = "S27500_C_STATUS_0001";
+
+	public static final String ALLOCATION_MAXRECEIVENUM_STATUS_DISABLE = "S27500_C_STATUS_0002";
+
+	// 话务员在线状态 1：离线 2：在线
+	public static final String USERFOLLOWER_STATUS_OFFLINE = "U27200_C_STATUS_0001";
+
+	public static final String USERFOLLOWER_STATUS_ONLINE = "U27200_C_STATUS_0002";
+
+	// 工单状态 1：前台坐席 2：派单员 3：二级部门 4:二级部门协办 5：三级部门 6：复核员 7：退单审核员 8：归档员 9：完成
+	public static final String WORKSHEET_STATUS_001 = "A30100_C_STATUS_0001";
+
+	public static final String WORKSHEET_STATUS_002 = "A30100_C_STATUS_0002";
+
+	public static final String WORKSHEET_STATUS_003 = "A30100_C_STATUS_0003";
+
+	public static final String WORKSHEET_STATUS_004 = "A30100_C_STATUS_0004";
+
+	public static final String WORKSHEET_STATUS_005 = "A30100_C_STATUS_0005";
+
+	public static final String WORKSHEET_STATUS_006 = "A30100_C_STATUS_0006";
+
+	public static final String WORKSHEET_STATUS_007 = "A30100_C_STATUS_0007";
+
+	public static final String WORKSHEET_STATUS_008 = "A30100_C_STATUS_0008";
+
+	public static final String WORKSHEET_STATUS_009 = "A30100_C_STATUS_0009";
+
+	/**
+	 * 社交媒体管理A501 类型 0：微信订阅号,1：微信服务号,2：微信企业号,3：支付宝,4：新浪微博,5：腾讯微博,6：易信,7：来往,8：微淘
+	 */
+	// 0：微信订阅号
+	public static final String SOCIALMEDIACONFIG_TYPE_WEIXINDINGYUEHAO = "A50100_C_TYPE_0000";
+
+	// 1：微信服务号
+	public static final String SOCIALMEDIACONFIG_TYPE_WEIXINFUWUHAO = "A50100_C_TYPE_0001";
+
+	// 2：微信企业号
+	public static final String SOCIALMEDIACONFIG_TYPE_WEIXINQIYEHAO = "A50100_C_TYPE_0002";
+
+	// 3：支付宝
+	public static final String SOCIALMEDIACONFIG_TYPE_ZHIFUBAO = "A50100_C_TYPE_0003";
+
+	// 4：新浪微博
+	public static final String SOCIALMEDIACONFIG_TYPE_XINLANGWEIBO = "A50100_C_TYPE_0004";
+
+	// 5：腾讯微博
+	public static final String SOCIALMEDIACONFIG_TYPE_TENGXUNWEIBO = "A50100_C_TYPE_0005";
+
+	// 6：易信
+	public static final String SOCIALMEDIACONFIG_TYPE_YIXIN = "A50100_C_TYPE_0006";
+
+	// 7：来往
+	public static final String SOCIALMEDIACONFIG_TYPE_LAIWANG = "A50100_C_TYPE_0007";
+
+	// 8：微淘
+	public static final String SOCIALMEDIACONFIG_TYPE_WEITAO = "A50100_C_TYPE_0008";
+
+	/**
+	 * 社交媒体管理A501 状态 0:普通 1：认证
+	 */
+	// 0:普通
+	public static final String SOCIALMEDIACONFIG_STATUS_PUTONG = "A50100_C_STATUS_0000";
+
+	// 1：认证
+	public static final String SOCIALMEDIACONFIG_STATUS_RENZHENG = "A50100_C_STATUS_0001";
+
+	/**
+	 * 社交媒体管理A501 消息加解密方式 0：明文模式 1：兼容模式 2：安全模式
+	 */
+	// 0：明文模式
+	public static final String SOCIALMEDIACONFIG_ENCODINGTYPE_MINGWENMOSHU = "A50100_C_ENCODINGTYPE_0000";
+
+	// 1：兼容模式
+	public static final String SOCIALMEDIACONFIG_ENCODINGTYPE_JIANRONGMOSHU = "A50100_C_ENCODINGTYPE_0001";
+
+	// 2：安全模式
+	public static final String SOCIALMEDIACONFIG_ENCODINGTYPE_ANQUANMOSHU = "A50100_C_ENCODINGTYPE_0002";
+
+	/**
+	 * 粉丝管理A502 性别 0：男 1：女
+	 */
+	// 0：男
+	public static final String SOCIALFOLLOWER_GENDER_MAN = "A50200_C_GENDER_0000";
+
+	// 1：女
+	public static final String SOCIALFOLLOWER_GENDER_WOMAN = "A50200_C_GENDER_0001";
+
+	/**
+	 * 粉丝管理A502 来源 0：微信 1：微博
+	 */
+	// 0：微信
+	public static final String SOCIALFOLLOWER_SOURCE_WEIXIN = "A50200_C_SOURCE_0000";
+
+	// 1：微博
+	public static final String SOCIALFOLLOWER_SOURCE_WEIBO = "A50200_C_SOURCE_0001";
+
+	/**
+	 * 粉丝管理 A502 类型 0:未注册 1:已注册
+	 */
+	// 0:未注册
+	public static final String SOCIALFOLLOWER_TYPE_UNREGISTERED = "A50200_C_TYPE_0000";
+
+	// 1:已注册
+	public static final String SOCIALFOLLOWER_TYPE_REGISTERED = "A50200_C_TYPE_0001";
+
+	/**
+	 * 粉丝管理 A502 状态 0：关注 1：取消关注
+	 */
+	// 0：关注
+	public static final String SOCIALFOLLOWER_STATUS_ATTENTION = "A50200_C_STATUS_0000";
+
+	// 1：取消关注
+	public static final String SOCIALFOLLOWER_STATUS_UNATTENTION = "A50200_C_STATUS_0001";
+
+	// 2：未关注
+	public static final String SOCIALFOLLOWER_STATUS_NOT = "A50200_C_STATUS_0002";
+	/**
+	 * 优惠券管理 A503 类型 0：折扣券 1：代金券 2：礼品券
+	 */
+	// 0：折扣券
+	public static final String SOCIALSUBSCRIBER_TYPE_ZHEKOUQUAN = "A50300_C_TYPE_0000";
+
+	// 1：代金券
+	public static final String SOCIALSUBSCRIBER_TYPE_DAIJINQUAN = "A50300_C_TYPE_0001";
+
+	// 2：礼品券
+	public static final String SOCIALSUBSCRIBER_TYPE_LIPINGQUAN = "A50300_C_TYPE_0002";
+
+	/**
+	 * 优惠券管理 A503 状态 0：有效 1：无效
+	 */
+	// 0：有效
+	public static final String SOCIALSUBSCRIBER_STATUS_VALID = "A50300_C_STATUS_0000";
+
+	// 1：无效
+	public static final String SOCIALSUBSCRIBER_STATUS_INVALID = "A50300_C_STATUS_0001";
+
+	/**
+	 * 二维码 A504 类型 0：线上 1：线下 2：其他
+	 */
+	// 0：线上
+	public static final String SOCIALTICKET_TYPE_ONLINE = "A50400_C_TYPE_0000";
+
+	// 1：线下
+	public static final String SOCIALTICKET_TYPE_LINE = "A50400_C_TYPE_0001";
+
+	// 2：其他
+	public static final String SOCIALTICKET_TYPE_OTHERS = "A50400_C_TYPE_0002";
+
+	/**
+	 * 粉丝会话管理 A505 消息类型 0：text 1：link 2：event 3：image 4：location
+	 */
+	// 0：text
+	public static final String SOCIALCONTENT_MSGTYPE_TEXT = "A50500_C_MSGTYPE_0000";
+
+	// 1：link
+	public static final String SOCIALCONTENT_MSGTYPE_LINK = "A50500_C_MSGTYPE_0001";
+
+	// 2：event
+	public static final String SOCIALCONTENT_MSGTYPE_EVENT = "A50500_C_MSGTYPE_0002";
+
+	// 3：image
+	public static final String SOCIALCONTENT_MSGTYPE_IMAGE = "A50500_C_MSGTYPE_0003";
+
+	// 4：location
+	public static final String SOCIALCONTENT_MSGTYPE_LOCATION = "A50500_C_MSGTYPE_0001";
+
+	/**
+	 * 粉丝会话管理 A505 发送状态 0：等待发送 1：发送成功 2：发送失败
+	 */
+	// 0：等待发送
+	public static final String SOCIALCONTENT_STATUS_WAITSEND = "A50500_C_STATUS_0000";
+
+	// 1：发送成功
+	public static final String SOCIALCONTENT_STATUS_SENDSUCCESS = "A50500_C_STATUS_0001";
+
+	// 2：发送失败
+	public static final String SOCIALCONTENT_STATUS_SENDFAIL = "A50500_C_STATUS_0002";
+
+	/**
+	 * 粉丝会话管理 A505 发送类型 0：接收 1：发送
+	 */
+	// 0：接收
+	public static final String SOCIALCONTENT_TYPE_RECEIVE = "A50500_C_TYPE_0000";
+
+	// 1：发送
+	public static final String SOCIALCONTENT_TYPE_SEND = "A50500_C_TYPE_0001";
+
+	/**
+	 * 优惠券使用明细 A506 类型 0：礼品券 1：代金券 2：折扣券
+	 */
+	// 0：礼品券
+	public static final String SOCIALSCRIBER_TYPE_LIPINGQUAN = "A50600_C_TYPE_0000";
+
+	// 1：代金券
+	public static final String SOCIALSCRIBER_TYPE_DAIJINQUAN = "A50600_C_TYPE_0001";
+
+	// 2：折扣券
+	public static final String SOCIALSCRIBER_TYPE_ZHEKOUQUAN = "A50600_C_TYPE_0002";
+
+	/**
+	 * 优惠券使用明细 A506 状态 0：未使用 1：已使用
+	 */
+	// 0：未使用
+	public static final String SOCIALSCRIBER_STATUS_WEISHIYONG = "A50600_C_STATUS_0000";
+
+	// 1：已使用
+	public static final String SOCIALSCRIBER_STATUS_YISHIYONG = "A50600_C_STATUS_0001";
+
+	/**
+	 * 客服机器人内容 A508 类别 0：动态文字 1：文字 2：错误提醒 3：静态图文 4：动态页面 5：动态接口 6：信息发布 7：多客服接入
+	 */
+	// 0：动态文字
+	public static final String SOCIALLEVEL_TYPE_DONGTAIWENZI = "A50800_C_TYPE_0000";
+
+	// 1：文字
+	public static final String SOCIALLEVEL_TYPE_WENZI = "A50800_C_TYPE_0001";
+
+	// 2：错误提醒
+	public static final String SOCIALLEVEL_TYPE_CUOWUTIXING = "A50800_C_TYPE_0002";
+
+	// 3：静态图文
+	public static final String SOCIALLEVEL_TYPE_JINGTAITUWEN = "A50800_C_TYPE_0003";
+
+	// 4：动态页面
+	public static final String SOCIALLEVEL_TYPE_DONGTAIYEMIAN = "A50800_C_TYPE_0004";
+
+	// 5：动态接口
+	public static final String SOCIALLEVEL_TYPE_DONGTAIJIEKOU = "A50800_C_TYPE_0005";
+
+	// 6：信息发布
+	public static final String SOCIALLEVEL_TYPE_XINXIFABU = "A50800_C_TYPE_0006";
+
+	// 7：多客服接入
+	public static final String SOCIALLEVEL_TYPE_DUOKEFU = "A50800_C_TYPE_0007";
+
+	/**
+	 * 客服机器人内容 A508 子类别 0：产品 1：优惠券 2：我的优惠券 3：积分 4：随机密码 5：大转盘 6：刮刮卡 7：砸金蛋 8：翻翻乐
+	 * 9：自动定位
+	 */
+	// 0：产品
+	public static final String SOCIALLEVEL_SUBTYPE_PRODUCT = "A50800_C_SUBTYPE_0000";
+
+	// 1：优惠券
+	public static final String SOCIALLEVEL_SUBTYPE_COUPON = "A50800_C_SUBTYPE_0001";
+
+	// 2：我的优惠券
+	public static final String SOCIALLEVEL_SUBTYPE_MYCOUPON = "A50800_C_SUBTYPE_0002";
+
+	// 3：积分
+	public static final String SOCIALLEVEL_SUBTYPE_INTEGRATE = "A50800_C_SUBTYPE_0003";
+
+	// 4：随机密码
+	public static final String SOCIALLEVEL_SUBTYPE_RANDOMPASSWORD = "A50800_C_SUBTYPE_0004";
+
+	// 5：大转盘
+	public static final String SOCIALLEVEL_SUBTYPE_TURNTABLE = "A50800_C_SUBTYPE_0005";
+
+	// 6：刮刮卡
+	public static final String SOCIALLEVEL_SUBTYPE_SCRATCHCARD = "A50800_C_SUBTYPE_0006";
+
+	// 7：砸金蛋
+	public static final String SOCIALLEVEL_SUBTYPE_BREAKEGG = "A50800_C_SUBTYPE_0007";
+
+	// 8：翻翻乐
+	public static final String SOCIALLEVEL_SUBTYPE_LOOKING = "A50800_C_SUBTYPE_0008";
+
+	// 9：自动定位
+	public static final String SOCIALLEVEL_SUBTYPE_AUTOPOSITION = "A50800_C_SUBTYPE_0009";
+
+	/**
+	 * 客服机器人内容 A508 状态 0：page 1：sql 2：error 3：welcome
+	 */
+	// 0：page
+	public static final String SOCIALLEVEL_STATUS_PAGE = "A50800_C_STATUS_0000";
+
+	// 1：sql
+	public static final String SOCIALLEVEL_STATUS_SQL = "A50800_C_STATUS_0001";
+
+	// 2：error
+	public static final String SOCIALLEVEL_STATUS_ERROR = "A50800_C_STATUS_0002";
+
+	// 3：welcome
+	public static final String SOCIALLEVEL_STATUS_WELCOME = "A50800_C_STATUS_0003";
+
+	/**
+	 * 客服机器人明细 A509 页面模板 0：无 1：标准页面 2：预约/订单页面 3：带序列号预约/订单页面 4：带序列号转增页面
+	 * 5:带邀约码分享页面 6:邀约好友计数排名页面 7:服务受理页面 8:投诉受理页面 9:邀约码验证页面 10:会员卡绑定页面 11:微信验证页面
+	 * 12:电子会员卡页面 13:客户信息修改页面 14:我的积分 15:领取优惠券 16:音频页面 17:视频页面 18:留言板 19：会员注册
+	 * 20：预约页面 21：投票管理 22:限时抢购 23:邀请 24:贺卡 25:在线购物 26:标准信息发布1 27:标准信息发布2
+	 * 28:标准信息发布3 29:标准信息发布4 30:标准信息发布5 31:标准信息发布6 32:标准信息发布7 33:标准信息发布8
+	 * 34:标准信息发布9 35:标准信息发布10
+	 */
+	// 0：无
+	public static final String SOCIALLEVELDETAIL_TYPE_WU = "A50900_C_TYPE_0000";
+
+	// 1：标准页面
+	public static final String SOCIALLEVELDETAIL_TYPE_STANDARD = "A50900_C_TYPE_0001";
+
+	// 2：预约/订单页面
+	public static final String SOCIALLEVELDETAIL_TYPE_BOOKORDER = "A50900_C_TYPE_0002";
+
+	// 3：带序列号预约/订单页面
+	public static final String SOCIALLEVELDETAIL_TYPE_SERIALNOBOOK = "A50900_C_TYPE_0003";
+
+	// 4：带序列号转增页面
+	public static final String SOCIALLEVELDETAIL_TYPE_SERIALNOADD = "A50900_C_TYPE_0004";
+
+	// 5:带邀约码分享页面
+	public static final String SOCIALLEVELDETAIL_TYPE_INVITATIONCODE = "A50900_C_TYPE_0005";
+
+	// 6:邀约好友计数排名页面
+	public static final String SOCIALLEVELDETAIL_TYPE_INVITATEFRIEND = "A50900_C_TYPE_0006";
+
+	// 7:服务受理页面
+	public static final String SOCIALLEVELDETAIL_TYPE_SERVICE = "A50900_C_TYPE_0007";
+
+	// 8:投诉受理页面
+	public static final String SOCIALLEVELDETAIL_TYPE_COMPLAINSERVICE = "A50900_C_TYPE_0008";
+
+	// 9:邀约码验证页面
+	public static final String SOCIALLEVELDETAIL_TYPE_VALIDATEINVITATIONCODE = "A50900_C_TYPE_0009";
+
+	// 10:会员卡绑定页面
+	public static final String SOCIALLEVELDETAIL_TYPE_BINDINGLEADCARD = "A50900_C_TYPE_0010";
+
+	// 11:微信验证页面
+	public static final String SOCIALLEVELDETAIL_TYPE_VALIDATEWEICHAT = "A50900_C_TYPE_0011";
+
+	// 12:电子会员卡页面
+	public static final String SOCIALLEVELDETAIL_TYPE_ELECTRONICCARD = "A50900_C_TYPE_0012";
+
+	// 13:客户信息修改页面
+	public static final String SOCIALLEVELDETAIL_TYPE_UPDATELEADINFO = "A50900_C_TYPE_0013";
+
+	// 14:我的积分
+	public static final String SOCIALLEVELDETAIL_TYPE_MYPOINTS = "A50900_C_TYPE_0014";
+
+	// 15:领取优惠券
+	public static final String SOCIALLEVELDETAIL_TYPE_RECEIVECOUPONS = "A50900_C_TYPE_0015";
+
+	// 16:音频页面
+	public static final String SOCIALLEVELDETAIL_TYPE_AUDIOFREQUENCY = "A50900_C_TYPE_0016";
+
+	// 17:视频页面
+	public static final String SOCIALLEVELDETAIL_TYPE_VIDEO = "A50900_C_TYPE_0017";
+
+	// 18:留言板
+	public static final String SOCIALLEVELDETAIL_TYPE_MESSAGEBOARD = "A50900_C_TYPE_0018";
+
+	// 19：会员注册
+	public static final String SOCIALLEVELDETAIL_TYPE_MEMBERREGISTRATION = "A50900_C_TYPE_0019";
+
+	// 20：预约页面
+	public static final String SOCIALLEVELDETAIL_TYPE_BOOK = "A50900_C_TYPE_0020";
+
+	// 21：投票管理
+	public static final String SOCIALLEVELDETAIL_TYPE_VOTE = "A50900_C_TYPE_0021";
+
+	// 22:限时抢购
+	public static final String SOCIALLEVELDETAIL_TYPE_FLASHSALE = "A50900_C_TYPE_0022";
+
+	// 23:邀请
+	public static final String SOCIALLEVELDETAIL_TYPE_INVITE = "A50900_C_TYPE_0023";
+
+	// 24:贺卡
+	public static final String SOCIALLEVELDETAIL_TYPE_GREETINGCARD = "A50900_C_TYPE_0024";
+
+	// 25:在线购物
+	public static final String SOCIALLEVELDETAIL_TYPE_SHOPPINGONLINE = "A50900_C_TYPE_0025";
+
+	// 26:标准信息发布1
+	public static final String SOCIALLEVELDETAIL_TYPE_STANDARDINFO1 = "A50900_C_TYPE_0026";
+
+	// 27:标准信息发布2
+	public static final String SOCIALLEVELDETAIL_TYPE_STANDARDINFO2 = "A50900_C_TYPE_0027";
+
+	// 28:标准信息发布3
+	public static final String SOCIALLEVELDETAIL_TYPE_STANDARDINFO3 = "A50900_C_TYPE_0028";
+
+	// 29:标准信息发布4
+	public static final String SOCIALLEVELDETAIL_TYPE_STANDARDINFO4 = "A50900_C_TYPE_0029";
+
+	// 30:标准信息发布5
+	public static final String SOCIALLEVELDETAIL_TYPE_STANDARDINFO5 = "A50900_C_TYPE_0030";
+
+	// 31:标准信息发布6
+	public static final String SOCIALLEVELDETAIL_TYPE_STANDARDINFO6 = "A50900_C_TYPE_0031";
+
+	// 32:标准信息发布7
+	public static final String SOCIALLEVELDETAIL_TYPE_STANDARDINFO7 = "A50900_C_TYPE_0032";
+
+	// 33:标准信息发布8
+	public static final String SOCIALLEVELDETAIL_TYPE_STANDARDINFO8 = "A50900_C_TYPE_0033";
+
+	// 34:标准信息发布9
+	public static final String SOCIALLEVELDETAIL_TYPE_STANDARDINFO9 = "A50900_C_TYPE_0034";
+
+	// 35:标准信息发布10
+	public static final String SOCIALLEVELDETAIL_TYPE_STANDARDINFO10 = "A50900_C_TYPE_0035";
+
+	/**
+	 * 微信自定义菜单 A510 类型 0：真实菜单 1：虚拟菜单
+	 */
+	// 0：真实菜单
+	public static final String SOCIALCUSTOMMENU_TYPE_REALLIST = "A51000_C_TYPE_0000";
+
+	// 1：虚拟菜单
+	public static final String SOCIALCUSTOMMENU_TYPE_DUMMYLIST = "A51000_C_TYPE_0001";
+
+	/**
+	 * 微信自定义菜单 A510 状态 0：有效 1：无效
+	 */
+	// 0：有效
+	public static final String SOCIALCUSTOMMENU_STATUS_VALID = "A51000_C_STATUS_0000";
+
+	// 1：无效
+	public static final String SOCIALCUSTOMMENU_STATUS_INVALID = "A51000_C_STATUS_0001";
+
+	/**
+	 * 扫码类别 0：渠道二维码 1：个人二维码
+	 */
+	// 0：渠道二维码
+	public static final String LEADTICKET_STATUS_SOCIAL = "A51700_C_TYPE_0000";
+
+	// 1：个人二维码
+	public static final String LEADTICKET_STATUS_LEAD = "A51700_C_TYPE_0001";
+
+	/**
+	 * 618性别：男
+	 */
+	public static final String A61800_C_SEX_0000 = "A61800_C_SEX_0000";
+	/**
+	 * 618性别：女
+	 */
+	public static final String A61800_C_SEX_0001 = "A61800_C_SEX_0001";
+
+	public static final String ADMINUSER_ID = "IAC00004";
+
+	/** 是否弹窗：是 */
+	public static final String A42100_C_SHOW_TYPE_0000 = "A42100_C_SHOW_TYPE_0000";
+	/** 是否弹窗：否 */
+	public static final String A42100_C_SHOW_TYPE_0001 = "A42100_C_SHOW_TYPE_0001";
+
+	/** 回掉地址 */
+	public static final String WEI_XIN_NOTIFY_URL = "http://www.weixin.qq.com/wxpay/pay.php";
+	/** appid */
+	public static final String APP_ID = "wxd5431d324a5f5f91";
+	/** MCH_ID */
+	public static final String MCH_ID = "1382793702";
+	/** UNIFIED_ORDER_URL */
+	public static final String UNIFIED_ORDER_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+	/** 萤石key * */
+	public static final String YS_APPKEY = "4f08854ac559408a98691821fbc00369";
+	/** 萤石secret * */
+	public static final String YS_SECRET = "eb8fde6e3024609ee46f76deba8ee225";
+	/** 展厅顾问 */
+	public final static String ZTGW = "IAC00008";
+	/** 销售经理 */
+	public final static String XSJL = "IAC00003";
+	/** DCC销售 */
+	public final static String DCCGW = "IAC00010";
+	/** DCC经理 */
+	public final static String DCCJL = "IAC00011";
+
+	/** 数字0 */
+	public final static String NUMBER_ZERO = "0";
+	/** 数字1 */
+	public final static String NUMBER_ONE = "1";
+	/** 数字2 */
+	public final static String NUMBER_TWO = "2";
+	/** 数字3 */
+	public final static String NUMBER_THREE = "3";
+	/** 数字4 */
+	public final static String NUMBER_FOUR = "4";
+	/** 数字5 */
+	public final static String NUMBER_FIVE = "5";
+	/** 数字6 */
+	public final static String NUMBER_SIX = "6";
+	/** 数字7 */
+	public final static String NUMBER_SEVEN = "7";
+	/** 数字8 */
+	public final static String NUMBER_EIGHT = "8";
+	/** 数字9 */
+	public final static String NUMBER_NINE = "9";
+	/** 数字10 */
+	public final static String NUMBER_TEN = "10";
+
+	/** 线索状态 :无意向 */
+	public final static String A41300_STATUS_DD_ID_0000 = "A41300_C_STATUS_0000";
+	/** 线索状态 :有意向 */
+	public final static String A41300_STATUS_DD_ID_0001 = "A41300_C_STATUS_0001";
+	/** 线索状态 :未拨通待跟进 */
+	public final static String A41300_STATUS_DD_ID_0002 = "A41300_C_STATUS_0002";
+	/** 线索状态 :已下发待跟进 */
+	public final static String A41300_STATUS_DD_ID_0003 = "A41300_C_STATUS_0003";
+	/** 线索状态 :已关联待跟进 */
+	public final static String A41300_STATUS_DD_ID_0004 = "A41300_C_STATUS_0004";
+
+	/** 潜客订单状态 */
+	public final static String CUSTOMER_STATUS_ORDER = "A41500_C_STATUS_0004";
+
+	/** 预约 */
+	public final static String A41600_TYPE_DD_ID_0000 = "A41600_C_TYPE_0000";
+
+	/** 预约类型：成功 */
+	public final static String A41600_BOOKTYPE_DD_ID_0000 = "A41600_C_BOOKTYPE_0000";
+
+	/** 预约类型：失败 */
+	public final static String A41600_BOOKTYPE_DD_ID_0001 = "A41600_C_BOOKTYPE_0001";
+
+	/** 预约类型：完成 */
+	public final static String A41600_BOOKTYPE_DD_ID_0002 = "A41600_C_BOOKTYPE_0002";
+
+	// 是否前转
+	public static final String USERROLE_FORWARD_NO = "U03100_C_FORWARD_0001";
+
+	public static final String USERROLE_FORWARD_YES = "U03100_C_FORWARD_0000";
+	/** 跟进状态：完成 */
+	public final static String A41600_STATUS_DD_ID_0000 = "A41600_C_STATUS_0000";
+	/** 跟进状态：跟进中 */
+	public final static String A41600_STATUS_DD_ID_0001 = "A41600_C_STATUS_0001";
+	/** 跟进状态：延期 */
+	public final static String A41600_STATUS_DD_ID_0002 = "A41600_C_STATUS_0002";
+	/** 跟进状态：关闭 */
+	public final static String A41600_STATUS_DD_ID_0003 = "A41600_C_STATUS_0003";
+
+	/** 跟进方式：签到 */
+	public final static String A41600_MODEFOLLOW_DD_ID_0004 = "A41600_C_MODEFOLLOW_0004";
+    /** 跟进方式：短信 */
+    public final static String A41600_MODEFOLLOW_DD_ID_0002 = "A41600_C_MODEFOLLOW_0002";
+    /** 跟进方式：微信 */
+    public final static String A41600_MODEFOLLOW_DD_ID_0003 = "A41600_C_MODEFOLLOW_0003";
+
+	public final static String A41600_ISDRIVE_DD_ID_0000 = "A41600_C_ISDRIVE_0000";
+	/** app产品 */
+	public final static String A41900_TYPE_DD_ID_0000 = "A41900_C_TYPE_0000";
+	/** 微信产品 */
+	public final static String A41900_TYPE_DD_ID_0001 = "A41900_C_TYPE_0001";
+
+	/** 评论点赞 */
+	public final static String A61200_C_TYPE_DD_ID_0000 = "A61200_C_TYPE_0000";
+
+	/** 自媒体点赞 */
+	public final static String A61200_C_TYPE_DD_ID_0001 = "A61200_C_TYPE_0001";
+
+	/** 活动点赞 */
+	public final static String A61200_C_TYPE_DD_ID_0002 = "A61200_C_TYPE_0002";
+
+	/** 服务点赞 */
+	public final static String A61200_C_TYPE_DD_ID_0003 = "A61200_C_TYPE_0003";
+
+	/** 服务评论点赞 */
+	public final static String A61200_C_TYPE_DD_ID_0004 = "A61200_C_TYPE_0004";
+
+	/** 活动评论点赞 */
+	public final static String A61200_C_TYPE_DD_ID_0005 = "A61200_C_TYPE_0005";
+
+	/** 阅读数 */
+	public final static String A61300_C_TYPE_DD_ID_0000 = "A61300_C_TYPE_0000";
+
+	/** 分享数 */
+	public final static String A61300_C_TYPE_DD_ID_0001 = "A61400_C_TYPE_0001";
+
+	/** 记数文章分类 */
+	public final static String A61300_C_CLASSIFY_DD_ID_0000 = "A61300_C_CLASSIFY_0000";
+
+	/** 记数活动分类 */
+	public final static String A61300_C_CLASSIFY_DD_ID_0001 = "A61300_C_CLASSIFY_0001";
+
+	/** 记数服务分类 */
+	public final static String A61300_C_CLASSIFY_DD_ID_0002 = "A61300_C_CLASSIFY_0002";
+
+	/** 关注 */
+	public final static String A61400_C_TYPE_DD_ID_0000 = "A61400_C_TYPE_0000";
+
+	/** 标签 */
+	public final static String A61400_C_TYPE_DD_ID_0001 = "A61400_C_TYPE_0001";
+
+	/** 车型 */
+	public final static String A61400_C_TYPE_DD_ID_0002 = "A61400_C_TYPE_0002";
+
+	/** 收藏文章 */
+	public final static String A61400_C_TYPE_DD_ID_0003 = "A61400_C_TYPE_0003";
+
+	/** 收藏活动 */
+	public final static String A61400_C_TYPE_DD_ID_0004 = "A61400_C_TYPE_0004";
+
+	/** 收藏服务 */
+	public final static String A61400_C_TYPE_DD_ID_0005 = "A61400_C_TYPE_0005";
+
+	/** 查看 */
+	public final static String A61700_C_STATE_DD_ID_0000 = "A61700_C_STATE_0000";
+
+	/** 未查看 */
+	public final static String A61700_C_STATE_DD_ID_0001 = "A61700_C_STATE_0001";
+
+	/** 淫秽色情 */
+	public final static String A61900_C_TYPE_DD_ID_0000 = "A61900_C_TYPE_0000";
+
+	/** 广告骚扰 */
+	public final static String A61900_C_TYPE_DD_ID_0001 = "A61900_C_TYPE_0001";
+
+	/** 侮辱诋毁 */
+	public final static String A61900_C_TYPE_DD_ID_0002 = "A61900_C_TYPE_0002";
+
+	/** 虚假欺诈 */
+	public final static String A61900_C_TYPE_DD_ID_0003 = "A61900_C_TYPE_0003";
+
+	/** 政治违法 */
+	public final static String A61900_C_TYPE_DD_ID_0004 = "A61900_C_TYPE_0004";
+
+	/** 侵权 */
+	public final static String A61900_C_TYPE_DD_ID_0005 = "A61900_C_TYPE_0005";
+
+	/** 其他 */
+	public final static String A61900_C_TYPE_DD_ID_0006 = "A61900_C_TYPE_0006";
+
+	/** 申请中 */
+
+	public final static String A61900_C_STATUS_DD_ID_0000 = "A61900_C_STATUS_0000";
+
+	/** 未批准 */
+
+	public final static String A61900_C_STATUS_DD_ID_0001 = "A61900_C_STATUS_0001";
+
+	/** 已批准 */
+
+	public final static String A61900_C_STATUS_DD_ID_0002 = "A61900_C_STATUS_0002";
+
+	/** 收费 */
+	public final static String A62000_C_ISCHARGE_DD_ID_0000 = "A62000_C_ISCHARGE_0000";
+
+	/** 不收费 */
+	public final static String A62000_C_ISCHARGE_DD_ID_0001 = "A62000_C_ISCHARGE_0001";
+
+	/** 个人标签 */
+	public final static String A51800_C_TYPE_DD_ID_0001 = "A51800_C_TYPE_0001";
+
+	/** 文章标签 */
+	public final static String A51800_C_TYPE_DD_ID_0002 = "A51800_C_TYPE_0002";
+
+	/** 已认证 */
+	public final static String A61800_C_AUTHENTICATION_DD_ID_0000 = "A61800_C_AUTHENTICATION_0000";
+
+	/** 未认证 */
+	public final static String A61800_C_AUTHENTICATION_DD_ID_0001 = "A61800_C_AUTHENTICATION_0001";
+
+	/** 视频 */
+	public final static String A60900_C_CLASSIFICATION_DD_ID_0000 = "A60900_C_CLASSIFICATION_0000";
+	/** 语音 */
+	public final static String A60900_C_CLASSIFICATION_DD_ID_0001 = "A60900_C_CLASSIFICATION_0001";
+	/** 图片 */
+	public final static String A60900_C_CLASSIFICATION_DD_ID_0002 = "A60900_C_CLASSIFICATION_0002";
+
+	/** 已审核 */
+	public final static String A60900_C_TOEXAMINE_DD_ID_0000 = "A60900_C_TOEXAMINE_0000";
+	/** 未审核 */
+	public final static String A60900_C_TOEXAMINE_DD_ID_0001 = "A60900_C_TOEXAMINE_0001";
+	/** 未采纳 */
+	public final static String A60900_C_TOEXAMINE_DD_ID_0002 = "A60900_C_TOEXAMINE_0002";
+
+	/** 是否置顶：否 */
+	public final static String A60900_C_WHETHERTOP_DD_ID_0001 = "A60900_C_WHETHERTOP_0001";
+	/** 是否置顶：是 */
+	public final static String A60900_C_WHETHERTOP_DD_ID_0000 = "A60900_C_WHETHERTOP_0000";
+
+	/** 是否精华：是 */
+	public final static String A60900_C_ESSENCE_DD_ID_0000 = "A60900_C_ESSENCE_0000";
+	/** 是否精华：否 */
+	public final static String A60900_C_ESSENCE_DD_ID_0001 = "A60900_C_ESSENCE_0001";
+
+	/** 频道：娱乐 */
+	public final static String A60900_C_CHANNEL_DD_ID_0003 = "A60900_C_CHANNEL_0003";
+	/** 小白 */
+	public final static String A61800_C_WHITEORMASTER_0000 = "A61800_C_WHITEORMASTER_0000";
+	/** 达人 */
+	public final static String A61800_C_WHITEORMASTER_0001 = "A61800_C_WHITEORMASTER_0001";
+
+	/** 推荐 */
+	public final static String A61800_C_RECOMMEND_0000 = "A61800_C_RECOMMEND_0000";
+	/** 不推荐 */
+	public final static String A61800_C_RECOMMEND_0001 = "A61800_C_RECOMMEND_0001";
+
+	/** 上门 */
+	public final static String A62100_C_TYPE_DD_ID_0000 = "A62100_C_TYPE_0000";
+
+	/** 到店 */
+	public final static String A62100_C_TYPE_DD_ID_0001 = "A62100_C_TYPE_0001";
+
+	/** 线上 */
+	public final static String A62100_C_TYPE_DD_ID_0002 = "A62100_C_TYPE_0002";
+
+	/** 汽车维修 */
+	public final static String A62100_C_CLASSIFY_0000 = "A62100_C_CLASSIFY_0000";
+
+	/** 汽车配件 */
+	public final static String A62100_C_CLASSIFY_0001 = "A62100_C_CLASSIFY_0001";
+
+	/** 菜鸟陪练 */
+	public final static String A62100_C_CLASSIFY_0002 = "A62100_C_CLASSIFY_0002";
+
+	/** 全民试驾 */
+	public final static String A62100_C_CLASSIFY_0003 = "A62100_C_CLASSIFY_0003";
+
+	/** 美容养护 */
+	public final static String A62100_C_CLASSIFY_0004 = "A62100_C_CLASSIFY_0004";
+
+	/** 其他服务 */
+	public final static String A62100_C_CLASSIFY_0005 = "A62100_C_CLASSIFY_0005";
+
+	/** 推荐 */
+	public final static String A62100_C_RECOMMEND_0000 = "A62100_C_RECOMMEND_0000";
+
+	/** 不推荐 */
+	public final static String A62100_C_RECOMMEND_0001 = "A62100_C_RECOMMEND_0001";
+
+	/** 参加 */
+	public final static String A62300_C_STATUS_0000 = "A62300_C_STATUS_0000";
+	/** 未参加 */
+	public final static String A62300_C_STATUS_0001 = "A62300_C_STATUS_0001";
+
+	/** 开启 */
+	public final static String A41200_C_STATUS_0000 = "A41200_C_STATUS_0000";
+	/** 关闭 */
+	public final static String A41200_C_STATUS_0001 = "A41200_C_STATUS_0001";
+
+	/** 女 */
+	public final static String A41300_C_SEX_0001 = "A41300_C_SEX_0001";
+	/** 男 */
+	public final static String A41300_C_SEX_0000 = "A41300_C_SEX_0000";
+
+	/** 微信预约看车 */
+	public final static String A41300_C_CLUESOURCE_DD_0004 = "C_CLUESOURCE_DD_0004";
+	/** 微信预约保养 */
+	public final static String A41300_C_CLUESOURCE_DD_0005 = "C_CLUESOURCE_DD_0005";
+    /** 官网 */
+    public final static String C_CLUESOURCE_DD_0006 = "C_CLUESOURCE_DD_0006";
+
+	/** 已处理 */
+	public final static String A41400_C_STATUS_0000 = "A41400_C_STATUS_0000";
+	/** 未处理 */
+	public final static String A41400_C_STATUS_0001 = "A41400_C_STATUS_0001";
+	/** 未留档 */
+	public final static String A41400_C_STATUS_0002 = "A41400_C_STATUS_0002";
+	/** 已新增 */
+	public final static String A41400_C_STATUS_0003 = "A41400_C_STATUS_0003";
+	/** 已关联 */
+	public final static String A41400_C_STATUS_0004 = "A41400_C_STATUS_0004";
+	/** 无效流量 */
+	public final static String A41400_C_STATUS_0005 = "A41400_C_STATUS_0005";
+	/** 未分配流量 */
+	public final static String A41400_C_STATUS_0006 = "A41400_C_STATUS_0006";
+
+	/** 首次到店 */
+	public final static String A41400_C_FIRST_0000 = "A41400_C_FIRST_0000";
+	/** 再次到店 */
+	public final static String A41400_C_FIRST_0001 = "A41400_C_FIRST_0001";
+
+	/** 正常 */
+	public final static String A41500_C_STATUS_0000 = "A41500_C_STATUS_0000";
+	/** 逾期 */
+	public final static String A41500_C_STATUS_0001 = "A41500_C_STATUS_0001";
+	/** 休眠 */
+	public final static String A41500_C_STATUS_0002 = "A41500_C_STATUS_0002";
+	/** 战败 */
+	public final static String A41500_C_STATUS_0003 = "A41500_C_STATUS_0003";
+	/** 订单 */
+	public final static String A41500_C_STATUS_0004 = "A41500_C_STATUS_0004";
+	/** 申请中 */
+	public final static String A41500_C_STATUS_0005 = "A41500_C_STATUS_0005";
+
+	/** 预约 */
+	public final static String A41600_C_TYPE_0000 = "A41600_C_TYPE_0000";
+	/** 跟进 */
+	public final static String A41600_C_TYPE_0001 = "A41600_C_TYPE_0001";
+	/** 跟进提醒 */
+	public final static String A41600_C_TYPE_0002 = "A41600_C_TYPE_0002";
+	/** 交车提醒 */
+	public final static String A41600_C_TYPE_0003 = "A41600_C_TYPE_0003";
+	/** 订单提醒 */
+	public final static String A41600_C_TYPE_0004 = "A41600_C_TYPE_0004";
+	/** 签到 */
+	public final static String A41600_C_TYPE_0005 = "A41600_C_TYPE_0005";
+
+	/** 预约成功 */
+	public final static String A41600_C_BOOKTYPE_0000 = "A41600_C_BOOKTYPE_0000";
+	/** 预约失败 */
+	public final static String A41600_C_BOOKTYPE_0001 = "A41600_C_BOOKTYPE_0001";
+	/** 预约完成 */
+	public final static String A41600_C_BOOKTYPE_0002 = "A41600_C_BOOKTYPE_0002";
+
+	/** 完成 */
+	public final static String A41600_C_STATUS_0000 = "A41600_C_STATUS_0000";
+	/** 跟进中 */
+	public final static String A41600_C_STATUS_0001 = "A41600_C_STATUS_0001";
+	/** 延期 */
+	public final static String A41600_C_STATUS_0002 = "A41600_C_STATUS_0002";
+	/** 关闭 */
+	public final static String A41600_C_STATUS_0003 = "A41600_C_STATUS_0003";
+
+	/** 首次预约 */
+	public final static String A41601_C_FIRST_0000 = "A41601_C_FIRST_0000";
+	/** 再次预约 */
+	public final static String A41601_C_FIRST_0001 = "A41601_C_FIRST_0001";
+
+	/** 文章 */
+	public final static String A60900_C_TYPE_0000 = "A60900_C_TYPE_0000";
+	/** 素材 */
+	public final static String A60900_C_TYPE_0001 = "A60900_C_TYPE_0001";
+
+	/** 是否可以打赏：不可以 */
+	public final static String A60900_C_ISREWARD_0000 = "A60900_C_ISREWARD_0000";
+	/** 是否可以打赏：可以 */
+	public final static String A60900_C_ISREWARD_0001 = "A60900_C_ISREWARD_0001";
+
+	/** 是否可以评论：不可以 */
+	public final static String A60900_C_ISCOMMENT_0000 = "A60900_C_ISCOMMENT_0000";
+	/** 是否可以评论：可以 */
+	public final static String A60900_C_ISCOMMENT_0001 = "A60900_C_ISCOMMENT_0001";
+
+	/** 默认类型：默认 */
+	public final static String A63300_C_TYPE_DD_ID_0000 = "A63300_C_TYPE_0000";
+	/** 默认类型：不默认 */
+	public final static String A63300_C_TYPE_DD_ID_0001 = "A63300_C_TYPE_0001";
+
+	/** 申请类型：申请中 */
+	public final static String A42500_C_STATUS_0000 = "A42500_C_STATUS_0000";
+
+	/** 申请类型：驳回 */
+	public final static String A42500_C_STATUS_0001 = "A42500_C_STATUS_0001";
+
+	/** 申请类型：通过 */
+	public final static String A42500_C_STATUS_0002 = "A42500_C_STATUS_0002";
+
+	/** 待确认 */
+	public final static String A42000_C_STATUS_0000 = "A42000_C_STATUS_0000";
+	/** 交付 */
+	public final static String A42000_C_STATUS_0001 = "A42000_C_STATUS_0001";
+	/** 待交付 */
+	public final static String A42000_C_STATUS_0002 = "A42000_C_STATUS_0002";
+	/** 取消 */
+	public final static String A42000_C_STATUS_0003 = "A42000_C_STATUS_0003";
+	/** 驳回 */
+	public final static String A42000_C_STATUS_0004 = "A42000_C_STATUS_0004";
+	/** 报价 */
+	public final static String A42000_C_STATUS_0005 = "A42000_C_STATUS_0005";
+
+	/** 类型1 */
+	public final static String A42300_C_TYPE_DD_ID_0000 = "A42400_C_TYPE_0000";
+	/** 类型2 */
+	public final static String A42300_C_TYPE_DD_ID_0001 = "A42400_C_TYPE_0001";
+
+	/** C端 */
+	public final static String A42400_C_TYPE_0000 = "A42400_C_TYPE_0000";
+
+	/** T端 */
+	public final static String A42400_C_TYPE_0001 = "A42400_C_TYPE_0001";
+
+	/** S端 */
+	public final static String A42400_C_TYPE_0002 = "A42400_C_TYPE_0002";
+
+    /** S2.0 */
+    public final static String A42400_C_TYPE_0003 = "A42400_C_TYPE_0003";
+
+    /** 脉掌柜*/
+    public final static String A42400_C_TYPE_0004 = "A42400_C_TYPE_0004";
+
+    /**  脉居客 */
+    public final static String A42400_C_TYPE_0005 = "A42400_C_TYPE_0005";
+
+	/** IOS */
+	public final static String A42400_C_APP_0000 = "A42400_C_APP_0000";
+
+	/** 安卓 */
+	public final static String A42400_C_APP_0001 = "A42400_C_APP_0001";
+
+	/** 百度推送 */
+	public final static String IOS = "0";
+	public final static String ANDROID = "1";
+	/** 已过期 */
+	public final static String A63800_C_STATUS_0000 = "A63800_C_STATUS_0000";
+	/** 已验证 */
+	public final static String A63800_C_STATUS_0001 = "A63800_C_STATUS_0001";
+	/** 未验证 */
+	public final static String A63800_C_STATUS_0002 = "A63800_C_STATUS_0002";
+	/** 已完成 */
+	public final static String A63800_C_STATUS_0003 = "A63800_C_STATUS_0003";
+
+	/** 潜客战败 */
+	public final static String A42500_TYPE_DD_ID_0000 = "A42500_C_TYPE_0000";
+	/** 潜客激活 */
+	public final static String A42500_TYPE_DD_ID_0001 = "A42500_C_TYPE_0001";
+	/** 订单取消 */
+	public final static String A42500_TYPE_DD_ID_0002 = "A42500_C_TYPE_0002";
+	/** 订单价格 */
+	public final static String A42500_TYPE_DD_ID_0003 = "A42500_C_TYPE_0003";
+
+	/** 有意向转向潜客 */
+	public final static String A42600_C_TYPE_0000 = "A42600_C_TYPE_0000";
+	/** 暂时无法联系 */
+	public final static String A42600_C_TYPE_0001 = "A42600_C_TYPE_0001";
+	/** 无意向关闭 */
+	public final static String A42600_C_TYPE_0002 = "A42600_C_TYPE_0002";
+
+	/** 是否分享：分享 */
+	public final static String A42100_C_SHARE_STATUS_0000 = "A42100_C_SHARE_STATUS_0000";
+	/** 是否分享：不分享 */
+	public final static String A42100_C_SHARE_STATUS_0001 = "A42100_C_SHARE_STATUS_0001";
+
+	/** 类型：轮播图 */
+	public final static String A42100_C_TYPE_0000 = "A42100_C_TYPE_0000";
+	/** 类型：公告 */
+	public final static String A42100_C_TYPE_0001 = "A42100_C_TYPE_0001";
+
+	/** 随机到店 */
+	public final static String C_CLUESOURCE_DD_0000 = "C_CLUESOURCE_DD_0000";
+	/** 来电 */
+	public final static String C_CLUESOURCE_DD_0001 = "C_CLUESOURCE_DD_0001";
+	/** 预约到店 */
+	public final static String C_CLUESOURCE_DD_0002 = "C_CLUESOURCE_DD_0002";
+	/** 无效流量 */
+	public final static String C_CLUESOURCE_DD_0003 = "C_CLUESOURCE_DD_0003";
+
+	/** 车险常识 */
+	public final static String A63900_C_TYPE_DD_ID_0000 = "A63900_C_TYPE_0000";// 车险常识
+	/** 投保攻略 */
+	public final static String A63900_C_TYPE_DD_ID_0001 = "A63900_C_TYPE_0001";// 投保攻略
+	/** 理赔指南 */
+	public final static String A63900_C_TYPE_DD_ID_0002 = "A63900_C_TYPE_0002";// 理赔指南
+	/** 责任判定 */
+	public final static String A63900_C_TYPE_DD_ID_0003 = "A63900_C_TYPE_0003";// 责任判定
+
+	/** 01月 */
+	public final static String A43500_C_MONTH_0000 = "A43500_C_MONTH_0000";
+	/** 02月 */
+	public final static String A43500_C_MONTH_0001 = "A43500_C_MONTH_0001";
+	/** 03月 */
+	public final static String A43500_C_MONTH_0002 = "A43500_C_MONTH_0002";
+	/** 04月 */
+	public final static String A43500_C_MONTH_0003 = "A43500_C_MONTH_0003";
+	/** 05月 */
+	public final static String A43500_C_MONTH_0004 = "A43500_C_MONTH_0004";
+	/** 06月 */
+	public final static String A43500_C_MONTH_0005 = "A43500_C_MONTH_0005";
+	/** 07月 */
+	public final static String A43500_C_MONTH_0006 = "A43500_C_MONTH_0006";
+	/** 08月 */
+	public final static String A43500_C_MONTH_0007 = "A43500_C_MONTH_0007";
+	/** 09月 */
+	public final static String A43500_C_MONTH_0008 = "A43500_C_MONTH_0008";
+	/** 10月 */
+	public final static String A43500_C_MONTH_0009 = "A43500_C_MONTH_0009";
+	/** 11月 */
+	public final static String A43500_C_MONTH_0010 = "A43500_C_MONTH_0010";
+	/** 12月 */
+	public final static String A43500_C_MONTH_0011 = "A43500_C_MONTH_0011";
+
+	/** 男 */
+	public final static String A41500_C_SEX_0000 = "A41500_C_SEX_0000";
+	/** 女 */
+	public final static String A41500_C_SEX_0001 = "A41500_C_SEX_0001";
+
+	/** 200万以下 */
+	public final static String A41500_SALARY_DD_ID_0000 = "C_SALARY_DD_0000";
+	/** 20-40万 */
+	public final static String A41500_SALARY_DD_ID_0001 = "C_SALARY_DD_0001";
+	/** 40-60万 */
+	public final static String A41500_SALARY_DD_ID_0002 = "C_SALARY_DD_0002";
+	/** 60-80万 */
+	public final static String A41500_SALARY_DD_ID_0003 = "C_SALARY_DD_0003";
+	/** 80-100万 */
+	public final static String A41500_SALARY_DD_ID_0004 = "C_SALARY_DD_0004";
+	/** 100-200万 */
+	public final static String A41500_SALARY_DD_ID_0005 = "C_SALARY_DD_0005";
+	/** 200万以上 */
+	public final static String A41500_SALARY_DD_ID_0006 = "C_SALARY_DD_0006";
+
+	/** 大专以下 */
+	public final static String A41500_EDUCATION_DD_ID_0000 = "C_EDUCATION_DD_0000";
+	/** 大专 */
+	public final static String A41500_EDUCATION_DD_ID_0001 = "C_EDUCATION_DD_0001";
+	/** 本科 */
+	public final static String A41500_EDUCATION_DD_ID_0002 = "C_EDUCATION_DD_0002";
+	/** 硕士 */
+	public final static String A41500_EDUCATION_DD_ID_0003 = "C_EDUCATION_DD_0003";
+	/** MBA */
+	public final static String A41500_EDUCATION_DD_ID_0004 = "C_EDUCATION_DD_0004";
+	/** 博士 */
+	public final static String A41500_EDUCATION_DD_ID_0005 = "C_EDUCATION_DD_0005";
+	/** 其他 */
+	public final static String A41500_EDUCATION_DD_ID_0006 = "C_EDUCATION_DD_0006";
+
+	/** 未婚 */
+	public final static String A41500_MARITALSTATUS_DD_ID_0000 = "C_MARITALSTATUS_DD_0000";
+	/** 已婚 */
+	public final static String A41500_MARITALSTATUS_DD_ID_0001 = "C_MARITALSTATUS_DD_0001";
+	/** 已婚未孕 */
+	public final static String A41500_MARITALSTATUS_DD_ID_0002 = "C_MARITALSTATUS_DD_0002";
+	/** 已婚已孕 */
+	public final static String A41500_MARITALSTATUS_DD_ID_0003 = "C_MARITALSTATUS_DD_0003";
+
+	/** 网球 */
+	public final static String A41500_HOBBY_DD_ID_0000 = "C_HOBBY_DD_0000";
+	/** 高尔夫球 */
+	public final static String A41500_HOBBY_DD_ID_0001 = "C_HOBBY_DD_0001";
+	/** 足球 */
+	public final static String A41500_HOBBY_DD_ID_0002 = "C_HOBBY_DD_0002";
+	/** 蓝球 */
+	public final static String A41500_HOBBY_DD_ID_0003 = "C_HOBBY_DD_0003";
+	/** 健身 */
+	public final static String A41500_HOBBY_DD_ID_0004 = "C_HOBBY_DD_0004";
+	/** 航海 */
+	public final static String A41500_HOBBY_DD_ID_0005 = "C_HOBBY_DD_0005";
+	/** 红酒 */
+	public final static String A41500_HOBBY_DD_ID_0006 = "C_HOBBY_DD_0006";
+	/** 电影 */
+	public final static String A41500_HOBBY_DD_ID_0007 = "C_HOBBY_DD_0007";
+	/** 滑雪 */
+	public final static String A41500_HOBBY_DD_ID_0008 = "C_HOBBY_DD_0008";
+	/** 钓鱼 */
+	public final static String A41500_HOBBY_DD_ID_0009 = "C_HOBBY_DD_0009";
+	/** 自驾游 */
+	public final static String A41500_HOBBY_DD_ID_0010 = "C_HOBBY_DD_0010";
+	/** 美食 */
+	public final static String A41500_HOBBY_DD_ID_0011 = "C_HOBBY_DD_0011";
+	/** 乒乓球 */
+	public final static String A41500_HOBBY_DD_ID_0012 = "C_HOBBY_DD_0012";
+	/** 羽毛球 */
+	public final static String A41500_HOBBY_DD_ID_0013 = "C_HOBBY_DD_0013";
+	/** 赛车 */
+	public final static String A41500_HOBBY_DD_ID_0014 = "C_HOBBY_DD_0014";
+	/** 自行车 */
+	public final static String A41500_HOBBY_DD_ID_0015 = "C_HOBBY_DD_0015";
+	/** 厨艺 */
+	public final static String A41500_HOBBY_DD_ID_0016 = "C_HOBBY_DD_0016";
+
+	/** 阶段：有意向 */
+	public final static String A41500_C_STAGE_0000 = "A41500_C_STAGE_0000";
+	/** 阶段：已报价 */
+	public final static String A41500_C_STAGE_0001 = "A41500_C_STAGE_0001";
+	/** 阶段：订单 */
+	public final static String A41500_C_STAGE_0002 = "A41500_C_STAGE_0002";
+	/** 阶段：售后 */
+	public final static String A41500_C_STAGE_0003 = "A41500_C_STAGE_0003";
+
+	/** 星标状态：是 */
+	public final static String A41500_C_STAR_0000 = "A41500_C_STAR_0000";
+	/** 星标状态：否 */
+	public final static String A41500_C_STAR_0001 = "A41500_C_STAR_0001";
+
+	/** 上班 */
+	public final static String A64600_C_TYPE_0000 = "A64600_C_TYPE_0000";
+	/** 下班 */
+	public final static String A64600_C_TYPE_0001 = "A64600_C_TYPE_0001";
+
+	/** 已完成 */
+	public final static String A65100_C_STATUS_0000 = "A65100_C_STATUS_0000";
+	/** 未完成 */
+	public final static String A65100_C_STATUS_0001 = "A65100_C_STATUS_0001";
+
+	/** WIFI */
+	public final static String A65200_C_TYPE_0000 = "A65200_C_TYPE_0000";
+	/** 流量仪 */
+	public final static String A65200_C_TYPE_0001 = "A65200_C_TYPE_0001";
+	/** 打印机 */
+	public final static String A65200_C_TYPE_0002 = "A65200_C_TYPE_0002";
+	/** 在线展厅 */
+	public final static String A65200_C_TYPE_0003 = "A65200_C_TYPE_0003";
+
+	/** 销售 */
+	public final static String SALES = "SALES";
+	/** 所有 */
+	public final static String ALL = "ALL";
+
+	/** WIFI */
+	public final static String A68200_C_TYPE_0000 = "A68200_C_TYPE_0000";
+	/** 人 */
+	public final static String A68200_C_TYPE_0002 = "A68200_C_TYPE_0002";
+	/** 产品 */
+	public final static String A68200_C_TYPE_0003 = "A68200_C_TYPE_0003";
+	/** 其他 */
+	public final static String A68200_C_TYPE_0004 = "A68200_C_TYPE_0004";
+
+//	/** 未留档 */
+//	public final static String A51100_C_STATUS_0003 = "A51100_C_STATUS_0003";
+//	/** 已新增 */
+//	public final static String A51100_C_STATUS_0001 = "A51100_C_STATUS_0001";
+//	/** 已关联 */
+//	public final static String A51100_C_STATUS_0002 = "A51100_C_STATUS_0002";
+//	/** 重新指派 */
+//	public final static String A51100_C_STATUS_0000 = "A51100_C_STATUS_0000";
+//	/** 无效流量 */
+//	public final static String A51100_C_STATUS_0004 = "A51100_C_STATUS_0004";
+
+	/** 未留档 */
+	public final static String A50200_C_STATUS_0003 = "A50200_C_STATUS_0003";
+	/** 已新增 */
+	public final static String A50200_C_STATUS_0001 = "A50200_C_STATUS_0001";
+	/** 已关联 */
+	public final static String A50200_C_STATUS_0002 = "A50200_C_STATUS_0002";
+	/** 重新指派 */
+	public final static String A50200_C_STATUS_0000 = "A50200_C_STATUS_0000";
+	/** 无效流量 */
+	public final static String A50200_C_STATUS_0004 = "A50200_C_STATUS_0004";
+	/** 首次下发 */
+	public final static String A41300_C_ISFIRST_0000 = "A41300_C_ISFIRST_0000";
+	/** 不是首次下发 */
+	public final static String A41300_C_ISFIRST_0001 = "A41300_C_ISFIRST_0001";
+	/** 是自动战败 */
+	public final static String U03100_C_ISAUTOFAIL_0000 = "U03100_C_ISAUTOFAIL_0000";
+	/** 否自动战败 */
+	public final static String U03100_C_ISAUTOFAIL_0001 = "U03100_C_ISAUTOFAIL_0001";
+	/** 是自动激活 */
+	public final static String U03100_C_ISAUTOACT_0000 = "U03100_C_ISAUTOACT_0000";
+	/** 否自动激活 */
+	public final static String U03100_C_ISAUTOACT_0001 = "U03100_C_ISAUTOACT_0001";
+	/** 是价格自动审批 */
+	public final static String U03100_C_ISAUTOPRICE_0000 = "U03100_C_ISAUTOPRICE_0000";
+	/** 否价格自动审批 */
+	public final static String U03100_C_ISAUTOPRICE_0001 = "U03100_C_ISAUTOPRICE_0001";
+	/** 是自动取消审批 */
+	public final static String U03100_C_ISAUTOCANCEL_0000 = "U03100_C_ISAUTOCANCEL_0000";
+	/** 否自动取消审批 */
+	public final static String U03100_C_ISAUTOCANCEL_0001 = "U03100_C_ISAUTOCANCEL_0001";
+	/** 是线索消息推送设置 */
+	public final static String U03100_C_ISMESSAGE_0000 = "U03100_C_ISMESSAGE_0000";
+	/** 否线索消息推送设置 */
+	public final static String U03100_C_ISMESSAGE_0001 = "U03100_C_ISMESSAGE_0001";
+	/** 是集团账号 */
+	public final static String U03100_C_ISGROUP_0000 = "U03100_C_ISGROUP_0000";
+	/** 否集团账号 */
+	public final static String U03100_C_ISGROUP_0001 = "U03100_C_ISGROUP_0001";
+	/** 接口返回数据条数字段名称 */
+	public final static String WEBSERVICE_CONUT = "countNumber";
+
+    /** 公用消息模板 */
+	public final static String A68300_C_PUBLIC_0000 = "A68300_C_PUBLIC_0000";
+    /** 个人消息模板 */
+	public final static String A68300_C_PUBLIC_0001 = "A68300_C_PUBLIC_0001";
+
+	/** 流量 */
+	public final static String A45600_C_TYPE_0000 = "A45600_C_TYPE_0000";
+	/** 来电 */
+	public final static String A45600_C_TYPE_0001 = "A45600_C_TYPE_0001";
+	/** 跟进 */
+	public final static String A45600_C_TYPE_0002 = "A45600_C_TYPE_0002";
+	/** 预约 */
+	public final static String A45600_C_TYPE_0003 = "A45600_C_TYPE_0003";
+	/** 订单 */
+	public final static String A45600_C_TYPE_0004 = "A45600_C_TYPE_0004";
+	/** 线索 */
+	public final static String A45600_C_TYPE_0005 = "A45600_C_TYPE_0005";
+	/** 报价 */
+	public final static String A45600_C_TYPE_0006 = "A45600_C_TYPE_0006";
+
+	/** 无效 */
+	public final static String A46000_C_STATUS_0000 = "A46000_C_STATUS_0000";
+	/** 员工 */
+	public final static String A46000_C_STATUS_0001 = "A46000_C_STATUS_0001";
+	/** 未分配 */
+	public final static String A46000_C_STATUS_0002 = "A46000_C_STATUS_0002";
+	/** 已分配 */
+	public final static String A46000_C_STATUS_0003 = "A46000_C_STATUS_0003";
+	/** 黑名单 */
+	public final static String A46000_C_STATUS_0004 = "A46000_C_STATUS_0004";
+
+	/** 潜在客户 */
+	public final static String RUIWEI_TYPE_10003 = "10003";
+	/** 店员 */
+	public final static String RUIWEI_TYPE_20001 = "20001";
+	/** 黑名单 */
+	public final static String RUIWEI_TYPE_30000 = "30000";
+	/** 普通VIP */
+	public final static String RUIWEI_TYPE_10001 = "10001";
+
+
+    /** 无效 */
+    public final static String A45000_C_RESULT_0000 = "A45000_C_RESULT_0000";
+    /** 未分配 */
+    public final static String A45000_C_RESULT_0001 = "A45000_C_RESULT_0001";
+    /** 已分配 */
+    public final static String  A45000_C_RESULT_0002 = "A45000_C_RESULT_0002";
+	/** 员工 */
+	public final static String  A45000_C_RESULT_0003 = "A45000_C_RESULT_0003";
+
+	/** 未到店 */
+	public final static String A46400_C_ISARRIVE_0000 = "A46400_C_ISARRIVE_0000";
+	/** 已到店 */
+	public final static String A46400_C_ISARRIVE_0001 = "A46400_C_ISARRIVE_0001";
+
+	/** 男 */
+	public final static String A46400_C_SEX_0000 = "A46400_C_SEX_0000";
+	/** 女 */
+	public final static String A46400_C_SEX_0001 = "A46400_C_SEX_0001";
+
+	/** H类 */
+	public final static String A41500_C_LEVEL_0000 = "A41500_C_LEVEL_0000";
+	/** A类 */
+	public final static String A41500_C_LEVEL_0001 = "A41500_C_LEVEL_0001";
+	/** B类 */
+	public final static String A41500_C_LEVEL_0002 = "A41500_C_LEVEL_0002";
+	/** C类 */
+	public final static String A41500_C_LEVEL_0003 = "A41500_C_LEVEL_0003";
+	/** N类 */
+	public final static String A41500_C_LEVEL_0004 = "A41500_C_LEVEL_0004";
+    /**
+     * 是否手动预约：是
+     */
+    public final static String A40300_C_IS_RESERVATION_0000 = "A40300_C_IS_RESERVATION_0000";
+    /**
+     * 是否手动预约：否
+     */
+    public final static String A40300_C_IS_RESERVATION_0001 = "A40300_C_IS_RESERVATION_0001";
+
+
+
+	/** 未留档 */
+	public final static String A51100_C_STATUS_0000 = "A51100_C_STATUS_0000";
+	/** 已新增 */
+	public final static String A51100_C_STATUS_0001 = "A51100_C_STATUS_0001";
+	/** 未处理 */
+	public final static String A51100_C_STATUS_0002 = "A51100_C_STATUS_0002";
+	/** 已关联 */
+	public final static String A51100_C_STATUS_0003 = "A51100_C_STATUS_0003";
+
+	/** 待回复 */
+	public final static String A51100_C_TYPE_0002 = "A51100_C_TYPE_0002";
+	/** 新关注 */
+	public final static String A51100_C_TYPE_0003 = "A51100_C_TYPE_0003";
+	/** 48H活跃 */
+	public final static String A51100_C_TYPE_0004 = "A51100_C_TYPE_0004";
+
+	/** 文字 */
+	public final static String A68300_C_TYPE_0000 = "A68300_C_TYPE_0000";
+	/** 图文 */
+	public final static String A68300_C_TYPE_0001 = "A68300_C_TYPE_0001";
+	/** 图片 */
+	public final static String A68300_C_TYPE_0002 = "A68300_C_TYPE_0002";
+	/** 音频 */
+	public final static String A68300_C_TYPE_0003 = "A68300_C_TYPE_0003";
+	/** 视频 */
+	public final static String A68300_C_TYPE_0004 = "A68300_C_TYPE_0004";
+	/** 音乐 */
+	public final static String A68300_C_TYPE_0005 = "A68300_C_TYPE_0005";
+	/** 文件 */
+	public final static String A68300_C_TYPE_0006 = "A68300_C_TYPE_0006";
+	/** 微信模版 */
+	public final static String A68300_C_TYPE_0007 = "A68300_C_TYPE_0007";
+
+
+	/** 门店 */
+	public final static String A41500_C_APPSOURCE_0000 = "A41500_C_APPSOURCE_0000";
+	/** 来电 */
+	public final static String A41500_C_APPSOURCE_0001 = "A41500_C_APPSOURCE_0001";
+	/** 网络 */
+	public final static String A41500_C_APPSOURCE_0002 = "A41500_C_APPSOURCE_0002";
+	/** 其他 */
+	public final static String A41500_C_APPSOURCE_0003 = "A41500_C_APPSOURCE_0003";
+	/** 新媒体 */
+	public final static String A41500_C_APPSOURCE_0004 = "A41500_C_APPSOURCE_0004";
+
+	/** 关注 */
+	public final static String A52100_C_TYPE_0000 = "A52100_C_TYPE_0000";
+	/** 取消关注 */
+	public final static String A52100_C_TYPE_0001 = "A52100_C_TYPE_0001";
+	/** 消息接收 */
+	public final static String A52100_C_TYPE_0002 = "A52100_C_TYPE_0002";
+	/** 页面浏览 */
+	public final static String A52100_C_TYPE_0003 = "A52100_C_TYPE_0003";
+	/** 消息发送 */
+	public final static String A52100_C_TYPE_0004 = "A52100_C_TYPE_0004";
+	/** 渠道扫码 */
+	public final static String A52100_C_TYPE_0005 = "A52100_C_TYPE_0005";
+
+	/** 接收 */
+	public final static String A52100_C_SEND_0000 = "A52100_C_SEND_0000";
+	/** 发送 */
+	public final static String A52100_C_SEND_0001 = "A52100_C_SEND_0001";
+
+	/** 图文 */
+	public final static String A52100_C_SCTYPE_0000 = "A52100_C_SCTYPE_0000";
+	/** 图片 */
+	public final static String A52100_C_SCTYPE_0001 = "A52100_C_SCTYPE_0001";
+	/** 音频 */
+	public final static String A52100_C_SCTYPE_0002 = "A52100_C_SCTYPE_0002";
+	/** 视频 */
+	public final static String A52100_C_SCTYPE_0003 = "A52100_C_SCTYPE_0003";
+
+	/** 预约受理通知/预约成功 */
+	public final static String A68300_C_WECAT_0000 = "A68300_C_WECAT_0000";
+	/** 保养提醒 */
+	public final static String A68300_C_WECAT_0001 = "A68300_C_WECAT_0001";
+	/** 服务完成提醒 */
+	public final static String A68300_C_WECAT_0002 = "A68300_C_WECAT_0002";
+
+	/** 脉车人2.0 */
+	public final static String A40300_C_APPTYPE_0000 = "A40300_C_APPTYPE_0000";
+	/** 脉居客 */
+	public final static String A40300_C_APPTYPE_0001 = "A40300_C_APPTYPE_0001";
+	/** 脉掌柜 */
+	public final static String A40300_C_APPTYPE_0002 = "A40300_C_APPTYPE_0002";
+
+    /** 岗位：前台 */
+    public final static String RECEPTION = "IAC00009";
+
+	public final static String COMP_CODE = "POP";
+
+	public final static String CUSTOMER_MODULE_ID = "5041";
+
+	public final static String CONTACT_MODULE_ID = "5210";
+
+	public final static String MSG_TEMPALTE_ID = "MSG_TEMPLATE_001";
+}

@@ -1,0 +1,336 @@
+package com.pop136.customerservice.controller.customer;
+
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
+import com.pop136.customerservice.controller.BaseApiAction;
+import com.pop136.customerservice.entity.customer.Customer;
+import com.pop136.customerservice.entity.customer.FeedBack;
+import com.pop136.customerservice.entity.user.User;
+import com.pop136.customerservice.service.customer.*;
+import com.pop136.customerservice.service.customer.convert.ContactConvert;
+import com.pop136.customerservice.service.tag.TagContactService;
+import com.pop136.customerservice.service.tag.TagCustomerService;
+import com.pop136.customerservice.service.user.UserService;
+import com.pop136.customerservice.utils.*;
+import com.pop136.customerservice.vo.feedback.FeedBackVo;
+import com.pop136.customerservice.vo.feedback.param.FeedBackParamVo;
+import com.pop136.customerservice.vo.customer.search.FeedBackSearchVo;
+import com.pop136.customerservice.vo.tag.TagValueVo;
+import com.pop136.customerservice.vo.user.UserComm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 回访 controller
+ */
+@RestController
+@RequestMapping("/feedBack")
+public class FeedBackController extends BaseApiAction {
+
+  @Autowired
+  private FeedBackService feedBackService;
+
+  @Autowired
+  private ContactService contactService;
+
+  @Autowired
+  private CustomerService customerService;
+
+  @Autowired
+  private UserService userService;
+
+  @Autowired
+  private TagContactService tagContactService;
+
+  @Autowired
+  private TagCustomerService tagCustomerService;
+
+
+  /**
+   * 获取回访记录
+   */
+  @RequestMapping(value = "/list",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  private String list(HttpServletRequest request, @RequestBody FeedBackSearchVo searchVo) throws Exception {
+
+    List<FeedBackVo> feedBackList = feedBackService.getFeedBackList(searchVo);
+
+    List<Object> resultMap = new ArrayList<>();
+
+    if (feedBackList != null && !feedBackList.isEmpty()) {
+
+      for (FeedBackVo feedBack : feedBackList) {
+
+        Map<String, Object> feedBackInfo = getFeedBack(feedBack);
+
+
+        resultMap.add(feedBackInfo);
+      }
+    }
+
+    PageInfo<FeedBack> pageInfo = new PageInfo<>();
+    return success(resultMap, convertPage(feedBackList , pageInfo.getTotal()));
+  }
+
+
+
+  /**
+   * 获取回访记录 详情
+   */
+  @RequestMapping(value = "/info",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  private String info(HttpServletRequest request, @RequestBody JSONObject jsonObject) throws Exception {
+
+    String id = JsonParseUtil.parseRequiredStringValue(jsonObject, "id");
+
+    FeedBack feedBack = feedBackService.findBy("id", id, FeedBack.class);
+
+    Map<String, Object> resultMap = new HashMap<>();
+
+    resultMap.put("manage", getManage(feedBack));
+//    resultMap.put("feedBackInfo", getFeedBack(feedBack));
+
+    return success(resultMap);
+  }
+
+
+  /**
+   * 获取 回访 客服信息
+   */
+  @RequestMapping(value = "/tagInfo",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  private String tagInfo(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+    String customerId = JsonParseUtil.parseStringValue(jsonObject, "customerId");
+    String contactId = JsonParseUtil.parseStringValue(jsonObject, "contactId");
+
+    Map<String, Object> result = new HashMap<>();
+
+    if (customerId != null && !customerId.equals("")) {
+       List<TagValueVo> tagValueVos = feedBackService.findTagCustomer(customerId);
+      Map<String, Object> tagInfo = new HashMap<>();
+
+      feedBackService.convertCustomerTagVal(tagInfo, tagValueVos);//服务详情
+      result.put("customerTags", tagInfo);
+    }
+
+    if (contactId != null && !contactId.equals("")){
+      List<TagValueVo> tagValueVos = feedBackService.findTagContact(contactId);
+      Map<String, Object> tagInfo = new HashMap<>();
+
+      feedBackService.convertContactTagVal(tagInfo, tagValueVos);
+      result.put("contactTags", tagInfo);
+    }
+    return success(result);
+  }
+
+
+  /**
+   * 添加回访记录
+   */
+  @RequestMapping(value = "/add",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  private String add(HttpServletRequest request, @RequestBody FeedBackParamVo paramVo) {
+
+    UserComm userComm = UserLocal.get();
+
+    if (userComm == null || userComm.equals("")) {
+      throw new BusinessException("请登入后操作");
+    }
+    paramVo.setUserRoleId(userComm.getUserRoleID());//客服id
+    String feedBackId = addFeedBack(paramVo);//添加回访
+
+    paramVo.setId(feedBackId);//回访id
+    if (paramVo.getContactTags() != null && !paramVo.getContactTags().isEmpty()) {
+      //更新 客户联系人标签
+      feedBackService.addTagContact(paramVo);
+
+      //更新联系人 多产品信息
+      if (paramVo.getProductParams() != null && !paramVo.getProductParams().isEmpty()){
+        contactService.updateContactServer(paramVo.getProductParams(), paramVo.getContactId());
+      }
+    }
+
+    if (paramVo.getCustomerTags() != null && !paramVo.getCustomerTags().isEmpty()){
+      //更新 客户标签
+      feedBackService.addTagCustomer(paramVo);
+    }
+
+    return success(null);
+  }
+
+
+  /**
+   *添加 回访记录
+   * @param paramVo
+   * @return
+   */
+  private String addFeedBack(@RequestBody FeedBackParamVo paramVo) {
+    FeedBack feedBack = new FeedBack();
+
+    String id = new GetRID("2", "feedback", paramVo.getCustomerId()).getId();
+    feedBack.setId(id);
+    feedBack.setCustomerid(paramVo.getCustomerId());//客户id
+    feedBack.setContactid(paramVo.getContactId());//联系人id
+    feedBack.setTypename(paramVo.getServiceWay());//服务方式
+
+    feedBack.setRemark(paramVo.getRemark());//客户备注
+    feedBack.setAttention(paramVo.getAttention());//关注项目备注
+    feedBack.setDeleteflag(0);
+    feedBack.setCreatetime(TimeUtil.currentTime());//创建时间
+    feedBack.setCreatorroleid(paramVo.getUserRoleId());//客服id
+    feedBack.setLastupdatetime(TimeUtil.currentTime());//最后更新时间
+    feedBack.setUpdateroleid(paramVo.getUserRoleId());
+
+    feedBackService.create(feedBack, FeedBack.class);//创建回访
+
+    return id;
+  }
+
+  /**
+   * 管理信息
+   * @param feedBack
+   * @return
+   */
+  private Map<String, Object> getManage(FeedBack feedBack) {
+
+    Customer customer = customerService.findBy("id", feedBack.getCustomerid(), Customer.class);
+
+    Map<String, Object> result = new HashMap<>();
+    result.put("accountName", customer.getBankaccounts());//账号
+    result.put("customerId", customer.getId());//客户id
+
+    User creater = userService.findBy("id", customer.getCreatorid(), User.class);
+    result.put("createDate", customer.getCreatetime());//创建时间
+    result.put("creater", creater == null ? null : creater.getName());//创建人
+
+    User updater = userService.findBy("id", customer.getUpdateroleid(), User.class);
+    result.put("lastUpdateDate", customer.getLastupdatetime());//最后修改人
+    result.put("lastUpdateDater", updater == null ? null : updater.getName() );//修改人
+
+    return result;
+  }
+
+
+  private Map<String, Object> getFeedBack(FeedBackVo feedBack) {
+
+    Map<String, Object> result = new HashMap<>();
+
+    result.put("owenrName", TimeUtil.format(feedBack.getCreateId()));//创建人
+    result.put("createTime", feedBack.getCreateTime());//创建时间
+    result.put("accountName", feedBack.getAccountName());
+    result.put("companyName", feedBack.getCompanyName());
+    result.put("phone", feedBack.getPhone());//电话
+    result.put("serviceContent", feedBack.getRemark());//服务内容
+    result.put("serviceWay", feedBack.getServiceWay());//服务内容
+
+    //获取客户联系人标签
+    List<TagValueVo> tagContacts = tagContactService.findTagValueByContactId(feedBack.getContactId());
+    contactService.getContactTagVal(tagContacts,result);
+
+    ContactConvert contactConvert = new ContactConvert();
+
+    contactConvert.convertContactListTagVal(result, result);//联系人标签
+
+    //获取回访标签信息
+    List<TagValueVo> feedContas = feedBackService.findTagContact(feedBack.getId());//回访标签
+
+
+    return result;
+  }
+
+
+  /*private Map<String, Object> getFeedBack(FeedBack feedBack) {
+
+    Map<String, Object> result = new HashMap<>();
+
+    Contact contact = contactService.findBy("id", feedBack.getContactid(), Contact.class);//用户详细
+
+    Customer customer = customerService.findBy("id", feedBack.getCustomerid(), Customer.class);//客户详细
+
+    User creater = userService.getUserInfo(feedBack.getCreatorroleid());//客服详情
+
+    User updater = userService.getUserInfo(feedBack.getUpdateroleid());//修改人
+
+    User owner = userService.getUserInfo(feedBack.getOwnerroleid());//修改人
+
+    result.put("id", feedBack.getId());//id
+
+    if (contact != null){
+      //获取 联系人 数据 用户
+
+      List<TagValueVo> tagContacts = tagContactService.findTagValueByContactId(contact.getId());//联系人 标签信息
+
+      contactService.getContactTagVal(tagContacts, result);//用户标签
+
+      ContactConvert contactConvert = new ContactConvert();
+
+      result.put("role", contactConvert.convertContactListTagValue((List<TagValueVo>) result.remove("role")) );//角色--标签(多选)
+      result.put("duty", contactConvert.convertContactListTagValue((List<TagValueVo>) result.remove("duty")));//职务--标签
+
+      result.put("phone", contact.getMobile());//联系人电话
+      result.put("contactName", contact.getName());//联系人
+
+    }
+
+    if (customer != null){
+      //获取 客户详情 数据
+      result.put("accountName", customer.getBankaccounts());//主账号
+
+      result.put("companyName", customer.getName());//公司名
+    }
+
+    result.put("createTime", TimeUtil.format(feedBack.getCreatetime()));//创建日期
+
+    result.put("contactType", feedBack.getTypename());//联络类型
+    result.put("contactResult", feedBack.getStatusname());//联络结果
+
+
+    result.put("serviceWay", feedBack.getTypename());//服务方式
+    result.put("serviceWayId", feedBack.getTypeid());//服务方式id
+
+    result.put("serviceType", "初次回访");//服务类型
+
+    result.put("level", ContactConstant.FeedBack_CUSTOMERCD2.getKeyByType(feedBack.getCustomdict1()) );//回访级别
+    result.put("levelId", feedBack.getCustomdict1() );//回访级别id
+
+
+    result.put("serviceContent", feedBack.getServicecontentname());//服务内容
+    result.put("serviceContentId", feedBack.getServicecontentid());//服务内容id
+
+    result.put("serviceInfo", feedBack.getRemark());//服务详细
+
+    if (creater != null){
+      result.put("createName", creater.getName());//客服(创建人)
+    }
+
+    if (updater != null){
+      result.put("lastUpdateTime", TimeUtil.format(feedBack.getLastupdatetime()));//最后更新时间
+      result.put("lastUpdater", updater.getName());//最后修改人
+    }
+
+    result.put("owenrName", owner == null ? null : owner.getName());
+
+    return result;
+
+  }*/
+
+}

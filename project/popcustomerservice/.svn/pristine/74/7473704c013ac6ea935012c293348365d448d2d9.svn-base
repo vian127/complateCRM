@@ -1,0 +1,337 @@
+<!-- 客户列表高级筛选模板 -->
+<div th:fragment="advanced_filter" class="advanced-filter-box js-advanced-filter-box">
+    <style th:inline="text">
+        .form-inline .checked-list {max-width: 240px;min-width: 120px; overflow: auto;}
+        .checked-list>li {display: inline-block;display: 4px 8px; background-color: #fff}
+        .filter-div {display: none;z-index: 10;position: absolute;left: 111px;top: 40px;padding-bottom: 45px;overflow-y: auto;background-color: #fff;border: 1px solid #aaa;border-radius: 5px;}
+        .filter-div>input {display: none !important;}
+        .checkbox-container {padding: 10px;min-width: 160px;max-height: 240px;overflow-y: auto;}
+        .filter-div .btn-div {z-index: 10;position: absolute;left: 0px;bottom: 0px;width: 100%;padding: 5px 0px;background-color: #fff;text-align: center;box-shadow: 0px -2px 5px #ccc}
+        .filter-div .btn-div>button {margin-left: 5px;}
+        li>.trees-list {margin-left: 42px;display: none;}
+        .trees-list>li>span {display: inline-block;font-size: 22px;padding: 5px;font-weight: bold;cursor: pointer;user-select: none;}
+        .trees-list>li>label {display: inline-block;font-weight: normal;margin-left: 5px;margin-bottom: 7px;vertical-align: middle;}
+        .advanced-filter-box {display: none;padding: 20px 20px 0;}
+        .form-section>form>h3 {font-size: 16px;padding-bottom: 10px;margin-bottom: 15px;border-bottom: 1px solid #aaa;}
+        .form-section .form-group {margin-bottom: 10px}
+        .form-section .form-group>label {width: 5.5em;}
+        .service-div>h3 {font-size: 16px;margin-bottom: 15px;}
+        .service-div>div {margin-bottom: 10px;}
+
+        .service-div>.service-input input {width: 100px;}
+        .service-section .form-group {margin-right: 15px;}
+        .service-section .form-group>label {width: auto;font-weight: normal;}
+    </style>
+    <div class="form-section form-inline" id='advanced_app'>
+        <form class="clearfix">
+            <h3>高级筛选项</h3>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <label for="">服务开始时间</label>
+                    <input type="text" class='form-control js-date-area1' placeholder="请选择日期" v-model='collect.serviceStartDate'> ~
+                    <input type="text" class='form-control js-date-area2' placeholder="请选择日期" v-model='collect.serviceEndDate'>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>城市</label>
+                    <select name="checks" id="" class="form-control" v-model='collect.province' @change="changeCitys($event,'province')">
+                        <option value="">请选择省份</option>
+                        <option :value='item.id' v-for='item in province'>{{ item.name }}</option>
+                    </select>
+                    <select name="checks" id="" class="form-control" v-model='collect.city' @change="changeCitys($event,'citys')">
+                        <option value="">请选择城市</option>
+                        <option :value="item.id" v-for='item in citys'>{{ item.name }}</option>
+                    </select>
+                    <select name="checks" id="" class="form-control" v-model='collect.district'>
+                        <option value="">请选择地区</option>
+                        <option :value="item.id" v-for='item in districts'>{{ item.name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12 service-div">
+                <div class="col-md-4 service-input">
+                    <label for="">未访问天数</label>
+                    <input type="text" class='form-control' placeholder="请输入天数" v-model='collect.backStartCount'> ~
+                    <input type="text" class='form-control' placeholder="请输入天数" v-model='collect.backEndCount'>
+                </div>
+                <div class="col-md-4 service-input">
+                    <label for="">未登录天数</label>
+                    <input type="text" class='form-control' placeholder="请输入天数" v-model='collect.loginStartCount'> ~
+                    <input type="text" class='form-control' placeholder="请输入天数" v-model='collect.loginEndCount'>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="">领用人</label>
+                    <ul class="form-control checked-list js-checked-list" data-key="receiveName">
+                        <li v-for="(item,index) in ((collect.receiveName && collect.receiveName.length>0)?collect.receiveName:[{value:'请选择领用人'}])"
+                            v-text="index==0?item.value:'，'+item.value"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div js-filter-receiveName">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <div class="checkbox-container js-checkbox-container"></div>
+                        <div class="btn-div">
+                            <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 service-div">
+                <div class="form-group col-md-3">
+                    <label for="">贸易类型</label>
+                    <select name="" id="" class="form-control js-select-ele" data-id="tag00010" v-model='collect.tradeType'>
+                        <option value="">请选择</option>
+                        <option value="tagval0000000264">内销</option>
+                        <option value="tagval0000000265">外销</option>
+                        <option value="tagval0000000266">内外销</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="">性别</label>
+                    <ul class="form-control checked-list js-checked-list" data-key="gender">
+                        <li v-for="(item,index) in ((collect.gender && collect.gender.length>0)?collect.gender:[{value:'请选择性别'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="tag00002">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <div class="checkbox-container js-checkbox-container"></div>
+                        <div class="btn-div">
+                            <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="">行业类型</label>
+                    <ul class="form-control checked-list js-checked-list" data-key="industryType">
+                        <li v-for="(item,index) in ((collect.industryType && collect.industryType.length>0)?collect.industryType:[{value:'请选择行业类型'}])"
+                            v-text="index==0?item.value:'，'+item.value"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="tag00003">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <div class="checkbox-container js-checkbox-container"></div>
+                        <div class="btn-div">
+                            <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="">重点单品</label>
+                    <ul class="form-control checked-list js-checked-list" data-key="product">
+                        <li v-for="(item,index) in ((collect.product && collect.product.length>0)?collect.product:[{value:'请选择重点单品'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="tag00004">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <div class="checkbox-container js-checkbox-container">
+                            <!-- <checkbox-template :now_checked_data="feedback_list"></checkbox-template> -->
+                        </div>
+                        <div class="btn-div">
+                            <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 service-div">
+                <div class="col-md-4">
+                    <label for="">重点开发季节</label>
+                    <ul class="form-control checked-list js-checked-list" data-key="season">
+                        <li v-for="(item,index) in ((collect.season && collect.season.length>0)?collect.season:[{value:'请选择重点开发季节'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="tag00006">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <div class="checkbox-container js-checkbox-container"></div>
+                        <div class="btn-div">
+                            <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="">风格</label>
+
+                    <ul class="form-control checked-list js-checked-list" data-key="style">
+                        <li v-for="(item,index) in ((collect.style && collect.style.length>0)?collect.style:[{value:'请选择风格'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="tag00005">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <div class="checkbox-container js-checkbox-container"></div>
+                        <div class="btn-div">
+                            <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                        </div>
+                    </div>
+                </div>
+                 <div class="form-group col-md-3">
+                    <label for="">企业类型</label>
+                    <ul class="form-control checked-list js-checked-list" data-key="companyType">
+                        <li v-for="(item,index) in ((collect.companyType && collect.companyType.length>0)?collect.companyType:[{value:'请选择企业类型'}])"
+                            v-text="index==0?item.value:'，'+item.value"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="tag00009">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <div class="checkbox-container js-checkbox-container"></div>
+                        <div class="btn-div">
+                            <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>客服选项</h3>
+            <div class="service-div col-md-12">
+                <div class="form-group col-md-3">
+                    <label>发票项</label>
+                    <select name="" id="" class="form-control js-select-ele" data-id="tag00016" v-model='collect.invoice'>
+                        <option value="">请选择</option>
+                        <option value="tagval0000000302">提前开票</option>
+                        <option value="tagval0000000303">暂缓开票</option>
+                        <option value="tagval0000000304">普通发票</option>
+                        <option value="tagval0000000305">专用发票</option>
+                        <option value="tagval0000000306">不需要发票</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="">客户关注项</label>
+                    <ul class="form-control checked-list js-checked-list" data-key="attention">
+                        <li v-for="(item,index) in ((collect.attention && collect.attention.length>0)?collect.attention:[{value:'请选择客户关注项'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="tag00014">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <div class="checkbox-container js-checkbox-container"></div>
+                        <div class="btn-div">
+                            <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="">其他关注项</label>
+                    <textarea type="text" cols='40%' rows='1' class='form-control' placeholder="请输入其他关注项" v-model='collect.attentionRemark'></textarea>
+                </div>
+                <div class="col-md-4">
+                    <label for="">最后一次联络类型</label>
+                    <select name="" id="" class='form-control' v-model='collect.contactType'>
+                        <option value="">请选择</option>
+                        <option value="feedbtagval0000000053">有效</option>
+                        <option value="feedbtagval0000000054">无效</option>
+                    </select>
+                </div>
+            </div>
+            <div class="service-div col-md-12">
+                <h3>服务详情</h3>
+                <div class="col-md-4 js-checked-section">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="1" data-id='' class="js-feedback-check1">基础项
+                    </label>
+                    <ul class="form-control checked-list js-checked-list" data-key="feedback">
+                        <li v-for="(item,index) in ((collect.feedback && collect.feedback.length>0)?collect.feedback:[{value:'请选择基础项'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="feedbtag00001">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <div class="checkbox-container js-checkbox-container"></div>
+                        <div class="btn-div">
+                            <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 js-checked-section">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="1" data-id='' class="js-feedback-check1">网站服务项
+                    </label>
+                    <ul class="form-control checked-list js-checked-list" data-key="webService">
+                        <li v-for="(item,index) in ((collect.webService && collect.webService.length>0)?collect.webService:[{value:'请选择网站服务项'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="feedbtag00005">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <div class="checkbox-container js-checkbox-container"></div>
+                        <div class="btn-div">
+                            <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 js-checked-section">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="1" data-id='' class="js-feedback-check1">赠品项
+                    </label>
+                    <ul class="form-control checked-list js-checked-list" data-key="complimentary">
+                        <li v-for="(item,index) in ((collect.complimentary && collect.complimentary.length>0)?collect.complimentary:[{value:'请选择赠品项'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="feedbtag00003">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <div class="checkbox-container js-checkbox-container"></div>
+                        <div class="btn-div">
+                            <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="service-div col-md-12">
+                <div class="col-md-4 js-checked-section">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="1" data-id='feedbtag00004' class="js-feedback-check1">登录使用项
+                    </label>
+                    <ul class="form-control checked-list js-checked-list" data-key="login">
+                        <li v-for="(item,index) in ((collect.login && collect.login.length>0)?collect.login:[{value:'请选择登录使用项'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="feedbtag00004">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <div class="checkbox-container js-checkbox-container"></div>
+                        <div class="btn-div">
+                            <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="1" data-id='' :checked="collect.recommend?true:false">推荐项
+                    </label>
+                    <select name="" id="" class='form-control' v-model='collect.recommend'>
+                        <option value="">请选择</option> 
+                        <option value="1">升级</option> 
+                        <option value="2">续费</option> 
+                        <option value="3">销售</option> 
+                        <option value="4">离职设计师</option> 
+                        <option value="5">转介绍</option>
+                    </select>
+                </div>
+                <div class="col-md-12 service-section">
+                    <label class="checkbox-inline form-group">
+                        <input type="checkbox" value="1" data-id='feedbtag00002' :checked="collect.feedInvoice?true:false">发票项
+                    </label>  
+                    <div class="form-group">
+                        <select name="" id="" class='form-control' data-id="" v-model="collect.feedInvoice">
+                            <option value="">请选择</option>
+                            <option value="feedbtagval0000000006">普通发票</option>
+                            <option value="feedbtagval0000000007">专用发票</option>
+                            <option value="feedbtagval0000000008">不需要发票</option>
+                            <option value="feedbtagval0000000009">暂缓开票</option>
+                            <option value="feedbtagval00000000010">提前开票</option>
+                            <option value="feedbtagval00000000011">未收到，催发票</option>
+                        </select>
+                    </div>
+                    <div class="form-group" v-for="(item,index) in cutomer_tags.feedInvoice[collect.feedInvoice]">
+                        <input :id="'check-ele-2'+index" type="checkbox" name='' v-model='item.is_checked'>
+                        <label :for="'check-ele-2'+index" v-text="item.name"></label>
+                    </div>
+                </div>          
+                <div class="col-md-12">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="1" data-id='' :checked='collect.remark.length>0?true:false'>备注
+                    </label>
+                    <textarea type="text" class='form-control' rows="5" cols="50" placeholder="备注信息" v-model='collect.remark'></textarea>
+                </div>
+            </div>
+           
+            <!-- <div class="col-md-12 text-right">
+                    <button type="reset" class="btn btn-default">重置</button>
+                    <button type="button" class="btn btn-default" @click="closeFilterBox">取消</button>
+                    <button type="button" class="btn btn-default" @click="closeFilterBox">确认筛选</button>
+                </div> -->
+
+        </form>
+    </div>
+</div>

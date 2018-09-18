@@ -1,0 +1,68 @@
+package com.pop136.customerservice.service.tag;
+
+import com.pop136.customerservice.mapper.agent.cusotmer.CustomerMapper;
+import com.pop136.customerservice.service.AbstractBaseService;
+import com.pop136.customerservice.vo.Customer.*;
+import com.pop136.customerservice.vo.Customer.search.CustomerSearchVo;
+import com.pop136.customerservice.vo.Customer.search.CustomerVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class TagService extends AbstractBaseService {
+
+  @Autowired
+  private CustomerMapper customerMapper;
+
+
+  public void init() {
+    setMapper(customerMapper);
+  }
+
+
+  public List<CallInfoVo> getCallInByCustomerId(String customerId) {
+    return customerMapper.getCallInByCustomerId(customerId);
+  }
+
+  public List<CallInfoVo> getCallOutByCustomerId(String customerId) {
+    return customerMapper.getCallOutByCustomerId(customerId);
+  }
+
+  public List<ServiceInfoVo> getServiceByCustomerId(String customerId, String groundflaglag) {
+    return customerMapper.getServiceByCustomerId(customerId, groundflaglag);
+  }
+
+  public List<OrderInfoVo> getOrderByCustomerId(String customerId) {
+    return customerMapper.getOrderByCustomerId(customerId);
+  }
+
+  public List<InvoiceInfoVo> getInvoiceByCustomerId(String customerId) {
+    return customerMapper.getInvoiceByCustomerId(customerId);
+  }
+
+  public List<InvoiceLogInfoVo> getInvoiceLogByCustomerId(String customerId) {
+    return customerMapper.getInvoiceLogByCustomerId(customerId);
+  }
+
+  public List<ShangpainfoVo> getShangPaiByCustomerId(String customerId) {
+    return customerMapper.getShangPaiByCustomerId(customerId);
+  }
+
+  public List<ReceiveInfoVo> getReceiveInfoByCustomerId(String customerId) {
+    return customerMapper.getReceiveInfoByCustomerId(customerId);
+  }
+
+  public List<AssistInfoVo> getAssistInfoByCustomerId(String customerId) {
+    return customerMapper.getAssistInfoByCustomerId(customerId);
+  }
+
+  public List<ActivityInfoVo> getActivityInfoByCustomerId(String customerId) {
+    return customerMapper.getActivityInfoByCustomerId(customerId);
+  }
+
+  public List<CustomerVo> getCustomerList(CustomerSearchVo searchVo) {
+    return customerMapper.getCustomerList(searchVo);
+  }
+}

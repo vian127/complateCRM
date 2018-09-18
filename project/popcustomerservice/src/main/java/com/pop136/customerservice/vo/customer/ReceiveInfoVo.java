@@ -1,0 +1,69 @@
+package com.pop136.customerservice.vo.customer;
+
+import java.io.Serializable;
+
+/**
+ * 领用 状态
+ */
+public class ReceiveInfoVo implements Serializable{
+
+  private String customerId;
+
+  private String designateName;
+
+  private String msgType;
+
+  private String staffName;
+
+  private String startTime;
+
+  private String endTime;
+
+  public String getCustomerId() {
+    return customerId;
+  }
+
+  public void setCustomerId(String customerId) {
+    this.customerId = customerId;
+  }
+
+  public String getDesignateName() {
+    return designateName;
+  }
+
+  public void setDesignateName(String designateName) {
+    this.designateName = designateName;
+  }
+
+  public String getMsgType() {
+    return msgType;
+  }
+
+  public void setMsgType(String msgType) {
+    this.msgType = msgType;
+  }
+
+  public String getStaffName() {
+    return staffName;
+  }
+
+  public void setStaffName(String staffName) {
+    this.staffName = staffName;
+  }
+
+  public String getStartTime() {
+    return startTime;
+  }
+
+  public void setStartTime(String startTime) {
+    this.startTime = startTime;
+  }
+
+  public String getEndTime() {
+    return endTime;
+  }
+
+  public void setEndTime(String endTime) {
+    this.endTime = endTime;
+  }
+}

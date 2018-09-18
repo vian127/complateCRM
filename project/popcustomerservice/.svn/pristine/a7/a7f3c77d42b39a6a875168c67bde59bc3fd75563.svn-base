@@ -1,0 +1,6 @@
+@charset 'UTF-8';
+/*----------bootstrap 覆盖----------*/
+.row>div {margin-bottom:20px;}
+.form-section>div{margin-bottom:20px;}
+.list-section{padding: 0 30px;}
+.js-open{cursor: pointer;}

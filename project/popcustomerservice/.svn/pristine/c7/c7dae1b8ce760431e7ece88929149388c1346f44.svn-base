@@ -1,0 +1,10 @@
+.form-section .dist-bottom>div{margin-bottom:10px;}
+.form-section .dist-bottom{margin-left: -40px;}
+
+/*----------bootstrap 覆盖----------*/
+
+.list-section{padding: 0 30px;}
+
+.col-md-12>label.slide-btn{font-size: 16px;margin-bottom: 0px;position: relative;padding-left: 30px;}
+.col-md-12>label.slide-btn>button{position: absolute;left: 0px;top:-10px;display: inline-block;width: 30px;height: 30px;font-size: 30px;font-weight: normal;cursor: pointer;}
+.section-title{padding-top: 4px;padding-bottom: 4px;margin: 10px auto 20px;background-color: #ddd;}

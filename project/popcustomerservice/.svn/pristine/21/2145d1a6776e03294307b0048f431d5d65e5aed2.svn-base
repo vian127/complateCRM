@@ -1,0 +1,106 @@
+/*
+    #author     gaofeng
+    #date       2017/07/24
+    #purpose    模板编辑
+*/
+
+require(['vue', 'msg', 'general','base-info','layui'], function (Vue, msg, general,global_info) {
+    $(function () {
+        var def = {
+            loading_ele: $('.js-loading-div'),
+            ajax_port: global_info.api_url,
+            msg_time: 1200,
+        };
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                location_obj: general.fn.getLocationParameter(), //浏览器参数
+                template_info: {                                 //模板数据对象        
+                    name: '',
+                    sign: '',
+                    content: '',
+                    id:'',
+                },
+                collect_info:{
+                    num:0,
+                    alias:''
+                }
+                
+            },
+            mounted() {
+                this.getNewTemplate({id: this.location_obj.id})
+            },
+            methods: {
+                getNewTemplate: function (opt) {
+                    def.loading_ele.fadeIn(200);
+                    var self=this
+                    if(opt.id!=undefined){
+                        self.template_info.id=opt.id
+                        general.fn.subAjax({
+                            url: def.ajax_port + '/api/msgTemplate/info',
+                            data: opt,
+                            success: function (data) {
+                                console.log(data)
+                                if (data && data.data) {
+                                    this.template_info = data.data || {};
+                                } else {
+                                    msg.msg({'txt': '未请求到数据'}, def.msg_time);
+                                }
+                                def.loading_ele.fadeOut(400);
+                            },
+                            error: function () {
+                                def.loading_ele.fadeOut(400);
+                            }
+                        });
+                    }
+                    def.loading_ele.fadeOut(400);
+                },
+                saveFunc:function(){
+                    var data=this.template_info;
+                    console.log(data)
+                    var msg_txt={'name':'请输入模板名称','sign':'请选择模板签名','content':'请输入模板内容'};
+                    var is_next=true;
+                    var return_data={};
+                    for(var key in data){
+                        switch(key){
+                            case 'name':
+                            case 'sign':
+                            case 'content':
+                                if(data[key]==''){
+                                    is_next=false;
+                                    msg.msg({'txt':msg_txt[key]},def.msg_time);
+                                }
+                                break;
+                        }
+                        if(is_next==false){
+                            break;
+                        }
+                        if(data[key]!=""){
+                            return_data[key]=data[key];
+                        }
+                    }
+                    console.log(return_data)
+                    if(is_next==true){
+                        def.loading_ele.fadeIn(200);
+                        general.fn.subAjax({
+                            url:def.ajax_port+'/api/msgTemplate/update',
+                            data:return_data,
+                            success:function(){
+                                msg.msg({'txt':'保存成功！'},1200);
+                                def.loading_ele.fadeOut(400);
+                            },
+                            error:function(){
+                                def.loading_ele.fadeOut(400);
+                            }
+                        });
+                    }
+                },
+                textLength: function () { //文字长度
+                    this.collect_info.num = this.template_info.content.length;
+                },
+            }
+        })
+    })
+})

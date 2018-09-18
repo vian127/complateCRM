@@ -1,0 +1,16 @@
+@charset 'UTF-8';
+
+.form-inline .checked-list{max-width: 240px;min-width: 120px;overflow: auto;}
+.checked-list>li{display: inline-block;display: 4px 8px;background-color: #fff}
+.filter-div{display: none;z-index: 10;position: absolute;left: 80px;top: 40px;padding-bottom: 45px;overflow-y:auto;background-color: #fff;border:1px solid #aaa;border-radius: 5px;}
+.filter-div>input{display: none !important;}
+.checkbox-container{padding: 10px;min-width: 160px;max-height: 240px;overflow-y:auto;}
+.filter-div .btn-div{z-index: 10;position: absolute;left: 0px;bottom: 0px;width: 100%;padding: 5px 0px;background-color: #fff;text-align: center;box-shadow: 0px -2px 5px #ccc}
+.filter-div .btn-div>button{margin-left: 5px;}
+li>.trees-list{margin-left: 42px;display: none;}
+.trees-list>li>span{display: inline-block;font-size: 22px;padding: 5px;font-weight: bold;cursor: pointer;user-select:none;}
+.trees-list>li>label{display: inline-block;font-weight: normal;margin-left: 5px;margin-bottom: 7px;vertical-align: middle;}
+
+
+.checked-section{font-size: 16px;margin-bottom: 15px;}
+.checked-section>span{font-weight: bold;margin: 0 10px}

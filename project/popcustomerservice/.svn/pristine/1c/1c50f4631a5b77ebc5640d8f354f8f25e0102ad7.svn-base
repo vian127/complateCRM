@@ -1,0 +1,80 @@
+package com.pop136.customerservice.controller.integral;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.pop136.customerservice.utils.Constants;
+import com.pop136.customerservice.utils.MatrixToImageWriter;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController // 标记为：restful
+@RequestMapping("/qrcode")
+public class QRcodeController {
+
+	@RequestMapping("/getparameterqr/{param}")
+	public void getParameterQr(HttpServletResponse response, @PathVariable("param") String param) throws IOException {
+		RestTemplate rest = new RestTemplate();
+
+		String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + Constants.appid
+				+ "&secret=" + Constants.secret;
+
+		MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+		HttpEntity requestEntity = new HttpEntity(headers);
+
+		ResponseEntity<String> entity = rest.exchange(url, HttpMethod.GET, requestEntity, String.class, new Object[0]);
+
+		JSONObject jsonObject = JSON.parseObject(entity.getBody());
+
+		getminiqrQr(jsonObject.get("access_token").toString(), param, response);
+
+	}
+
+	public void getminiqrQr(String accessToken, String sceneStr, HttpServletResponse response) throws IOException {
+
+		RestTemplate rest = new RestTemplate();
+		InputStream inputStream = null;
+		String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + accessToken;
+		Map<String, Object> param = new HashMap<>();
+		param.put("scene", sceneStr);
+		param.put("page", "pages/index/index");
+		param.put("width", 430);
+		param.put("auto_color", false);
+		Map<String, Object> line_color = new HashMap<>();
+		line_color.put("r", 0);
+		line_color.put("g", 0);
+		line_color.put("b", 0);
+		param.put("line_color", line_color);
+		MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+
+		HttpEntity requestEntity = new HttpEntity(param, headers);
+		ResponseEntity<byte[]> entity = rest.exchange(url, HttpMethod.POST, requestEntity, byte[].class, new Object[0]);
+		byte[] result = entity.getBody();
+		inputStream = new ByteArrayInputStream(result);
+
+		BufferedImage read = ImageIO.read(inputStream);
+
+		if (read != null) {
+			MatrixToImageWriter.writeToStream(read, "jpg", response.getOutputStream());
+		} else {
+			System.out.println("指定页面不存在");
+		}
+	}
+	
+	
+}

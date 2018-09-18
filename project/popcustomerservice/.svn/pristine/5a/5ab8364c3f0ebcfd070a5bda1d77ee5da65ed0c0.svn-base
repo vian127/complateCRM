@@ -1,0 +1,367 @@
+package com.pop136.customerservice.service.customer;
+
+import com.github.pagehelper.PageInfo;
+import com.pop136.core.BeanUtil;
+import com.pop136.customerservice.constant.CommonConstant;
+import com.pop136.customerservice.entity.customer.Customer;
+import com.pop136.customerservice.entity.customer.CustomerApm;
+import com.pop136.customerservice.entity.tag.TagCustomer;
+import com.pop136.customerservice.entity.tag.TagCustomerLog;
+import com.pop136.customerservice.mapper.agent.cusotmer.ContactMapper;
+import com.pop136.customerservice.mapper.agent.cusotmer.CustomerMapper;
+import com.pop136.customerservice.mapper.agent.tag.TagContactMapper;
+import com.pop136.customerservice.mapper.agent.tag.TagCustomerMapper;
+import com.pop136.customerservice.service.AbstractBaseService;
+import com.pop136.customerservice.utils.GetRID;
+import com.pop136.customerservice.utils.TimeUtil;
+import com.pop136.customerservice.vo.customer.*;
+import com.pop136.customerservice.vo.customer.param.CustomerParamVo;
+import com.pop136.customerservice.vo.customer.param.TagParamVo;
+import com.pop136.customerservice.vo.customer.search.CustomerSearchVo;
+import com.pop136.customerservice.vo.customer.search.CustomerVo;
+import com.pop136.customerservice.vo.tag.TagValueVo;
+import com.pop136.customerservice.vo.tag.search.TagValueSearchVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class CustomerService extends AbstractBaseService {
+
+  @Autowired
+  private CustomerMapper customerMapper;
+
+  @Autowired
+  private TagCustomerMapper tagCustomerMapper;
+
+  @Autowired
+  private ContactMapper contactMapper;
+
+  @Autowired
+  private TagContactMapper tagContactMapper;
+
+
+
+  public void init() {
+    setMapper(customerMapper);
+  }
+
+
+  public List<CallInfoVo> getCallInByCustomerId(String customerId) {
+    return customerMapper.getCallInByCustomerId(customerId);
+  }
+
+  public List<CallInfoVo> getCallOutByCustomerId(String customerId) {
+    return customerMapper.getCallOutByCustomerId(customerId);
+  }
+
+  public List<ServiceInfoVo> getServiceByCustomerId(String customerId, String groundflaglag) {
+    return customerMapper.getServiceByCustomerId(customerId, groundflaglag);
+  }
+
+  public List<OrderInfoVo> getOrderByCustomerId(String customerId) {
+    return customerMapper.getOrderByCustomerId(customerId);
+  }
+
+  public List<InvoiceInfoVo> getInvoiceByCustomerId(String customerId) {
+    return customerMapper.getInvoiceByCustomerId(customerId);
+  }
+
+  public List<InvoiceLogInfoVo> getInvoiceLogByCustomerId(String customerId) {
+    return customerMapper.getInvoiceLogByCustomerId(customerId);
+  }
+
+  public List<ShangpainfoVo> getShangPaiByCustomerId(String customerId) {
+    return customerMapper.getShangPaiByCustomerId(customerId);
+  }
+
+  public List<ReceiveInfoVo> getReceiveInfoByCustomerId(String customerId) {
+    return customerMapper.getReceiveInfoByCustomerId(customerId);
+  }
+
+  public List<AssistInfoVo> getAssistInfoByCustomerId(String customerId) {
+    return customerMapper.getAssistInfoByCustomerId(customerId);
+  }
+
+  public List<ActivityInfoVo> getActivityInfoByCustomerId(String customerId) {
+    return customerMapper.getActivityInfoByCustomerId(customerId);
+  }
+
+  public List<CustomerVo> getCustomerList(CustomerSearchVo searchVo) {
+
+    return customerMapper.getCustomerList(searchVo);
+  }
+
+  public String getCustomerCount(CustomerSearchVo searchVo) {
+    return customerMapper.getCustomerCount(searchVo);
+  }
+
+  /**
+   * 获取 客户标签 service
+   * @param customer
+   * @return
+   */
+  public Map<String, Object> getCustomerTagVal(Customer customer) {
+
+    Map<String, Object> result = new HashMap<>();
+
+    List<TagValueVo> tagCustomerVos = tagCustomerMapper.findTagValueByCustomerId(customer.getId());
+
+    convertCustomerTagVal(result, tagCustomerVos);//转换
+
+    return result;
+  }
+
+
+  /**
+   * 更新客户数据 service
+   * @param paramVo
+   */
+    public void updateCustomerInfo(CustomerParamVo paramVo) {
+
+    BeanUtil.checkRequestParam(paramVo);//过滤非空参数
+
+    if (paramVo.getId() != null && !paramVo.getId().equals("")){
+
+      Customer customer = new Customer();
+
+      customer.setId(paramVo.getId());//id
+
+      customer.setUpdateroleid(paramVo.getUserRoleId());//更新人
+      customer.setBank(paramVo.getBank());
+      customer.setName(paramVo.getCompanyName());
+      customer.setAddress(paramVo.getAddress());
+      customer.setEmail(paramVo.getEmail());
+      customer.setPhone(paramVo.getPhone());
+      customer.setProvinceid(paramVo.getCity());//市
+      customer.setCityid(paramVo.getDistrict());//区
+      customer.setCountryid(paramVo.getProvince());//省
+      customer.setLastupdatetime(TimeUtil.currentTime());//更新时间
+
+      customerMapper.updateBean("id", customer.getId(), customer);
+    }
+
+  }
+
+  /**
+   * 更新 tag标签
+   * @param paramVo
+   */
+  @Transactional
+  public void updateCustomerTag(CustomerParamVo paramVo) {
+
+    TagValueSearchVo searchVo = new TagValueSearchVo();
+
+    searchVo.setCustomerId(paramVo.getId());
+
+    List<TagCustomer> tagCustomerList = tagCustomerMapper.findTagCustomerList(searchVo);
+
+    if (tagCustomerList != null && !tagCustomerList.isEmpty()) {
+      clearTagCustomer(paramVo, tagCustomerList);
+    }
+
+    for (TagParamVo tagParamVo : paramVo.getTags()) {
+      TagCustomer tagCustomer =  new TagCustomer();
+
+      tagCustomer.setId(new GetRID("1", "tag_customer", tagParamVo.getTagId()).getId());
+      tagCustomer.setTagid(tagParamVo.getTagId());//
+      tagCustomer.setTagvalid(tagParamVo.getId());//属性标签id
+      tagCustomer.setCustomerid(paramVo.getId());//客户id
+      tagCustomer.setDeleteflag(0);
+      tagCustomer.setCreateroleid(paramVo.getUserRoleId());//创建人id
+      tagCustomer.setCreater(paramVo.getUserRoleName());//创建人
+      tagCustomer.setCreatetime(TimeUtil.currentTime());
+
+      tagCustomerMapper.createBean(tagCustomer, TagCustomer.class);
+    }
+
+  }
+
+  /**
+   * 清除 客户标签信息
+   * @param paramVo
+   * @param tagCustomerList
+   */
+  private void clearTagCustomer(CustomerParamVo paramVo, List<TagCustomer> tagCustomerList) {
+    List<TagCustomerLog> tagCustomerLogs = new ArrayList<>();
+
+    for (TagCustomer tagCustomer : tagCustomerList) {
+      TagCustomerLog customerLog = new TagCustomerLog();
+      customerLog.setId(new GetRID("pop_","customer-log", tagCustomer.getId()).getId());
+      customerLog.setCreatetime(TimeUtil.currentTime());
+      customerLog.setCustomerid(paramVo.getId());
+      customerLog.setTagid(tagCustomer.getTagid());
+      customerLog.setCreateroleid(paramVo.getUserRoleId());
+      customerLog.setCreater(paramVo.getUserRoleName());
+      tagCustomerLogs.add(customerLog);
+    }
+
+    //添加日志记录数据
+    tagCustomerMapper.batchInsertLog(tagCustomerLogs);
+
+
+    //清除客户标签数据
+    tagCustomerMapper.clearTagCustomerById(paramVo.getId());
+  }
+
+
+  public List<CustomerApm> getApmBookInfo(String customerId) {
+    return customerMapper.getApmBookInfo(customerId);
+  }
+
+
+  private Map<String, Object> convertTagCustomerVaule(List<TagValueVo> tagValueVos) {
+    Map<String, Object> result = new HashMap<>();
+
+    if (tagValueVos.isEmpty() || tagValueVos.size() == 0) {
+      return result;
+    }
+
+    StringBuffer tagId = new StringBuffer();
+    StringBuffer id = new StringBuffer();
+    StringBuffer val = new StringBuffer();
+    StringBuffer code = new StringBuffer();
+
+    boolean first = true;
+    for (TagValueVo valueVo : tagValueVos) {
+      if (first){
+        first = false;//第一个不添加
+      }else {
+        tagId.append(",");
+        id.append(",");
+        val.append(",");
+        code.append(",");
+      }
+      tagId.append(valueVo.getTagId());
+      id.append(valueVo.getId());
+      val.append(valueVo.getValue());
+      code.append(valueVo.getCode());
+    }
+    result.put("tagIds", tagId.toString());
+    result.put("ids", id.toString());
+    result.put("vals", val.toString());
+    result.put("codes", code.toString());
+
+    return result;
+  }
+
+
+  /**
+   * 转换 客户详情标签
+   * @param result
+   * @param tagCustomerVos
+   */
+  private void convertCustomerTagVal(Map<String, Object> result, List<TagValueVo> tagCustomerVos) {
+    List<TagValueVo> webSource = new ArrayList<>();//网站来源
+    List<TagValueVo> companyType = new ArrayList<>();//企业类型
+    List<TagValueVo> industryType = new ArrayList<>();//行业类型
+    List<TagValueVo> tradeType = new ArrayList<>();//贸易类型
+    List<TagValueVo> gender = new ArrayList<>();//性别
+    List<TagValueVo> style = new ArrayList<>();//风格
+    List<TagValueVo> season = new ArrayList<>();//季节
+    List<TagValueVo> product = new ArrayList<>();//单品
+    List<TagValueVo> texture = new ArrayList<>();//材质
+    List<TagValueVo> technology = new ArrayList<>();//工艺
+
+    //客服标签
+    List<TagValueVo> attention = new ArrayList<>();//关注
+    List<TagValueVo> serviceStage = new ArrayList<>();//服务阶段
+    List<TagValueVo> customerStatus = new ArrayList<>();//客户状态
+    List<TagValueVo> invoice = new ArrayList<>();//发票
+    List<TagValueVo> web = new ArrayList<>();//网站权限
+    List<TagValueVo> customerSource = new ArrayList<>();//网站来源
+
+    if (tagCustomerVos != null && !tagCustomerVos.isEmpty()) {
+      //转换 客户标签
+      for (TagValueVo tagCustomerVo : tagCustomerVos) {
+        //来源
+        if (tagCustomerVo.getTagId().equals(CommonConstant.CUSTOMER_TAG_ID.WEB_SOURCE.getKey())) {
+          webSource.add(tagCustomerVo);
+        } else if (tagCustomerVo.getTagId().equals(CommonConstant.CUSTOMER_TAG_ID.COMPANY_TYPE.getKey())) {
+          //企业
+          companyType.add(tagCustomerVo);
+        } else if (tagCustomerVo.getTagId().equals(CommonConstant.CUSTOMER_TAG_ID.INDUSTRY_TYPE.getKey())) {
+          //行业
+          industryType.add(tagCustomerVo);
+        } else if (tagCustomerVo.getTagId().equals(CommonConstant.CUSTOMER_TAG_ID.TRADE_TYPE.getKey())) {
+          //贸易
+          tradeType.add(tagCustomerVo);
+        } else if (tagCustomerVo.getTagId().equals(CommonConstant.CUSTOMER_TAG_ID.GENDER.getKey())) {
+          //性别
+          gender.add(tagCustomerVo);
+        } else if (tagCustomerVo.getTagId().equals(CommonConstant.CUSTOMER_TAG_ID.STYLE.getKey())) {
+          //风格
+          style.add(tagCustomerVo);
+        } else if (tagCustomerVo.getTagId().equals(CommonConstant.CUSTOMER_TAG_ID.SEASON.getKey())) {
+          //季节
+          season.add(tagCustomerVo);
+        } else if (tagCustomerVo.getTagId().equals(CommonConstant.CUSTOMER_TAG_ID.POINT_PRODUCT.getKey())) {
+          //重点单品
+          product.add(tagCustomerVo);
+        } else if (tagCustomerVo.getTagId().equals(CommonConstant.CUSTOMER_TAG_ID.FABRIC_PROPERTY.getKey())) {
+
+          if (tagCustomerVo.getFromCode().equals("1")) {
+            //材质
+            texture.add(tagCustomerVo);
+          } else {
+            //工艺
+            technology.add(tagCustomerVo);
+          }
+
+        } else if (tagCustomerVo.getTagId().equals(CommonConstant.CUSTOMER_TAG_ID.CUSTOMER_ATTENTION.getKey())) {
+          //关注
+          attention.add(tagCustomerVo);
+        } else if (tagCustomerVo.getTagId().equals(CommonConstant.CUSTOMER_TAG_ID.SERVICE_STAGE.getKey())) {
+          //服务阶段
+          serviceStage.add(tagCustomerVo);
+        } else if (tagCustomerVo.getTagId().equals(CommonConstant.CUSTOMER_TAG_ID.CUSTOMER_STATUS.getKey())) {
+          //客户状态
+          customerStatus.add(tagCustomerVo);
+        } else if (tagCustomerVo.getTagId().equals(CommonConstant.CUSTOMER_TAG_ID.INVOICE.getKey())) {
+          //发票
+          invoice.add(tagCustomerVo);
+        } else if (tagCustomerVo.getTagId().equals(CommonConstant.CUSTOMER_TAG_ID.WEB_SOURCE.getKey())) {
+          //web 来源
+          web.add(tagCustomerVo);
+        } else if (tagCustomerVo.getTagId().equals(CommonConstant.CUSTOMER_TAG_ID.CUSTOMER_SOURCE.getKey())) {
+          //web 来源
+          customerSource.add(tagCustomerVo);
+        }
+
+      }
+    }
+
+    result.put("webSource",convertTagVal(webSource));//网站来源
+    result.put("companyType",companyType);//企业类型
+    result.put("industryType",industryType);//行业类型
+
+    result.put("tradeType",convertTagVal(tradeType));//贸易类型
+    result.put("gender",gender);//性别
+    result.put("style",style);//风格
+    result.put("season",season);//季节
+    result.put("product",product);//重点单品
+    result.put("texture",texture);//材质
+    result.put("technology",technology);//面料工艺
+
+    //客服
+    result.put("attention",attention);//关注
+    result.put("serviceStage",convertTagVal(serviceStage));//服务阶段
+    result.put("customerStatus",convertTagVal(customerStatus));//客户情况
+    result.put("invoice",convertTagVal(invoice));//发票
+    result.put("web",convertTagVal(web));//网站权限
+    result.put("customerSource",convertTagVal(customerSource));//客户来源
+  }
+
+  private Object convertTagVal(List<TagValueVo> tagValueVos){
+
+    if (tagValueVos.isEmpty() || tagValueVos.size() == 0 ) {
+      return "";
+    }
+    return tagValueVos.get(0).getId();
+  }
+}

@@ -1,0 +1,5 @@
+.form-section .dist-bottom>div{margin-bottom:10px;}
+.form-section .dist-bottom{margin-left: -40px;}
+/* .row>div>div{margin-bottom: 20px;} */
+.js-open{cursor: pointer;}
+.section-title{padding-top: 4px;margin: 0 auto 20px;font-size: 16px;background-color: #ddd;}

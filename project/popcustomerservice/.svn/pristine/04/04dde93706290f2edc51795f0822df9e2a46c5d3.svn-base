@@ -1,0 +1,200 @@
+package com.pop136.customerservice.vo.feedback;
+
+import java.io.Serializable;
+
+/**
+ * 回访 信息vo
+ */
+public class FeedBackVo implements Serializable {
+
+  private String id;//id
+
+  private String customerId;//客户id
+
+  private String contactId;// 联系人id
+
+  private String contactName;//服务对象
+
+  private String createId;//创建人id
+
+  private String createName;//创建人
+
+  private String accountName;//客户 (主账号)
+
+  private String companyName;//客户名称
+
+  private String phone;//电话
+
+  private String role;//角色
+
+  private String duty;//职务
+
+  private String contactType;//联络类型
+
+  private String contactResult;//联络结果
+
+  private String serviceType;//服务类型
+
+  private String serviceWay;//服务方式
+
+  private String owenrName;//领用人/客服
+
+  private String createTime;//创建时间
+
+  private String updateTime;//更新时间
+
+  private String remark;//备注
+
+
+  public String getUpdateTime() {
+    return updateTime;
+  }
+
+  public void setUpdateTime(String updateTime) {
+    this.updateTime = updateTime;
+  }
+
+  public String getRemark() {
+    return remark;
+  }
+
+  public void setRemark(String remark) {
+    this.remark = remark;
+  }
+
+  public String getCreateTime() {
+    return createTime;
+  }
+
+  public void setCreateTime(String createTime) {
+    this.createTime = createTime;
+  }
+
+  public String getCreateId() {
+    return createId;
+  }
+
+  public void setCreateId(String createId) {
+    this.createId = createId;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getCustomerId() {
+    return customerId;
+  }
+
+  public void setCustomerId(String customerId) {
+    this.customerId = customerId;
+  }
+
+  public String getContactId() {
+    return contactId;
+  }
+
+  public void setContactId(String contactId) {
+    this.contactId = contactId;
+  }
+
+  public String getContactName() {
+    return contactName;
+  }
+
+  public void setContactName(String contactName) {
+    this.contactName = contactName;
+  }
+
+  public String getCreateName() {
+    return createName;
+  }
+
+  public void setCreateName(String createName) {
+    this.createName = createName;
+  }
+
+  public String getAccountName() {
+    return accountName;
+  }
+
+  public void setAccountName(String accountName) {
+    this.accountName = accountName;
+  }
+
+  public String getCompanyName() {
+    return companyName;
+  }
+
+  public void setCompanyName(String companyName) {
+    this.companyName = companyName;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
+  public String getRole() {
+    return role;
+  }
+
+  public void setRole(String role) {
+    this.role = role;
+  }
+
+  public String getDuty() {
+    return duty;
+  }
+
+  public void setDuty(String duty) {
+    this.duty = duty;
+  }
+
+  public String getContactType() {
+    return contactType;
+  }
+
+  public void setContactType(String contactType) {
+    this.contactType = contactType;
+  }
+
+  public String getContactResult() {
+    return contactResult;
+  }
+
+  public void setContactResult(String contactResult) {
+    this.contactResult = contactResult;
+  }
+
+  public String getServiceType() {
+    return serviceType;
+  }
+
+  public void setServiceType(String serviceType) {
+    this.serviceType = serviceType;
+  }
+
+  public String getServiceWay() {
+    return serviceWay;
+  }
+
+  public void setServiceWay(String serviceWay) {
+    this.serviceWay = serviceWay;
+  }
+
+  public String getOwenrName() {
+    return owenrName;
+  }
+
+  public void setOwenrName(String owenrName) {
+    this.owenrName = owenrName;
+  }
+}

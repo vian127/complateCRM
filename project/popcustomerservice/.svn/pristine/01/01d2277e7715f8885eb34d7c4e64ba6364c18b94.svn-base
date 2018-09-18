@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pop136.customerservice.mapper.mjk.integral.A524Mapper" >
+  <resultMap id="BaseResultMap" type="com.pop136.customerservice.entity.integral.A524" >
+    <id column="C_ID" property="id" jdbcType="VARCHAR" />
+    <result column="C_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="C_ENGLISHNAME" property="englishname" jdbcType="VARCHAR" />
+    <result column="C_VOUCHERID" property="voucherid" jdbcType="VARCHAR" />
+    <result column="I_TYPE" property="type" jdbcType="INTEGER" />
+    <result column="I_SORTIDX" property="sortidx" jdbcType="INTEGER" />
+    <result column="C_SHORTNAME" property="shortname" jdbcType="VARCHAR" />
+    <result column="C_A50100_C_ID" property="a50100CId" jdbcType="VARCHAR" />
+    <result column="C_MODEL" property="model" jdbcType="VARCHAR" />
+    <result column="C_TYPE_DD_ID" property="typeDdId" jdbcType="VARCHAR" />
+    <result column="C_STATUS_DD_ID" property="statusDdId" jdbcType="VARCHAR" />
+    <result column="B_SELLPRICE" property="price" jdbcType="DECIMAL" />
+    <result column="B_SELLCOST" property="sellcost" jdbcType="DECIMAL" />
+    <result column="B_BUYPRICE" property="buyprice" jdbcType="DECIMAL" />
+    <result column="B_BUYCOST" property="buycost" jdbcType="DECIMAL" />
+    <result column="B_DISCOUNT" property="discount" jdbcType="DECIMAL" />
+    <result column="B_GROSSWEIGHT" property="grossweight" jdbcType="DECIMAL" />
+    <result column="B_WEIGHT" property="weight" jdbcType="DECIMAL" />
+    <result column="C_BARCODE" property="barcode" jdbcType="VARCHAR" />
+    <result column="C_UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="C_BRAND" property="brand" jdbcType="VARCHAR" />
+    <result column="C_SMALLPICTURE" property="smallpicture" jdbcType="VARCHAR" />
+    <result column="C_PICTURE1" property="picture1" jdbcType="VARCHAR" />
+    <result column="C_PICTURE2" property="picture2" jdbcType="VARCHAR" />
+    <result column="C_PICTURE3" property="picture3" jdbcType="VARCHAR" />
+    <result column="C_PICTURE4" property="picture4" jdbcType="VARCHAR" />
+    <result column="C_PICTURE5" property="picture5" jdbcType="VARCHAR" />
+    <result column="B_FACTOR1" property="factor1" jdbcType="DECIMAL" />
+    <result column="B_FACTOR2" property="factor2" jdbcType="DECIMAL" />
+    <result column="B_FACTOR3" property="factor3" jdbcType="DECIMAL" />
+    <result column="B_FACTOR4" property="factor4" jdbcType="DECIMAL" />
+    <result column="B_FACTOR5" property="factor5" jdbcType="DECIMAL" />
+    <result column="C_CUSTOMFIELD1" property="customfield1" jdbcType="VARCHAR" />
+    <result column="C_CUSTOMFIELD2" property="customfield2" jdbcType="VARCHAR" />
+    <result column="C_CUSTOMFIELD3" property="customfield3" jdbcType="VARCHAR" />
+    <result column="C_CUSTOMFIELD4" property="customfield4" jdbcType="VARCHAR" />
+    <result column="C_CUSTOMFIELD5" property="customfield5" jdbcType="VARCHAR" />
+    <result column="B_AWARDFACTOR1" property="awardfactor1" jdbcType="DECIMAL" />
+    <result column="B_AWARDFACTOR2" property="awardfactor2" jdbcType="DECIMAL" />
+    <result column="B_AWARDFACTOR3" property="awardfactor3" jdbcType="DECIMAL" />
+    <result column="B_AWARDFACTOR4" property="awardfactor4" jdbcType="DECIMAL" />
+    <result column="B_AWARDFACTOR5" property="awardfactor5" jdbcType="DECIMAL" />
+    <result column="C_ISFATHER_DD_ID" property="isfatherDdId" jdbcType="VARCHAR" />
+    <result column="C_FATHERID" property="fatherid" jdbcType="VARCHAR" />
+    <result column="B_STOCKQUANTITY" property="stockquantity" jdbcType="DECIMAL" />
+    <result column="B_SELLQUANTITY" property="sellquantity" jdbcType="DECIMAL" />
+    <result column="B_CLICKQUANTITY" property="clickquantity" jdbcType="DECIMAL" />
+    <result column="B_FOLLOWQUANTITY" property="followquantity" jdbcType="DECIMAL" />
+    <result column="C_OWNER_ROLEID" property="ownerRoleid" jdbcType="VARCHAR" />
+    <result column="C_OWNER_ROLENAME" property="ownerRolename" jdbcType="VARCHAR" />
+    <result column="C_CREATOR_ROLEID" property="creatorRoleid" jdbcType="VARCHAR" />
+    <result column="C_CREATOR_ROLENAME" property="creatorRolename" jdbcType="VARCHAR" />
+    <result column="D_CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="D_LASTUPDATE_TIME" property="lastupdateTime" jdbcType="TIMESTAMP" />
+    <result column="C_MENDER_ROLEID" property="menderRoleid" jdbcType="VARCHAR" />
+    <result column="C_MENDER_ROLENAME" property="menderRolename" jdbcType="VARCHAR" />
+    <result column="I_DELETEFLAG" property="deleteflag" jdbcType="INTEGER" />
+    <result column="C_GRPCODE" property="grpcode" jdbcType="VARCHAR" />
+    <result column="C_ORGCODE" property="orgcode" jdbcType="VARCHAR" />
+    <result column="C_LOCCODE" property="loccode" jdbcType="VARCHAR" />
+    <result column="C_REGCODE" property="regcode" jdbcType="VARCHAR" />
+    <result column="C_DEPCODE" property="depcode" jdbcType="VARCHAR" />
+    <result column="C_A50100_C_NAME" property="a50100CName" jdbcType="VARCHAR" />
+    <result column="C_TYPE_DD_NAME" property="typeDdName" jdbcType="VARCHAR" />
+    <result column="C_STATUS_DD_NAME" property="statusDdName" jdbcType="VARCHAR" />
+    <result column="C_ISFATHER_DD_NAME" property="isfatherDdName" jdbcType="VARCHAR" />
+    <result column="C_FATHERNAME" property="fathername" jdbcType="VARCHAR" />
+    <result column="C_SPECIFICATIONS" property="specification" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    C_ID, C_NAME, C_ENGLISHNAME, C_VOUCHERID, I_TYPE, I_SORTIDX, C_SHORTNAME, C_A50100_C_ID, 
+    C_MODEL, C_TYPE_DD_ID, C_STATUS_DD_ID, B_SELLPRICE, B_SELLCOST, B_BUYPRICE, B_BUYCOST, 
+    B_DISCOUNT, B_GROSSWEIGHT, B_WEIGHT, C_BARCODE, C_UNIT, C_BRAND, C_SMALLPICTURE, 
+    C_PICTURE1, C_PICTURE2, C_PICTURE3, C_PICTURE4, C_PICTURE5, B_FACTOR1, B_FACTOR2, 
+    B_FACTOR3, B_FACTOR4, B_FACTOR5, C_CUSTOMFIELD1, C_CUSTOMFIELD2, C_CUSTOMFIELD3, 
+    C_CUSTOMFIELD4, C_CUSTOMFIELD5, B_AWARDFACTOR1, B_AWARDFACTOR2, B_AWARDFACTOR3, B_AWARDFACTOR4, 
+    B_AWARDFACTOR5, C_ISFATHER_DD_ID, C_FATHERID, B_STOCKQUANTITY, B_SELLQUANTITY, B_CLICKQUANTITY, 
+    B_FOLLOWQUANTITY, C_OWNER_ROLEID, C_OWNER_ROLENAME, C_CREATOR_ROLEID, C_CREATOR_ROLENAME, 
+    D_CREATE_TIME, D_LASTUPDATE_TIME, C_MENDER_ROLEID, C_MENDER_ROLENAME, I_DELETEFLAG, 
+    C_GRPCODE, C_ORGCODE, C_LOCCODE, C_REGCODE, C_DEPCODE, C_A50100_C_NAME, C_TYPE_DD_NAME, 
+    C_STATUS_DD_NAME, C_ISFATHER_DD_NAME, C_FATHERNAME, C_SPECIFICATIONS
+  </sql>
+
+  <sql id="Column_List" >
+    C_ID, C_NAME, C_ENGLISHNAME, C_SMALLPICTURE,
+    B_AWARDFACTOR1, B_AWARDFACTOR2, B_AWARDFACTOR3, B_AWARDFACTOR4
+  </sql>
+
+  <sql id="Column_info" >
+    C_ID, C_NAME, C_ENGLISHNAME, C_SMALLPICTURE, B_SELLPRICE, C_SPECIFICATIONS,
+    C_PICTURE1, C_PICTURE2, C_PICTURE3, C_PICTURE4, C_PICTURE5,  C_CUSTOMFIELD1, C_CUSTOMFIELD2, C_CUSTOMFIELD3,
+    C_CUSTOMFIELD4, C_CUSTOMFIELD5, B_AWARDFACTOR1, B_AWARDFACTOR2, B_AWARDFACTOR3, B_AWARDFACTOR4,
+    B_AWARDFACTOR5
+  </sql>
+
+
+  <sql id="Blob_Column_List" >
+    X_REMARK
+  </sql>
+
+
+  <select id="getProductList" resultMap="BaseResultMap"  parameterType="java.util.Map">
+    select
+    <include refid="Column_List" />
+    from a524
+    WHERE I_DELETEFLAG = 0
+      <if test="searchpara != null">
+         AND  B_AWARDFACTOR1 &lt;=#{searchpara, jdbcType=INTEGER}
+      </if>
+    limit #{currPage, jdbcType=INTEGER}, #{size, jdbcType=INTEGER};
+  </select>
+
+
+  <select id="getProductInfo" resultMap="BaseResultMap"  parameterType="java.lang.String">
+    select
+    <include refid="Column_info" />
+    from a524
+      WHERE
+    C_ID =  #{id ,jdbcType=VARCHAR}
+      AND  I_DELETEFLAG = 0
+  </select>
+
+
+
+</mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MsgBatchMapper">
+
+
+  <select id="getBatchList"  resultType="com.pop136.customerservice.entity.marketing.MsgBatch"
+   parameterType="com.pop136.customerservice.vo.marketing.search.MsgBatchSearchVo">
+    SELECT
+       a.*
+      FROM ss_msgbatch a
+
+     WHERE
+      a.deleteflag = '0'
+
+      <if test="id != null and id !='' ">
+          and a.id = #{id}
+      </if>
+
+      <if test="templateId != null and templateId != '' ">
+         and a.templateid = #{templateId}
+      </if>
+
+      <if test="statusId != null and statusId != '' ">
+         and a.statusid = #{statusId}
+      </if>
+
+      <if test="createrId != null and createrId !='' ">
+         and a.creatorroleid = #{createrId}
+      </if>
+      ORDER  by a.lastupdatetime DESC
+
+  </select>
+
+
+    <select id="getBatchCount" parameterType="com.pop136.customerservice.vo.marketing.search.MsgBatchSearchVo"
+    resultType="java.lang.String">
+        SELECT  count(*)
+
+        FROM  ss_msgbatch a
+
+        WHERE
+
+        a.deleteflag = '0'
+
+        <if test="id != null and id !='' ">
+            and a.id = #{id}
+        </if>
+
+        <if test="templateId != null and templateId != '' ">
+            and a.templateid = #{templateId}
+        </if>
+
+        <if test="statusId != null and statusId != '' ">
+            and a.statusid = #{statusId}
+        </if>
+
+        <if test="createrId != null and createrId !='' ">
+            and a.creatorroleid = #{createrId}
+        </if>
+
+    </select>
+
+</mapper>

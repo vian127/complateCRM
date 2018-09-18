@@ -1,0 +1,74 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="CRM"/>
+    <meta name="description" content="CRM"/>
+    <title>首页</title>
+
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home/home.css}" />
+</head>
+<body>
+<!-- view -->
+<div id="wrapper">
+    <!-- header -->
+    <div class="header" th:include="./views/common/header :: headertpl"></div>
+    <div id="page-wrapper">
+        <!-- content -->
+        <div class="content">
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- 框子 -->
+                    <div class="clock-div js-clock-div">
+                        <!-- 时针 -->
+                        <div class="pointer h"></div>
+                        <!-- 分针 -->
+                        <div class="pointer m"></div>
+                        <!-- 秒针 -->
+                        <div class="pointer s"></div>
+                        <!-- 圈圈 -->
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="col-md-6 import-item">
+                        <a href="/api/web/customer/client" title="客户管理">客户管理</a>
+                    </div>
+                    <div class="col-md-6 import-item">
+                        <a href="/api/web/marketing/notemanagement" title="短信管理">短信管理</a>
+                    </div>
+
+                    <div class="col-md-6 import-item">
+                        <a href="/api/web/manage/taskmanagement" title="任务管理">任务管理</a>
+                    </div>
+
+                    <div class="col-md-6 import-item">
+                        <a href="/api/web/manage/visit" title="回访管理">回访管理</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- footer -->
+        <div class="footer" th:include="./views/common/footer :: footertpl"></div>
+    </div>
+</div>
+<!-- 共用模块 -->
+<div th:include="./views/common/common :: commontpl"></div>
+<!-- JS Scripts-->
+<script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+<script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/home/index.js}"></script>
+</body>
+</html>

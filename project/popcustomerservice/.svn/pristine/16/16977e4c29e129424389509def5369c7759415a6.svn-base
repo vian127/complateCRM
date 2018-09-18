@@ -1,0 +1,31 @@
+package com.pop136.customerservice.service.customer;
+
+import com.pop136.customerservice.entity.customer.Contact;
+import com.pop136.customerservice.mapper.agent.cusotmer.ContactMapper;
+import com.pop136.customerservice.service.AbstractBaseService;
+import com.pop136.customerservice.vo.customer.search.ContactSearchVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ContactService extends AbstractBaseService {
+
+  @Autowired
+  private ContactMapper contactMapper;
+
+
+  public void init() {
+    setMapper(contactMapper);
+  }
+
+  public List<Contact> getContactList(ContactSearchVo searchVo) {
+    return contactMapper.getContactList(searchVo);
+  }
+
+
+  public String getContactCount(ContactSearchVo searchVo) {
+    return contactMapper.getContactCount(searchVo);
+  }
+}

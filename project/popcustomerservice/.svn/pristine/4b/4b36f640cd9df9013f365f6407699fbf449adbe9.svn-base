@@ -1,0 +1,547 @@
+package com.pop136.customerservice.vo.customer.search;
+
+import com.pop136.customerservice.vo.common.Page;
+import com.pop136.customerservice.vo.common.SearchPageVo;
+
+import java.util.List;
+
+/**
+ *客户详情 表
+ */
+public class CustomerSearchVo extends Page {
+
+  private String id;//id
+
+  private String ownerId;//领用人id
+
+  private String account;// 主账号
+
+  private String companyName;//公司名
+
+  private String contactPhone;//联系方式
+
+  private String receiveName;//领用人
+
+  private String webSource;//来源
+
+  private String receiveDate;//领用时间
+
+  private String accountName;//账号名
+
+  private String serviceStage;//服务阶段
+
+  private String  ownerIds;//所有 客服id
+
+  private String qq;//qq号
+
+  private String tags;//标签
+
+  private List<String> tagIds;//标签id
+
+  private String servicetDate;//服务时间
+
+
+  private String serviceStartDate;//服务开始时间
+
+  private String serviceEndDate;//服务结束时间
+
+
+  private String loginCount;//未登录时间
+
+  private SearchPageVo loginPage;//登陆
+
+  private String backCount;//回访天数
+
+  private SearchPageVo backPage;//回访
+
+  private String products;//多产品id
+
+  private List<String> productIds;//多产品id
+
+  private String provinceId;//省份id
+
+  private String cityId;//城市id
+
+  private String districtId;//地区id
+
+  private String bank;//品牌
+
+  private String email;//邮箱
+
+  private String weChat;//微信
+
+  private String receiveStatus;//领用状态
+
+
+  private String companyType;//企业类型(标签)
+
+  private String industryType;//行业类型
+
+  private String tradeType;//贸易类型
+
+  private String gender;//性别
+
+  private String style;//风格
+
+  private String season;//季节
+
+  private String product;//关注单品
+
+  private String invoice;//发票
+  private String attention;//关注项
+  private String attentionRemark;//其他关注项
+  private String impression;//用户印象
+
+
+  private String contactType;//联络类型 --- 服务(回访)
+  private String feedback;//回访基础项
+  private String feedInvoice;//回访发票
+  private String complimentary;//赠品
+  private String login;//登陆项
+  private String webService;//网站服务项
+  private String recommend;//推荐项
+
+  private String remark;//备注项目
+
+  private String mine;//我的客户
+
+  private String loginStartCount;//未登录天数
+
+  private String loginEndCount;//未登录天数
+
+  private String backStartCount;//未回访天数
+  private String backEndCount;//未回访天数
+
+
+  public String getLoginStartCount() {
+    return loginStartCount;
+  }
+
+  public void setLoginStartCount(String loginStartCount) {
+    this.loginStartCount = loginStartCount;
+  }
+
+  public String getLoginEndCount() {
+    return loginEndCount;
+  }
+
+  public void setLoginEndCount(String loginEndCount) {
+    this.loginEndCount = loginEndCount;
+  }
+
+  public String getBackStartCount() {
+    return backStartCount;
+  }
+
+  public void setBackStartCount(String backStartCount) {
+    this.backStartCount = backStartCount;
+  }
+
+  public String getBackEndCount() {
+    return backEndCount;
+  }
+
+  public void setBackEndCount(String backEndCount) {
+    this.backEndCount = backEndCount;
+  }
+
+  public String getMine() {
+    return mine;
+  }
+
+  public void setMine(String mine) {
+    this.mine = mine;
+  }
+
+  public String getCompanyType() {
+    return companyType;
+  }
+
+  public void setCompanyType(String companyType) {
+    this.companyType = companyType;
+  }
+
+  public String getIndustryType() {
+    return industryType;
+  }
+
+  public void setIndustryType(String industryType) {
+    this.industryType = industryType;
+  }
+
+  public String getTradeType() {
+    return tradeType;
+  }
+
+  public void setTradeType(String tradeType) {
+    this.tradeType = tradeType;
+  }
+
+  public String getGender() {
+    return gender;
+  }
+
+  public void setGender(String gender) {
+    this.gender = gender;
+  }
+
+  public String getStyle() {
+    return style;
+  }
+
+  public void setStyle(String style) {
+    this.style = style;
+  }
+
+  public String getSeason() {
+    return season;
+  }
+
+  public void setSeason(String season) {
+    this.season = season;
+  }
+
+  public String getProduct() {
+    return product;
+  }
+
+  public void setProduct(String product) {
+    this.product = product;
+  }
+
+  public String getInvoice() {
+    return invoice;
+  }
+
+  public void setInvoice(String invoice) {
+    this.invoice = invoice;
+  }
+
+  public String getAttention() {
+    return attention;
+  }
+
+  public void setAttention(String attention) {
+    this.attention = attention;
+  }
+
+  public String getAttentionRemark() {
+    return attentionRemark;
+  }
+
+  public void setAttentionRemark(String attentionRemark) {
+    this.attentionRemark = attentionRemark;
+  }
+
+  public String getImpression() {
+    return impression;
+  }
+
+  public void setImpression(String impression) {
+    this.impression = impression;
+  }
+
+  public String getContactType() {
+    return contactType;
+  }
+
+  public void setContactType(String contactType) {
+    this.contactType = contactType;
+  }
+
+  public String getFeedback() {
+    return feedback;
+  }
+
+  public void setFeedback(String feedback) {
+    this.feedback = feedback;
+  }
+
+  public String getFeedInvoice() {
+    return feedInvoice;
+  }
+
+  public void setFeedInvoice(String feedInvoice) {
+    this.feedInvoice = feedInvoice;
+  }
+
+  public String getComplimentary() {
+    return complimentary;
+  }
+
+  public void setComplimentary(String complimentary) {
+    this.complimentary = complimentary;
+  }
+
+  public String getLogin() {
+    return login;
+  }
+
+  public void setLogin(String login) {
+    this.login = login;
+  }
+
+  public String getWebService() {
+    return webService;
+  }
+
+  public void setWebService(String webService) {
+    this.webService = webService;
+  }
+
+  public String getRecommend() {
+    return recommend;
+  }
+
+  public void setRecommend(String recommend) {
+    this.recommend = recommend;
+  }
+
+  public String getRemark() {
+    return remark;
+  }
+
+  public void setRemark(String remark) {
+    this.remark = remark;
+  }
+
+  public String getReceiveStatus() {
+    return receiveStatus;
+  }
+
+  public void setReceiveStatus(String receiveStatus) {
+    this.receiveStatus = receiveStatus;
+  }
+
+  public String getBank() {
+    return bank;
+  }
+
+  public void setBank(String bank) {
+    this.bank = bank;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getWeChat() {
+    return weChat;
+  }
+
+  public void setWeChat(String weChat) {
+    this.weChat = weChat;
+  }
+
+  public String getServiceStartDate() {
+    return serviceStartDate;
+  }
+
+  public void setServiceStartDate(String serviceStartDate) {
+    this.serviceStartDate = serviceStartDate;
+  }
+
+  public String getServiceEndDate() {
+    return serviceEndDate;
+  }
+
+  public void setServiceEndDate(String serviceEndDate) {
+    this.serviceEndDate = serviceEndDate;
+  }
+
+  public String getOwnerIds() {
+    return ownerIds;
+  }
+
+  public void setOwnerIds(String ownerIds) {
+    this.ownerIds = ownerIds;
+  }
+
+  public String getProvinceId() {
+    return provinceId;
+  }
+
+  public void setProvinceId(String provinceId) {
+    this.provinceId = provinceId;
+  }
+
+  public String getCityId() {
+    return cityId;
+  }
+
+  public void setCityId(String cityId) {
+    this.cityId = cityId;
+  }
+
+  public String getDistrictId() {
+    return districtId;
+  }
+
+  public void setDistrictId(String districtId) {
+    this.districtId = districtId;
+  }
+
+  public List<String> getProductIds() {
+    return productIds;
+  }
+
+  public void setProductIds(List<String> productIds) {
+    this.productIds = productIds;
+  }
+
+  public List<String> getTagIds() {
+    return tagIds;
+  }
+
+  public void setTagIds(List<String> tagIds) {
+    this.tagIds = tagIds;
+  }
+
+  public SearchPageVo getLoginPage() {
+    return loginPage;
+  }
+
+  public void setLoginPage(SearchPageVo loginPage) {
+    this.loginPage = loginPage;
+  }
+
+  public SearchPageVo getBackPage() {
+    return backPage;
+  }
+
+  public void setBackPage(SearchPageVo backPage) {
+    this.backPage = backPage;
+  }
+
+  public String getProducts() {
+    return products;
+  }
+
+  public void setProducts(String products) {
+    this.products = products;
+  }
+
+  public String getTags() {
+    return tags;
+  }
+
+  public void setTags(String tags) {
+    this.tags = tags;
+  }
+
+  public String getServicetDate() {
+    return servicetDate;
+  }
+
+  public void setServicetDate(String servicetDate) {
+    this.servicetDate = servicetDate;
+  }
+
+  public String getLoginCount() {
+    return loginCount;
+  }
+
+  public void setLoginCount(String loginCount) {
+    this.loginCount = loginCount;
+  }
+
+  public String getBackCount() {
+    return backCount;
+  }
+
+  public void setBackCount(String backCount) {
+    this.backCount = backCount;
+  }
+
+  public String getQq() {
+    return qq;
+  }
+
+  public void setQq(String qq) {
+    this.qq = qq;
+  }
+
+  public String getAccount() {
+    return account;
+  }
+
+  public void setAccount(String account) {
+    this.account = account;
+  }
+
+  public String getServiceStage() {
+    return serviceStage;
+  }
+
+  public void setServiceStage(String serviceStage) {
+    this.serviceStage = serviceStage;
+  }
+
+  public String getOwnerId() {
+    return ownerId;
+  }
+
+  public void setOwnerId(String ownerId) {
+    this.ownerId = ownerId;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getCompanyName() {
+    return companyName;
+  }
+
+  public void setCompanyName(String companyName) {
+    this.companyName = companyName;
+  }
+
+  public String getContactPhone() {
+    return contactPhone;
+  }
+
+  public void setContactPhone(String contactPhone) {
+    this.contactPhone = contactPhone;
+  }
+
+  public String getReceiveName() {
+    return receiveName;
+  }
+
+  public void setReceiveName(String receiveName) {
+    this.receiveName = receiveName;
+  }
+
+  public String getWebSource() {
+    return webSource;
+  }
+
+  public void setWebSource(String webSource) {
+    this.webSource = webSource;
+  }
+
+  public String getReceiveDate() {
+    return receiveDate;
+  }
+
+  public void setReceiveDate(String receiveDate) {
+    this.receiveDate = receiveDate;
+  }
+
+  public String getAccountName() {
+    return accountName;
+  }
+
+  public void setAccountName(String accountName) {
+    this.accountName = accountName;
+  }
+}

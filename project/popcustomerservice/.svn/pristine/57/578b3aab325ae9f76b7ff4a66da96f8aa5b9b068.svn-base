@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="CRM" />
+    <meta name="description" content="CRM" />
+    <title>短信管理-发送批量管理</title>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/common/form-list.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/marketing/batchmanagement.css}" />
+</head>
+
+<body>
+    <!-- view -->
+    <div id="wrapper">
+        <!-- header -->
+        <div class="header" th:include="./views/common/header :: headertpl"></div>
+        <div id="page-wrapper">
+            <!-- content -->
+            <div class="content container-fluid" id='app'>
+                <!-- 页面位置 -->
+                <div class="page-header-section">
+                    <h3>短信管理-发送批量管理</h3>
+                </div>
+                <!-- 表单部分 -->
+                <div class="form-section form-inline">
+                    <form class='js-form'>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <label for="">剩余可发送数量:</label>
+                                    <strong v-text='message_count.surplusCount'></strong>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="">已发送数量:</label>
+                                    <strong v-text='message_count.sendCount'></strong>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <a href='/api/web/marketing/send_messages' class="btn btn-primary" title="群发短信">群发短信</a>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <div class="col-md-3">
+                                    <label for="">模板</label>
+                                    <select name="" id="" class='form-control' v-model='collect.templateId'>
+                                        <option value="">请选择</option>
+                                        <option :value="item.id" v-for='item in select_info'>{{ item.name }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="">发送状态</label>
+                                    <select name="" id="" class='form-control' v-model='collect.status'>
+                                        <option value="">请选择</option>
+                                        <option value="0">发送中</option>
+                                        <option value="1">发送成功</option>
+                                        <option value="2">发送失败</option>
+                                        <option value="3">部分失败</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="">创建人</label>
+                                    <select name="" id="" class='form-control' v-model='collect.createrId'>
+                                        <option value="">请选择</option>
+                                        <option :value="item.creatorroleid" v-for='item in select_info'>{{ item.creater }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 text-right">
+                                    <button type='reset' class="btn btn-default" title="重置" @click='resetFunc'>重置</button>
+                                    <button type='button' class="btn btn-primary" title="确认筛选" @click='filterFunc'>确认筛选</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- 列表 -->  
+                <div class="col-md-12">
+                    <table class='table table-bordered table-hover js-list-table'>
+                        <thead>
+                            <tr>
+                                <th width='5%'>操作</th>
+                                <th width='15%'>批次号</th>
+                                <th>模板</th>
+                                <th>短信内容</th>
+                                <th>发送时间</th>
+                                <th>已发送/总条数</th>
+                                <th>号码个数</th>
+                                <th>批次状态</th>
+                                <th>创建人</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr align='center' v-for='item in list_data'>
+                                <td>
+                                    <a :href="'/api/web/marketing/batchdetail?id='+item.id">查看</a>
+                                </td>
+                                <td v-text='item.id'></td>
+                                <td v-text='item.template'></td>
+                                <td v-text='item.content'></td>
+                                <td v-text="item.sendTime!=undefined?item.sendTime.substr(0,item.sendTime.length-2):''"></td>
+                                <td v-text="item.sendNum+'/'+item.totalNum"></td>
+                                <td v-text='item.totalNum'></td>
+                                <td v-text='item.status'></td>
+                                <td v-text='item.creater'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="laypage-section" class='text-right'></div>
+                </div>
+            </div>
+            <!-- footer -->
+            <div class="footer" th:include="./views/common/footer :: footertpl"></div>
+        </div>
+    </div>
+
+    <!-- 共用模块 -->
+    <div th:include="./views/common/common :: commontpl"></div>
+    <!-- JS Scripts-->
+
+    <script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/marketing/batchmanagement.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+package com.pop136.customerservice.entity.customer;
+
+import java.io.Serializable;
+
+public class CustomerApm implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+
+   private String id;
+
+   private String bookName;//名称
+
+   private String bookNo;//编号
+
+   private String booKDate;//时间
+
+   private String count;//总数
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getBookName() {
+    return bookName;
+  }
+
+  public void setBookName(String bookName) {
+    this.bookName = bookName;
+  }
+
+  public String getBookNo() {
+    return bookNo;
+  }
+
+  public void setBookNo(String bookNo) {
+    this.bookNo = bookNo;
+  }
+
+  public String getBooKDate() {
+    return booKDate;
+  }
+
+  public void setBooKDate(String booKDate) {
+    this.booKDate = booKDate;
+  }
+
+  public String getCount() {
+    return count;
+  }
+
+  public void setCount(String count) {
+    this.count = count;
+  }
+}

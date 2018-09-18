@@ -1,0 +1,159 @@
+package com.pop136.customerservice.entity.customer;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * 联系人 客服信息
+ */
+public class ContactServe implements Serializable{
+    private String id;
+
+    private String customerid;
+
+    private String contactid;
+
+    private String customerstatusid;
+
+    private String customerstatusname;
+
+    private String creatorid;
+
+    private String updateroleid;
+
+    private String createtime;
+
+    private String lastupdatetime;
+
+    private String creater;
+
+    private String updater;
+
+    private Integer deleteflag;
+
+    private String grpcode;
+
+    private String orgcode;
+
+    private String loccode;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCustomerid() {
+        return customerid;
+    }
+
+    public void setCustomerid(String customerid) {
+        this.customerid = customerid;
+    }
+
+    public String getContactid() {
+        return contactid;
+    }
+
+    public void setContactid(String contactid) {
+        this.contactid = contactid;
+    }
+
+    public String getCustomerstatusid() {
+        return customerstatusid;
+    }
+
+    public void setCustomerstatusid(String customerstatusid) {
+        this.customerstatusid = customerstatusid;
+    }
+
+    public String getCustomerstatusname() {
+        return customerstatusname;
+    }
+
+    public void setCustomerstatusname(String customerstatusname) {
+        this.customerstatusname = customerstatusname;
+    }
+
+    public String getCreatorid() {
+        return creatorid;
+    }
+
+    public void setCreatorid(String creatorid) {
+        this.creatorid = creatorid;
+    }
+
+    public String getUpdateroleid() {
+        return updateroleid;
+    }
+
+    public void setUpdateroleid(String updateroleid) {
+        this.updateroleid = updateroleid;
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getLastupdatetime() {
+        return lastupdatetime;
+    }
+
+    public void setLastupdatetime(String lastupdatetime) {
+        this.lastupdatetime = lastupdatetime;
+    }
+
+    public String getCreater() {
+        return creater;
+    }
+
+    public void setCreater(String creater) {
+        this.creater = creater;
+    }
+
+    public String getUpdater() {
+        return updater;
+    }
+
+    public void setUpdater(String updater) {
+        this.updater = updater;
+    }
+
+    public Integer getDeleteflag() {
+        return deleteflag;
+    }
+
+    public void setDeleteflag(Integer deleteflag) {
+        this.deleteflag = deleteflag;
+    }
+
+    public String getGrpcode() {
+        return grpcode;
+    }
+
+    public void setGrpcode(String grpcode) {
+        this.grpcode = grpcode;
+    }
+
+    public String getOrgcode() {
+        return orgcode;
+    }
+
+    public void setOrgcode(String orgcode) {
+        this.orgcode = orgcode;
+    }
+
+    public String getLoccode() {
+        return loccode;
+    }
+
+    public void setLoccode(String loccode) {
+        this.loccode = loccode;
+    }
+}

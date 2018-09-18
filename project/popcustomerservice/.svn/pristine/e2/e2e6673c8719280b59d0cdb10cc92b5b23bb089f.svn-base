@@ -1,0 +1,57 @@
+/*
+    #author     lut000
+    #date       2018/08/07
+    #porpuse    下拉树形选择
+*/
+define([], function(){
+    var easy_checkbox={
+        init:function(opt){                                                     //初始化
+            this.setOptions(opt);
+            this.bindFunc();
+        },
+        setOptions:function(opt){                                               //数据初始化
+            var self=this;
+            for(var key in opt){
+                self[key]=opt[key];
+            }
+        },
+        bindFunc:function(){                                                    //事件绑定
+            var self=this,
+                data=self.data || {},
+                tag=typeof self.tag =='string'?document.body.querySelector(self.tag):self.tag,
+                _html='';
+
+            forFunc(data);
+
+
+            function forFunc(data){                                             //循环数据
+                var children=data.children || [];
+                _html+='<ul class="trees-list js-trees-list">';
+                children.forEach(function(item,index){
+                    _html+='<li data-id="'+item.id+'">';
+
+                    var has_child=(item.children && item.children.length>0)
+                    if(has_child==true){
+                        _html+='<span data-type="off">+</span>';
+                    }
+                    
+                    _html+='<input id="'+item.id+index+'" type="checkbox"/>'+
+                    '<label for="'+item.id+index+'">'+item.value+'</label>';
+                    if(has_child==true){
+                        forFunc(item);
+                    }
+                    _html+='</li>';
+                });
+                _html+='</ul>';
+                
+                
+            };
+            if(_html!=''){
+                tag.innerHTML=_html;
+            }
+
+        }
+    };
+
+    return easy_checkbox;
+});

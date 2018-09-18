@@ -1,0 +1,142 @@
+package com.pop136.customerservice.service.customer.convert;
+
+import com.pop136.customerservice.entity.customer.Contact;
+import com.pop136.customerservice.entity.customer.Customer;
+import com.pop136.customerservice.utils.TimeUtil;
+import com.pop136.customerservice.vo.tag.TagValueVo;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class ContactConvert {
+
+  /**
+   * 转化 用户详细
+   */
+  public Map<String, Object> convertContactInfo(Contact contact) {
+
+    //返回 联系人信息
+    Map<String, Object> result = new HashMap<>();
+    result.put("id", contact.getId());//联系人id
+    result.put("main", contact.getIismain());//是否主联系人
+    result.put("name", contact.getName());//名称
+
+    result.put("telephone", contact.getTelephone());//电话
+    result.put("mobile", contact.getMobile());
+    result.put("weChat", contact.getRelatecontactid5());//微信号
+    result.put("isWeChat", contact.getIswechat());//是否添加微信
+    result.put("extensionPhone", contact.getExtensionphone());//分机号
+    result.put("qq", contact.getQq());//qq号
+    result.put("email", contact.getEmail());//邮箱
+
+
+    result.put("customerName", contact.getCustomerName());//所属客户名称
+    result.put("customerId", contact.getCustomerid());//所属客户名称
+
+    return result;
+  }
+
+  /**
+   * 添加 联系人 详细 tag
+   * @param contactTagVal
+   * @param result
+   */
+  public void convertContactTagVal(Map<String, Object> contactTagVal, Map<String, Object> result) {
+
+    result.put("role", (List<TagValueVo>) contactTagVal.remove("role"));//角色--标签(多选)
+    result.put("duty", convertContactTagValue((List<TagValueVo>) contactTagVal.remove("duty")));//职务--标签
+    result.put("status", convertContactTagValue((List<TagValueVo>) contactTagVal.remove("status")));//状态--标签
+//    result.put("source", convertContactTagValue((List<TagValueVo>) contactTagVal.remove("source")));//用户来源 --标签
+
+  }
+
+  /**
+   * 添加 联系人列表 详细 tag
+   * @param contactTagVal
+   * @param result
+   */
+  public void convertContactListTagVal(Map<String, Object> contactTagVal, Map<String, Object> result) {
+
+    result.put("role", convertContactListTagValue((List<TagValueVo>) contactTagVal.remove("role")) );//角色--标签(多选)
+    result.put("duty", convertContactListTagValue((List<TagValueVo>) contactTagVal.remove("duty")));//职务--标签
+    result.put("status", convertContactListTagValue((List<TagValueVo>) contactTagVal.remove("status")));//状态--标签
+//    result.put("source", convertContactListTagValue((List<TagValueVo>) contactTagVal.remove("source")));//用户来源 --标签
+
+  }
+
+
+  /**
+   * 转换 联系人 标签 返回信息
+   * @param tagValueVos
+   * @return
+   */
+  private String convertContactTagValue(List<TagValueVo> tagValueVos) {
+    if (tagValueVos.isEmpty() || tagValueVos.size() <= 0){
+      return "";
+    }
+
+    StringBuffer stringBuffer = new StringBuffer();
+    boolean first = true;
+    for (TagValueVo valueVo : tagValueVos) {
+      if (first){
+        first = false;//第一个不添加
+      }else {
+        stringBuffer.append(",");
+      }
+      stringBuffer.append(valueVo.getId());
+    }
+    return stringBuffer.toString();
+  }
+
+  /**
+   * 转化 联系人列表 标签
+   * @param tagValueVos
+   * @return
+   */
+  public static String convertContactListTagValue(List<TagValueVo> tagValueVos) {
+    if (tagValueVos.isEmpty() || tagValueVos.size() <= 0){
+      return "";
+    }
+
+    StringBuffer stringBuffer = new StringBuffer();
+    boolean first = true;
+    for (TagValueVo valueVo : tagValueVos) {
+      if (first){
+        first = false;//第一个不添加
+      }else {
+        stringBuffer.append(",");
+      }
+      stringBuffer.append(valueVo.getValue());
+    }
+    return stringBuffer.toString();
+  }
+
+
+
+
+  /**
+   * 获取 联系人 客户信息
+   * @return
+   */
+  public List<Object> convertCustomerInfo(Customer customer) {
+
+    List<Object> returnList = new ArrayList<>();
+
+    Map<String, Object> result = new HashMap<>();
+    result.put("accountName", customer.getBankaccounts());//主账号
+    result.put("type", "主账号");//主账号
+    result.put("phone", customer.getPhone());//联系方式
+    result.put("loginDate", TimeUtil.getDifferTime(customer.getFounddate()));//未登录天数
+    result.put("crateDate", customer.getCreatetime());//创建时间
+    result.put("LastLoginDate", customer.getFounddate());//最后登陆时间
+    result.put("UpdatePassDate", customer.getLastupdatetime());//最后修改时间
+    result.put("Name", customer.getName());//名称
+
+    returnList.add(result);
+
+    return returnList;
+  }
+
+}

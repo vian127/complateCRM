@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="CRM" />
+    <meta name="description" content="CRM" />
+    <title>问卷预览</title>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/common/form-list.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/marketing/preview_questionnaire.css}" />
+</head>
+
+<body>
+    <!-- view -->
+    <div id="wrapper">
+        <!-- header -->
+        <div class="header" th:include="./views/common/header :: headertpl"></div>
+        <div id="page-wrapper">
+            <!-- content -->
+            <div class="content container-fluid" id='app'>
+                <!-- 页面位置 -->
+                <div class="page-header-section">
+                    <h3>问卷预览</h3>
+                </div>
+                <div class="col-md-12">
+                    <h3>新客户回访调研</h3>
+                    <div class='info-wrap clearfix'>
+                        <ul class='tab-list'>
+                            <li>开场白</li>
+                            <li>1.问题a</li>
+                            <li>2.问题b</li>
+                            <li>3.问题c</li>
+                            <li>4.问题c</li>
+                            <li>结束语</li>
+                        </ul>
+                        <div class='stats-info'>
+                            
+                            <div class="pr-prologue">
+                                <h3>开场白</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- footer -->
+            <div class="footer" th:include="./views/common/footer :: footertpl"></div>
+        </div>
+    </div>
+
+    <!-- 共用模块 -->
+    <div th:include="./views/common/common :: commontpl"></div>
+    <!-- JS Scripts-->
+
+    <script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/marketing/create_questionnaire.js}"></script>
+</body>
+
+</html>

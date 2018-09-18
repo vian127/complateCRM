@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MsgTemplateMapper">
+
+
+  <select id="findTemplateList"  resultType="com.pop136.customerservice.entity.marketing.MsgTemplate"
+   parameterType="com.pop136.customerservice.vo.marketing.search.MsgTemplateSearchVo">
+    SELECT * FROM (
+    SELECT
+      ROW_NUMBER()over(order by a.createtime DESC)as row_num, a.*
+
+      FROM ss_msgtemplate a
+
+     WHERE
+      a.deleteflag = '0'
+
+      <if test="id != null">
+          and a.id = #{id}
+      </if>
+
+      <if test="name != null">
+         and a.name like '%'+#{name}+'%'
+      </if>
+
+      <if test="creater != null">
+         and a.creater like '%'+#{creater}+'%'
+      </if>
+
+      <if test="createrId != null">
+         and a.creatorroleid = #{createrId}
+      </if>
+
+      ) result
+
+      <if test="page != null">
+          where result.row_num &gt; #{page} and result.row_num &lt;= #{size}
+      </if>
+
+  </select>
+
+
+  <select id="findSelectList"  resultType="com.pop136.customerservice.entity.marketing.MsgTemplate">
+
+    SELECT
+      a.creatorroleid , a.creater, a.id, a.name, a.content
+
+      FROM ss_msgtemplate a
+
+     WHERE
+      a.deleteflag = '0'
+
+  </select>
+
+
+    <select id="getTemplateCount" parameterType="com.pop136.customerservice.vo.marketing.search.MsgTemplateSearchVo"
+    resultType="java.lang.String">
+        SELECT  count(*)
+
+        FROM  ss_msgtemplate a
+
+        WHERE
+
+        a.deleteflag = '0'
+
+        <if test="id != null">
+            and a.id = #{id}
+        </if>
+
+        <if test="name != null">
+            and a.name like '%'+#{creater}+'%'
+        </if>
+
+        <if test="creater != null">
+            and a.creater like '%'+#{creater}+'%'
+        </if>
+
+        <if test="createrId != null">
+            and a.creatorroleid = #{createrId}
+        </if>
+
+    </select>
+
+</mapper>

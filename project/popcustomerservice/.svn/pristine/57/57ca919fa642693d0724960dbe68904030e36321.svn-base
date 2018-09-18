@@ -1,0 +1,73 @@
+package com.pop136.customerservice.controller.web;
+
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pop136.customerservice.response.MaterialDetail;
+import com.pop136.customerservice.service.RestfulClient;
+import com.pop136.customerservice.utils.WebServiceUtil;
+//import com.sun.xml.internal.rngom.ast.builder.CommentList;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+@Controller // 标记为：jsp
+public class WebController {
+
+	/*
+	 * @RequestMapping("/html") public String html(){ return "/huodong.html"; }
+	 */
+
+	@GetMapping("/templates")
+	public String test(HashMap<String, Object> map) {
+		// 逻辑处理
+		map.put("hello", "欢迎进入HTML页面");
+		return "/index";
+	}
+
+	@GetMapping("/web/{views}/{page}")
+	public String client( @PathVariable("views")String views, @PathVariable("page")String page) {
+		// 逻辑处理
+		return "views/"+views+"/"+page;
+	}
+
+	@GetMapping("/templates/material")
+	public String material(ModelMap map, @RequestParam("productId") String productId,
+			@RequestParam("accountId") String accountId) throws IOException {
+
+		// 获取评论
+/*		Map<String, String> paraMap = new HashMap<String, String>();
+		String url = "http://121.41.13.95:8484/MjkPcV2/comment/commentList.bk";
+		paraMap.put("currPage", "1");
+		paraMap.put("pageSize", "10");
+		paraMap.put("id", productId);
+
+		RestfulClient client = new RestfulClient();
+
+		ResponseEntity<String> postEntity = client.getPostEntity(url, paraMap);
+
+		ObjectMapper mapper = new ObjectMapper();
+		CommentList commentList = mapper.readValue(postEntity.getBody(), CommentList.class);
+
+		map.addAttribute("commentItems", JSONObject.toJSON(""));
+
+		// 获取 素材
+		Map<String, String> para = new HashMap<String, String>();
+		String url1 = "http://121.41.13.95:8484/MjkPcV2/material/getMaterialById.bk";
+		para.put("c_id", productId);
+		para.put("userId", accountId);
+
+		MaterialDetail materialDetail = WebServiceUtil.getObjectByAPI(url1, para, MaterialDetail.class);
+
+		map.addAttribute("product", JSONObject.toJSON(""));
+*/
+		return "material/material";
+	}
+
+}

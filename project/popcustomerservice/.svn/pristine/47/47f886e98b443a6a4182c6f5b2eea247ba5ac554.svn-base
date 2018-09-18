@@ -1,0 +1,251 @@
+package com.pop136.customerservice.controller.customer;
+
+import com.alibaba.fastjson.JSONObject;
+import com.pop136.core.BeanUtil;
+import com.pop136.customerservice.constant.CommonConstant;
+import com.pop136.customerservice.constant.ContactConstant;
+import com.pop136.customerservice.controller.BaseApiAction;
+import com.pop136.customerservice.entity.customer.*;
+import com.pop136.customerservice.service.common.DataDictService;
+import com.pop136.customerservice.service.customer.*;
+import com.pop136.customerservice.utils.BusinessException;
+import com.pop136.customerservice.utils.JsonParseUtil;
+import com.pop136.customerservice.utils.TimeUtil;
+import com.pop136.customerservice.vo.customer.*;
+import com.pop136.customerservice.vo.customer.param.ContactParamVo;
+import com.pop136.customerservice.vo.customer.search.ContactSearchVo;
+import com.pop136.customerservice.vo.customer.search.FeedBackSearchVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 联系人controller
+ */
+@RestController
+@RequestMapping("/contact")
+public class ContactController extends BaseApiAction {
+
+  @Autowired
+  private CustomerService customerService;
+
+  @Autowired
+  private DataDictService dataDictService;
+
+  @Autowired
+  private ContactService contactService;
+
+  @Autowired
+  private UserRoleService roleService;
+
+  @Autowired
+  private UserService userService;
+
+  @Autowired
+  private FeedBackService feedBackService;
+
+  @Autowired
+  private CustomerTagService tagService;
+
+
+
+  /**
+   * 根据条件 获取联系人 列表
+   */
+  @RequestMapping(value = "/list",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String list(HttpServletRequest request, @RequestBody ContactSearchVo searchVo) {
+
+    List<Contact> contacts =  contactService.getContactList(searchVo);
+
+    List<Object> result = new ArrayList<>();
+
+    if (contacts != null && !contacts.isEmpty()) {
+      for (Contact contact : contacts) {
+        Customer customer = new Customer();
+        customer.setName(contact.getContactName());
+        Map<String, Object> contactInfo = getContactInfo(contact, customer);
+        result.add(contactInfo);
+      }
+    }
+
+    return success(result);
+  }
+
+
+  /**
+   * 根据id 获取 客户联系人详细
+   */
+  @RequestMapping(value = "/info",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String info(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+
+    String id = JsonParseUtil.parseRequiredStringValue(jsonObject, "id");
+
+    Map<String, Object> result = new HashMap<>();
+
+    //获取 联系人基本信息
+    Contact contact = contactService.findBy("id", id, Contact.class);
+
+    if (contact == null) {
+      throw  new BusinessException("该联系人不存在");
+    }
+
+    Customer customer = customerService.findBy("id", contact.getCustomerid(), Customer.class);
+
+    FeedBackSearchVo searchVo = new FeedBackSearchVo();
+    searchVo.setContactId(id);
+    searchVo.setPage(0);
+    searchVo.setSize(1);
+    List<FeedBack> feedBacks = feedBackService.getFeedBackList(searchVo);
+
+    result.put("contactInfo", getContactInfo(contact, customer));//联系人信息
+    result.put("manager", getContactManager(contact, feedBacks));//联系人管理信息
+    result.put("customerInfo", getCustomerInfo(customer));//客户信息
+
+    return success(result);
+
+  }
+
+  /**
+   * 获取 客户信息
+   * @param customerid
+   * @return
+   */
+  private Map<String, Object> getCustomerInfo(Customer customer) {
+
+    Map<String, Object> result = new HashMap<>();
+    result.put("accountName", customer.getBankaccounts());//主账号
+    result.put("type", "主账号");//主账号
+    result.put("phone", customer.getPhone());//联系方式
+    result.put("loginDate", TimeUtil.getDifferTime(customer.getFounddate()));//未登录天数
+    result.put("crateDate", customer.getCreatetime());//创建时间
+    result.put("LastLoginDate", customer.getFounddate());//最后登陆时间
+    result.put("UpdatePassDate", customer.getLastupdatetime());//最后修改时间
+    result.put("Name", customer.getName());//名称
+
+    return result;
+  }
+
+  /**
+   * 获取 联系人管理信息
+   * @param contact
+   * @return
+   */
+  private Map<String, Object> getContactManager(Contact contact, List<FeedBack> feedBacks) {
+
+    if (feedBacks == null || feedBacks.isEmpty()) {
+      return null;
+    }
+
+    FeedBack feedBack = feedBacks.get(0);
+    Map<String, Object> result = new HashMap<>();
+    result.put("source", ContactConstant.CONTACT_CUSTOMERCD5.getKeyByType(contact.getCustomdict5()));//来源
+
+    result.put("creatorId", contact.getCreatorid());//创建人
+    result.put("LastUpdater", contact.getLastmenderid());//最新修改人
+
+    result.put("LastContactDate", feedBack.getLastupdatetime());//最后联系时间
+    result.put("LastContactType", feedBack.getTypename());//最后联系方式
+    result.put("applicationDate", feedBack.getApplicationdate());//预约时间
+
+    return result;
+  }
+
+  /**
+   * 获取联系人 主信息
+   * @param contact
+   */
+  private Map<String, Object> getContactInfo(Contact contact, Customer customer) {
+    Map<String, Object> result = new HashMap<>();
+    result.put("main", contact.getIismain());//是否主联系人
+    result.put("name", contact.getName());//名称
+    result.put("role", "");//角色
+    result.put("duty", ContactConstant.CONTACT_CUSTOMDICT1.getKeyByType(contact.getCustomdict1()));//职务
+    result.put("status", ContactConstant.CONTACT_STATUS.getKeyByType(contact.getStatusid()));//状态
+    result.put("statusId", contact.getStatusid());//状态id
+    result.put("telephone", contact.getTelephone());//电话
+    result.put("mobile", contact.getMobile());
+    result.put("weChat", contact.getRelatecontactid5());//微信号
+    result.put("extensionPhone", contact.getExtensionphone());//分机号
+    result.put("qq", contact.getQq());//qq号
+    result.put("email", contact.getEmail());//邮箱
+    result.put("CustomerName", customer.getName());//所属客户
+
+    return result;
+  }
+
+
+  /**
+   * 修改/新增 联系人
+   * @param request
+   * @param jsonObject
+   * @return
+   */
+  @RequestMapping(value = "/update",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String update(HttpServletRequest request, @RequestBody ContactParamVo paramVo) {
+
+    Contact contact = new Contact();
+
+    Map<String, Object> result = new HashMap<>();
+
+    if (paramVo.getId() != null) {
+      //更新 操作
+      convertContact(paramVo, contact);
+//      contact.setUpdateroleid(); 操作人
+      contactService.update("id", paramVo.getId(), contact);
+      result.put("contactId", paramVo.getId());
+      return success(result);
+    }else{
+      //新增
+      convertContact(paramVo, contact);
+      String contactId = (String) contactService.create(contact, Contact.class);
+      result.put("contactId", contactId);
+
+      return success(result);
+    }
+
+  }
+
+  /**
+   * 转换  联系人vo
+   * @param paramVo
+   * @param contact
+   */
+  private void convertContact(ContactParamVo paramVo, Contact contact) {
+    contact.setName(paramVo.getName());
+    contact.setCustomdict1(new Integer(paramVo.getDuty()));
+    contact.setStatusid(new Integer(paramVo.getStatusId()));
+    contact.setMobile(paramVo.getMobile());
+    contact.setTelephone(paramVo.getTelephone());
+    contact.setExtensionphone(paramVo.getExtensionPhone());
+    contact.setQq(paramVo.getQq());
+    contact.setRelatecontactid5(paramVo.getWeChat());
+
+    if (paramVo.getMain().equals("1")){
+      //修改主要联系人
+      Contact iismain = contactService.findBy("iismain", "1", Contact.class, "id");
+      if (iismain != null) {
+        iismain.setIismain(0);//设为默认
+        contactService.update("id", iismain.getId(), iismain, "iismain");
+      }
+    }
+  }
+
+}

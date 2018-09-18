@@ -1,0 +1,227 @@
+/*
+    #author     gaofeng
+    #date       2018/08/13
+    #purpose    群发短信
+*/
+
+require(['vue', 'msg', 'general', 'base-info', 'layui'], function (Vue, msg, general, global_info) {
+    $(function () {
+        var def = {
+            loading_ele: $('.js-loading-div'),
+            ajax_port: global_info.api_url,
+            msg_time: global_info.msg_time,
+        };
+        
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                get_opt: {                            //请求参数
+                    templateId: "",
+                    typeId: "",
+                    content: "",
+                    paramVos: [
+                        {
+                            phoneNumber: "",
+                            customerName: "",
+                            contactName: ""
+                        }
+                    ]
+                },
+                location_obj:general.fn.getLocationParameter(),              //浏览器参数
+                template_all: [],                                            //模板下拉数据
+                template_id: '',                                             //当前模板
+                list_type: 'customer',                                       //发送对象类型
+                list_data: [],                                               //当前列表数据
+                now_len: 0,                                                  //当前选中数量
+
+                has_checked_list:{                                           //已选中的数据
+                    'customer':[],
+                    'user':[],
+                    'import':[],
+                },
+
+
+                customer_data:{                                              //客户数据
+                    'customer':[],
+                    'user':[],
+                    'import':[],
+                },
+                user_data:{                                                  //用户数据
+                    'customer':[],
+                    'user':[],
+                    'import':[],
+                },
+                checked_user_data:{                                          //已选中的用户数据
+                    'customer':[],
+                    'user':[],
+                    'import':[],
+                },
+
+            },
+            mounted() {
+                this.page();
+                layui.use('layer');
+                this.getTemplate();
+            },
+            methods: {
+                getTemplate: function () {                 //请求短信模板数据
+                    var self = this
+                    $.ajax({
+                        url: def.ajax_port + '/api/msgTemplate/getSelectList',
+                        type: 'get',
+                        success: function (data) {
+                            if (data && data.data) {
+                                self.template_all = data.data;
+                            } else {
+                                msg.msg({
+                                    'txt': '未请求到数据'
+                                }, def.msg_time);
+                            }
+                            def.loading_ele.fadeOut(400);
+                        },
+                        error: function () {
+                            def.loading_ele.fadeOut(400);
+                        }
+                    });
+                },
+                sendMessage: function () {
+                    var self = this;
+                    self.get_opt.typeId = self.list_type
+                    var opt = self.get_opt;
+                    var is_next = true;
+                    if (opt.templateId == '') {
+                        is_next = false;
+                        msg.msg({'txt': '请选择模板'}, def.msg_time);
+                        return
+                    }
+                    if (this.user_data[this.list_type].length < 1) {
+                        is_next = false;
+                        msg.msg({'txt': '请添加收件人'}, def.msg_time);
+                        return
+                    }
+                    if (is_next = true) {
+                        general.fn.subAjax({
+                            url:def.ajax_port+'/api/msg/send',
+                            data:opt, 
+                            success:function(){
+                                msg.msg({'txt':'发送成功！'},def.msg_time);
+                                def.loading_ele.fadeOut(400);
+                            },
+                            error:function(){
+                                def.loading_ele.fadeOut(400);
+                            }
+                        })
+                    }
+
+                },
+                showListBox:function(type){                                                   //弹出层
+                    var self=this;
+                    var layer=layui.layer;
+                    var url=type==1?'/api/web/customer/client?type=2':'/api/web/customer/userlist?type=2';
+
+                    layer.open({
+                        title:'',
+                        type: 2, 
+                        area:['80%','80%'],
+                        content: url,
+                        shadeClose:true,
+                        closeBtn:1,
+                        fixed:false,
+                        btn: ['确认添加', '取消'],
+                        btn1:function(index,layero){
+                            var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：iframeWin.method();
+                            layer.close(index); //如果设定了yes回调，需进行手工关闭
+                            self.addCustomer(iframeWin.check_list);
+                        },
+                        btn2:function(index,layero){
+                            
+                        },
+                        anim:1,
+                        success:function(){
+                        }
+                    });
+                },
+                addCustomer: function (data) {                                                 //添加客户列表
+                    var self=this;
+                    def.loading_ele.fadeIn(200);
+                    data.forEach(function(item){
+                        self.findListData(self.customer_data[self.list_type],item);
+                    });
+                    def.loading_ele.fadeOut(400);
+                    console.log(self.customer_data);
+                },
+                findListData:function(data,item){                                              //检测添加客户
+                    var self=this;
+                    if(data.length>0){
+                        for(var i=0,len=data.length;i<len;i++){
+                            if(data[i].id!=item.id){
+                                data.push(item);
+                            }
+                        }
+                    }else{
+                        data.push(item);
+                    }
+                    
+                    
+                },
+                changeTempalte: function () {                                                  //切换模板内容
+                    var self = this
+                    var result;
+                    var id = self.template_id;
+                    self.get_opt.templateId = id;
+                    if (id !== '') {
+                         self.template_all.forEach(function (item) {
+                            if(item.id==id){
+                                result=item
+                            }
+                        });
+                        self.get_opt.content = result.content
+                    } else {
+                        self.get_opt.content = ''
+                    }
+                },
+                changeType: function (e) {                     //切换类型
+
+                    this.list_data = this.user_data[this.list_type];
+                    this.setParmFunc();
+                },
+                uploadFunc: function () {
+                    var layer = layui.layer;
+                    layer.open({
+                        type: 0,
+                        title: '',
+                        area: ['500px', 'auto'],
+                        btn: ['取消', '确认上传'],
+                        content: $('#js-upload').html(),
+                        btn2: function (index, layero) {
+
+                        }
+                    });
+                },
+                page: function () {
+                    layui.use('laypage', function(){
+                        var laypage = layui.laypage;
+                        //执行一个laypage实例
+                        laypage.render({
+                            elem: 'laypage-section',
+                            count: 50,
+                            layout: ['prev', 'page', 'next', 'limit', 'count', 'skip'],
+                            jump: function (obj) {
+                                console.log(obj)
+                                var curr = obj.curr;
+                            }
+                        });
+                    });
+                },
+
+                setParmFunc:function(){
+                    this.list_data.forEach(function(item){
+                        item.is_checked=true;
+                    });
+                    this.now_len=this.list_data.length;
+                },
+            },
+
+        });
+    })
+})

@@ -1,0 +1,25 @@
+@charset 'UTF-8';
+
+.page-name{padding: 8px 15px 15px;margin-bottom: 15px;border-bottom: 1px solid #aaa;}
+.form-section>div{margin-bottom: 20px;}
+.form-section label{margin-right: 8px}
+
+
+.choice{
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background-color: #fff;
+    width: 175px;
+    text-align: left;
+    padding: 20px 15px;
+    display: none;
+    box-shadow: 0px 0px 10px #337ab7;
+    z-index:999;
+}
+.choice:before{z-index: 10;position: absolute;left: 50%;top: -17px;display: block;content: "";border: 8px solid transparent;border-bottom-color: #337ab7;}
+.choice>div{margin-left: 10px}
+.choice li {height: 30px;line-height: 30px;margin-left: 10px;}
+.choice span {padding-left: 10px;vertical-align:middle;font-size: 12px;}
+.all-select {padding-left: 10px;}
+.choice input {vertical-align:middle;margin: 0;}

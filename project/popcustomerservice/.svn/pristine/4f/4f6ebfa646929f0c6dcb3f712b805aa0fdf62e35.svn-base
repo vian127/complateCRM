@@ -1,0 +1,29 @@
+.info-wrap {
+    border: 1px solid #ccc;
+}
+
+.tab-list {
+    width: 15%;
+    padding-left: 30px;
+    padding-top:10px;
+    float: left;
+    border-right: 1px solid #ccc;
+}
+
+.tab-list li {
+    height: 40px;
+    line-height: 40px;
+}
+
+.stats-info {
+    width: 85%;
+    float: left;
+}
+
+.stats-info h3 {
+    padding-left: 15px;
+    border-bottom: 1px solid #ccc;
+}
+.pr-prologue {
+    margin: 10px;
+}

@@ -1,0 +1,350 @@
+/*
+    #author     gaofeng
+    #date       2018/07/23
+    #purpose    回访管理
+*/
+require.config({
+    paths: {
+        
+    },
+
+    shim: {
+        
+    }
+});
+require(['vue','jquery','general','layui','base-info'], function (Vue,jquery,general,layui,global_info) {
+    $(function () {
+        var def = {
+            loading_ele: $('.js-loading-div'),
+            ajax_port:global_info.api_url,
+        };
+       
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                customerid:'1002909',
+                list:[],
+                get_opt:{},                                                             //请求数据
+                thead:[                                                                 //表头内容
+                    {id:2,is_show:true,name:'创建日期'},
+                    {id:3,is_show:true,name:'创建人'},
+                    {id:4,is_show:true,name:'主账号'},
+                    {id:5,is_show:true,name:'客户'},
+                    {id:6,is_show:true,name:'服务方式'},
+                    {id:7,is_show:true,name:'用户角色'},
+                    {id:8,is_show:true,name:'用户职位'},
+                    {id:9,is_show:true,name:'服务对象'},
+                    {id:10,is_show:true,name:'手机号码'},
+                    {id:11,is_show:true,name:'联络类型'},
+                    {id:12,is_show:true,name:'联络结果'},
+                    {id:13,is_show:true,name:'服务类型'},
+                    {id:14,is_show:true,name:'最后修改时间'},
+                    {id:15,is_show:true,name:'最后修改人'},
+                ],
+                collect:{                                                               //筛选数据对象
+                    accountName:'',
+                    companyName:'',
+                    phone:'',
+                    ownerName:'',
+                    startDate:'',
+                    endDate:'',
+                    role:''
+                },
+                list_info:{
+                    is_show_select:false,
+                    checked_all:true
+                },
+                is_first:true,                                                          //是否第一次调用加载数据
+                is_set_date:false,                                                      //是否已经建立时间控件
+                layer:null,                                                             //构造方法
+
+
+              
+                def:{
+                    trees:{
+                      industry:[
+                        { id:1, pId:0, name:'材质', open:false},
+                        { id:11, pId:1, name:'棉麻'},
+                        { id:12, pId:1, name:'丝绸'},
+                        { id:2, pId:0, name:'配饰', open:false},
+                        { id:21, pId:2, name:'手链'},
+                        { id:22, pId:2, name:'戒指'},
+                      ],
+                      style:[
+                        { id:1, pId:0, name:'流行', open:false},
+                        { id:11, pId:1, name:'坎肩'},
+                        { id:12, pId:1, name:'短袖'},
+                        { id:2, pId:0, name:'经典', open:false},
+                        { id:21, pId:2, name:'牛仔'},
+                        { id:22, pId:2, name:'麦子'},
+                      ],
+                      single:[
+                        { id:1, pId:0, name:'流行', open:false},
+                        { id:11, pId:1, name:'坎肩'},
+                        { id:12, pId:1, name:'短袖'},
+                        { id:2, pId:0, name:'经典', open:false},
+                        { id:21, pId:2, name:'牛仔'},
+                        { id:22, pId:2, name:'麦子'},
+                      ],
+                      season:[
+                        { id:1, pId:0, name:'流行', open:false},
+                        { id:11, pId:1, name:'坎肩'},
+                        { id:12, pId:1, name:'短袖'},
+                        { id:2, pId:0, name:'经典', open:false},
+                        { id:21, pId:2, name:'牛仔'},
+                        { id:22, pId:2, name:'麦子'},
+                      ],
+                      material:[
+                        { id:1, pId:0, name:'流行', open:false},
+                        { id:11, pId:1, name:'坎肩'},
+                        { id:12, pId:1, name:'短袖'},
+                        { id:2, pId:0, name:'经典', open:false},
+                        { id:21, pId:2, name:'牛仔'},
+                        { id:22, pId:2, name:'麦子'},
+                      ],
+                      process:[
+                        { id:1, pId:0, name:'流行', open:false},
+                        { id:11, pId:1, name:'坎肩'},
+                        { id:12, pId:1, name:'短袖'},
+                        { id:2, pId:0, name:'经典', open:false},
+                        { id:21, pId:2, name:'牛仔'},
+                        { id:22, pId:2, name:'麦子'},
+                      ],
+
+                    },
+                    trees_setting:{ 
+                            check: {
+                            enable: true
+                        },
+                        data:{
+                            simpleData: {
+                                enable: true
+                            }
+                        }
+                    }
+                },
+
+               
+            },
+            mounted() {
+                this.getNewData({
+                    customerId:this.customerid,                                         //客户id
+                    page:1,
+                    size:10,
+                })
+                this.dateTime();
+            },
+            methods: {
+                getNewData:function(opt){
+                    def.loading_ele.fadeIn(200);
+                    this.get_opt=opt;
+                    general.fn.subAjax({
+                       // url:' http://192.168.1.38:8081/api/feedBack/list',
+                       url:def.ajax_port+'/api/feedBack/list',
+                       data:opt,
+                       success:this.setData,
+                       error:function(){
+                            def.loading_ele.fadeOut(400);
+                       }
+                    })
+                },
+                setData:function(data){
+                    console.log(data)
+                    var self=this;
+                    if(data!=undefined && data.data!=undefined){
+                        this.list=data.data;
+                        if(this.is_first==true){
+                            this.is_first=false;
+                            layui.use('laypage', function () {
+                                var laypage = layui.laypage;
+                                //执行一个laypage实例
+                                laypage.render({
+                                    elem: 'laypage-section',
+                                    count: data.extra.count,
+                                    layout: ['prev', 'page', 'next', 'limit', 'count', 'skip'],
+                                    jump: function (obj,first) {
+                                      if(obj.count*1<=obj.limit){
+                                        $('#laypage-section').hide();
+                                      }
+                                      if(!first){
+                                        self.get_opt.size=obj.limit;
+                                        self.get_opt.page=obj.curr;
+                                        self.getNewData(self.get_opt);
+                                      }
+                                    }
+                                });  
+                            });
+                        }
+                    }
+                   def.loading_ele.fadeOut(400);
+                },
+                resetFunc:function(){
+                    for(var key in this.collect) {
+                        this.collect[key] = ""
+                    }
+                },
+                dateTime: function () {                                      //时间控件
+                    var self = this
+                    if(self.is_set_date==false){
+                        layui.use('laydate', function () {
+                            var laydate = layui.laydate;
+                            laydate.render({
+                                elem: '.js-timeStart',
+                                done: function(value){
+                                   self.collect.startDate=value
+                                  }
+                            });
+                            laydate.render({
+                                elem: '.js-timeEnd',
+                                done: function(value){
+                                    self.collect.endDate=value
+                                   }
+                            });  
+                       })
+                    }
+                },
+                toggleSelect: function () {                                 //显示隐藏
+                    this.list_info.is_show_select = !this.list_info.is_show_select;
+                },
+                changeCol: function (event, id) {                           //单选
+                    var tag = event.target;
+                    var is_check = tag.checked;
+                    if (is_check == true) {
+                        $('.js-list-table').find('.js-col' + id + '-ele').show();
+                    } else {
+                        $('.js-list-table').find('.js-col' + id + '-ele').hide();
+                    }
+                    var checked_len = 0;
+                    this.thead.forEach(function (item) {
+                        if (id == item.id) {
+                            item.is_show = is_check;
+                        }
+                        item.is_show == true ? checked_len++ : checked_len;
+                    });
+
+                    // 全选判断
+                    if (is_check == true) {
+                        if (this.list_info.checked_all == false && checked_len == this.thead.length) {
+                            this.list_info.checked_all = true;
+                        }
+                    } else {
+                        if (checked_len == this.thead.length - 1 && this.list_info.checked_all == true) {
+                            this.list_info.checked_all = false;
+                        }
+                    }
+                },
+                changeAll: function (e) {                                 //全选
+                    var tag = e.target;
+                    var is_check = tag.checked;
+                    if (is_check == true) {
+                        $('.js-list-table').find('.js-can-hide').show();
+                        this.thead.forEach(item => item.is_show = true);
+                    } else {
+                        $('.js-list-table').find('.js-can-hide').hide();
+                        this.thead.forEach(item => item.is_show = false);
+                    }
+                },
+
+                filterFunc: function () {                                //确认筛选列表
+                    var opt={};
+                    for(var key in this.collect){
+                        if(this.collect[key]!=""){
+                            opt[key]=this.collect[key];
+                        }
+                    }
+                    opt.customerId=this.customerid;
+                    opt.page=1;
+                    opt.size=this.get_opt.size;
+                    this.is_first=true;
+                    this.getNewData(opt);  
+                }, 
+
+                showFilterBox:function(){                                                   //弹出层
+                    var self=this;
+                    layui.use('layer', function(){
+                        var layer=layui.layer;
+                        layer.open({
+                            title:'',
+                            type: 1, 
+                            area:['50%'],
+                            content: $('.js-visit-filter-box'),
+                            shadeClose:true,
+                            closeBtn:1,
+                            fixed:false,
+                            btn: ['取消', '确认筛选'],
+                            yes:function(index){
+                                layer.close(index);
+                            },
+                            btn2:self.advancedFilterFunc,
+                            anim:1,
+                            success:function(){
+                                if(self.is_set_date==false){
+                                    layui.use('laydate', function(){
+                                        var laydate = layui.laydate;
+                                        laydate.render({
+                                            elem: '.js-date-area1'
+                                        });
+                                        laydate.render({
+                                            elem: '.js-date-area2'
+                                        });
+                                    });
+                                }
+                            }
+                        });
+                    });
+
+
+                    if(!this.isbind){
+                        this.isbind=true;
+                        this.bindFunc();
+                    }
+                },
+
+                advancedFilterFunc:function(){                                                //确认高级筛选
+                    return false;
+                },
+
+                bindFunc:function(){
+                    var self=this,d=self.def;
+                    // 点击获取焦点
+                    $('.js-checked-list').on('click',function(e){
+                        var $self=$(this),tag_ele=$self.siblings('.js-filter-div');
+                        var id=tag_ele.attr('data-id');
+                        if(d.trees[id]==undefined){
+                          var key=$self.attr('data-key') || '';
+                          if(key!=''){
+                            $.fn.zTree.init(tag_ele.children('.js-trees-ele'), d.trees_setting, d.trees[key]);
+                            d.trees[id]=$.fn.zTree.getZTreeObj(id);
+                          }
+                        }
+                        tag_ele.show();
+                        e.stopPropagation();
+                    });
+
+
+                    // 隐藏下拉选择层
+                    $('.js-filter-div').on('click',function(e){
+                        e.stopPropagation();
+                    });
+                    $('#page-wrapper').on('click',function(){
+                        $('.js-filter-div').hide();
+                    });
+                  
+                    
+                    // 确定筛选项
+                    $('.js-add-checked').on('click',function(){
+                        var id=$(this).parents('.js-filter-div').attr('data-id') || '';
+                        var ztree_obj=d.trees[id];
+                        var checked_obj=ztree_obj.getCheckedNodes();
+                        $(this).parents('.js-filter-div').hide();
+                        setFilterDom($(this).parents('.js-filter-div').siblings('.js-checked-list'),checked_obj);
+                    });
+                    // 取消筛选项
+                    $('.js-cancel-checked').on('click',function(){
+                        $(this).parents('.js-filter-div').hide();
+                    });
+                }
+            }
+        })
+    })
+})  

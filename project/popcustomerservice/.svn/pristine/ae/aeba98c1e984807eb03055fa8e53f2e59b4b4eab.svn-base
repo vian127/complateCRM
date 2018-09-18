@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TagMappingMapper">
+
+  <select id="findTagListByModule"  resultType="com.pop136.customerservice.vo.common.Tag">
+    SELECT a.tagid as id, a.name, a.taggroup, a.tagattribute, a.tagcate
+      ,a.module, a.isnecessary, a.description, a.sortnum
+    FROM v_ss_tagmodule a
+     WHERE a.module = #{module} order by a.sortnum
+  </select>
+
+  <select id="findTagValueListByModule"  resultType="com.pop136.customerservice.entity.view.TagMappingVo">
+    SELECT a.tagid ,a.tagname,a.tagcate,a.tagattribute, a.id,a.code, a.value ,a.module, a.lang, a.nlevel,
+            a.children, a.sortnum, a.totagid, a.tocode , a.tovalue ,a.tosortnum
+      FROM v_ss_tagmapping a
+    WHERE a.module = #{module} and ( a.nlevel = 1 or a.children = 'Y') order by a.sortnum
+  </select>
+
+</mapper>

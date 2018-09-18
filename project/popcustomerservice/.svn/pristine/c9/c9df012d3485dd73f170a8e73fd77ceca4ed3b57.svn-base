@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="CRM" />
+    <meta name="description" content="CRM" />
+    <title>新增用户</title>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/common/form-list.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/workbench/adduser.css}" />
+</head>
+
+<body>
+    <!-- view -->
+    <div id="wrapper">
+        <!-- header -->
+        <div class="header" th:include="./views/common/header :: headertpl"></div>
+        <div id="page-wrapper">
+            <!-- content -->
+            <div class="content" id="app">
+                <!-- 页面位置 -->
+                <div class="page-header-section">
+                    <h3>用户详情</h3>
+                </div>
+                <testtem></testtem>
+                <div class="col-md-12" align='right'>
+                    <button type='button' class='btn btn-primary btn-save' @click='saveFunc'>保存</button>
+                </div>
+                <!-- 表单 -->
+                <div class="form-inline">
+                    <form class='js-form'>
+                        <div class="row">
+                            <div class='col-md-12'>
+                                <label class="slide-btn js-slide-btn"><button type='button'>－</button>用户信息</label>
+                            </div>
+                            <div class="form-section">
+                                <div class='col-md-12'>
+                                    <div class="form-group col-md-4">
+                                        <label for="">姓名</label>
+                                        <input type="text" class="form-control" v-model='user_info.name' name="" autofocus>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">所属客户</label>
+                                        <input type="text" class='form-control' v-model='user_info.CustomerName'>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div>
+                                            <label for="">是否主联系人</label>
+                                            <select name="" id="" class="form-control" v-model='user_info.main'>
+                                                <option value="1">是</option>
+                                                <option value="0">否</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-md-12'>
+                                    <div class="form-group col-md-4">
+                                        <label for="">职务</label>
+                                        <select name="" id="" class="form-control" v-model='user_info.duty'>
+                                            <option value="1">老板</option>
+                                            <option value="2">设计师</option>
+                                            <option value="3">其他</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">角色</label>
+                                        <input type="text" class="form-control" v-model='user_info.role'>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">客户状态</label>
+                                        <select name="" id="" class="form-control" v-model='user_info.status'>
+                                            <option value="1">在职</option>
+                                            <option value="2">离职</option>
+                                            <option value="3">休假</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class='col-md-12'>
+                                    <div class="form-group col-md-4">
+                                        <label for="">移动电话</label>
+                                        <input type="text" class="form-control" v-model='user_info.mobile'>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">工作电话</label>
+                                        <input type="text" class="form-control" v-model='user_info.telephone'>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">分机号</label>
+                                        <input type="text" class="form-control" v-model='user_info.extensionPhone'>
+                                    </div>
+                                </div>
+                                <div class='col-md-12'>
+                                    <div class="form-group col-md-4">
+                                        <label for="">QQ</label>
+                                        <input type="text" class="form-control" v-model='user_info.qq'>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">微信号</label>
+                                        <input type="text" class="form-control" v-model='user_info.weChat'>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div>
+                                            <label for="">是否添加微信</label>
+                                            <select name="" id="" class="form-control" v-model='user_info.is_addwx'>
+                                                <option value="1">是</option>
+                                                <option value="2">否</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class='col-md-12'>
+                                <label class="slide-btn js-slide-btn"><button type='button'>－</button>客服信息</label>
+                            </div>
+                            <div class="form-section">
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-3">
+                                        <label for="">客户印象</label>
+                                        <select name="" id="" class="form-control" v-model='user_info.is_impression'>
+                                            <option value="1">I (很好沟通)</option>
+                                            <option value="2">II (一般)</option>
+                                            <option value="3">III (拒绝沟通)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div>
+                                            <label for="">客户关注度</label>
+                                            <input type="text" class="form-control" v-model='user_info.is_attention'>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-5">
+                                        <div>
+                                            <label for="">客户关注项备注</label>
+                                            <textarea name="" id="" cols="30" rows="1" class="form-control" v-model='user_info.is_remark'></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-2">
+                                        <label for="">多产品</label>
+                                        <input type="checkbox" v-model='user_info.is_apm'>
+                                        <span>APM</span>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <select name="" id="" class="form-control" v-model='user_info.is_hasapm'>
+                                            <option value="1">不需要</option>
+                                            <option value="2">免费试用</option>
+                                            <option value="3">了解</option>
+                                            <option value="4">高意向</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <input type="checkbox" v-model='user_info.is_book'>
+                                        <span>书籍</span>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <select name="" id="" class="form-control" v-model='user_info.is_hasbook'>
+                                            <option value="1">不需要</option>
+                                            <option value="2">免费试用</option>
+                                            <option value="3">了解</option>
+                                            <option value="4">高意向</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <input type="checkbox" v-model='user_info.is_ceo'>
+                                        <span>总裁班</span>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <select name="" id="" class="form-control" v-model='user_info.is_hasceo'>
+                                            <option value="1">不需要</option>
+                                            <option value="2">免费试用</option>
+                                            <option value="3">了解</option>
+                                            <option value="4">高意向</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-2">
+                                        <label for=""></label>
+                                        <input type="checkbox" v-model='user_info.is_cloud'>
+                                        <span>云图</span>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <select name="" id="" class="form-control" v-model='user_info.is_hascloud'>
+                                            <option value="1">不需要</option>
+                                            <option value="2">免费试用</option>
+                                            <option value="3">了解</option>
+                                            <option value="4">高意向</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <input type="checkbox" v-model='user_info.is_seoul'>
+                                        <span>韩国行</span>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <select name="" id="" class="form-control" v-model='user_info.is_hasseoul'>
+                                            <option value="1">不需要</option>
+                                            <option value="2">免费试用</option>
+                                            <option value="3">了解</option>
+                                            <option value="4">高意向</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <input type="checkbox" v-model='user_info.is_exhibition'>
+                                        <span>展会</span>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <select name="" id="" class="form-control" v-model='user_info.is_hasexhibition'>
+                                            <option value="1">不需要</option>
+                                            <option value="2">免费试用</option>
+                                            <option value="3">了解</option>
+                                            <option value="4">高意向</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class='col-md-12'>
+                                <label class="slide-btn js-slide-btn"><button type='button'>－</button>用户管理信息</label>
+                            </div>
+                            <div class="form-section">
+                                <div class="col-md-12">
+                                    <div class='form-group col-md-4'>
+                                        <label for="" class='wid-85'>用户来源</label>
+                                        <input type="text" class="form-control" readonly placeholder="请输入用户来源" v-model='management_info.source'>
+                                    </div>
+                                    <div class='form-group col-md-4'>
+                                        <label for="" class='wid-85'>创建人</label>
+                                        <input type="text" class="form-control" readonly placeholder="请输入创建人" v-model='management_info.creatorId'>
+                                    </div>
+                                    <div class='form-group col-md-4'>
+                                        <div>
+                                            <label for="" class='wid-85'>最后修改人</label>
+                                            <input type="text" class="form-control" readonly placeholder="请输入最后修改人" v-model='management_info.LastUpdater'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class='form-group col-md-4'>
+                                        <div>
+                                            <label for="">最后联络时间</label>
+                                            <input type="text" class="form-control" readonly placeholder="请输入最后联络时间" v-model='management_info.LastContactDate'>
+                                        </div>
+                                    </div>
+                                    <div class='form-group col-md-4'>
+                                        <div>
+                                            <label for="">最后联络方式</label>
+                                            <input type="text" class="form-control" readonly placeholder="请输入最后联络方式" v-model='management_info.LastContactType'>
+                                        </div>
+                                    </div>
+                                    <div class='form-group col-md-4'>
+                                        <div>
+                                            <label for="">预约联络时间</label>
+                                            <input type="text" class="form-control" readonly placeholder="请输入预约联络时间" v-model='management_info.applicationDate'>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class='col-md-12'>
+                            <label class="slide-btn js-slide-btn"><button type='button'>－</button>账户信息</label>
+                        </div>
+                        <div class="list-section">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>账号</th>
+                                        <th>类型</th>
+                                        <th>手机号</th>
+                                        <th>未登录天数</th>
+                                        <th>注册时间</th>
+                                        <th>最后登录时间</th>
+                                        <th>修改密码时间</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td v-text="customer_info.accountName"></td>
+                                        <td v-text="customer_info.type"></td>
+                                        <td v-text="customer_info.phone"></td>
+                                        <td v-text="customer_info.loginDate"></td>
+                                        <td v-text="customer_info.register"></td>
+                                        <td v-text="customer_info.LastLoginDate!=undefined?customer_info.LastLoginDate.substr(0,customer_info.LastLoginDate.length-2):''"></td>
+                                        <td v-text="customer_info.UpdatePassDate!=undefined?customer_info.UpdatePassDate.substr(0,customer_info.UpdatePassDate.length-2):''"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class='col-md-12'>
+                            <label class="slide-btn js-slide-btn"><button type='button'>－</button>回访信息</label>
+                        </div>
+                        <div class="list-section">
+                            <feedback-template :feedback_data="feedback_list"></feedback-template>
+                            <div id="laypage-section" class='pull-right'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- footer -->
+            <div class="footer" th:include="./views/common/footer :: footertpl"></div>
+        </div>
+    </div>
+    <!-- 共用模块 -->
+    <div th:include="./views/common/common :: commontpl"></div>
+    <!-- JS Scripts-->
+
+    <script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/workbench/adduser.js}"></script>
+
+    <!-- template code -->
+    <script type="x-template" id="feedback-table">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>创建日期</th>
+                    <th>服务对象</th>
+                    <th>手机号</th>
+                    <th>服务方式</th>
+                    <th>联络类型</th>
+                    <th>联络结果</th>
+                    <th>用户印象</th>
+                    <th>服务内容</th>
+                    <th width="15%">服务详情</th>
+                    <th>联络人</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for='item in feedback_data'>
+                    <td v-text="item.createTime!=undefined?item.createTime.substr(0,item.createTime.length-2):''"></td>
+                    <td v-text="item.contactName"></td>
+                    <td v-text="item.phone"></td>
+                    <td v-text="item.serviceType"></td>
+                    <td v-text="item.contactType"></td>
+                    <td v-text="item.contactResult"></td>
+                    <td v-text="item.level"></td>
+                    <td v-text="item.serviceContent"></td>
+                    <td v-text="item.serviceInfo"></td>
+                    <td v-text="item.owenrName"></td>
+                </tr>
+            </tbody>
+        </table>
+    </script>
+</body>
+
+</html>

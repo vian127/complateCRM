@@ -1,0 +1,8 @@
+@charset 'UTF-8';
+.textbox{display:inline-block;position: relative;}
+.textnum{position:absolute;right:20px;bottom:0;}
+.fixed-status{z-index: 120;position: fixed;left: 0;top: 60px;right: 0px;width: auto;padding-top:10px;padding-bottom: 10px;background-color: rgba(255,255,255,0.6);box-shadow: 0px 1px 5px #c1baba;}
+
+.assign>h3{font-size: 16px;margin-bottom: 15px;}
+
+.upload-section-box{display: none;padding: 20px 20px 0;}

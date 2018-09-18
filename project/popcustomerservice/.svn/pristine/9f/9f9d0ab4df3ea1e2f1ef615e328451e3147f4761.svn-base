@@ -1,0 +1,35 @@
+package com.pop136.customerservice.service.user;
+
+import com.pop136.customerservice.entity.user.User;
+import com.pop136.customerservice.mapper.agent.user.UserMapper;
+import com.pop136.customerservice.service.AbstractBaseService;
+import com.pop136.customerservice.vo.user.UserValueVo;
+import com.pop136.customerservice.vo.user.search.UserValueSearchVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class UserService extends AbstractBaseService {
+
+    @Autowired
+    private UserMapper userMapper;
+
+
+    public void init() {
+        setMapper(userMapper);
+    }
+
+    public List<UserValueVo> findUserValueList(UserValueSearchVo searchVo) {
+        return userMapper.findUserListByNameAndPasswd(searchVo);
+    }
+
+    public UserValueVo findUserValue(UserValueSearchVo searchVo) {
+        return userMapper.findUserByNameAndPasswd(searchVo);
+    }
+
+    public User getUserInfo(String ownerroleid) {
+        return userMapper.getUserInfo(ownerroleid);
+    }
+}

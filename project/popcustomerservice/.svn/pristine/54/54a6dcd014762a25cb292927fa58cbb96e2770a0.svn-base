@@ -1,0 +1,154 @@
+package com.pop136.customerservice.controller.marketing;
+
+import com.alibaba.fastjson.JSONObject;
+import com.pop136.customerservice.constant.Constant;
+import com.pop136.customerservice.controller.BaseApiAction;
+import com.pop136.customerservice.entity.marketing.MsgTemplate;
+import com.pop136.customerservice.service.marketing.MsgTemplateService;
+import com.pop136.customerservice.utils.GetRID;
+import com.pop136.customerservice.utils.JsonParseUtil;
+import com.pop136.customerservice.utils.TimeUtil;
+import com.pop136.customerservice.vo.marketing.param.MsgTemplateParamVo;
+import com.pop136.customerservice.vo.marketing.search.MsgTemplateSearchVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 短信 controller
+ */
+@RestController
+@RequestMapping("/msgTemplate")
+public class MsgTemplateController extends BaseApiAction {
+
+  @Autowired
+  private MsgTemplateService msgTemplateService;
+
+
+  /**
+   * 创建/更新 短信模版
+   */
+  @RequestMapping(value = "/list",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  private String list(HttpServletRequest request, @RequestBody MsgTemplateSearchVo searchVo) {
+
+    List<MsgTemplate> templates =  msgTemplateService.findTemplateList(searchVo);
+
+    List<Object> result = new ArrayList<>();
+
+    if (templates != null && !templates.isEmpty()) {
+
+      for (MsgTemplate template : templates) {
+        Map<String, Object> resultMap = convertTemplateVo(template);
+        result.add(resultMap);
+      }
+
+    }
+    return success(result, convertPage(result,msgTemplateService.getTemplateCount(searchVo)));
+  }
+
+  /**
+   * 转换 模版信息
+   */
+  private Map<String, Object> convertTemplateVo(MsgTemplate template) {
+    Map<String, Object> resultMap = new HashMap<>();
+    resultMap.put("id", template.getId());//id
+    resultMap.put("name", template.getName());//模版名称
+    resultMap.put("sign", template.getSign());//模版签名
+
+    resultMap.put("content", template.getContent());//内容
+
+    resultMap.put("num", template.getContent() == null ? 0 :  template.getContent().length());//内容长度
+    resultMap.put("crateTime", template.getCreatetime());//创建时间
+    resultMap.put("LastUpdateTime", template.getLastupdatetime());//最后修改时间
+    resultMap.put("creater", template.getCreater());//创建人
+    resultMap.put("createrId", template.getCreatorroleid());//创建人id
+    return resultMap;
+  }
+
+  /**
+   * 模版详细
+   */
+  @RequestMapping(value = "/info",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  private String info(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+
+    Map<String, Object> resultMap = new HashMap<>();
+
+    String id = JsonParseUtil.parseRequiredStringValue(jsonObject, "id");
+    MsgTemplate msgTemplate = msgTemplateService.findBy("id", id, MsgTemplate.class);
+
+    if (msgTemplate != null ) {
+      resultMap = convertTemplateVo(msgTemplate);
+    }
+
+    return success(resultMap);
+  }
+
+
+
+  /**
+   * 创建/更新 短信模版
+   */
+  @RequestMapping(value = "/update",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  private String update(HttpServletRequest request, @RequestBody MsgTemplateParamVo paramVo) {
+
+    MsgTemplate template = new MsgTemplate();
+
+    Map<String, Object> result = new HashMap<>();
+
+    if (paramVo.getId() != null && !paramVo.getId().equals("")) {
+      //更新
+      template.setUpdater("测试");
+      template.setUpdateroleid("1");
+      template.setLastupdatetime(TimeUtil.currentTime());
+      template.setSign(paramVo.getSign());
+      template.setName(paramVo.getName());
+      template.setContent(paramVo.getContent());
+
+      msgTemplateService.update("id", paramVo.getId(), template);
+
+      result.put("id", paramVo.getId());
+
+    }else {
+      //新增
+      template.setCreatetime(TimeUtil.currentTime());
+      template.setDeleteflag(0);
+      template.setContent(paramVo.getContent());
+      template.setName(paramVo.getName());
+      template.setSign(paramVo.getSign());
+      template.setLastupdatetime(TimeUtil.currentTime());//最后更新时间
+
+      template.setCreatorroleid("1");
+      template.setCreater("测试账号");
+
+      String id = new GetRID(Constant.COMP_CODE, template.getCreatorroleid(), Constant.MSG_TEMPALTE_ID).getId();
+      template.setId(id);
+
+      msgTemplateService.create(template, MsgTemplate.class);
+
+      result.put("id", id);
+
+    }
+
+    return success(result);
+  }
+
+
+}

@@ -1,0 +1,15 @@
+@charset 'UTF-8';
+#wrapper .form-section{margin-bottom: 20px;}
+.form-section label{margin-right: 8px}
+.form-group>label{width: 4.5em;vertical-align:middle;}
+.form-section>form>div>div{margin-bottom: 20px}
+
+/*显示隐藏列表项*/
+.choice-box{z-index: 10;position: absolute;top: 45px;right: 10px;background-color: #fff;width: 180px;text-align: left;padding: 20px 15px;display: none;box-shadow: 0px 0px 10px #337ab7;}
+.choice-box:before{z-index: 10;position: absolute;left: 50%;top: -17px;display: block;content: "";border: 8px solid transparent;border-bottom-color: #337ab7;}
+.check-all-div{margin-left: 10px}
+.col-list>li{margin-left: 10px;height: 30px;line-height: 30px;}
+.choice-box label{display: inline-block;padding-left: 8px;margin-bottom: 0px;vertical-align:middle;font-size: 12px;}
+.all-select {padding-left: 10px;}
+.choice-box input {vertical-align:middle;margin: 0;}
+.control-item{margin-top: 20px;text-align: center;}

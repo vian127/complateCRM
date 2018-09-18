@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="CRM" />
+    <meta name="description" content="CRM" />
+    <title>收件箱</title>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/common/form-list.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/marketing/batchmanagement.css}" />
+</head>
+
+<body>
+    <!-- view -->
+    <div id="wrapper">
+        <!-- header -->
+        <div class="header" th:include="./views/common/header :: headertpl"></div>
+        <div id="page-wrapper">
+            <!-- content -->
+            <div class="content container-fluid" id='app'>
+                <!-- 页面位置 -->
+                <div class="page-header-section">
+                    <h3>短信管理-收件箱</h3>
+                </div>
+                <!-- 表单部分 -->
+                <div class="form-section form-inline">
+                    <form class='js-form'>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <label for="">已接收数量：</label>
+                                    <strong v-text='receiveCount'></strong>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-4 form-group">
+                                    <label for="">号码</label>
+                                    <input type="text" class='form-control' placeholder="请输入号码" v-model='collect.tel'>
+                                </div>
+                                <div class="col-md-8 text-right">
+                                    <button type='reset' class="btn btn-default" title="重置">重置</button>
+                                    <button type='button' class="btn btn-primary" title="确认筛选" @click='filterFunc'>确认筛选</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- 列表 -->
+                <div class="col-md-12">
+                    <table class='table table-bordered table-hover js-list-table'>
+                        <thead>
+                            <tr>
+                                <th>号码</th>
+                                <th>接收时间</th>
+                                <th>信息内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr align='center' v-for='item in taskTb'>
+                                <td v-text='item.tel'></td>
+                                <td v-text='item.receivetime'></td>
+                                <td v-text='item.content'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="laypage-section" class='text-right'></div>
+                </div>
+            </div>
+            <!-- footer -->
+            <div class="footer" th:include="./views/common/footer :: footertpl"></div>
+        </div>
+    </div>
+
+    <!-- 共用模块 -->
+    <div th:include="./views/common/common :: commontpl"></div>
+    <!-- JS Scripts-->
+
+    <script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/marketing/inbox.js}"></script>
+</body>
+
+</html>

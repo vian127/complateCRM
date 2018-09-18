@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="CRM" />
+    <meta name="description" content="CRM" />
+    <title>编辑模板</title>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/common/form-list.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/marketing/edittemplate.css}"/>
+</head>
+</head>
+
+<body>
+    <!-- view -->
+    <div id="wrapper">
+        <!-- header -->
+        <div class="header" th:include="./views/common/header :: headertpl"></div>
+        <div id="page-wrapper">
+            <!-- content -->
+            <div class="content container-fluid" id='app'>
+                <!-- 页面位置 -->
+                <div class="page-header-section">
+                    <h3>编辑模板</h3>
+                </div>
+                <div class="col-md-12 form-section text-right">
+                    <button type='button' class="btn btn-primary" title="保存" @click='saveFunc'>保存</button>
+                </div>
+                <!-- 表单部分 -->
+                <div class="form-section form-inline">
+                    <form class='js-form'>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-12 form-group">
+                                    <label for="" class="necessary">模板名称</label>
+                                    <input type="text" class='form-control' placeholder="请输入模板名称" v-model='template_info.name'>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 form-group">
+                                    <label for="" class="necessary">模板签名</label>
+                                    <select name="" id="" class='form-control' v-model='template_info.sign'>
+                                        <option value="1">POP资讯</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 form-group js-edit">
+                                    <label for="" class="necessary">模板内容</label>
+                                    <div class='textbox'>
+                                        <textarea name="" id="js-edit" cols="100%" rows="5" class='form-control' @input="textLength" v-model="template_info.content"></textarea>
+                                        <span class='textnum' v-text="'已输入'+collect_info.num+'字'"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 form-group">
+                                    <label for="">模板变量</label>
+                                    <textarea name="" id="" cols="100%" rows="5" class='form-control' v-model='collect_info.alias'></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- footer -->
+            <div class="footer" th:include="./views/common/footer :: footertpl"></div>
+        </div>
+    </div>
+
+    <!-- 共用模块 -->
+    <div th:include="./views/common/common :: commontpl"></div>
+    <!-- JS Scripts-->
+
+    <script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/marketing/edittemplate.js}"></script>
+</body>
+
+</html>

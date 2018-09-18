@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserRoleMapper">
+
+
+    <select id="findUserRoleById" resultType="com.pop136.customerservice.entity.user.UserRole">
+        SELECT a.id, a.userid, a.frameworkid, a.positionid, a.roletype, a.typeid, a.begindate, a.enddate, a.nodenum,
+        a.createtime, a.lastupdatetime, a.deleteflag, a.updateroleid, a.usegrpcode, a.useorgcode, a.useloccode
+        FROM  mp_userrole a
+		where
+		1 = 1
+        AND
+		a.id =  #{id}
+        AND a.deleteflag= 0
+    </select>
+
+
+    <select id="getAllFrameWorkById" resultType="com.pop136.customerservice.vo.user.UserVo">
+        SELECT [id],[userid],username,[passwd],[frameworkname],[frameworkid] ,[fatherid]
+        ,[roleid] ,[roletype] ,[positionid],[positionname]
+        FROM [bpcrmv350_POP].[dbo].[v_ss_use] a
+        where
+        1 = 1
+        AND
+        a.roletype != '1'
+        AND
+        a.fatherid = #{frameworkid}
+    </select>
+
+</mapper>

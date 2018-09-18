@@ -1,0 +1,338 @@
+package com.pop136.customerservice.entity.customer;
+
+import java.util.Date;
+
+/**
+ * 客户 发票
+ */
+public class CustomerInvoice {
+    private Integer id;
+
+    private Integer nofollowInvoice;
+
+    private String userId;
+
+    private String userAccount;
+
+    private Date createtime;
+
+    private Date updatetime;
+
+    private Integer invoiceType;
+
+    private String invoiceTitle;
+
+    private Integer invoiceContent;
+
+    private String mailingAddress;
+
+    private String contact;
+
+    private String contactWay;
+
+    private String companyName;
+
+    private String companyAddress;
+
+    private String companyPhone;
+
+    private String bankOfDeposit;
+
+    private String bankOfDepositAccount;
+
+    private String taxpayerId;
+
+    private String businessLicence;
+
+    private String taxRegistrationCertificate;
+
+    private String taxpayerCgfns;
+
+    private String crmStatus;
+
+    private String website;
+
+    private String customerid;
+
+    private Date lastupdatetime;
+
+    private Integer haveOrder;
+
+    private Date requesttime;
+
+    private Integer importid;
+
+    private Date importdate;
+
+    private Integer deleteflag;
+
+    private String grpcode;
+
+    private String orgcode;
+
+    private String loccode;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getNofollowInvoice() {
+        return nofollowInvoice;
+    }
+
+    public void setNofollowInvoice(Integer nofollowInvoice) {
+        this.nofollowInvoice = nofollowInvoice;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(String userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
+    }
+
+    public Integer getInvoiceType() {
+        return invoiceType;
+    }
+
+    public void setInvoiceType(Integer invoiceType) {
+        this.invoiceType = invoiceType;
+    }
+
+    public String getInvoiceTitle() {
+        return invoiceTitle;
+    }
+
+    public void setInvoiceTitle(String invoiceTitle) {
+        this.invoiceTitle = invoiceTitle;
+    }
+
+    public Integer getInvoiceContent() {
+        return invoiceContent;
+    }
+
+    public void setInvoiceContent(Integer invoiceContent) {
+        this.invoiceContent = invoiceContent;
+    }
+
+    public String getMailingAddress() {
+        return mailingAddress;
+    }
+
+    public void setMailingAddress(String mailingAddress) {
+        this.mailingAddress = mailingAddress;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getContactWay() {
+        return contactWay;
+    }
+
+    public void setContactWay(String contactWay) {
+        this.contactWay = contactWay;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getCompanyAddress() {
+        return companyAddress;
+    }
+
+    public void setCompanyAddress(String companyAddress) {
+        this.companyAddress = companyAddress;
+    }
+
+    public String getCompanyPhone() {
+        return companyPhone;
+    }
+
+    public void setCompanyPhone(String companyPhone) {
+        this.companyPhone = companyPhone;
+    }
+
+    public String getBankOfDeposit() {
+        return bankOfDeposit;
+    }
+
+    public void setBankOfDeposit(String bankOfDeposit) {
+        this.bankOfDeposit = bankOfDeposit;
+    }
+
+    public String getBankOfDepositAccount() {
+        return bankOfDepositAccount;
+    }
+
+    public void setBankOfDepositAccount(String bankOfDepositAccount) {
+        this.bankOfDepositAccount = bankOfDepositAccount;
+    }
+
+    public String getTaxpayerId() {
+        return taxpayerId;
+    }
+
+    public void setTaxpayerId(String taxpayerId) {
+        this.taxpayerId = taxpayerId;
+    }
+
+    public String getBusinessLicence() {
+        return businessLicence;
+    }
+
+    public void setBusinessLicence(String businessLicence) {
+        this.businessLicence = businessLicence;
+    }
+
+    public String getTaxRegistrationCertificate() {
+        return taxRegistrationCertificate;
+    }
+
+    public void setTaxRegistrationCertificate(String taxRegistrationCertificate) {
+        this.taxRegistrationCertificate = taxRegistrationCertificate;
+    }
+
+    public String getTaxpayerCgfns() {
+        return taxpayerCgfns;
+    }
+
+    public void setTaxpayerCgfns(String taxpayerCgfns) {
+        this.taxpayerCgfns = taxpayerCgfns;
+    }
+
+    public String getCrmStatus() {
+        return crmStatus;
+    }
+
+    public void setCrmStatus(String crmStatus) {
+        this.crmStatus = crmStatus;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getCustomerid() {
+        return customerid;
+    }
+
+    public void setCustomerid(String customerid) {
+        this.customerid = customerid;
+    }
+
+    public Date getLastupdatetime() {
+        return lastupdatetime;
+    }
+
+    public void setLastupdatetime(Date lastupdatetime) {
+        this.lastupdatetime = lastupdatetime;
+    }
+
+    public Integer getHaveOrder() {
+        return haveOrder;
+    }
+
+    public void setHaveOrder(Integer haveOrder) {
+        this.haveOrder = haveOrder;
+    }
+
+    public Date getRequesttime() {
+        return requesttime;
+    }
+
+    public void setRequesttime(Date requesttime) {
+        this.requesttime = requesttime;
+    }
+
+    public Integer getImportid() {
+        return importid;
+    }
+
+    public void setImportid(Integer importid) {
+        this.importid = importid;
+    }
+
+    public Date getImportdate() {
+        return importdate;
+    }
+
+    public void setImportdate(Date importdate) {
+        this.importdate = importdate;
+    }
+
+    public Integer getDeleteflag() {
+        return deleteflag;
+    }
+
+    public void setDeleteflag(Integer deleteflag) {
+        this.deleteflag = deleteflag;
+    }
+
+    public String getGrpcode() {
+        return grpcode;
+    }
+
+    public void setGrpcode(String grpcode) {
+        this.grpcode = grpcode;
+    }
+
+    public String getOrgcode() {
+        return orgcode;
+    }
+
+    public void setOrgcode(String orgcode) {
+        this.orgcode = orgcode;
+    }
+
+    public String getLoccode() {
+        return loccode;
+    }
+
+    public void setLoccode(String loccode) {
+        this.loccode = loccode;
+    }
+}

@@ -1,0 +1,67 @@
+<!-- 客户列表高级筛选模板 -->
+<div th:fragment="user_filter" class="user-filter-box js-user-filter-box">
+    <style th:inline="text">
+        .user-filter-box{display: none;padding: 20px 20px 0;}
+        .form-section>form>h3{font-size: 16px;padding-bottom: 10px;margin-bottom: 15px;border-bottom: 1px solid #aaa;}
+
+        .form-section .form-group{margin-bottom: 10px}
+        .form-section .form-group>label{width: 8em;}
+        .user-filter-box .filter-div {
+    display: none;
+    z-index: 10;
+    position: absolute;
+    left: 146px;
+    top: 40px;
+    padding-bottom: 45px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+        .service-div>h3{font-size: 16px;margin-bottom: 15px;}
+        .service-div>div{margin-bottom: 10px;}
+    </style>
+    <div class="form-section form-inline" id="filter-app">
+        <form class="clearfix">
+            <h3>高级筛选项</h3>
+            <div class="col-md-12">
+                <div class="form-group col-md-12">
+                    <label for="" style="width:6.5em">是否主联系人</label>
+                    <select name="" id="" class='form-control' v-model='collect.main'>
+                        <option value="">请选择</option>
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="">最后联络时间</label>
+                    <input type="text" class='form-control js-date-area1' placeholder="请选择日期" v-model='collect.startContactTime'>
+                    ~
+                    <input type="text" class='form-control js-date-area2' placeholder="请选择日期" v-model='collect.endContactTime'>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="">用户角色</label>
+                    <ul class="form-control checked-list js-checked-list" data-key="role" data-checkid="">
+                        <li>请选择角色</li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="tag00018">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <div class="checkbox-container js-checkbox-container"></div>
+                        <div class="btn-div">
+                            <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="">用户状态</label>
+                    <select name="" id="" class="form-control js-select-ele" data-id="tag00012" v-model='collect.status'>
+                        <option value="">请选择</option>
+                        <option v-for="item in user_info.status" :value="item.id" v-text="item.value"></option>
+                    </select>
+                </div>
+            </div>    
+        </form>
+    </div>
+</div>

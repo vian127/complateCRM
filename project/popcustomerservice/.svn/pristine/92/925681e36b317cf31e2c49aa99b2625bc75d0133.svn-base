@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserRoleMapper">
+
+
+    <select id="findUserRoleById" resultType="com.pop136.customerservice.entity.user.UserRole">
+        SELECT a.id, a.userid, a.frameworkid, a.positionid, a.roletype, a.typeid, a.begindate, a.enddate, a.nodenum,
+        a.createtime, a.lastupdatetime, a.deleteflag, a.updateroleid, a.usegrpcode, a.useorgcode, a.useloccode
+        FROM  mp_userrole a
+		where
+		1 = 1
+        AND
+		a.id =  #{id}
+        AND a.deleteflag= 0
+    </select>
+
+
+    <select id="getAllOneFrameWorkById" resultType="com.pop136.customerservice.vo.user.UserVo">
+        SELECT [id],[userid],username,[passwd],[frameworkname],[frameworkid] ,[fatherid]
+        ,[roleid] ,[roletype] ,[positionid],[positionname]
+        FROM v_ss_use a
+        where
+        1 = 1
+        AND
+        a.roletype != '1'
+        AND
+        a.fatherid = #{frameworkid}
+    </select>
+
+        <select id="getAllFrameWorkById" parameterType="java.util.List" resultType="com.pop136.customerservice.vo.user.UserVo">
+            SELECT [id],[userid],username,[passwd],[frameworkname],[frameworkid] ,[fatherid]
+            ,[roleid] ,[roletype] ,[positionid],[positionname]
+            FROM v_ss_use a
+            where
+            1 = 1
+            AND
+            a.roletype != '1'
+            AND
+            a.frameworkid in
+            <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </select>
+
+        <select id="getAllFrameWorkId" resultType="com.pop136.customerservice.vo.user.UserVo">
+            with cte as
+            (
+            select id,fatherid,name,cast(name as nvarchar(max)) as ReportPath
+            from dbo.gp_framework
+            where fatherid = #{fatherid}
+            union all
+            select c.id,c.fatherid,c.Name,c.name+'->'+p.ReportPath as ReportPath
+            from cte P
+            inner join dbo.gp_framework c
+            on p.id=c.fatherid
+            )
+            select id as frameworkid
+            from cte
+            order by id
+        </select>
+
+
+</mapper>

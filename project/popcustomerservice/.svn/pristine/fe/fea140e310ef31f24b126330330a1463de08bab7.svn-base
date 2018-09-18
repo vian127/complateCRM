@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="CRM" />
+    <meta name="description" content="CRM" />
+    <title>群发短信</title>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/common/form-list.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/marketing/send-messages.css}"/>
+</head>
+</head>
+
+<body>
+    <!-- view -->
+    <div id="wrapper">
+        <!-- header -->
+        <div class="header" th:include="./views/common/header :: headertpl"></div>
+        <div id="page-wrapper">
+            <!-- content -->
+            <div class="content container-fluid" id='app'>
+                <!-- 页面位置 -->
+                <div class="page-header-section">
+                    <h3>群发信息</h3>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12 text-right">
+                        <!-- <a href='/api/web/marketing/batchdetail' type='button' class="btn btn-primary" title="确认发送" @click='sendMessage'>确认发送</a> -->
+                        <a href='javascript:;' type='button' class="btn btn-primary" title="确认发送" @click='sendMessage'>确认发送</a>
+                    </div>
+                </div>
+                <!-- 表单部分 -->
+                <div class="form-section form-inline">
+                    <form class='js-form'>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-12 form-group">
+                                    <label for="" class="necessary">模板</label>
+                                    <select name="" id="" class='form-control' v-model='template_id' @change="changeTempalte">
+                                        <option value="">请选择</option>
+                                        <option :value="item.id" v-for='item in template_all'>{{item.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="">短信内容</label>
+                                    <div class='textbox'>
+                                    <textarea name="" id="" cols="100%" rows="3" class='form-control' placeholder="请选择模板" v-model='get_opt.content'></textarea>
+                                    <span class='textnum' v-text="get_opt.content.length!=0?'当前字数 '+get_opt.content.length:''"></span>
+                                </div>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <div>
+                                        <label for="">发送对象类型</label>
+                                        <select name="" id="" class='form-control' v-model="list_type" @change="changeType">
+                                            <option value="customer">客户</option>
+                                            <option value="user">用户</option>
+                                            <option value="import">导入号码</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="" class="necessary">发送对象</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12" v-if="list_type=='customer'?true:false">
+                                <div class="col-md-4">
+                                    <label>已添加
+                                        <u v-text="list_data.length"></u> 个发送对象
+                                    </label>
+                                    <label>已选中
+                                        <u v-text="now_len"></u> 个发送对象
+                                    </label>
+                                </div>
+                                <div class="col-md-3 text-right">
+                                    <a href='javascript:void(0);' type='button' title="添加客户" class="btn btn-primary" @click="showListBox(1)">添加客户</a>
+                                    <button type='button' title="删除选中" class="btn btn-default">删除选中</button>
+                                </div>
+                            </div>
+                            <div class="col-md-12" v-if="list_type=='user'?true:false">
+                                <div class="col-md-4">
+                                    <label>已添加
+                                        <u v-text="list_data.length"></u> 个发送对象
+                                    </label>
+                                    <label>已选中
+                                        <u v-text="now_len">123</u> 个发送对象
+                                    </label>
+                                </div>
+                                <div class="col-md-3 text-right">
+                                    <a href='javascript:void(0);' type='button' title="添加客户" class="btn btn-primary" @click="showListBox(2)">添加用户</a>
+                                    <button type='button' title="删除选中" class="btn btn-default">删除选中</button>
+                                </div>
+                            </div>
+                            <div class="col-md-12" v-if="list_type=='import'?true:false">
+                                <div class="col-md-4">
+                                    <label>已添加
+                                        <u v-text="list_data.length"></u> 个发送对象
+                                    </label>
+                                    <label>已选中
+                                        <u v-text="now_len"></u> 个发送对象
+                                    </label>
+                                </div>
+                                <div class="col-md-3 text-right">
+                                    <button type='button' title="上传号码" class="btn btn-primary" @click='uploadFunc'>上传号码</button>
+                                    <button type='button' title="删除选中" class="btn btn-default">删除选中</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- 列表 -->
+                <div class="col-md-12">
+                    <table class='table table-bordered table-hover js-list-table'>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox">
+                                </th>
+                                <th>客户名称</th>
+                                <th>号码</th>
+                                <th>用户名称</th>
+                                <th>职务</th>
+                                <th>角色</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr align='center' v-for='item in list_data'>
+                                <td>
+                                    <input type="checkbox" v-model="item.is_checked">
+                                </td>
+                                <td v-text='item.company'></td>
+                                <td v-text='item.tel'></td>
+                                <td v-text='item.name'></td>
+                                <td v-text='item.duty'></td>
+                                <td v-text='item.role'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="laypage-section" class='text-right'></div>
+                </div>
+            </div>
+            <!-- footer -->
+            <div class="footer" th:include="./views/common/footer :: footertpl"></div>
+        </div>
+    </div>
+    <!-- 上传号码弹层 -->
+    <div class="container-fluid dialog-batch">
+        <div class="row">
+            <div id="js-upload">
+                <div class='assign'>
+
+                    <p>正在上传号码</p>
+
+                    <textarea name="" id="" cols="30" rows="5" class='form-control' placeholder="请上传需要发送的号码,使用换行符或英文逗号隔开"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 共用模块 -->
+    <div th:include="./views/common/common :: commontpl"></div>
+    <!-- JS Scripts-->
+
+    <script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/marketing/send-messages.js}"></script>
+</body>
+
+</html>

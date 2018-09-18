@@ -1,0 +1,4 @@
+@charset 'UTF-8';
+
+.form-section .btn-div>button{margin-left: 5px;}
+.form-group>label{width: auto;}

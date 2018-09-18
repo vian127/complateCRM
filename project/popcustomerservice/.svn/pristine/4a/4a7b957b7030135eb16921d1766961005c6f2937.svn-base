@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="CRM" />
+    <meta name="description" content="CRM" />
+    <title>客户详情</title>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/common/form-list.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/customer/clientdetail.css}" />
+</head>
+
+<body>
+    <!-- view -->
+    <div id="wrapper">
+        <!-- header -->
+        <div class="header" th:include="./views/common/header :: headertpl"></div>
+        <div id="page-wrapper">
+            <!-- content -->
+            <div class="content" id='app'>
+                <!-- 页面位置 -->
+                <div class="page-header-section">
+                    <h3>客户管理</h3>
+                </div>
+                <div class="col-md-12 js-topfixed-ele" align='right'>
+                    <button type='button' class='btn btn-primary btn-save' @click='saveFunc'>保存</button>
+                </div>
+                <!-- 表单 -->
+                <div class="form-section form-inline">
+                    <form class="js-form">
+                        <div class="clearfix">
+                            <div class='col-md-12 section-title'>
+                                <label class="slide-btn js-slide-btn">
+                                    <button type='button'>－</button>管理信息</label>
+                            </div>
+                            <div class="clearfix">
+                                <div class='col-md-12'>
+                                    <div class="form-group col-md-3">
+                                        <label for="">主账号</label>
+                                        <input type="text" class="form-control" v-model='customer_info.accountName' disabled>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">客户id</label>
+                                        <input type="text" class='form-control' v-model='customer_info.id' disabled>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">网站来源</label>
+                                        <select name="" id="" class="form-control js-select-ele" data-id="tag00001" v-model="customer_info.source">
+                                            <option value="">请选择</option>
+                                            <option value="tagval0000000001">服装</option>
+                                            <option value="tagval0000000002">箱包</option>
+                                            <option value="tagval0000000003">鞋子</option>
+                                            <option value="tagval0000000004">首饰</option>
+                                            <option value="tagval0000000005">家纺</option>
+                                            <option value="tagval0000000006">英文服装</option>
+                                            <option value="tagval0000000007">面料</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">未登录天数</label>
+                                        <input type="text" class='form-control' v-model='customer_info.loginDate' disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-3">
+                                        <label for="">领用人</label>
+                                        <input type="text" class='form-control' v-model='customer_info.receiveName' disabled>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">未回访天数</label>
+                                        <input type="text" class='form-control' v-model='customer_info.returnDate' disabled>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">客户来源</label>
+                                        <select name="" id="" class="form-control js-select-ele" data-id="tag00020" v-model="customer_info.customerSource">
+                                            <option value="">请选择</option>
+                                            <option v-for="item in def.select_data.customer_origin" :value="item.id" v-text="item.value"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix">
+                            <div class='col-md-12 section-title'>
+                                <label class="slide-btn js-slide-btn">
+                                    <button type='button'>－</button>客户基本信息</label>
+                            </div>
+                            <div class="clearfix">
+                                <div class='col-md-12'>
+                                    <div class="form-group col-md-6">
+                                        <label for="">公司名称</label>
+                                        <input type="text" class="form-control" v-model='customer_info.companyName' name="" autofocus>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="">品牌名称</label>
+                                        <input type="text" class='form-control' v-model='customer_info.bank'>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-6">
+                                        <label>城市</label>   
+                                        <select name="checks" id="" class="form-control" v-model='customer_info.province' @change="changeCitys($event,'province')">
+                                            <option :value='item.id' v-for='item in province'>{{ item.name }}</option>
+                                        </select>
+                                        <select name="checks" id="" class="form-control" v-model='customer_info.city' @change="changeCitys($event,'citys')">
+                                            <option :value="item.id" v-for='item in citys'>{{ item.name }}</option>
+                                        </select>
+                                        <select name="checks" id="" class="form-control" v-model='customer_info.district'>
+                                            <option :value="item.id" v-for='item in districts'>{{ item.name }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>地址</label>
+                                        <input type="text" class="form-control address-area" v-model='customer_info.address'>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-6">
+                                        <label>邮箱</label>
+                                        <input type="text" class="form-control" v-model='customer_info.email'>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>固定电话</label>
+                                        <input type="text" class="form-control" v-model='customer_info.phone'>
+                                    </div>
+                                </div>
+                            </div>     
+                        </div>
+
+                        <div class="clearfix">
+                            <div class='col-md-12 section-title'>
+                                <label class="slide-btn js-slide-btn">
+                                    <button type='button'>－</button>客户行业属性</label>
+                            </div>
+                            <div class="clearfix">
+                                <div class='col-md-12'>
+                                    <div class="form-group col-md-4">
+                                        <label for="">企业类型</label>
+                                        <ul class="form-control checked-list js-checked-list" data-key="companyType" :data-checkid="def.tags.companyType">
+                                            <li v-for="(item,index) in ((customer_tag.companyType && customer_tag.companyType.length>0)?customer_tag.companyType:[{value:'请选择企业类型'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                                        </ul>
+                                        <div class="filter-div js-filter-div" data-id="tag00009">
+                                            <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                                            <div class="checkbox-container js-checkbox-container"></div>
+                                            <div class="btn-div">
+                                                <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                                                <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">行业类型</label>
+                                        <ul class="form-control checked-list js-checked-list" data-key="industryType" :data-checkid="def.tags.industryType">
+                                            <li v-for="(item,index) in ((customer_tag.industryType && customer_tag.industryType.length>0)?customer_tag.industryType:[{value:'请选择行业类型'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                                        </ul>
+                                        <div class="filter-div js-filter-div" data-id="tag00003">
+                                            <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                                            <div class="checkbox-container js-checkbox-container"></div>
+                                            <div class="btn-div">
+                                                <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                                                <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">贸易类型</label>
+                                        <select name="" id="" class="form-control js-select-ele" data-id="tag00010" v-model='customer_tag.tradeType'>
+                                            <option value="">请选择</option>
+                                            <option value="tagval0000000264">内销</option>
+                                            <option value="tagval0000000265">外销</option>
+                                            <option value="tagval0000000266">内外销</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+   
+                                <div class='col-md-12'>
+                                    <div class="form-group col-md-4">
+                                        <label for="">性别</label>
+                                        <ul class="form-control checked-list js-checked-list" data-key="gender" :data-checkid="def.tags.gender">
+                                            <li v-for="(item,index) in ((customer_tag.gender && customer_tag.gender.length>0)?customer_tag.gender:[{value:'请选择性别'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                                        </ul>
+                                        <div class="filter-div js-filter-div" data-id="tag00002">
+                                            <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                                            <div class="checkbox-container js-checkbox-container"></div>
+                                            <div class="btn-div">
+                                                <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                                                <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">风格</label>
+
+                                        <ul class="form-control checked-list js-checked-list" data-key="style" :data-checkid="def.tags.style">
+                                            <li v-for="(item,index) in ((customer_tag.style && customer_tag.style.length>0)?customer_tag.style:[{value:'请选择风格'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                                        </ul>
+                                        <div class="filter-div js-filter-div" data-id="tag00005">
+                                            <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                                            <div class="checkbox-container js-checkbox-container"></div>
+                                            <div class="btn-div">
+                                                <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                                                <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">重点开发季节</label>
+                                        <ul class="form-control checked-list js-checked-list" data-key="season" :data-checkid="def.tags.season">
+                                            <li v-for="(item,index) in ((customer_tag.season && customer_tag.season.length>0)?customer_tag.season:[{value:'请选择重点开发季节'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                                        </ul>
+                                        <div class="filter-div js-filter-div" data-id="tag00006">
+                                            <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                                            <div class="checkbox-container js-checkbox-container"></div>
+                                            <div class="btn-div">
+                                                <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                                                <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class='col-md-12'>
+                                    <div class="form-group col-md-4">
+                                        <label for="">重点单品</label>
+                                        <ul class="form-control checked-list js-checked-list" data-key="product" :data-checkid="def.tags.product">
+                                            <li v-for="(item,index) in ((customer_tag.product && customer_tag.product.length>0)?customer_tag.product:[{value:'请选择重点单品'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                                        </ul>
+                                        <checkbox-template :now_checked_data="feedback_list"></checkbox-template>
+                                        <div class="filter-div js-filter-div" data-id="tag00004">
+                                            <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                                            <div class="checkbox-container js-checkbox-container">
+                                                <!-- <checkbox-template :now_checked_data="feedback_list"></checkbox-template> -->
+                                            </div>
+                                            <div class="btn-div">
+                                                <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                                                <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">材质</label>
+                                        
+                                        <ul class="form-control checked-list js-checked-list" data-key="texture" :data-checkid="def.tags.texture">
+                                            <li v-for="(item,index) in ((customer_tag.texture && customer_tag.texture.length>0)?customer_tag.texture:[{value:'请选择材质'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                                        </ul>
+                                        <div class="filter-div js-filter-div" data-id="tag00007" data-type="1">
+                                            <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                                            <div class="checkbox-container js-checkbox-container"></div>
+                                            <div class="btn-div">
+                                                <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                                                <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">面料工艺</label>
+                                        
+                                        <ul class="form-control checked-list js-checked-list" data-key="technology" :data-checkid="def.tags.technology">
+                                            <li v-for="(item,index) in ((customer_tag.technology && customer_tag.technology.length>0)?customer_tag.technology:[{value:'请选择面料工艺'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                                        </ul>
+                                        <div class="filter-div js-filter-div" data-id="tag00007" data-type="2">
+                                            <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                                            <div class="checkbox-container js-checkbox-container"></div>
+                                            <div class="btn-div">
+                                                <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                                                <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix">
+                            <div class='col-md-12 section-title'>
+                                <label class="slide-btn js-slide-btn">
+                                    <button type='button'>－</button>客服信息</label>
+                            </div>
+                            <div class="clearfix">
+                                <div class='col-md-12'>
+                                    <div class="form-group col-md-4">
+                                        <label for="">客户关注项</label>
+
+                                        <ul class="form-control checked-list js-checked-list" data-key="attention" :data-checkid="def.tags.attention">
+                                            <li v-for="(item,index) in ((service_info.attention && service_info.attention.length>0)?service_info.attention:[{value:'请选择客户关注项'}])" v-text="index==0?item.value:'，'+item.value"></li>
+                                        </ul>
+                                        <div class="filter-div js-filter-div" data-id="tag00014">
+                                            <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                                            <div class="checkbox-container js-checkbox-container"></div>
+                                            <div class="btn-div">
+                                                <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                                                <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                        <label for="">关注项备注</label>
+                                        <textarea class='form-control' name="" id="" cols="60%" rows="1"  v-model='service_info.attentionRemark'></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-3">
+                                        <label>服务阶段</label>
+                                        <select name="" id="" class="form-control js-select-ele" data-id="tag00013" v-model='service_info.serviceStage'>
+                                            <option value="">请选择</option>
+                                            <option value="tagval0000000282">新客期</option>
+                                            <option value="tagval0000000283">服务期</option>
+                                            <option value="tagval0000000284">流转期</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>客户情况</label>
+                                        <select name="" id="" class="form-control js-select-ele" data-id="tag00015" v-model='service_info.customerStatus'>
+                                            <option value="">请选择</option>
+                                            <option value="tagval0000000285">Z（正常）</option>
+                                            <option value="tagval0000000286">Y（疑难客户）</option>
+                                            <option value="tagval0000000287">L（长期不登录客户）</option>
+                                            <option value="tagval0000000288">S（失联）</option>
+                                            <option value="tagval0000000289">H（转行/倒闭）</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>发票项</label>
+                                        <select name="" id="" class="form-control js-select-ele" data-id="tag00016" v-model='service_info.invoice'>
+                                            <option value="">请选择</option>
+                                            <option value="tagval0000000302">提前开票</option>
+                                            <option value="tagval0000000303">暂缓开票</option>
+                                            <option value="tagval0000000304">普通发票</option>
+                                            <option value="tagval0000000305">专用发票</option>
+                                            <option value="tagval0000000306">不需要发票</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">网站权限</label>
+                                        <input type="text" class='form-control' v-model='service_info.web' disabled>
+                                    </div>
+                                </div>   
+                                <div class="col-md-12 service-div">
+                                    <div class='col-md-1'>赠品内容</div>
+                                    <div class='col-md-1'>快反应系列</div>
+                                    <div class="col-md-10">
+                                        <div class="col-md-12" v-for="item in service_info.complimentary">
+                                            <div class='col-md-2' v-text="item.bookNo"></div>
+                                            <div class='col-md-4'>
+                                                <label for="">最后一本到期事件</label>
+                                                <input type="text" class="form-control" :value="item.bookDate!=undefined?item.bookDate.substr(0,item.bookDate.length-2):''" disabled>
+                                            </div>
+                                            <div class='col-md-4'>
+                                                <label for="">总数</label>
+                                                <input type="text" class="form-control" v-model="item.count" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- 列表 -->
+                <div class="list-section">
+                    <div class="clearfix">
+                        <div class='col-md-12 section-title'>
+                            <label class="slide-btn js-slide-btn">
+                                <button type='button'>－</button>用户信息</label>
+                        </div>
+                        <div class="clearfix">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th width='1%'>
+                                            <span>主</span>
+                                        </th>
+                                        <th>姓名</th>
+                                        <th>角色</th>
+                                        <th>职务</th>
+                                        <th>状态</th>
+                                        <th>移动电话</th>
+                                        <th>工作电话</th>
+                                        <th>微信号</th>
+                                        <th>是否添加微信</th>
+                                        <th>分机号</th>
+                                        <th>QQ</th>
+                                        <th>工作邮箱</th>    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr align='center' v-for='item in contact_list'>
+                                        <td>
+                                            <input type="radio" name='main' @change="changeMainUser(item.id)" :checked="item.main==1?true:false">
+                                        </td>
+                                        <td>
+                                            <a :href="'/api/web/customer/adduser?customerid='+location_obj.id+'&contactid='+item.id" v-text="item.name"></a>
+                                        </td>
+                                        <td v-text="item.role"></td>
+                                        <td v-text="item.duty"></td>
+                                        <td v-text="item.status"></td>
+                                        <td v-text="item.mobile"></td>
+                                        <td v-text="item.telephone"></td>
+                                        <td v-text="item.weChat"></td>
+                                        <td v-text="isWeChat[item.isWeChat]"></td>
+                                        <td v-text="item.extensionPhone"></td>
+                                        <td v-text="item.qq"></td>
+                                        <td v-text="item.email"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a class="btn btn-primary add-user" :href="'/api/web/customer/adduser?type=1&customerid='+location_obj.id" title="新增用户" target="_blank">+新增用户</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-section">
+                    <div class="clearfix">
+                        <div class='col-md-12 section-title'>
+                            <label class="slide-btn js-slide-btn">
+                                <button type='button'>－</button>账号信息</label>
+                        </div>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>账号</th>
+                                    <th>类型</th>
+                                    <th>手机号</th>
+                                    <th>未登录天数</th>
+                                    <th>注册时间</th>
+                                    <th>最后登录时间</th>
+                                    <th>修改密码时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td v-text="account_info.accountName"></td>
+                                    <td v-text="account_info.type"></td>
+                                    <td v-text="account_info.phone"></td>
+                                    <td v-text="account_info.loginDate"></td>
+                                    <td v-text="account_info.register"></td>
+                                    <td v-text="account_info.LastLoginDate!=undefined?account_info.LastLoginDate:''"></td>
+                                    <td v-text="account_info.UpdatePassDate!=undefined?account_info.UpdatePassDate:''"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="list-section clearfix">
+                    <div class="clearfix">
+                        <div class='col-md-12 section-title'>
+                            <label class="slide-btn js-slide-btn">
+                                <button type='button'>－</button>回访记录</label>
+                        </div>
+                        <div class="clearfix">
+                            <feedback-template :feedback_data="feedback_list"></feedback-template>
+                            <div id="laypage-section" class='pull-right'></div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- tab切换 -->
+                <div class="list-section">
+                    <div class="clearfix">
+                        <div class='col-md-12 section-title'>
+                            <label class="slide-btn js-slide-btn">
+                                <button type='button'>－</button>其他记录</label>
+                        </div>
+                        <div class="tab-section">
+                            <ul class='tab-list js-tab-list'>
+                                <li class='stats-active btn btn-default js-tab-item' data-key="receive">领</li>
+                                <li class="btn btn-default js-tab-item" data-key="assist">协</li>
+                                <li class="btn btn-default js-tab-item" data-key="activity">活</li>
+                                <li class="btn btn-default js-tab-item" data-key="call">电</li>
+                                <li class="btn btn-default js-tab-item" data-key="service">客</li>
+                                <li class="btn btn-default js-tab-item" data-key="ground">地</li>
+                                <li class="btn btn-default js-tab-item" data-key="order">订</li>
+                                <li class="btn btn-default js-tab-item" data-key="invoice">发</li>
+                                <li class="btn btn-default js-tab-item" data-key="open">开</li>
+                                <li class="btn btn-default js-tab-item" data-key="shop">商</li>
+                                <li class="btn btn-default js-tab-item" data-key="info">祥</li>
+                                <li class="btn btn-default js-tab-item" data-key="statistics">统</li>
+                            </ul>
+                            <div class='stats-info js-stats-info'>
+                                <div class='pr-quest' style="display:block;">
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>指派人</th>
+                                                <th>状态</th>
+                                                <th>员工</th>
+                                                <th>开始时间</th>
+                                                <th>结束时间</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr align='center' v-for='item in tab_list.receive'>
+                                                <td v-text="item.designateName"></td>
+                                                <td v-text="item.msgType==2?'领用':'指派'"></td>
+                                                <td v-text="item.staffName"></td>
+                                                <td v-text="item.startTime"></td>
+                                                <td v-text="item.endTime"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class='pr-assist'>
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>操作者</th>
+                                                <th>协助人</th>
+                                                <th>第二协助人</th>
+                                                <th>开始时间</th>
+                                                <th>结束时间</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr align='center' v-for='item in tab_list.assist'>
+                                                <td v-text="item.handlerName"></td>
+                                                <td v-text="item.assistantName"></td>
+                                                <td v-text="item.assistantName2"></td>
+                                                <td v-text="item.startTime"></td>
+                                                <td v-text="item.endTime"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class='pr-activity'>
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>备注</th>
+                                                <th>名单等级</th>
+                                                <th>用户</th>
+                                                <th>活动类型</th>
+                                                <th>活动时间</th>
+                                                <th>活动状态</th>
+                                                <th>员工</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr align='center' v-for='item in tab_list.activity'>
+                                                <td v-text="item.remark"></td>
+                                                <td v-text="item.roll"></td>
+                                                <td v-text="item.name"></td>
+                                                <td v-text="item.type"></td>
+                                                <td v-text="item.time"></td>
+                                                <td v-text="item.status"></td>
+                                                <td v-text="item.staffName"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class='pr-record'>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-5">
+                                                    <table class="table table-bordered table-hover">
+                                                        <thead>
+                                                            <tr class="active">
+                                                                <th colspan="3">来电记录</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>时间</th>
+                                                                <th width="40%">备注</th>
+                                                                <th>员工</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <tr align='center' v-for='item in tab_list.call.callIns'>
+                                                                <td v-text="item.time"></td>
+                                                                <td v-text="item.remark"></td>
+                                                                <td v-text="item.staffName"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <table class="table table-bordered table-hover">
+                                                        <thead>
+                                                            <tr class="active">
+                                                                <th colspan="7">去电记录</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>时间</th>
+                                                                <th>用户</th>
+                                                                <th width="20%">备注</th>
+                                                                <th>名单等级</th>
+                                                                <th>去电结果</th>
+                                                                <th>员工</th>
+                                                                <th>录音</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <tr align='center' v-for='item in tab_list.call.callOuts'>
+                                                                <td v-text="item.time"></td>
+                                                                <td v-text="item.name"></td>
+                                                                <td v-text="item.remark"></td>
+                                                                <td v-text="item.type"></td>
+                                                                <td v-text="item.result"></td>
+                                                                <td v-text="item.staffName"></td>
+                                                                <td v-text="item.record"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='pr-client'>
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>时间</th>
+                                                <th>用户</th>
+                                                <th>服务方式</th>
+                                                <th>服务内容</th>
+                                                <th width="20%">备注</th>
+                                                <th>回访级别</th>
+                                                <th>满意度</th>
+                                                <th>联络结果</th>
+                                                <th>联络状态</th>
+                                                <th>录音</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr align='center' v-for='item in tab_list.service'>
+                                                <td v-text="item.time"></td>
+                                                <td v-text="item.name"></td>
+                                                <td v-text="item.contactType"></td>
+                                                <td v-text="item.content"></td>
+                                                <td v-text="item.remark"></td>
+                                                <td v-text="item.level"></td>
+                                                <td v-text="item.satisfaction"></td>
+                                                <td v-text="item.contactResult"></td>
+                                                <td v-text="item.contactStatus"></td>
+                                                <td v-text="item.record"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class='pr-service'>
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>时间</th>
+                                                <th>用户</th>
+                                                <th width="20%">备注</th>
+                                                <th>地勤类型</th>
+                                                <th>服务内容</th>
+                                                <th>拜访次数</th>
+                                                <th>员工</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr align='center' v-for='item in tab_list.ground'>
+                                                <td v-text="item.time"></td>
+                                                <td v-text="item.name"></td>
+                                                <td v-text="item.groundRemark"></td>
+                                                <td v-text="item.groundType"></td>
+                                                <td v-text="item.content"></td>
+                                                <td v-text="item.visitCount"></td>
+                                                <td v-text="item.staffName"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class='pr-plan'>
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th>计算业绩时间</th>
+                                                <th>网站</th>
+                                                <th>公司名称</th>
+                                                <th>账号</th>
+                                                <th>总金额</th>
+                                                <th>业绩金额</th>
+                                                <th>开始时间</th>
+                                                <th>结束时间</th>
+                                                <th>业务员</th>
+                                                <th>状态</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr align='center' v-for='(item,index) in tab_list.order'>
+                                                <td v-text="index"></td>
+                                                <td></td>
+                                                <td v-text="item.countTime"></td>
+                                                <td v-text="item.web"></td>
+                                                <td v-text="item.companyName"></td>
+                                                <td v-text="item.accountName"></td>
+                                                <td v-text="item.totalPrice"></td>
+                                                <td v-text="item.performance"></td>
+                                                <td v-text="item.startTime"></td>
+                                                <td v-text="item.endTime"></td>
+                                                <td v-text="item.salesman"></td>
+                                                <td v-text="item.status"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class='pr-invoice'>
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>    
+                                                <th>是否需要发票</th>
+                                                <th>发票类型</th>
+                                                <th>发票抬头</th>
+                                                <th>开票内容</th>
+                                                <th>邮寄地址</th>
+                                                <th>联系人</th>
+                                                <th>联系方式</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr align='center' v-for='item in tab_list.invoice'>
+                                                <td v-text="item.status==1?'需要':'不需要'"></td>
+                                                <td v-text="item.type==0?'增值税普通发票':'增值税专用发票'"></td>
+                                                <td v-text="item.title"></td>
+                                                <td v-text="item.content"></td>
+                                                <td v-text="item.address"></td>
+                                                <td v-text="item.contactName"></td>
+                                                <td v-text="item.contactWay"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class='pr-express'>
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>发票号</th>
+                                                <th>邮寄地址</th>
+                                                <th>联系人</th>
+                                                <th>联系方式</th>
+                                                <th>状态</th>
+                                                <th>发票属性</th>
+                                                <th>快递单号</th>
+                                                <th>快递公司</th>
+                                                <th>索取时间</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr align='center' v-for='item in tab_list.open'>
+                                                <td v-text="item.invoiceNum"></td>
+                                                <td v-text="item.address"></td>
+                                                <td v-text="item.contactName"></td>
+                                                <td v-text="item.contactWay"></td>
+                                                <td v-text="item.status"></td>
+                                                <td v-text="item.property==0?'官方代开':'自主索取'"></td>
+                                                <td v-text="item.expressNum"></td>
+                                                <td v-text="item.expressCompany"></td>
+                                                <td v-text="item.crateTime"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class='pr-traders'>
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>用户账户名</th>
+                                                <th>电话</th>
+                                                <th>商拍地区</th>
+                                                <th>品牌名称</th>
+                                                <th>性别</th>
+                                                <th>审核状态</th>
+                                                <th>数据更新时间</th>
+                                                <th width="20%">备注</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr align='center' v-for='item in tab_list.shop'>
+                                                <td v-text="item.acountName"></td>
+                                                <td v-text="item.phone"></td>
+                                                <td v-text="item.area"></td>
+                                                <td v-text="item.brand"></td>
+                                                <td v-text="item.sex==0?'女':'男'"></td>
+                                                <td v-text="item.status==0?'未通过':'通过'"></td>
+                                                <td v-text="item.updateTime"></td>
+                                                <td v-text="item.remark"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class='pr-link'></div>
+                                <div class='pr-statistics'></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- footer -->
+            <div class="footer" th:include="./views/common/footer :: footertpl"></div>
+        </div>
+    </div>
+    <!-- 共用模块 -->
+    <div th:include="./views/common/common :: commontpl"></div>
+    <!-- JS Scripts-->
+    <script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/customer/clientdetail.js}"></script>
+
+    <!-- template code -->
+    <script type="x-template" id="feedback-table">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>创建日期</th>
+                    <th>服务对象</th>
+                    <th>手机号</th>
+                    <th>服务方式</th>
+                    <th>联络类型</th>
+                    <th>联络结果</th>
+                    <th>用户印象</th>
+                    <th>服务内容</th>
+                    <th width="15%">服务详情</th>
+                    <th>联络人</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for='item in feedback_data'>
+                    <td v-text="item.createTime!=undefined?item.createTime:''"></td>
+                    <td v-text="item.contactName"></td>
+                    <td v-text="item.phone"></td>
+                    <td v-text="item.serviceWay"></td>
+                    <td v-text="item.contactType"></td>
+                    <td v-text="item.contactResult"></td>
+                    <td v-text="item.impression"></td>
+                    <td v-text="item.serviceContent"></td>
+                    <td v-text="item.serviceInfo"></td>
+                    <td v-text="item.owenrName"></td>
+                </tr>
+            </tbody>
+        </table>
+    </script>
+    <script type="text/javascript" type="x-template" id="checkbox-template">
+        <ul class="trees-list js-trees-list">
+            <li data-id="tagval0000000102">
+                <input id="tagval00000001020" type="checkbox"><label for="tagval00000001020">大淑</label>
+                <checkbox-template v-if="now_checked_data" :now_checked_data="now_checked_data"></checkbox-template>
+            </li>
+        </ul>
+    </script>
+</body>
+
+</html>

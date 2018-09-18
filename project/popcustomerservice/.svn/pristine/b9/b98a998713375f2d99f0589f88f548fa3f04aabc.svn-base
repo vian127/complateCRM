@@ -1,0 +1,75 @@
+package com.pop136.customerservice.controller.common;
+
+import com.alibaba.fastjson.JSONObject;
+import com.pop136.customerservice.constant.Constant;
+import com.pop136.customerservice.controller.BaseApiAction;
+import com.pop136.customerservice.service.common.TagService;
+import com.pop136.customerservice.utils.JsonParseUtil;
+import com.pop136.customerservice.vo.common.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 标签 controller
+ */
+@RestController
+@RequestMapping("/tag")
+public class TagController extends BaseApiAction {
+
+    @Autowired
+    private TagService tagService;
+
+    @GetMapping("/web/{views}/{page}")
+    public String client( @PathVariable("views")String views, @PathVariable("page")String page) {
+        // 逻辑处理
+        return "views/"+views+"/"+page;
+    }
+
+    /**
+     * 获取 客户  标签列表
+     */
+    @RequestMapping(value = "/list",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            method = RequestMethod.POST)
+    @ResponseBody
+    public String getTag(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+
+        String id = JsonParseUtil.parseStringValue(jsonObject, "id");
+        String type = JsonParseUtil.parseStringValue(jsonObject, "type");
+
+        if (type != null ) {
+            tagService.findTagList(Constant.CUSTOMER_MODULE, id);
+        }
+
+        List<Tag> tagVo = tagService.findTagList("customer", "");
+        return success(tagVo);
+    }
+
+    /**
+     * 获取 客户  标签列表
+     */
+    @RequestMapping(value = "/gets",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            method = RequestMethod.POST)
+    @ResponseBody
+    public String getTagById(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+        String fatherid = JsonParseUtil.parseRequiredStringValue(jsonObject, "fatherid");
+        String type = JsonParseUtil.parseRequiredStringValue(jsonObject, "type");
+
+        Map<String, Object> param = new HashMap<>();
+        param.put("fatherid", fatherid);
+        param.put("stype", type);
+
+        List<Tag> tagVo = tagService.findTagList("customer", "");
+        return success(tagVo);
+    }
+
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="keywords" content="CRM"/>
+        <meta name="description" content="CRM"/>
+		<title>CRM后台管理系统</title>
+		<!-- css -->
+		<link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+        <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}"/>
+        <link rel='stylesheet' type='text/css' th:href="@{/css/user/login.css}"/>
+	</head>
+	<body>
+		<div class="container" id="app">
+			<div class="login-box js-login-box" v-bind:style="{top:box.top+'px'}">
+		      	<div class="login-wrap">
+			        <h3>CRM后台管理系统-登录</h3>
+			        <div class="input-group">
+			          	<span class="input-group-addon glyphicon glyphicon-user"></span>
+			          	<input type="text" v-model="login_info.account" class="form-control" name="" placeholder="用户名" autofocus>
+			          	<p v-text="login_info.msg" v-if="login_info.is_account"></p>
+			        </div>
+			        <div class="input-group">
+			          	<span class="input-group-addon glyphicon glyphicon-lock"></span>
+			          	<input type="password" v-model="login_info.password" class="form-control" name="" placeholder="密码">
+			          	<p v-text="login_info.msg" v-if="login_info.is_password"></p>
+			        </div>
+			        <!-- <div class="input-group">
+			        	<span class="input-group-addon glyphicon glyphicon-pencil"></span>
+			          	<input type="text" v-model="login_info.code" class="form-control code-area"  name="" maxlength="4" placeholder="验证码">
+			        	<img class="img-code" src="" alt="code"/>
+			        	<p v-text="login_info.msg" v-if="login_info.is_code"></p>
+			        </div> -->
+			        <div>
+			        	<a href="">忘记密码</a>
+			        	<p class="pull-right">没有账号？<a href="">立即注册</a></p>
+			        </div>
+			        <button class="btn btn-primary btn-lg btn-block" type="button" @click="subFunc" v-text="login_info.btntxt">登录</button>
+		      	</div>
+		    </div>
+		</div>
+		<!-- js -->
+  		<script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+        <script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+        <script type="text/javascript" th:src="@{/js/user/login.js}"></script>
+	</body>
+</html>

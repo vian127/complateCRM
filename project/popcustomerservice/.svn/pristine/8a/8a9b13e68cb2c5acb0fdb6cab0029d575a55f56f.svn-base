@@ -1,0 +1,49 @@
+package com.pop136.customerservice.mapper.agent.cusotmer;
+
+import com.pop136.core.mybatis.AbstractBaseMapper;
+import com.pop136.core.mybatis.annotation.Table;
+import com.pop136.core.mybatis.criteria.Condition;
+import com.pop136.core.mybatis.criteria.ConditionMapping;
+import com.pop136.customerservice.entity.customer.FeedBack;
+import com.pop136.customerservice.vo.customer.search.ContactSearchVo;
+import com.pop136.customerservice.vo.customer.search.CustomerSearchVo;
+import com.pop136.customerservice.vo.customer.search.CustomerVo;
+import com.pop136.customerservice.vo.customer.search.FeedBackSearchVo;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+@Table("mp_feedback")
+public class FeedBackMapper extends AbstractBaseMapper {
+  @Override
+  public void init() {
+    ConditionMapping mapping = new ConditionMapping( ) ;
+    mapping.put("name", new Condition("name" , Condition.SYMBOL.EQ ) ) ;
+    mapping.put("name", new Condition("name" , Condition.SYMBOL.EQ ) ) ;
+    super.putMapping( DEF_MAPPING_KEY , mapping);
+    super.setUnityFlterCondition( new Condition[]{ new Condition("deleteflag" , 0 , Condition.SYMBOL.EQ )});
+  }
+
+
+  /**
+   * 获取客户列表信息
+   * @return
+   */
+  public List<FeedBack> getFeedBackList(FeedBackSearchVo searchVo) {
+
+    return sqlTemplate.selectList("FeedBackMapper.getFeedBackList",searchVo);
+  }
+
+
+  /**
+   * 获取客户列表总数
+   * @return
+   */
+  public String getFeedBackCount(FeedBackSearchVo searchVo) {
+
+    return sqlTemplate.selectOne("FeedBackMapper.getFeedBackCount",searchVo);
+  }
+
+
+}

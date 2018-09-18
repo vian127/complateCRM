@@ -1,0 +1,57 @@
+package com.pop136.customerservice.controller.web;
+
+//import com.sun.xml.internal.rngom.ast.builder.CommentList;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.IOException;
+import java.util.HashMap;
+
+@Controller // 标记为：jsp
+public class WebController {
+
+	/*
+	 * @RequestMapping("/html") public String html(){ return "/huodong.html"; }
+	 */
+
+	@GetMapping("/templates")
+	public String test(HashMap<String, Object> map) {
+		// 逻辑处理
+		map.put("hello", "欢迎进入HTML页面");
+		return "index";
+	}
+
+	@GetMapping("/web/{views}/{page}")
+	public String client( @PathVariable("views")String views, @PathVariable("page")String page) {
+		// 逻辑处理
+		return "views/"+views+"/"+page;
+	}
+
+	@GetMapping("/templates/material")
+	public String material(ModelMap map, @RequestParam("productId") String productId,
+			@RequestParam("accountId") String accountId) throws IOException {
+		return "material/material";
+	}
+
+	/*
+	 * @RequestMapping("/html") public String html(){ return "/huodong.html"; }
+	 */
+
+	@GetMapping("/login")
+	public String login(HashMap<String, Object> map) {
+		// 逻辑处理
+		map.put("hello", "欢迎进入HTML页面");
+		return "index";
+	}
+
+	@GetMapping("/index")
+	public String index(HashMap<String, Object> map) {
+		// 逻辑处理
+		map.put("index", "欢迎进入HTML页面");
+		return "index";
+	}
+
+}

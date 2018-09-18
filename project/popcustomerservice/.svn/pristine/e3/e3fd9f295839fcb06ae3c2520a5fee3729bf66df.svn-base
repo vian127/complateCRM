@@ -1,0 +1,163 @@
+package com.pop136.customerservice.service.common;
+
+import com.pop136.customerservice.entity.tag.TagModule;
+import com.pop136.customerservice.entity.view.TagMappingVo;
+import com.pop136.customerservice.entity.view.TagValueMappingVo;
+import com.pop136.customerservice.entity.view.TagValueVo;
+import com.pop136.customerservice.mapper.agent.common.TagMappingMapper;
+import com.pop136.customerservice.service.AbstractBaseService;
+import com.pop136.customerservice.utils.StringUtil;
+import com.pop136.customerservice.vo.common.Tag;
+import com.pop136.customerservice.vo.common.TagValue;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by XH on 2018-7-25.
+ */
+@Service
+public class TagService extends AbstractBaseService {
+
+    @Autowired
+    private TagMappingMapper tagMappingMapper;
+
+    private TagMappingVo tagVo;
+
+    public void init() {
+        setMapper(tagMappingMapper);
+    }
+
+    public List<Tag> findTagList(String module, String customerid)
+    {
+
+        List<Tag> returnTagList;
+
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("module",module);
+        List<Tag> tagList = tagMappingMapper.findDistinctTagListByModule(param);
+        List<TagValueVo> tagValueList =  tagMappingMapper.findTagValueListByModule(param);
+        List<TagValueMappingVo> tagMappingVoList =  tagMappingMapper.findValueMappingListByModule(param);
+        List<Tag> customertags = new LinkedList<Tag>();
+        for(Tag tagobject: tagList)
+        {
+            Tag tag = new Tag();
+            String tagid = tagobject.getId();
+            List<TagValueVo> children = new LinkedList<TagValueVo>();
+            for(TagValueVo tagValueVo: tagValueList)
+            {
+                if(tagid.equals(tagValueVo.getTagid()))
+                {
+                    TagValueVo childTagValue = new TagValueVo();
+                    childTagValue.setId(tagValueVo.getId());
+                    childTagValue.setCode(tagValueVo.getCode());
+                    childTagValue.setValue(tagValueVo.getValue());
+                    childTagValue.setTagid(tagValueVo.getTagid());
+                    childTagValue.setSelected("");
+                    childTagValue.setModule(tagValueVo.getModule());
+                    childTagValue.setNlevel(tagValueVo.getNlevel());
+
+                    List<TagValueVo> childrenValue = new LinkedList<TagValueVo>();
+                    if (StringUtil.checkString(tagValueVo.getHaschild()).equals("Y"))
+                    {
+                        for(TagValueMappingVo tagValueMapping : tagMappingVoList)
+                        {
+                            if(tagValueVo.getId().equals(tagValueMapping.getFromtagvalid()))
+                            {
+                                TagValueVo childValueMapping = new TagValueVo();
+                                childValueMapping.setId(tagValueMapping.getTotagvalid());
+                                childValueMapping.setCode(tagValueMapping.getTocode());
+                                childValueMapping.setValue(tagValueMapping.getTovalue());
+                                childValueMapping.setTagid(tagValueMapping.getTagid());
+                                childValueMapping.setSelected("");
+                                childValueMapping.setModule(tagValueMapping.getModule());
+                                //childValueMapping.setNlevel(tagValueVo.getNlevel() + 1);
+                                childrenValue.add(childValueMapping);
+                            }
+                        }
+                    }
+                    childTagValue.setChildren(childrenValue);
+                    children.add(childTagValue);
+                }
+            }
+            tag.setId(tagid);
+            tag.setSortnum(tagobject.getSortnum());
+            tag.setTagcate(tagobject.getTagcate());
+            tag.setTaggroup(tagobject.getTaggroup());
+            tag.setTagseries(tagobject.getTagseries());
+            tag.setTagclassification(tagobject.getTagclassification());
+            tag.setTagsection(tagobject.getTagsection());
+            tag.setTagattribute(tagobject.getTagattribute());
+            tag.setIsnecessary(tagobject.getIsnecessary());
+            tag.setName(tagobject.getName());
+            tag.setChildren(children);
+            customertags.add(tag);
+        }
+        returnTagList = customertags;
+        return returnTagList;
+    }
+
+    public List<Tag> findValuesMappingTagList(List<Tag> tagList, String module)
+    {
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("module",module);
+
+/*        for(Tag tag: tagList)
+        {
+            List<TagValueVo> = tag.getChildren();
+        }*/
+        return null;
+    }
+
+/*    public List<Tag> findFirstLevelTagList(String module)
+    {
+        List<Tag> firstTagList;
+
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("module",module);
+        List<Tag> tagList = tagMappingMapper.findTagListByModule(param);
+        List<TagMappingVo> tagMappingVoList =  tagMappingMapper.findTagValueListByModule(param);
+        List<Tag> customertags = new LinkedList<Tag>();
+        List<Tag> children = new LinkedList<Tag>();
+        for(Tag tagobject: tagList)
+        {
+            Tag tag = new Tag();
+            String tagid = tagobject.getId();
+            List<TagValue> values = new LinkedList<TagValue>() ;
+            int nlevel = 0;
+            for(TagMappingVo tagMappingVo : tagMappingVoList)
+            {
+                if (tagid.equals(tagMappingVo.getTagid()))
+                {
+                    TagValue tagValue = new TagValue();
+                    tagValue.setCode(tagMappingVo.getCode());
+                    tagValue.setId(tagMappingVo.getId());
+                    tagValue.setSortnum(tagMappingVo.getSortnum());
+                    tagValue.setValue(tagMappingVo.getValue());
+                    tagValue.setTagid(tagid);
+                    tagValue.setSelected("");
+                    tagValue.setDescription("");
+                    values.add(tagValue);
+                    nlevel = tagMappingVo.getNlevel();
+                }
+            }
+            tag.setNlevel(nlevel);
+            //tag.setValues(values);
+            tag.setId(tagid);
+            tag.setSortnum(tagobject.getSortnum());
+            tag.setTagattribute(tagobject.getTagattribute());
+            tag.setIsnecessary(tagobject.getIsnecessary());
+            tag.setTagcate(tagobject.getTagcate());
+            tag.setTaggroup(tagobject.getTaggroup());
+            tag.setName(tagobject.getName());
+            tag.setChildren(children);
+            customertags.add(tag);
+        }
+        firstTagList = customertags;
+        return firstTagList;
+    }*/
+}

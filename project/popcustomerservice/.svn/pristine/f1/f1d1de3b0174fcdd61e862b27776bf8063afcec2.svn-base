@@ -1,0 +1,24 @@
+package com.pop136.customerservice.service.user;
+
+import com.pop136.customerservice.entity.user.User;
+import com.pop136.customerservice.mapper.agent.user.UserMapper;
+import com.pop136.customerservice.service.AbstractBaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserService extends AbstractBaseService {
+
+  @Autowired
+  private UserMapper userMapper;
+
+
+  public void init() {
+    setMapper(userMapper);
+  }
+
+
+  public User getUserInfo(String ownerroleid) {
+    return userMapper.getUserInfo(ownerroleid);
+  }
+}

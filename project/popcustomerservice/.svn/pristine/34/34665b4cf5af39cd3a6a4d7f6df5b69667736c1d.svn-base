@@ -1,0 +1,9 @@
+@charset 'UTF-8';
+.open {width: 20px;height: 20px;border: 1px solid #797979;border-radius: 3px;}
+.open::after {content: '—';position: relative;top: -2px;left: 0;color: #797979;}
+.normal-height {height: 34px;line-height:34px;}
+.form-section>div>div{margin-bottom: 10px}
+
+/*----------bootstrap 覆盖----------*/
+.form-group>label{width: 4.5em;}
+

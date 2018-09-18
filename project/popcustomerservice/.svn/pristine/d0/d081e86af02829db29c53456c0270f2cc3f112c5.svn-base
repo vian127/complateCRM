@@ -1,0 +1,18 @@
+.form-section>div>div{margin-bottom: 10px}
+
+.form-inline .checked-list{max-width: 240px;}
+
+.checked-list>li{display: inline-block;display: 4px 8px;background-color: }
+
+.filter-div{display: none;z-index: 10;position: absolute;left: 80px;top: 40px;padding: 10px;background-color: #fff;border:1px solid #aaa;}
+
+/*----------bootstrap 覆盖----------*/
+.table{background-color: #ededed}
+.table>thead{background-color: #cce1f5;}
+.form-group>label{width: 4.5em;vertical-align:middle;}
+
+.stats>ul>li {float:left;padding: 0 10px;border: 1px solid #797979;border-radius: 0 5px 0 0;}
+.stats-info {height:380px;overflow: auto; white-space: nowrap;}
+.stats-info>div{display:none;}
+.stats-active{background-color: #00ccff;}
+.pr-record div {padding:0;}

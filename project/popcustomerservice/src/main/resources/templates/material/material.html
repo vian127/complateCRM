@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <title>产品详情</title>
+    <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        var data1 = {
+            accountid: "7c896b71cbf441ffb492ddc647688978",
+            id: "A47800IAC00013-1638D89BC15E916BIDG738Y0WNOB4R353",
+            type: "1",
+            title: "",
+            shopId: "1",
+            store: "脉车人",
+            content: "",
+            url: "",
+            time: "7天前",
+            poster: "http://7xt9pc.com1.z0.glb.clouddn.com/jpg/2018-05-23/084e927f-58e6-4159-8eff-2af8d1f89bf8.jpg",
+            video: "http://7xt9pc.com1.z0.glb.clouddn.com/mp4/2018-05-23/69fd82d2-359d-4df1-9106-daf69c82a404.mp4",
+            images: ["http://7xt9pc.com1.z0.glb.clouddn.com/jpg/2018-05-23/084e927f-58e6-4159-8eff-2af8d1f89bf8.jpg"]
+        }
+        var data2 = {
+            accountid: "7c896b71cbf441ffb492ddc647688978",
+            id: "A47800IAC00013-1638D891CA6YUX6687A4434V65Y10I1CB",
+            type: "0",
+            title: "",
+            shopId: "1",
+            store: "脉车人",
+            content: "",
+            url: "http://7xt9pc.com1.z0.glb.clouddn.com/jpg/2018-05-23/691c91ef-e3ad-4f32-9e1c-1c2cc4268822.jpg",
+            time: "7天前",
+            poster: "http://7xt9pc.com1.z0.glb.clouddn.com/jpg/2018-05-23/084e927f-58e6-4159-8eff-2af8d1f89bf8.jpg",
+            video: "http://7xt9pc.com1.z0.glb.clouddn.com/mp4/2018-05-23/69fd82d2-359d-4df1-9106-daf69c82a404.mp4",
+            images: [
+                "http://7xt9pc.com1.z0.glb.clouddn.com/jpg/2018-05-23/691c91ef-e3ad-4f32-9e1c-1c2cc4268822.jpg",
+                "http://7xt9pc.com1.z0.glb.clouddn.com/jpg/2018-05-23/7c3fbfe8-11bd-4b55-925a-9e0cd677fd15.jpg",
+                "http://7xt9pc.com1.z0.glb.clouddn.com/jpg/2018-05-23/977b0b53-871d-473c-94d6-7d314a11a4e2.jpg",
+                "http://7xt9pc.com1.z0.glb.clouddn.com/jpg/2018-05-23/2cd63979-d141-4a31-a7da-81c4dfbda4bd.jpg",
+                "http://7xt9pc.com1.z0.glb.clouddn.com/jpg/2018-05-23/0e070dd3-f6af-4668-8367-8fd4ea9a8c9a.jpg",
+                "http://7xt9pc.com1.z0.glb.clouddn.com/jpg/2018-05-23/7a29ffbc-e986-40ae-910d-dab6a2c26b74.jpg",
+                "http://7xt9pc.com1.z0.glb.clouddn.com/jpg/2018-05-23/26fac8c0-1867-4549-a8fe-a47384cacf28.jpg",
+                "http://7xt9pc.com1.z0.glb.clouddn.com/jpg/2018-05-23/e2744be2-048f-450f-a5d9-d787b3875260.jpg",
+                "http://7xt9pc.com1.z0.glb.clouddn.com/jpg/2018-05-23/62439678-1f79-45f1-be59-3b2a9f98b92f.jpg"]
+        }
+    </script>
+    <script type="text/javascript" th:inline="javascript"></script>
+    <style type="text/css">
+        html, body {
+            width: 100%;
+            /*height: 100%;*/
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            background-color: #F0F0F0;
+            justify-content: flex-start;
+        }
+
+        .title, .content {
+            width: 95%;
+            padding-left: 2.5%;
+            padding-right: 2.5%;
+            display: flex;
+        }
+
+        .title {
+            padding-top: 2%;
+            padding-bottom: 2%;
+            align-items: center;
+            background-color: white;
+        }
+
+        .title-img {
+            width: 5%;
+        }
+
+        .title-store {
+            padding-left: 2.5%;
+            font-size: 12pt;
+        }
+
+        .content {
+            background-color: #FAFAFA;
+        }
+
+        video {
+            width: 100%;
+        }
+
+        .content-image {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-content: flex-start;
+        }
+
+        .img-item {
+            width: 32%;
+            margin-bottom: 2%;
+            background-position: center;
+        }
+
+        .comment {
+            width: 95%;
+            padding-left: 2.5%;
+            padding-right: 2.5%;
+        }
+
+        .comment-content {
+            color: #4e67f9;
+            display: flex;
+            font-size: 10pt;
+            padding-top: 2.5%;
+            padding-bottom: 2.5%;
+            justify-content: space-between;
+        }
+
+        .comment-write-content {
+            display: flex;
+            font-size: 10pt;
+            color: #4e67f9;
+            margin-top: 5%;
+            align-items: center;
+        }
+
+        .comment-line {
+            height: 1px;
+            flex-grow: 1;
+            background-color: #ccc;
+
+        }
+
+        .comment-items {
+            width: 100%;
+        }
+
+        .comment-item {
+            width: 100%;
+            margin-bottom: 2.5%;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .comment-head-image {
+            width: 12.5%;
+            border-radius: 5%;
+            vertical-align: middle;
+        }
+
+        .comment-detail {
+            width: 85.5%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            padding-left: 2%;
+            font-size: 12pt;
+            text-align: left;
+        }
+
+        .comment-name {
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="title">
+        <!--<img class="title-img" src="static/images/twitter.png">-->
+        <image th:src="@{/images/i_1.png}"/>
+
+        <div class="title-store">脉车人</div>
+    </div>
+    <div class="content">
+        <div class="content-video" id="content-video">
+
+        </div>
+        <div class="content-image" id="content-image">
+        </div>
+    </div>
+    <div class="comment" >
+        <!--<div class="comment-write-content">
+            <div class="comment-line"></div>
+            <div class="comment-write"><a style="text-decoration:none;" href="comment.html">写评论</a></div>
+            <div class="comment-line"></div>
+        </div>-->
+        <div class="comment-content">精选评论</div>
+        <div class="comment-items" id="comment-items">
+        </div>
+    </div>
+</div>
+<span tr th:each="user,userStat:${users}">></span>
+<script>
+    String.prototype.format = function () {
+        var resultStr = this.toString();
+        if (typeof arguments[0] === "object") {
+            for (var i in arguments[0]) { // 参数为对象
+                resultStr = resultStr.replace("{" + i + "}", arguments[0][i]);
+            }
+        }
+        else { // 多个参数
+            for (var i = 0; i < arguments.length; i++) {
+                resultStr = resultStr.replace("{" + i + "}", arguments[i]);
+            }
+        }
+        return resultStr;
+    };
+    var list = '[(${commentItems})]';
+    var data = '[(${product})]';
+    data =  JSON.parse(data);
+    var width = document.documentElement.clientWidth || document.body.clientWidth;
+    console.log("width:" + width);
+
+    if (data.type == 0) {//图片
+        $(".content-video").hide();
+        var imgHeight = width * 0.9 * 0.32;
+        $(".img-item").height(imgHeight);
+        console.log("imgHeight:" + imgHeight);
+        var child = "<img class='img-item' style='{0}' src='{1}'/>";
+        var style1 = "height:{0}px;".format(imgHeight);
+        console.log(style1);
+        for (var i = 0; i < data.images.length; i++) {
+            $("#content-image").append(child.format(style1, data.images[i]));
+        }
+        if (data.images.length % 3 == 2) {
+            var style2 = style1 + "visibility:hidden;"
+            $("#content-image").append(child.format(style2, data.images[0]))
+        }
+    } else if (data.type == 1) {//视频
+        $(".content-image").hide();
+        var videoHeight = width * 0.95 * 3 / 4;
+        $("video").height(videoHeight);
+        console.log("videoHeight:" + videoHeight);
+        var child = "<video src='{0}'poster='{1}' controls='controls' style='object-fit:fill'></video>";
+        $("#content-video").append(child.format(data.video, data.poster));
+    }
+    var headHeight = width * 0.95 * 0.125;
+    var element = "<div class='comment-item'><image class='comment-head-image' style='height: {0}px' src='{1}'></image><div class='comment-detail'><div class='comment-name'>{2}</div><div class='comment-remark'>{3}</div></div></div>"
+
+    list = JSON.parse(list);
+    for (var i=0;i<list.length;i++) {
+        var comment=list[i];
+        $("#comment-items").append(element.format(headHeight,comment.faceUrl, comment.name, comment.remark));
+    }
+
+</script>
+</body>
+</html>
+

@@ -1,0 +1,181 @@
+package com.pop136.customerservice.entity.customer;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * 客服 产品
+ */
+public class ContactServeProduct implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    private String id;
+
+    private String customerid;
+
+    private String contactid;
+
+    private String productid;
+
+    private String productname;
+
+    private String productcategory;
+
+    private String productstatusid;
+
+    private String productstatusname;
+
+    private String createtime;
+
+    private String lastupdatetime;
+
+    private String creater;
+
+    private String updater;
+
+    private Integer deleteflag;
+
+    private String grpcode;
+
+    private String orgcode;
+
+    private String loccode;
+
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCustomerid() {
+        return customerid;
+    }
+
+    public void setCustomerid(String customerid) {
+        this.customerid = customerid;
+    }
+
+    public String getContactid() {
+        return contactid;
+    }
+
+    public void setContactid(String contactid) {
+        this.contactid = contactid;
+    }
+
+    public String getProductid() {
+        return productid;
+    }
+
+    public void setProductid(String productid) {
+        this.productid = productid;
+    }
+
+    public String getProductname() {
+        return productname;
+    }
+
+    public void setProductname(String productname) {
+        this.productname = productname;
+    }
+
+    public String getProductcategory() {
+        return productcategory;
+    }
+
+    public void setProductcategory(String productcategory) {
+        this.productcategory = productcategory;
+    }
+
+    public String getProductstatusid() {
+        return productstatusid;
+    }
+
+    public void setProductstatusid(String productstatusid) {
+        this.productstatusid = productstatusid;
+    }
+
+    public String getProductstatusname() {
+        return productstatusname;
+    }
+
+    public void setProductstatusname(String productstatusname) {
+        this.productstatusname = productstatusname;
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getLastupdatetime() {
+        return lastupdatetime;
+    }
+
+    public void setLastupdatetime(String lastupdatetime) {
+        this.lastupdatetime = lastupdatetime;
+    }
+
+    public String getCreater() {
+        return creater;
+    }
+
+    public void setCreater(String creater) {
+        this.creater = creater;
+    }
+
+    public String getUpdater() {
+        return updater;
+    }
+
+    public void setUpdater(String updater) {
+        this.updater = updater;
+    }
+
+    public Integer getDeleteflag() {
+        return deleteflag;
+    }
+
+    public void setDeleteflag(Integer deleteflag) {
+        this.deleteflag = deleteflag;
+    }
+
+    public String getGrpcode() {
+        return grpcode;
+    }
+
+    public void setGrpcode(String grpcode) {
+        this.grpcode = grpcode;
+    }
+
+    public String getOrgcode() {
+        return orgcode;
+    }
+
+    public void setOrgcode(String orgcode) {
+        this.orgcode = orgcode;
+    }
+
+    public String getLoccode() {
+        return loccode;
+    }
+
+    public void setLoccode(String loccode) {
+        this.loccode = loccode;
+    }
+}

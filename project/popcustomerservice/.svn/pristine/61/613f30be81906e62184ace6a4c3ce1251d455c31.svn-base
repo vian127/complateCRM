@@ -1,0 +1,127 @@
+package com.pop136.customerservice.controller.common;
+
+import com.alibaba.fastjson.JSONObject;
+import com.pop136.customerservice.constant.Constant;
+import com.pop136.customerservice.controller.BaseApiAction;
+import com.pop136.customerservice.service.common.TagService;
+import com.pop136.customerservice.utils.Constants;
+import com.pop136.customerservice.utils.JsonParseUtil;
+import com.pop136.customerservice.vo.common.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 标签 controller
+ */
+@RestController
+@RequestMapping("/tag")
+public class TagController extends BaseApiAction {
+
+    @Autowired
+    private TagService tagService;
+
+    @GetMapping("/web/{views}/{page}")
+    public String client( @PathVariable("views")String views, @PathVariable("page")String page) {
+        // 逻辑处理
+        return "views/"+views+"/"+page;
+    }
+
+    /**
+     * 获取 客户  多选标签列表
+     */
+    @RequestMapping(value = "/mulselects",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            method = RequestMethod.POST)
+    @ResponseBody
+    public String getMulselects(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+        String id = JsonParseUtil.parseRequiredStringValue(jsonObject, "id"); //0作为客户id，1作为联系人id
+        String type = JsonParseUtil.parseRequiredStringValue(jsonObject, "type"); // 0客户，1联系人
+
+        Map<String, Object> param = new HashMap<>();
+        param.put("id", id);
+        param.put("type", type);
+
+        String select_type = "";
+        if(type.equals("0"))
+            select_type = Constants.select_type_customer;
+        if(type.equals("1"))
+            select_type = Constants.select_type_contact;
+
+        List<Tag> tagVo = tagService.findMulTagList(select_type,id);
+        return success(tagVo);
+    }
+
+    /**
+     * 获取 客户  多选标签列表 根据ID
+     */
+    @RequestMapping(value = "/mulselects/detail",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            method = RequestMethod.POST)
+    @ResponseBody
+    public String getMulselectsDetail(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+        String type = JsonParseUtil.parseRequiredStringValue(jsonObject, "type"); // 0客户，1联系人
+        String id = JsonParseUtil.parseRequiredStringValue(jsonObject, "id"); //0作为客户id，1作为联系人id
+        String typeids = JsonParseUtil.parseRequiredStringValue(jsonObject, "typeids"); // 选择框的id列表
+
+        Map<String, Object> param = new HashMap<>();
+        param.put("id", id);
+        param.put("type", type);
+
+        List<Tag> tagVo = tagService.findMulTagList("customer", "");
+        return success(tagVo);
+    }
+
+    /**
+     * 获取 客户  单选标签列表 根据ID
+     */
+    @RequestMapping(value = "/selects",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            method = RequestMethod.POST)
+    @ResponseBody
+    public String getSelects(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+
+        String id = JsonParseUtil.parseStringValue(jsonObject, "id");
+        String type = JsonParseUtil.parseStringValue(jsonObject, "type");
+
+        String select_type = "";
+        if(type.equals("0"))
+            select_type = Constants.select_type_customer;
+        if(type.equals("1"))
+            select_type = Constants.select_type_contact;
+
+        List<Tag> tagVo = tagService.findSelectTagList(select_type, id);
+        return success(tagVo);
+    }
+
+    /**
+     * 获取 客户  单选标签列表
+     */
+    @RequestMapping(value = "/selects/detail",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            method = RequestMethod.POST)
+    @ResponseBody
+    public String getSelectsDetail(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+        String type = JsonParseUtil.parseRequiredStringValue(jsonObject, "type"); // 0客户，1联系人
+        String id = JsonParseUtil.parseRequiredStringValue(jsonObject, "id"); //0作为客户id，1作为联系人id
+        String typeids = JsonParseUtil.parseRequiredStringValue(jsonObject, "typeids"); // 选择框的id列表
+
+        Map<String, Object> param = new HashMap<>();
+        param.put("id", id);
+        param.put("type", type);
+
+        List<Tag> tagVo = tagService.findSelectTagList("customer", "");
+        return success(tagVo);
+    }
+
+
+}

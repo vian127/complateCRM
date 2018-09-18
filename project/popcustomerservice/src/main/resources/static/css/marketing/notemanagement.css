@@ -1,0 +1,4 @@
+@charset 'UTF-8';
+.message li {float:left;width: 160px;height: 90px;border: 1px solid #797979;margin-right: 20px;text-align: center;line-height: 90px;}
+.message li a {display: inline-block;width: 100%;height: 100%;font-size: 24px;}
+#wrapper .count-height{margin-bottom: 10px}

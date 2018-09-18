@@ -1,0 +1,111 @@
+/*
+    #author     gaofeng
+    #date       2017/07/23
+    #purpose    模板管理
+*/
+
+require(['vue', 'msg', 'layui'], function (Vue, msg) {
+    $(function () {
+        var def = {
+            loading_ele: $('.js-loading-div')
+        };
+        def.loading_ele.fadeOut(400);
+        
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                task_thead:[
+                    {id:2,is_show:true,name:'模板名称'},
+                    {id:3,is_show:true,name:'模板签名'},
+                    {id:4,is_show:true,name:'模板内容'},
+                    {id:5,is_show:true,name:'字数'},
+                    {id:6,is_show:true,name:'创建时间'},
+                    {id:7,is_show:true,name:'最后修改时间'},
+                    {id:8,is_show:true,name:'创建人'},
+                ],
+                task_tbody:[
+                    {id:1,title:'模板A',signature:'POP',content:'世界那么大我想出去走走',num:'65',createtime:'2018-6-12 12:12:12:00',amendtime:'2018-12-12 12:12:00',creater:'客服经理'},
+                    {id:2,title:'模板A',signature:'POP',content:'世界那么大我想出去走走',num:'65',createtime:'2018-6-12 12:12:12:00',amendtime:'2018-12-12 12:12:00',creater:'客服经理'},
+                    {id:3,title:'模板A',signature:'POP',content:'世界那么大我想出去走走',num:'65',createtime:'2018-6-12 12:12:12:00',amendtime:'2018-12-12 12:12:00',creater:'客服经理'},
+                    {id:4,title:'模板A',signature:'POP',content:'世界那么大我想出去走走',num:'65',createtime:'2018-6-12 12:12:12:00',amendtime:'2018-12-12 12:12:00',creater:'客服经理'},
+                    {id:5,title:'模板A',signature:'POP',content:'世界那么大我想出去走走',num:'65',createtime:'2018-6-12 12:12:12:00',amendtime:'2018-12-12 12:12:00',creater:'客服经理'},
+                    {id:6,title:'模板A',signature:'POP',content:'世界那么大我想出去走走',num:'65',createtime:'2018-6-12 12:12:12:00',amendtime:'2018-12-12 12:12:00',creater:'客服经理'},
+                    {id:7,title:'模板A',signature:'POP',content:'世界那么大我想出去走走',num:'65',createtime:'2018-6-12 12:12:12:00',amendtime:'2018-12-12 12:12:00',creater:'客服经理'},
+                ],
+                collect:{                                       //筛选数据
+                    template:'',
+                    creater:1,
+                },
+                list_info:{
+                    is_show_select:false,
+                    checked_all:true
+                }
+              },
+            mounted() {
+                this.page()
+            },
+            methods: {
+                toggleSelect: function () {                  //显示隐藏
+                    this.list_info.is_show_select = !this.list_info.is_show_select;
+                },
+                changeCol: function (event, id) {           //单选
+                    var tag = event.target;
+                    var is_check = tag.checked;
+                    if (is_check == true) {
+                        $('.js-list-table').find('.js-col' + id + '-ele').show();
+                    } else {
+                        $('.js-list-table').find('.js-col' + id + '-ele').hide();
+                    }
+                    var checked_len = 0;
+                    this.task_thead.forEach(function (item) {
+                        if (id == item.id) {
+                            item.is_show = is_check;
+                        }
+                        item.is_show == true ? checked_len++ : checked_len;
+                    });
+
+                    // 全选判断
+                    if (is_check == true) {
+                        if (this.list_info.checked_all == false && checked_len == this.task_thead.length) {
+                            this.list_info.checked_all = true;
+                        }
+                    } else {
+                        if (checked_len == this.task_thead.length - 1 && this.list_info.checked_all == true) {
+                            this.list_info.checked_all = false;
+                        }
+                    }
+                },
+                changeAll: function (e) {               //全选
+                    var tag = e.target;
+                    var is_check = tag.checked;
+                    if (is_check == true) {
+                        $('.js-list-table').find('.js-can-hide').show();
+                        this.task_thead.forEach(item => item.is_show = true);
+                    } else {
+                        $('.js-list-table').find('.js-can-hide').hide();
+                        this.task_thead.forEach(item => item.is_show = false);
+                    }
+                },
+
+                filterFunc: function () {               //确认筛选列表
+                    console.log(this.collect);
+                },
+                page: function () {                     //分页
+                    layui.use('laypage', function () {
+                        var laypage = layui.laypage;
+                        //执行一个laypage实例
+                        laypage.render({
+                            elem: 'laypage-section',
+                            count: 50,
+                            layout: ['prev', 'page', 'next', 'limit', 'count', 'skip'],
+                            jump: function (obj) {
+                                console.log(obj)
+                                var curr = obj.curr;
+                            }
+                        });
+                    });
+                },
+            },
+        })
+    })
+})

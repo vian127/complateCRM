@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="CRM" />
+    <meta name="description" content="CRM" />
+    <title>查看任务</title>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/common/form-list.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/manage/viewtask.css}" />
+</head>
+
+<body>
+    <!-- view -->
+    <div id="wrapper">
+        <!-- header -->
+        <div class="header" th:include="./views/common/header :: headertpl"></div>
+        <div id="page-wrapper">
+            <!-- content -->
+            <div class="content" id='app'>
+                <!-- 页面位置 -->
+                <div class="page-header-section">
+                    <h3>查看任务</h3>
+                </div>
+                <div class="col-md-12 form-section text-right">
+                    <button type='button' class="btn btn-danger" title="终止" @click='endFunc'>终止</button>
+                    <button type='button' class="btn btn-warning" title="不通过" @click='failFunc'>不通过</button>
+                    <button type='button' class="btn btn-success" title="通过" @click='passFunc'>通过</button>
+                    <button type='button' class="btn btn-primary" title="指派" @click='assignFunc'>指派</button>
+                    <button type='button' class="btn btn-default" title="关闭">关闭</button>
+                </div>
+
+                <!-- 表单部分 -->
+                <div class='form-inline form-section'>
+                    <form class='js-form'>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group col-md-4">
+                                    <label for="">任务类型</label>
+                                    <select name="" id="" class='form-control' readonly>
+                                        <option value="1">问卷调查</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label for="">任务标题</label>
+                                    <input type="text" value='客户满意度调查' class='form-control' readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group col-md-12">
+                                    <label for="">任务描述</label>
+                                    <textarea name="" id="" cols="100%" rows="5" class='form-control' readonly></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group col-md-3">
+                                    <label for="">任务状态</label>
+                                    <input type="text" value='指派中' class='form-control' readonly>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="">当前负责人</label>
+                                    <input type="text" value='客服组长' class='form-control' readonly>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="">执行人</label>
+                                    <input type="text" value='张三' class='form-control' readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <label for="">任务对象</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-3">
+                                        <label for="">主账号</label>
+                                        <u>fufufufu</u>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">公司名称</label>
+                                        <u>上海服装服务有限公司</u>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">领用时间</label>
+                                        <u>2018-07-02 12:12:12</u>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">领用人</label>
+                                        <u>客服</u>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-3">
+                                        <label for="">未访问天数</label>
+                                        <u>10</u>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">未登录天数</label>
+                                        <u>20</u>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group col-md-4">
+                                    <label for="">回访方式</label>
+                                    <input type="text" value='电话，微信' class='form-control' readonly>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">任务结果</label>
+                                    <input type="text" value='有效' class='form-control' readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-12 dis-bottom">
+                                <div class="form-group form-section col-md-12">
+                                    <label for="">对产品反馈</label>
+                                    <textarea name="" id="" cols="100%" rows="3" class='form-control' readonly></textarea>
+                                </div>
+                                <div class="form-group form-section col-md-12">
+                                    <label for="">对技术体验反馈</label>
+                                    <textarea name="" id="" cols="100%" rows="3" class='form-control' readonly></textarea>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="">执行备注</label>
+                                    <textarea name="" id="" cols="100%" rows="3" class='form-control' readonly></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group col-md-4">
+                                    <label for="">创建日期</label>
+                                    <input type="text" value='2018-12-12 12:12:12' class='form-control' readonly>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">任务期限</label>
+                                    <input type="text" value='2018-12-12 12:12:12' class='form-control' readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group col-md-4">
+                                    <label for="">最后修改日期</label>
+                                    <input type="text" value='2018-12-12 12:12:12' class='form-control' readonly>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">最后修改人</label>
+                                    <input type="text" value='客服主管' class='form-control' readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- 列表 -->
+                <div class="list-section">
+                    <table class='table table-bordered table-hover js-list-table'>
+                        <thead>
+                            <tr>
+                                <th>日期</th>
+                                <th>操作类型</th>
+                                <th>操作人</th>
+                                <th>操作内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr align='center' v-for='item in taskTb'>
+                                <td v-text='item.time'></td>
+                                <td v-text='item.type'></td>
+                                <td v-text='item.type'></td>
+                                <td v-text='item.content'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="laypage-section" class='text-right'></div>
+                </div>
+            </div>
+            <!-- footer -->
+            <div class="footer" th:include="./views/common/footer :: footertpl"></div>
+        </div>
+    </div>
+    <!-- 批量弹窗 -->
+    <div class="container-fluid dialog-batch">
+        <!-- 高级筛选 -->
+        <div class="row">
+            <div class="" id="js-expert">
+                <div class='expert'>
+                    <div class="col-md-12">
+                        <label>高级筛选项</label>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="">任务期限</label>
+                        <input type="text" class='form-control js-taskStart'> ~
+                        <input type="text" class='form-control js-taskEnd'>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="">任务期限</label>
+                        <input type="text" class='form-control js-limitStart'> ~
+                        <input type="text" class='form-control js-limitEnd'>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="">创建人</label>
+                        <input type="text" class='form-control'>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="">执行人</label>
+                        <input type="text" class='form-control'>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 批量指派 -->
+        <div class="row">
+            <div id="js-assign">
+                <div class='assign'>
+                    <div class="col-md-12">
+                        <label>将任务指派给：</label>
+                    </div>
+                    <div class="col-md-10 dis-top">
+                        <select name="" id="" class='form-control'>
+                            <option value="1">客户经理</option>
+                            <option value="2">客户经理</option>
+                            <option value="3">客户经理</option>
+                            <option value="4">客户经理</option>
+                            <option value="5">客户经理</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 批量未通过 -->
+        <div class="row">
+            <div id="js-fail">
+                <div class="col-md-12">
+                    <label>正在退回任务</label>
+                </div>
+                <div class="col-md-12">
+                    <label for="" class="necessary">退回原因</label>
+                    <textarea name="" id="fail" cols="30%" rows="3" class='form-control'></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- 批量通过 -->
+        <div class="row">
+            <div id="js-pass">
+                <div class="col-md-12">
+                    <label>正在审核通过</label>
+                </div>
+                <div class="col-md-12">
+                    <label>任务是否确认通过？</label>
+                </div>
+
+            </div>
+        </div>
+        <!-- 批量终止 -->
+        <div class="row">
+            <div id="js-end">
+                <div class="col-md-12">
+                    <label>确定要终止任务？</label>
+                </div>
+                <div class="col-md-12">
+                    <label for="" class="necessary">终止原因</label>
+                    <textarea name="" id="" cols="30%" rows="3" class='form-control'></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 共用模块 -->
+    <div th:include="./views/common/common :: commontpl"></div>
+    <!-- JS Scripts-->
+
+    <script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/manage/viewtask.js}"></script>
+</body>
+
+</html>

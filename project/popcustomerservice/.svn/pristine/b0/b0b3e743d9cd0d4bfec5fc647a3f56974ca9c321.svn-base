@@ -1,0 +1,43 @@
+package com.pop136.customerservice.service.tag;
+
+import com.pop136.customerservice.entity.tag.TagCustomer;
+import com.pop136.customerservice.entity.tag.TagCustomerLog;
+import com.pop136.customerservice.mapper.agent.tag.TagCustomerMapper;
+import com.pop136.customerservice.service.AbstractBaseService;
+import com.pop136.customerservice.vo.tag.search.TagCustomerSearchVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+
+@Service
+public class TagCustomerService extends AbstractBaseService {
+
+    @Autowired
+    private TagCustomerMapper tagCustomerMapper;
+
+    public void init() {
+        setMapper(tagCustomerMapper);
+    }
+
+    public List<TagCustomer> findTagCustomerList(TagCustomerSearchVo searchVo) {
+        return tagCustomerMapper.findTagCustomerList(searchVo);
+    }
+
+    /**
+     * 清空 用户数据
+     */
+    public void clearTagCustomerById(String customerId) {
+        tagCustomerMapper.clearTagCustomerById(customerId);
+
+    }
+
+    /**
+     * 批量 插入日志信息
+     * @param tagCustomerLogs
+     */
+    public void batchInsertLog(List<TagCustomerLog> tagCustomerLogs) {
+        tagCustomerMapper.batchInsertLog(tagCustomerLogs);
+    }
+}

@@ -1,0 +1,49 @@
+package com.pop136.customerservice.constant;
+
+public class CommonConstant {
+
+  /**
+   * 标签 tag
+   */
+  public enum CUSTOMER_TAG_ID{
+
+    WEB_SOURCE("tag00001","网站来源") ,
+    GENDER("tag00002","性别"),
+    INDUSTRY_TYPE("tag00003","行业类型"),
+    POINT_PRODUCT("tag00004","重点关注单品"),
+    STYLE("tag00005","风格"),
+    SEASON("tag00006","重点开发季节"),
+    FABRIC_PROPERTY("tag00007","面料属性"),
+    AREA("tag00008","地区"),
+    COMPANY_TYPE("tag00009","企业类型"),
+    TRADE_TYPE("tag000010","贸易类型"),
+    DUTY("tag00011","职务"),
+    CONTACT_STATUS("tag00012","联系人状态"),//客服
+    SERVICE_STAGE("tag00013","服务阶段"),//客服
+    CUSTOMER_STATUS("tag00015","客户情况"),//客服
+    CUSTOMER_ATTENTION("tag00014","客户关注项"),//客服
+    INVOICE("tag00016","发票项");//客服
+
+
+    private CUSTOMER_TAG_ID(String key, String type) {
+      this.key = key;
+      this.type = type;
+    }
+    private String key ;
+    private String type ;
+    public String getKey() {
+      return key;
+    }
+    public String getType() {
+      return type;
+    }
+  }
+
+
+
+
+
+
+}
+
+

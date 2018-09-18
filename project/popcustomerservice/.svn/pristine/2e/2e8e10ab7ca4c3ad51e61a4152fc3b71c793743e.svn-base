@@ -1,0 +1,127 @@
+package com.pop136.customerservice.controller.customer;
+
+import ch.qos.logback.core.util.TimeUtil;
+import com.alibaba.fastjson.JSONObject;
+import com.pop136.customerservice.controller.BaseApiAction;
+import com.pop136.customerservice.service.customer.CustomerService;
+import com.pop136.customerservice.utils.JsonParseUtil;
+import com.pop136.customerservice.vo.A524Vo;
+import com.pop136.customerservice.vo.Customer.*;
+import com.pop136.customerservice.vo.Customer.search.CustomerSearchVo;
+import com.pop136.customerservice.vo.Customer.search.CustomerVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 客服 controller
+ */
+@RestController
+@RequestMapping("/customer")
+public class CusotmerController extends BaseApiAction {
+
+  @Autowired
+  private CustomerService customerService;
+
+
+  /**
+   * 获取 列表
+   */
+  @RequestMapping(value = "/list",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String getCustomerList(HttpServletRequest request, @RequestBody CustomerSearchVo searchVo) {
+    List<CustomerVo> customerVos = customerService.getCustomerList(searchVo);
+
+
+
+    return success(customerVos);
+  }
+
+  /**
+   * 获取 客户 跳转type 页面
+   */
+  @CrossOrigin
+  @RequestMapping(value = "/type",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String findAddresses(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+    String type = JsonParseUtil.parseRequiredStringValue(jsonObject, "type");
+    String customerId = JsonParseUtil.parseRequiredStringValue(jsonObject, "customerId");
+
+    //根据类型判断跳转 数据
+    if (type.equals("receive")){
+      //领用
+      List<ReceiveInfoVo> receiveInfoVos = customerService.getReceiveInfoByCustomerId(customerId);
+     
+      return  success(receiveInfoVos);
+
+    }else if (type.equals("assist")){
+      //协助
+      List<AssistInfoVo> customerOwners =  customerService.getAssistInfoByCustomerId(customerId);
+
+      return success(customerOwners);
+    }else if (type.equals("activity")){
+      //活动
+      List<ActivityInfoVo> activityInfoVos =  customerService.getActivityInfoByCustomerId(customerId);
+      return success(activityInfoVos);
+
+    }else if (type.equals("call")){
+      //电话 (来电,去电)
+      List<CallInfoVo> callIns =  customerService.getCallInByCustomerId(customerId);
+
+      List<CallInfoVo> callOuts =  customerService.getCallOutByCustomerId(customerId);
+
+      Map<String, Object> resultMap = new HashMap<>();
+
+      resultMap.put("callIns", callIns);
+      resultMap.put("callOuts", callOuts);
+
+      return  success(resultMap);
+    }else if (type.equals("service")){
+      //客服
+      List<ServiceInfoVo> serviceInfoVos = customerService.getServiceByCustomerId(customerId, "0");
+
+      return  success(serviceInfoVos);
+    }else if (type.equals("ground")){
+      //地勤
+      List<ServiceInfoVo> serviceInfoVos = customerService.getServiceByCustomerId(customerId, "1");
+
+      return success(serviceInfoVos);
+    }else if (type.equals("order")){
+      //订单
+      List<OrderInfoVo> orderInfoVos =  customerService.getOrderByCustomerId(customerId);
+
+      return success(orderInfoVos);
+    }else if (type.equals("invoice")){
+      //发票
+      List<InvoiceInfoVo> invoices = customerService.getInvoiceByCustomerId(customerId);
+
+      return success(invoices);
+
+    }else if (type.equals("open")){
+      //开
+      List<InvoiceLogInfoVo> invoiceLogs = customerService.getInvoiceLogByCustomerId(customerId);
+      return success(invoiceLogs);
+
+    }else if (type.equals("shop")){
+      //商
+      List<ShangpainfoVo> sPais = customerService.getShangPaiByCustomerId(customerId);
+      return  success(sPais);
+    }
+
+    return success(null);
+
+  }
+
+
+}

@@ -1,0 +1,58 @@
+package com.pop136.customerservice.response.leads;
+
+import java.io.Serializable;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class LeadsResponse implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String code;
+	private String id;
+	private String message;
+	private String isFirst;
+	private String alert_remark;
+	
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getIsFirst() {
+		return isFirst;
+	}
+	public void setIsFirst(String isFirst) {
+		this.isFirst = isFirst;
+	}
+	public String getAlert_remark() {
+		return alert_remark;
+	}
+	public void setAlert_remark(String alert_remark) {
+		this.alert_remark = alert_remark;
+	}
+	
+	
+	
+}
+

@@ -1,0 +1,100 @@
+/*
+    #author     gaofeng
+    #date       2017/07/24
+    #purpose    群发-选择用户
+*/
+
+require(['vue', 'msg', 'layui'], function (Vue, msg) {
+    $(function () {
+        var def = {
+            loading_ele: $('.js-loading-div')
+        };
+        def.loading_ele.fadeOut(400);
+
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                taskTb:[
+                    {id:1,name:'skyblue',main:'是',belog:'上海服装服务有限公司',position:'设计师',role:'使用者',satus:'在职',tel:'13636899988',time:'2018-12-12 12:12:12',mode:'电话',isWX:'是',WX:'25654566',source:'网站'},
+                    {id:2,name:'skyblue',main:'是',belog:'上海服装服务有限公司',position:'设计师',role:'使用者',satus:'在职',tel:'13636899988',time:'2018-12-12 12:12:12',mode:'电话',isWX:'是',WX:'25654566',source:'网站'},
+                    {id:3,name:'skyblue',main:'是',belog:'上海服装服务有限公司',position:'设计师',role:'使用者',satus:'在职',tel:'13636899988',time:'2018-12-12 12:12:12',mode:'电话',isWX:'是',WX:'25654566',source:'网站'},
+                    {id:4,name:'skyblue',main:'是',belog:'上海服装服务有限公司',position:'设计师',role:'使用者',satus:'在职',tel:'13636899988',time:'2018-12-12 12:12:12',mode:'电话',isWX:'是',WX:'25654566',source:'网站'},
+                    {id:5,name:'skyblue',main:'是',belog:'上海服装服务有限公司',position:'设计师',role:'使用者',satus:'在职',tel:'13636899988',time:'2018-12-12 12:12:12',mode:'电话',isWX:'是',WX:'25654566',source:'网站'},
+                    {id:6,name:'skyblue',main:'是',belog:'上海服装服务有限公司',position:'设计师',role:'使用者',satus:'在职',tel:'13636899988',time:'2018-12-12 12:12:12',mode:'电话',isWX:'是',WX:'25654566',source:'网站'},
+                    {id:7,name:'skyblue',main:'是',belog:'上海服装服务有限公司',position:'设计师',role:'使用者',satus:'在职',tel:'13636899988',time:'2018-12-12 12:12:12',mode:'电话',isWX:'是',WX:'25654566',source:'网站'},
+                ],
+                noteFilter:{
+                    orderStart:'',
+                    orderEnd:'',
+                    sex:'男',
+                    area:'',
+                    tel:'',
+                    belog:'',
+                    name:'',
+                    id:'',
+                    contactStart:'',
+                    contactEnd:'',
+                    main:1,
+                    role:'',
+                    position:'',
+                    status:''
+                },
+               
+            },
+            mounted() {
+                this.page();
+                this.dateTime();
+            },
+            methods: {
+                filterFunc: function () {                                //确认筛选列表
+                    console.log(this.noteFilter);
+                },
+                page: function () {                                      //分页
+                    layui.use('laypage', function () {
+                        var laypage = layui.laypage;
+                        //执行一个laypage实例
+                        laypage.render({
+                            elem: 'laypage-section',
+                            count: 50,
+                            layout: ['prev', 'page', 'next', 'limit', 'count', 'skip'],
+                            jump: function (obj) {
+                                console.log(obj)
+                                var curr = obj.curr;
+                            }
+                        });
+                    });
+                },
+                dateTime: function () {              //时间控件
+                    var self = this
+                     layui.use('laydate', function () {
+                         var laydate = layui.laydate;
+                         laydate.render({
+                             elem: '.js-orderStart',
+                             done: function(value){
+                                self.noteFilter.orderStart=value
+                               }
+                         });
+                         laydate.render({
+                             elem: '.js-orderEnd',
+                             done: function(value){
+                                 self.noteFilter.orderEnd=value
+                                }
+                         });
+                         laydate.render({
+                             elem: '.js-contactStart',
+                             done: function(value){
+                                 self.noteFilter.contactStart=value
+                                }
+                         });
+                         laydate.render({
+                             elem: '.js-contactEnd',
+                             done: function(value){
+                                 self.noteFilter.contactEnd=value
+                                }
+                         });
+                     });
+                 }
+            },
+        })
+    })
+})

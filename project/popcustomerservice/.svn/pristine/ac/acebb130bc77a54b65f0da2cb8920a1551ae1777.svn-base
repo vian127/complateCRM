@@ -1,0 +1,688 @@
+package com.pop136.customerservice.entity.customer;
+
+import java.util.Date;
+
+/**
+ * 活动 详情
+ */
+public class CustomerActivity {
+    private String id;
+
+    private String voucherid;
+
+    private String subject;
+
+    private Integer typeid;
+
+    private String typename;
+
+    private Integer statusid;
+
+    private String statusname;
+
+    private Date activetime;
+
+    private String customerid;
+
+    private String customername;
+
+    private String contactid;
+
+    private String contactname;
+
+    private Date signdate;
+
+    private Date validdate;
+
+    private Date returndate;
+
+    private Date begindate;
+
+    private Date enddate;
+
+    private Double amount;
+
+    private Double returnamount;
+
+    private String customfield1;
+
+    private String customfield2;
+
+    private String customfield3;
+
+    private String customfield4;
+
+    private String customfield5;
+
+    private Integer customdict1;
+
+    private Integer customdict2;
+
+    private Integer customdict3;
+
+    private Integer customdict4;
+
+    private Integer customdict5;
+
+    private Date createtime;
+
+    private Date lastupdatetime;
+
+    private Integer deleteflag;
+
+    private Integer annexflag;
+
+    private String updateroleid;
+
+    private String ownerroleid;
+
+    private String creatorroleid;
+
+    private String grpcode;
+
+    private String orgcode;
+
+    private String loccode;
+
+    private Double customfield10;
+
+    private Double customfield11;
+
+    private Double customfield12;
+
+    private Double customfield13;
+
+    private String companytel;
+
+    private String companyfax;
+
+    private String contacttel;
+
+    private String contactmob;
+
+    private String customfield6;
+
+    private String customfield7;
+
+    private String customfield8;
+
+    private String customfield9;
+
+    private Integer paytype;
+
+    private Double remitamount;
+
+    private Integer takeoffreasonid;
+
+    private String takeoffreasonname;
+
+    private Date tomoneydate;
+
+    private String oldaccountname;
+
+    private String receivername;
+
+    private Double bookamount;
+
+    private Double openaccountamount;
+
+    private Double designamount;
+
+    private Double serviceamount;
+
+    private String sex;
+
+    private String industry;
+
+    private String section;
+
+    private Integer materservvip;
+
+    private Double backamount;
+
+    private String remark;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getVoucherid() {
+        return voucherid;
+    }
+
+    public void setVoucherid(String voucherid) {
+        this.voucherid = voucherid;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public Integer getTypeid() {
+        return typeid;
+    }
+
+    public void setTypeid(Integer typeid) {
+        this.typeid = typeid;
+    }
+
+    public String getTypename() {
+        return typename;
+    }
+
+    public void setTypename(String typename) {
+        this.typename = typename;
+    }
+
+    public Integer getStatusid() {
+        return statusid;
+    }
+
+    public void setStatusid(Integer statusid) {
+        this.statusid = statusid;
+    }
+
+    public String getStatusname() {
+        return statusname;
+    }
+
+    public void setStatusname(String statusname) {
+        this.statusname = statusname;
+    }
+
+    public Date getActivetime() {
+        return activetime;
+    }
+
+    public void setActivetime(Date activetime) {
+        this.activetime = activetime;
+    }
+
+    public String getCustomerid() {
+        return customerid;
+    }
+
+    public void setCustomerid(String customerid) {
+        this.customerid = customerid;
+    }
+
+    public String getCustomername() {
+        return customername;
+    }
+
+    public void setCustomername(String customername) {
+        this.customername = customername;
+    }
+
+    public String getContactid() {
+        return contactid;
+    }
+
+    public void setContactid(String contactid) {
+        this.contactid = contactid;
+    }
+
+    public String getContactname() {
+        return contactname;
+    }
+
+    public void setContactname(String contactname) {
+        this.contactname = contactname;
+    }
+
+    public Date getSigndate() {
+        return signdate;
+    }
+
+    public void setSigndate(Date signdate) {
+        this.signdate = signdate;
+    }
+
+    public Date getValiddate() {
+        return validdate;
+    }
+
+    public void setValiddate(Date validdate) {
+        this.validdate = validdate;
+    }
+
+    public Date getReturndate() {
+        return returndate;
+    }
+
+    public void setReturndate(Date returndate) {
+        this.returndate = returndate;
+    }
+
+    public Date getBegindate() {
+        return begindate;
+    }
+
+    public void setBegindate(Date begindate) {
+        this.begindate = begindate;
+    }
+
+    public Date getEnddate() {
+        return enddate;
+    }
+
+    public void setEnddate(Date enddate) {
+        this.enddate = enddate;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public Double getReturnamount() {
+        return returnamount;
+    }
+
+    public void setReturnamount(Double returnamount) {
+        this.returnamount = returnamount;
+    }
+
+    public String getCustomfield1() {
+        return customfield1;
+    }
+
+    public void setCustomfield1(String customfield1) {
+        this.customfield1 = customfield1;
+    }
+
+    public String getCustomfield2() {
+        return customfield2;
+    }
+
+    public void setCustomfield2(String customfield2) {
+        this.customfield2 = customfield2;
+    }
+
+    public String getCustomfield3() {
+        return customfield3;
+    }
+
+    public void setCustomfield3(String customfield3) {
+        this.customfield3 = customfield3;
+    }
+
+    public String getCustomfield4() {
+        return customfield4;
+    }
+
+    public void setCustomfield4(String customfield4) {
+        this.customfield4 = customfield4;
+    }
+
+    public String getCustomfield5() {
+        return customfield5;
+    }
+
+    public void setCustomfield5(String customfield5) {
+        this.customfield5 = customfield5;
+    }
+
+    public Integer getCustomdict1() {
+        return customdict1;
+    }
+
+    public void setCustomdict1(Integer customdict1) {
+        this.customdict1 = customdict1;
+    }
+
+    public Integer getCustomdict2() {
+        return customdict2;
+    }
+
+    public void setCustomdict2(Integer customdict2) {
+        this.customdict2 = customdict2;
+    }
+
+    public Integer getCustomdict3() {
+        return customdict3;
+    }
+
+    public void setCustomdict3(Integer customdict3) {
+        this.customdict3 = customdict3;
+    }
+
+    public Integer getCustomdict4() {
+        return customdict4;
+    }
+
+    public void setCustomdict4(Integer customdict4) {
+        this.customdict4 = customdict4;
+    }
+
+    public Integer getCustomdict5() {
+        return customdict5;
+    }
+
+    public void setCustomdict5(Integer customdict5) {
+        this.customdict5 = customdict5;
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public Date getLastupdatetime() {
+        return lastupdatetime;
+    }
+
+    public void setLastupdatetime(Date lastupdatetime) {
+        this.lastupdatetime = lastupdatetime;
+    }
+
+    public Integer getDeleteflag() {
+        return deleteflag;
+    }
+
+    public void setDeleteflag(Integer deleteflag) {
+        this.deleteflag = deleteflag;
+    }
+
+    public Integer getAnnexflag() {
+        return annexflag;
+    }
+
+    public void setAnnexflag(Integer annexflag) {
+        this.annexflag = annexflag;
+    }
+
+    public String getUpdateroleid() {
+        return updateroleid;
+    }
+
+    public void setUpdateroleid(String updateroleid) {
+        this.updateroleid = updateroleid;
+    }
+
+    public String getOwnerroleid() {
+        return ownerroleid;
+    }
+
+    public void setOwnerroleid(String ownerroleid) {
+        this.ownerroleid = ownerroleid;
+    }
+
+    public String getCreatorroleid() {
+        return creatorroleid;
+    }
+
+    public void setCreatorroleid(String creatorroleid) {
+        this.creatorroleid = creatorroleid;
+    }
+
+    public String getGrpcode() {
+        return grpcode;
+    }
+
+    public void setGrpcode(String grpcode) {
+        this.grpcode = grpcode;
+    }
+
+    public String getOrgcode() {
+        return orgcode;
+    }
+
+    public void setOrgcode(String orgcode) {
+        this.orgcode = orgcode;
+    }
+
+    public String getLoccode() {
+        return loccode;
+    }
+
+    public void setLoccode(String loccode) {
+        this.loccode = loccode;
+    }
+
+    public Double getCustomfield10() {
+        return customfield10;
+    }
+
+    public void setCustomfield10(Double customfield10) {
+        this.customfield10 = customfield10;
+    }
+
+    public Double getCustomfield11() {
+        return customfield11;
+    }
+
+    public void setCustomfield11(Double customfield11) {
+        this.customfield11 = customfield11;
+    }
+
+    public Double getCustomfield12() {
+        return customfield12;
+    }
+
+    public void setCustomfield12(Double customfield12) {
+        this.customfield12 = customfield12;
+    }
+
+    public Double getCustomfield13() {
+        return customfield13;
+    }
+
+    public void setCustomfield13(Double customfield13) {
+        this.customfield13 = customfield13;
+    }
+
+    public String getCompanytel() {
+        return companytel;
+    }
+
+    public void setCompanytel(String companytel) {
+        this.companytel = companytel;
+    }
+
+    public String getCompanyfax() {
+        return companyfax;
+    }
+
+    public void setCompanyfax(String companyfax) {
+        this.companyfax = companyfax;
+    }
+
+    public String getContacttel() {
+        return contacttel;
+    }
+
+    public void setContacttel(String contacttel) {
+        this.contacttel = contacttel;
+    }
+
+    public String getContactmob() {
+        return contactmob;
+    }
+
+    public void setContactmob(String contactmob) {
+        this.contactmob = contactmob;
+    }
+
+    public String getCustomfield6() {
+        return customfield6;
+    }
+
+    public void setCustomfield6(String customfield6) {
+        this.customfield6 = customfield6;
+    }
+
+    public String getCustomfield7() {
+        return customfield7;
+    }
+
+    public void setCustomfield7(String customfield7) {
+        this.customfield7 = customfield7;
+    }
+
+    public String getCustomfield8() {
+        return customfield8;
+    }
+
+    public void setCustomfield8(String customfield8) {
+        this.customfield8 = customfield8;
+    }
+
+    public String getCustomfield9() {
+        return customfield9;
+    }
+
+    public void setCustomfield9(String customfield9) {
+        this.customfield9 = customfield9;
+    }
+
+    public Integer getPaytype() {
+        return paytype;
+    }
+
+    public void setPaytype(Integer paytype) {
+        this.paytype = paytype;
+    }
+
+    public Double getRemitamount() {
+        return remitamount;
+    }
+
+    public void setRemitamount(Double remitamount) {
+        this.remitamount = remitamount;
+    }
+
+    public Integer getTakeoffreasonid() {
+        return takeoffreasonid;
+    }
+
+    public void setTakeoffreasonid(Integer takeoffreasonid) {
+        this.takeoffreasonid = takeoffreasonid;
+    }
+
+    public String getTakeoffreasonname() {
+        return takeoffreasonname;
+    }
+
+    public void setTakeoffreasonname(String takeoffreasonname) {
+        this.takeoffreasonname = takeoffreasonname;
+    }
+
+    public Date getTomoneydate() {
+        return tomoneydate;
+    }
+
+    public void setTomoneydate(Date tomoneydate) {
+        this.tomoneydate = tomoneydate;
+    }
+
+    public String getOldaccountname() {
+        return oldaccountname;
+    }
+
+    public void setOldaccountname(String oldaccountname) {
+        this.oldaccountname = oldaccountname;
+    }
+
+    public String getReceivername() {
+        return receivername;
+    }
+
+    public void setReceivername(String receivername) {
+        this.receivername = receivername;
+    }
+
+    public Double getBookamount() {
+        return bookamount;
+    }
+
+    public void setBookamount(Double bookamount) {
+        this.bookamount = bookamount;
+    }
+
+    public Double getOpenaccountamount() {
+        return openaccountamount;
+    }
+
+    public void setOpenaccountamount(Double openaccountamount) {
+        this.openaccountamount = openaccountamount;
+    }
+
+    public Double getDesignamount() {
+        return designamount;
+    }
+
+    public void setDesignamount(Double designamount) {
+        this.designamount = designamount;
+    }
+
+    public Double getServiceamount() {
+        return serviceamount;
+    }
+
+    public void setServiceamount(Double serviceamount) {
+        this.serviceamount = serviceamount;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry;
+    }
+
+    public String getSection() {
+        return section;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
+    }
+
+    public Integer getMaterservvip() {
+        return materservvip;
+    }
+
+    public void setMaterservvip(Integer materservvip) {
+        this.materservvip = materservvip;
+    }
+
+    public Double getBackamount() {
+        return backamount;
+    }
+
+    public void setBackamount(Double backamount) {
+        this.backamount = backamount;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+}

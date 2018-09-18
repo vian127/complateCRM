@@ -1,0 +1,83 @@
+package com.pop136.customerservice.service.marketing;
+
+import com.pop136.core.BeanUtil;
+import com.pop136.core.webservice.client.SMSClient;
+import com.pop136.customerservice.constant.Constant;
+import com.pop136.customerservice.entity.marketing.MsgSend;
+import com.pop136.customerservice.mapper.agent.marketing.MsgSendMapper;
+import com.pop136.customerservice.service.AbstractBaseService;
+import com.pop136.customerservice.utils.GetRID;
+import com.pop136.customerservice.utils.TimeUtil;
+import com.pop136.customerservice.vo.marketing.param.MsgParamVo;
+import com.pop136.customerservice.vo.marketing.param.MsgSendParamVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class MsgSendService extends AbstractBaseService {
+
+  @Autowired
+  private MsgSendMapper msgSendMapper;
+
+
+  public void init() {
+    setMapper(msgSendMapper);
+  }
+
+
+  /**
+   *
+   * @param paramVo
+   * @return
+   */
+  public Map<String, Object> sendNote(MsgSendParamVo paramVo) {
+
+    Map<String, Object> resultMap = new HashMap<>();
+    //发送短信
+
+    List<String> phones = new ArrayList<>();
+
+    for (MsgParamVo msgParamVo : paramVo.getParamVos()) {
+      //记录 每次发送信息
+
+      MsgSend msgSend = new MsgSend();
+      msgSend.setId(new GetRID(Constant.COMP_CODE, Constant.MSG_MODULE_ID, paramVo.getTemplateId()).getId());
+      msgSend.setContent(paramVo.getContent());//内容
+      msgSend.setTemplateid(paramVo.getTemplateId());//模版
+      msgSend.setPhonenumber(msgParamVo.getPhoneNumber());//电话号
+      msgSend.setCreatetime(TimeUtil.currentTime());
+      msgSend.setStatusid(0);//已经发送
+
+      msgSend.setTypeid(0);//暂定
+
+      phones.add(msgSend.getPhonenumber());
+      this.create(msgSend, MsgSend.class);
+
+    }
+
+    sendMsgNote(BeanUtil.ListToString(phones), paramVo.getContent());
+
+    return null;
+  }
+
+  /**
+   * 发送短信
+   * @param phones
+   */
+  private void sendMsgNote(String phones, String content) {
+
+    SMSClient smsClient = new SMSClient();
+
+    try {
+      smsClient.sendSms(Constant.MSG_USERNAME, Constant.MSG_PASSWORD, phones, content);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+  }
+}

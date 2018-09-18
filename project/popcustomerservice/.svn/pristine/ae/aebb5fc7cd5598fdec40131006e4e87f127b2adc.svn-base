@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="CRM" />
+    <meta name="description" content="CRM" />
+    <title>用户管理</title>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/common/form-list.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/customer/userlist.css}" />
+</head>
+
+<body>
+    <!-- view -->
+    <div id="wrapper">
+        <!-- header -->
+        <div class="header" th:include="./views/common/header :: headertpl"></div>
+        <div id="page-wrapper">
+            <!-- content -->
+            <div class="content" id='app'>
+                <!-- 用户管理 -->
+                <div v-if="page_type==1?true:false">
+                    <!-- 页面位置 -->
+                    <div class="page-header-section">
+                        <h3>用户管理</h3>
+                    </div>
+                    <!-- 表单 -->
+                    <div class="form-section form-inline">
+                        <form class="js-form">
+                            <div class="row ">
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-3">
+                                        <label for="">移动电话</label>
+                                        <input type="text" class='form-control' placeholder="请输入移动电话" v-model='collect.mobile'>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">所属客户</label>
+                                        <input type="text" class='form-control' placeholder="请输入所属客户" v-model='collect.customerName'>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">姓名</label>
+                                        <input type="text" class='form-control' placeholder="请输入姓名" v-model='collect.name'>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">id</label>
+                                        <input type="text" class='form-control' placeholder="请输入客户id" v-model='collect.customerId'>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-3">
+                                        <label for="">电话号码</label>
+                                        <input type="text" class='form-control' placeholder="请输入电话号码" v-model='collect.telephone'>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">qq</label>
+                                        <input type="text" class='form-control' placeholder="请输入qq" v-model='collect.qq'>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">邮箱</label>
+                                        <input type="text" class='form-control' placeholder="请输入邮箱" v-model='collect.email'>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">微信号</label>
+                                        <input type="text" class='form-control' placeholder="请输入微信号" v-model='collect.weChat'>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class='form-group col-md-12'>
+                                        <div class='pull-right btn-div'>
+                                            <button type="reset" class="btn btn-default" @click="resetFunc(1)">重置</button>
+                                            <button type="button" class="btn btn-primary" @click="filterFunc">确认筛选</button>
+                                            <button type="button" class="btn btn-default" @click="showFilterBox">高级筛选</button>
+                                            <button type="button" class="btn btn-default" @click="toggleSelect">显示/隐藏字段</button>
+                                        </div>
+                                        <!--显示隐藏字段  -->
+                                        <div class='choice-box' :style="{'display':list_info.is_show_select?'block':'none'}">
+                                            <div class="check-all-div">
+                                                <input id="check-all" type="checkbox" class='all-select' @change='changeAll($event)' v-model="list_info.checked_all">
+                                                <label for="check-all">全选</label>
+                                            </div>
+                                            <ul class="col-list">
+                                                <li v-for='item in thead'>
+                                                    <input id="'check-'+item.id" type="checkbox" class='single-select' @change='changeCol($event,item.id)' v-model="item.is_show">
+                                                    <label for="'check-'+item.id">{{ item.name }}</label>
+                                                </li>
+                                                <li class="control-item">
+                                                    <button type='button' class='btn btn-default btn-sm' @click="toggleSelect">取消</button>
+                                                    <button type='button' class='btn btn-primary btn-sm' @click="saveSelect">保存设置</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- 发送短信添加用户 -->
+                <div v-else="">
+
+                    <div class="page-header-section">
+                        <h3>群发短信&gt;选择用户</h3>
+                    </div>
+                    <div class='checked-section'>
+                       已选中<span class="text-primary" v-text="check_list.length"></span>个新发送对象
+                    </div>
+                    <!-- 表单 -->
+                    <div class="form-inline">
+                        <form class='js-form'>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-6">
+                                        <label for="" style="width:6.5em">订单开始时间</label>
+                                        <input type="text" placeholder="请输入时间" class='form-control js-orderStart' v-model='collect.orderStart'> ~
+                                        <input type="text" placeholder="请输入时间" class='form-control js-orderEnd' v-model='collect.orderEnd'>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="" style="width:6.5em">最后联络时间</label>
+                                        <input type="text" placeholder="请输入时间" class='form-control js-contactStart' v-model='collect.contactStart'> ~
+                                        <input type="text" placeholder="请输入时间" class='form-control js-contactEnd' v-model='collect.contactEnd'>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-3">
+                                        <label for="">性别</label>
+                                        <ul class="form-control checked-list js-checked-list" data-key="sex" data-checkid="">
+                                            <li>请选择性别</li>
+                                        </ul>
+                                        <div class="filter-div js-filter-div" data-id="tag00002">
+                                            <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                                            <div class="checkbox-container js-checkbox-container"></div>
+                                            <div class="btn-div">
+                                                <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                                                <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">用户角色</label>
+                                        <ul class="form-control checked-list js-checked-list" data-key="role" data-checkid="">
+                                            <li>请选择角色</li>
+                                        </ul>
+                                        <div class="filter-div js-filter-div" data-id="tag00018">
+                                            <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                                            <div class="checkbox-container js-checkbox-container"></div>
+                                            <div class="btn-div">
+                                                <button class="btn btn-default btn-sm js-cancel-checked" type="button">取消</button>
+                                                <button class="btn btn-primary btn-sm js-add-checked" type="button">确定</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>城市</label>
+                                        <select name="checks" id="" class="form-control" v-model='collect.province' @change="changeCitys($event,'province')">
+                                            <option value="">请选择省份</option>
+                                            <option :value='item.id' v-for='item in province'>{{ item.name }}</option>
+                                        </select>
+                                        <select name="checks" id="" class="form-control" v-model='collect.city' @change="changeCitys($event,'citys')">
+                                            <option value="">请选择城市</option>
+                                            <option :value="item.id" v-for='item in citys'>{{ item.name }}</option>
+                                        </select>
+                                        <select name="checks" id="" class="form-control" v-model='collect.district'>
+                                            <option value="">请选择地区</option>
+                                            <option :value="item.id" v-for='item in districts'>{{ item.name }}</option>
+                                        </select>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-3">
+                                        <label for="">移动电话</label>
+                                        <input type="text" placeholder="请输入电话" class='form-control' v-model='collect.mobile'>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">用户职务</label>
+                                        <select name="" id="" class="form-control js-select-ele" data-id="tag00011" v-model='collect.duty'>
+                                            <option value="">请选择</option>
+                                            <option v-for="item in def.select_data.dutys || [{id:'',value:'请选择'}]" :value="item.id" v-text="item.value"></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">所属客户</label>
+                                        <input type="text" placeholder="请输入所属客户" class='form-control' v-model='collect.customerName'>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">姓名</label>
+                                        <input type="text" placeholder="请输入姓名" class='form-control' v-model='collect.name'>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <div class="form-group col-md-3">
+                                        <label for="">id</label>
+                                        <input type="text" placeholder="请输入客户id" class='form-control' v-model='collect.customerId'>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="">用户状态</label>
+                                        <select name="" id="" class="form-control js-select-ele" data-id="tag00012" v-model='collect.status'>
+                                            <option value="">请选择</option>
+                                            <option v-for="item in def.select_data.status || [{id:'',value:'请选择'}]" :value="item.id" v-text="item.value"></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="" style="width:6.5em">是否主联系人</label>
+                                        <select name="" id="" class='form-control' v-model='collect.main'>
+                                            <option value="">请选择</option>
+                                            <option value="1">是</option>
+                                            <option value="2">否</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-12">
+                                        <div class='pull-right btn-div'>
+                                            <button type="button" class="btn btn-default" @click='resetFunc(1)'>重置</button>
+                                            <button type="button" class="btn btn-primary" @click="filterFunc">确认筛选</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- 列表 -->
+                <div class="list-section">
+                    <table class='table table-bordered table-hover js-list-table'>
+                        <thead>
+                            <tr>
+                                <th class="js-col1-ele">
+                                    <input type="checkbox" class='info-all' v-model="is_check_all" @change="checkAllList">
+                                </th>
+                                <th class="js-col2-ele" width='10%'>操作</th>
+                                <th v-for='item in thead' :class="'js-col'+item.id+'-ele js-can-hide'" v-if="item.is_show" v-text='item.name'></th>
+                            </tr>
+                        </thead>
+                        <tbody>   
+                            <tr align='center' v-for='item in list'>
+                                <td class="js-col1-ele" :data-id='item.id'>
+                                    <input type="checkbox" class='info-single' v-model="item.is_check" @change="checkOne($event,item.id)">
+                                </td>
+                                <td class="js-col2-ele" data-key="col1">
+                                    <a :href="'/api/web/customer/adduser?contactid='+item.id+'&customerid='+item.customerId" target="_blank">查看</a>
+                                </td>
+                                <td class="js-col3-ele js-can-hide" v-text="item.name"></td>
+                                <td class="js-col4-ele js-can-hide" v-text="item.main==1?'是':'否'"></td>
+                                <td class="js-col5-ele js-can-hide" v-text="item.customerName"></td>
+                                <td class="js-col6-ele js-can-hide" v-text="item.duty"></td>
+                                <td class="js-col7-ele js-can-hide" v-text="item.role"></td>
+                                <td class="js-col8-ele js-can-hide" v-text="item.status"></td>
+                                <td class="js-col9-ele js-can-hide" v-text="item.mobile"></td>
+                                <td class="js-col10-ele js-can-hide" v-text="item.LastContactDate!=undefined?item.LastContactDate:''"></td>
+                                <td class="js-col11-ele js-can-hide" v-text="item.LastContactType"></td>
+                                <td class="js-col12-ele js-can-hide" v-text="isWeChat[item.isWeChat]"></td>
+                                <td class="js-col13-ele js-can-hide" v-text="item.weChat"></td>
+                                <td class="js-col14-ele js-can-hide" v-text="item.source"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="laypage-section" class='text-right'></div>
+                </div>
+            </div>
+            <!-- footer -->
+            <div class="footer" th:include="./views/common/footer :: footertpl"></div>
+        </div>
+    </div>
+    <!-- 共用模块 -->
+    <div th:include="./views/common/common :: commontpl"></div>
+
+    <!-- 弹出层 -->
+    <div th:replace="./views/layertemplate/user-filter :: user_filter"></div>
+    <!-- JS Scripts-->
+    <script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/customer/userlist.js}"></script>
+</body>
+
+</html>

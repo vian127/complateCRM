@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">
+
+
+    <select id="findUserByNameAndPasswd" resultType="com.pop136.customerservice.vo.user.UserValueVo">
+        SELECT ac.id, ac.userid, ac.passwd, ur.id as userroleid
+        FROM  mp_account ac
+        inner join mp_user us on ac.userid = us.id
+        inner join mp_userrole ur on us.id = ur.userid
+        WHERE
+        1 = 1
+        AND
+        ac.name = #{name}
+        AND ac.passwd = #{passwd}
+        AND ac.deleteflag= 0 AND us.deleteflag=0 AND ur.deleteflag=0
+    </select>
+
+    <select id="findUserRoleById" resultType="com.pop136.customerservice.vo.user.UserValueVo">
+        SELECT ac.id, ac.userid, ac.passwd, ur.id as userroleid
+        FROM  mp_account ac
+        inner join mp_user us on ac.userid = us.id
+        inner join mp_userrole ur on us.id = ur.userid
+        WHERE
+        1 = 1
+        AND
+        ac.name = #{name}
+        AND ac.passwd = #{passwd}
+        AND ac.deleteflag= 0 AND us.deleteflag=0 AND ur.deleteflag=0
+    </select>
+
+</mapper>

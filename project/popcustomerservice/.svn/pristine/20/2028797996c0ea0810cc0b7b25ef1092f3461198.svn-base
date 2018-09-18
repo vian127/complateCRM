@@ -1,0 +1,18 @@
+@charset 'UTF-8';
+
+.form-inline .checked-list{max-width: 240px;}
+.checked-list>li{display: inline-block;display: 4px 8px;background-color: #fff}
+.filter-div{display: none;z-index: 10;position: absolute;left: 80px;top: 40px;padding: 10px;background-color: #fff;border:1px solid #aaa;}
+
+.tab-section{margin-top: 30px;}
+.tab-list{margin-bottom: 10px;}
+.tab-list>li{display: inline-block;}
+.stats-info {height:380px;overflow: auto; white-space: nowrap;}
+.stats-info>div{display:none;}
+.stats-active{background-color: #337ab7;color: #fff;}
+.pr-record div {padding:0;}
+
+
+
+.form-group .address-area{width: 70%;}
+.form-group .company-area{width: 70%;}

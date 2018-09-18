@@ -1,0 +1,28 @@
+/*
+    #author     gaofeng
+    #date       2017/07/24
+    #purpose    回访详情页
+*/
+
+require(['vue', 'msg', 'layui'], function (Vue, msg) {
+    $(function () {
+        var def = {
+            loading_ele: $('.js-loading-div')
+        };
+        def.loading_ele.fadeOut(400);
+        var vm = new Vue({
+            el: '#app',
+            data() {
+               
+            },
+           
+            methods: {
+              
+            },
+        })
+        $('.js-open').on('click',function(){
+            $(this).toggleClass('fa-plus-square-o').toggleClass('fa-minus-square-o')
+            .parent().parent().next().toggle();
+        })
+    })
+})

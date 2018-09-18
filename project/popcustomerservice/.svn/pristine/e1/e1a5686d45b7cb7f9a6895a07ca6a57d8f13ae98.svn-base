@@ -1,0 +1,179 @@
+package com.pop136.customerservice.entity.tag;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * 客户 标签数据
+ */
+public class TagCustomer implements Serializable {
+    private String id;
+
+    private String tagid;
+
+    private String code;
+
+    private String value;
+
+    private String description;
+
+    private String lang;
+
+    private String customerid;
+
+    private String createtime;
+
+    private String lastupdatetime;
+
+    private Integer deleteflag;
+
+    private String createroleid;
+
+    private String updateroleid;
+
+    private String grpcode;
+
+    private String orgcode;
+
+    private String loccode;
+
+    private String creater;
+
+    private String updater;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTagid() {
+        return tagid;
+    }
+
+    public void setTagid(String tagid) {
+        this.tagid = tagid;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
+
+    public String getCustomerid() {
+        return customerid;
+    }
+
+    public void setCustomerid(String customerid) {
+        this.customerid = customerid;
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getLastupdatetime() {
+        return lastupdatetime;
+    }
+
+    public void setLastupdatetime(String lastupdatetime) {
+        this.lastupdatetime = lastupdatetime;
+    }
+
+    public Integer getDeleteflag() {
+        return deleteflag;
+    }
+
+    public void setDeleteflag(Integer deleteflag) {
+        this.deleteflag = deleteflag;
+    }
+
+    public String getCreateroleid() {
+        return createroleid;
+    }
+
+    public void setCreateroleid(String createroleid) {
+        this.createroleid = createroleid;
+    }
+
+    public String getUpdateroleid() {
+        return updateroleid;
+    }
+
+    public void setUpdateroleid(String updateroleid) {
+        this.updateroleid = updateroleid;
+    }
+
+    public String getGrpcode() {
+        return grpcode;
+    }
+
+    public void setGrpcode(String grpcode) {
+        this.grpcode = grpcode;
+    }
+
+    public String getOrgcode() {
+        return orgcode;
+    }
+
+    public void setOrgcode(String orgcode) {
+        this.orgcode = orgcode;
+    }
+
+    public String getLoccode() {
+        return loccode;
+    }
+
+    public void setLoccode(String loccode) {
+        this.loccode = loccode;
+    }
+
+    public String getCreater() {
+        return creater;
+    }
+
+    public void setCreater(String creater) {
+        this.creater = creater;
+    }
+
+    public String getUpdater() {
+        return updater;
+    }
+
+    public void setUpdater(String updater) {
+        this.updater = updater;
+    }
+}

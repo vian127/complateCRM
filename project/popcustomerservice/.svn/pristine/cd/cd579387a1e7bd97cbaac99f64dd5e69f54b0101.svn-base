@@ -1,0 +1,63 @@
+<!-- 客户列表高级筛选模板 -->
+<div th:fragment="user_filter" class="user-filter-box js-user-filter-box">
+    <style th:inline="text">
+        .user-filter-box{display: none;padding: 20px 20px 0;}
+        .form-section>form>h3{font-size: 16px;padding-bottom: 10px;margin-bottom: 15px;border-bottom: 1px solid #aaa;}
+
+        .form-section .form-group{margin-bottom: 10px}
+        .form-section .form-group>label{width: 8em;}
+
+        .service-div>h3{font-size: 16px;margin-bottom: 15px;}
+        .service-div>div{margin-bottom: 10px;}
+    </style>
+    <div class="form-section form-inline">
+        <form class="clearfix">
+            <h3>高级筛选项</h3>
+            <div class="col-md-12">
+                <div class="form-group col-md-12">
+                    <label for="">是否主联系人</label>
+                    <select name="" id="" class='form-control' v-model='collect.stage'>
+                        <option value="1">全部</option>
+                        <option value="2">是</option>
+                        <option value="3">否</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="">最后联络时间</label>
+                    <input type="text" class='form-control js-date-area1' placeholder="请选择日期" v-model='collect.account'>
+                    ~
+                    <input type="text" class='form-control js-date-area2' placeholder="请选择日期" v-model='collect.account'>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="">用户角色</label>
+                    <ul class="form-control checked-list js-checked-list" data-key='industry'>
+                        <li v-text="customer_info.enterpriseType || '请选择用户角色'"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="js-trees-industry">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <ul class="ztree js-trees-ele" id="js-trees-industry"></ul>
+                        <div class="text-right">
+                            <button class="btn btn-default btn-sm js-cancel-checked">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked">确定</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="">用户状态</label>
+                    <ul class="form-control checked-list js-checked-list" data-key='status'>
+                        <li v-text="customer_info.enterpriseType || '请选择用户状态'"></li>
+                    </ul>
+                    <div class="filter-div js-filter-div" data-id="js-trees-status">
+                        <input type="text" placeholder="输入要搜索的文字" class='form-control js-search-trees'>
+                        <ul class="ztree js-trees-ele" id="js-trees-status"></ul>
+                        <div class="text-right">
+                            <button class="btn btn-default btn-sm js-cancel-checked">取消</button>
+                            <button class="btn btn-primary btn-sm js-add-checked">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </form>
+    </div>
+</div>

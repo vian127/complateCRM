@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="CRM" />
+    <meta name="description" content="CRM" />
+    <title>新增任务</title>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/common/form-list.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/manage/addtask.css}" />
+</head>
+
+<body>
+    <!-- view -->
+    <div id="wrapper">
+        <!-- header -->
+        <div class="header" th:include="./views/common/header :: headertpl"></div>
+        <div id="page-wrapper">
+            <!--content -->
+            <div class="content" id='app'>
+                <!-- 页面位置 -->
+                <div class="page-header-section">
+                    <h3>新增任务</h3>
+                </div>
+                <div class="col-md-12 text-right">
+                    <button type='button' class="btn btn-default" title="取消">取消</button>
+                    <a href='./statisticaldetail' class="btn btn-primary" title="确认创建" @click.prevent='createdFunc()'>确认创建</a>
+
+                </div>
+                <!-- 表单 -->
+                <div class="form-section form-inline">
+                    <form class='js-form'>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group col-md-4">
+                                    <font color="red">*</font>
+                                    <label for="">任务类型</label>
+                                    <select name="" id="" class='form-control' v-model='collect.type'>
+                                        <option value="1">任务类型</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <font color="red">*</font>
+                                    <label for="">任务标题</label>
+                                    <input type="text" class='form-control' placeholder="请输入任务标题" v-model='collect.title'>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group col-md-12">
+                                    <label for="">任务描述</label>
+                                    <textarea name="" id="" cols="100%" rows="3" class='form-control' v-model='collect.desc'></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group col-md-4">
+                                    <font color="red">*</font>
+                                    <label for="">任务期限</label>
+                                    <input type="text" class="form-control" placeholder="请输入日期" id="js-tasklimit" v-model='collect.expire'>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <font color="red">*</font>
+                                    <label for="">指派给</label>
+                                    <select name="" id="" class='form-control' v-model='collect.assign'>
+                                        <option value="1">张三</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group col-md-2">
+                                    <font color="red">*</font>
+                                    <label for="">任务对象</label>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <strong>已添加<u v-text='taskNum.add'></u>个任务对象</strong>
+                                    <strong>已选中<u v-text='taskNum.select'></u>个任务对象</strong>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <div class="pull-right">
+                                        <a href='./newcustomers' class="btn btn-primary">添加客户</a>
+                                        <button type="button" class="btn btn-default">删除选中</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- 列表 -->
+                    <div class="list-section">
+                        <table class='table table-bordered table-hover'>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" @change='changeAll($event)' v-model="list_info.checked_all">
+                                    </th>
+                                    <th v-for='item in taskTh' v-text='item.name'></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr align='center' v-for='item in taskTb'>
+                                    <td :data-id='item.id'>
+                                        <input type="checkbox" @change='changeCol($event,item.id)' v-model="item.is_show">
+                                    </td>
+                                    <td v-text='item.account'></tdv->
+                                    <td v-text='item.company'></td>
+                                    <td v-text='item.visit'></td>
+                                    <td v-text='item.login'></td>
+                                    <td v-text='item.receive'></td>
+                                    <td v-text='item.time'></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="col-md-12">
+                            <div id="laypage-section" class='pull-right'></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- footer -->
+                <div class="footer" th:include="./views/common/footer :: footertpl"></div>
+            </div>
+        </div>
+        <!-- 共用模块 -->
+        <div th:include="./views/common/common :: commontpl"></div>
+        <!-- JS Scripts-->
+        <script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+        <script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+        <script type="text/javascript" th:src="@{/js/manage/addtask.js}"></script>
+</body>
+
+</html>

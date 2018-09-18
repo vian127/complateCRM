@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="CRM" />
+    <meta name="description" content="CRM" />
+    <title>回访详情</title>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/common/form-list.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/manage/visitdetail.css}" />
+</head>
+
+<body>
+    <!-- view -->
+    <div id="wrapper">
+        <!-- header -->
+        <div class="header" th:include="./views/common/header :: headertpl"></div>
+        <div id="page-wrapper">
+            <!-- content -->
+            <div class="content" id='app'>
+                <!-- 页面位置 -->
+                <div class="page-header-section">
+                    <h3>回访详情</h3>
+                </div>
+                <!-- 表单 -->
+                <div class="container-fluid form-section form-inline">
+                    <form class='js-form'>
+                        <div class="row">
+                            <div class='col-md-12 section-title'>
+                                <label class="slide-btn js-slide-btn"><button type='button'>－</button>信息管理</label>
+                            </div>
+                            <div class="form-section">
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-5">
+                                        <label for="">创建日期</label>
+                                        <input type="text" class='form-control' v-model="manage_info.createDate">
+                                    </div>
+                                    <div class="form-group col-md-5">
+                                        <label for="">创建人</label>
+                                        <input type="text" class='form-control' v-model="feedback_info.createName">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-5">
+                                        <label for="">最后修改日期</label>
+                                        <input type="text" class='form-control' v-model="manage_info.lastUpdateDate">
+                                    </div>
+                                    <div class="form-group col-md-5">
+                                        <label for="">修改人</label>
+                                        <input type="text" class='form-control' v-model="manage_info.lastUpdateDater">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-4">
+                                        <label for="">客户id</label>
+                                        <input type="text" class='form-control' v-model="manage_info.customerId">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">主账号</label>
+                                        <input type="text" class='form-control' v-model="manage_info.accountName">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">公司名称</label>
+                                        <a href="" v-text='feedback_info.companyName'>上海服装服务有限公司</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-md-12 section-title'>
+                                <label class="slide-btn js-slide-btn"><button type='button'>－</button>回访信息</label>
+                            </div>
+                            <div class="form-section">
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-4">
+                                        <label for="">服务对象</label>
+                                        <select name="" id="" class="form-control" v-model="feedback_info.contactName">
+                                            <option value="1">张三</option>
+                                            <option value="2">李四</option>
+                                            <option value="3">王五</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">手机号码</label>
+                                        <input type="text" value='13865675455' class="form-control" disabled='disabled'>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-4">
+                                        <label for="">服务方式</label>
+                                        <select name="" id="" class="form-control" v-model="feedback_info.serviceWay">
+                                            <option value="1">来电</option>
+                                            <option value="2">去电</option>
+                                            <option value="3">微信</option>
+                                            <option value="4">QQ</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">联络类型</label>
+                                        <select name="" id="" class="form-control" v-model="feedback_info.serviceType">
+                                            <option value="1">有效</option>
+                                            <option value="2">无效</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="">联络结果</label>
+                                        <select name="" id="" class="form-control">
+                                            <option value="1">稍后联系</option>
+                                            <option value="2">无人接听</option>
+                                            <option value="2">空号/错号</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-4">
+                                        <div>
+                                            <label for="">客户关注项</label>
+                                            <input type="text" class='form-control'>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                        <div>
+                                            <label for="">关注项备注</label>
+                                            <textarea name="" id="" cols="60%" rows="1" class='form-control'></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-4">
+                                        <label for="">用户印象</label>
+                                        <select name="" id="" class='form-control'>
+                                            <option value="1">I (很好沟通)</option>
+                                            <option value="2">II (一般)</option>
+                                            <option value="4">III (拒绝沟通)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="" class="col-md-1">多产品</label>
+                                    <div class="col-md-11 dist-bottom">
+                                        <div class="col-md-4">
+                                            <label for="" class='checkbox-inline'>
+                                                <input type="checkbox" name='' value='APM'>
+                                                <span>APM</span>
+                                            </label>
+                                            <select name="" id="" class="form-control">
+                                                <option value="1">不需要</option>
+                                                <option value="2">免费试用</option>
+                                                <option value="3">了解</option>
+                                                <option value="4">高意向</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="" class='checkbox-inline'>
+                                                <input type="checkbox" name='' value='书籍'>
+                                                <span>书籍</span>
+                                            </label>
+                                            <select name="" id="" class="form-control">
+                                                <option value="1">不需要</option>
+                                                <option value="2">免费试用</option>
+                                                <option value="3">了解</option>
+                                                <option value="4">高意向</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="" class='checkbox-inline'>
+                                                <input type="checkbox" name='' value='总裁班'>
+                                                <span>总裁班</span>
+                                            </label>
+                                            <select name="" id="" class="form-control">
+                                                <option value="1">不需要</option>
+                                                <option value="2">免费试用</option>
+                                                <option value="3">了解</option>
+                                                <option value="4">高意向</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="" class='checkbox-inline'>
+                                                <input type="checkbox" name='' value='云图'>
+                                                <span>云图</span>
+                                            </label>
+                                            <select name="" id="" class="form-control">
+                                                <option value="1">不需要</option>
+                                                <option value="2">免费试用</option>
+                                                <option value="3">了解</option>
+                                                <option value="4">高意向</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="" class='checkbox-inline'>
+                                                <input type="checkbox" name='' value='韩国行'>
+                                                <span>韩国行</span>
+                                            </label>
+                                            <select name="" id="" class="form-control">
+                                                <option value="1">不需要</option>
+                                                <option value="2">免费试用</option>
+                                                <option value="3">了解</option>
+                                                <option value="4">高意向</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="" class='checkbox-inline'>
+                                                <input type="checkbox" name='' value='展会'>
+                                                <span>展会</span>
+                                            </label>
+                                            <select name="" id="" class="form-control">
+                                                <option value="1">不需要</option>
+                                                <option value="2">免费试用</option>
+                                                <option value="3">了解</option>
+                                                <option value="4">高意向</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="">服务详情</label>  
+                                </div>
+                                <div class="col-md-12 form-section">
+                                    <div class="col-md-3">
+                                        <label for="" class='checkbox-inline'>
+                                            <input type="checkbox" name='' value='初次回访'>
+                                            <span>初次回访</span>
+                                        </label>
+                                        <select name="" id="" class='form-control'>
+                                            <option value="1">完善客户资料</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <input type="checkbox" name='' value='核实在职情况'>
+                                        <span>核实在职情况</span>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <input type="checkbox" name='' value='核实决策者情况'>
+                                        <span>核实决策者情况</span>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <input type="checkbox" name='' value='核实使用者情况'>
+                                        <span>核实使用者情况</span>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <input type="checkbox" name='' value='核实开发者信息'>
+                                        <span>核实开发信息</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-section">
+                                    <div class="col-md-3">
+                                        <label for="" class='checkbox-inline'>
+                                            <input type="checkbox" name='' value='发票项'>
+                                            <span>发票项</span>
+                                        </label>
+                                        <select name="" id="" class='form-control'>
+                                            <option value="1">普通发票</option>
+                                            <option value="2">专用发票</option>
+                                            <option value="3">不需要发票</option>
+                                            <option value="4">暂缓开票</option>
+                                            <option value="5">提前开票</option>
+                                            <option value="6">未收到，催发票</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <input type="checkbox" name='' value='完成'>
+                                        <span>完成</span>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <input type="checkbox" name='' value='缺税号'>
+                                        <span>缺税号</span>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <input type="checkbox" name='' value='缺委托书'>
+                                        <span>缺委托书</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-2">
+                                        <input type="checkbox" name='' value='赠品项'>
+                                        <span>赠品项赠品</span>
+                                    </div>
+                                    <div class="col-md-10 dist-bottom">
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='更换地址/收件人信息'>
+                                            <span>更换收件地址/收件人信息</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='更换赠品'>
+                                            <span>更换赠品</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='签收查询'>
+                                            <span>签收查询</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='快递问题'>
+                                            <span>快递问题</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-2">
+                                        <input type="checkbox" name='' value='登录使用项'>
+                                        <span>登录使用项</span>
+                                    </div>
+                                    <div class="col-md-10 dist-bottom">
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='客户端问题'>
+                                            <span>客户端问题</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='客户绑定数量问题'>
+                                            <span>客户绑定数量问题</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='客户端更换绑定'>
+                                            <span>客户端更换绑定</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='账号密码问题'>
+                                            <span>账号密码问题</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='IP问题'>
+                                            <span>IP问题</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='手机/IPAD客户端'>
+                                            <span>手机/IPAD客户端</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='浏览器问题'>
+                                            <span>浏览器问题</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='下载问题'>
+                                            <span>下载问题</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='我们公司问题'>
+                                            <span>我们公司问题</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-2">
+                                        <input type="checkbox" name='' value='网站服务项'>
+                                        <span>网站服务项</span>
+                                    </div>
+                                    <div class="col-md-10 dist-bottom">
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name=''>
+                                            <span>网站登录情况</span>
+                                            <select name="" id="" class='form-control'>
+                                                <option value="1">已正常登录</option>
+                                                <option value="2">未登录,已告知账号密码</option>
+                                                <option value="3">未登录,未联系上</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='网站使用介绍'>
+                                            <span>网站使用介绍</span>
+                                            <select name="" id="" class='form-control'>
+                                                <option value="1">已介绍</option>
+                                                <option value="2">未介绍</option>
+                                                <option value="3">客户表示不需要介绍</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='正常推荐资料'>
+                                            <span>正常推荐资料</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='网站检索问题'>
+                                            <span>网站检索问题</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='子账号'>
+                                            <span>子账号</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='网站资料少/或不集中,需单独对接'>
+                                            <span>网站资料少/或不集中,需单独对接</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='索要资料包'>
+                                            <span>索要资料包</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='找品牌名'>
+                                            <span>找品牌名</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='找细节/高清图'>
+                                            <span>找细节/高清图</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='找类似款/花型'>
+                                            <span>找类似款/花型</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='趋势少/慢/旧'>
+                                            <span>趋势少/慢/旧</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='款式少/慢/旧'>
+                                            <span>款式少/慢/旧</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='花型少/慢/旧'>
+                                            <span>花型少/慢/旧</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='商拍'>
+                                            <span>商拍</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='网站出错'>
+                                            <span>网站出错</span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="checkbox" name='' value='跟进投诉'>
+                                            <span>跟进投诉</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-2">
+                                        <input type="checkbox" name='' value='推荐项'>
+                                        <span>推荐项</span>
+                                    </div>
+                                    <div class="form-group col-md-9 dist-bottom">
+                                        <select name="" id="" class='form-control'>
+                                            <option value="1">升级</option>
+                                            <option value="2">续费</option>
+                                            <option value="3">销售</option>
+                                            <option value="4">离职设计师</option>
+                                            <option value="5">转介绍</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group col-md-2">
+                                        <input type="checkbox" name='' value='备注'>
+                                        <span>备注</span>
+                                    </div>
+                                    <div class="form-group col-md-10 dist-bottom">
+                                        <textarea name="" id="" cols="100%" rows="2" class='form-control'></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- footer -->
+            <div class="footer" th:include="./views/common/footer :: footertpl"></div>
+        </div>
+    </div>
+    <!-- 共用模块 -->
+    <div th:include="./views/common/common :: commontpl"></div>
+    <!-- JS Scripts-->
+    <script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/manage/visitdetail.js}"></script>
+</body>
+
+</html>

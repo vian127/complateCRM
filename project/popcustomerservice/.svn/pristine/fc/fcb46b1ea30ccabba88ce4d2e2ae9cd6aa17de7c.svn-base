@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FeedBackTagContactMapper">
+
+
+    <select id="findTagContactList" parameterType="com.pop136.customerservice.vo.tag.search.TagValueSearchVo"
+            resultType="com.pop136.customerservice.entity.tag.TagContact">
+        SELECT
+        a.customerid, a.id , a.tagid , a.tagvalid
+
+        FROM ss_feedback_tagvalue_contact a
+
+        WHERE
+        a.deleteflag = '0'
+
+        <if test="customerId != null">
+            and a.customerid = #{customerId}
+        </if>
+
+        <if test="contactId != null">
+            and a.contactid = #{contactId}
+        </if>
+
+    </select>
+
+
+    <select id="findTagValueByContactId" resultType="com.pop136.customerservice.vo.tag.TagValueVo">
+        SELECT
+        tagid as tagId,  tagname as tagName,
+        id, code, value, module, customerid as customerId, fromcode as fromCode
+
+        FROM v_ss_feedback_tagvalue_contact
+
+        WHERE
+
+        contactid = #{contactId}
+
+    </select>
+
+    <insert id="batchInsertContactLog" parameterType="java.util.List">
+        INSERT  INTO  sslog_feedback_tagvalue_contact
+
+        (id, tagid, customerid, contactid, createtime) values
+
+        <foreach collection="list" item="item"  separator=","   index="">
+            ( #{item.id} , #{item.tagid}, #{item.customerid}, #{item.contactid}, #{item.createtime}
+            )
+        </foreach>
+
+    </insert>
+
+
+    <delete id="clearTagContactById" >
+        DELETE
+
+        FROM ss_feedback_tagvalue_contact
+
+        WHERE contactid = #{contactId}
+
+    </delete>
+
+
+
+</mapper>

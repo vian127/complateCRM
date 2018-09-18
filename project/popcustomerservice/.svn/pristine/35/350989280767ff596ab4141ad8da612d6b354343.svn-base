@@ -1,0 +1,260 @@
+package com.pop136.customerservice.utils;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
+public class TimeUtil {
+	private static Logger logger = LoggerFactory.getLogger( TimeUtil.class ) ;
+	private static SimpleDateFormat formator = new SimpleDateFormat();
+	public static final String DEFAULT_PATTERM = "yyyy-MM-dd HH:mm:ss" ;
+	public static final String DEFAULT_PATTERM_NEW = "yyyy-MM-dd" ;
+	public static final String YEAR_MOTH = "yyyy-MM-dd" ;
+	public static final String YMW = "yyyy-MM-dd EE" ;
+
+	public static final String ISO_EXPANDED_DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	public static final String TIMEZONE_GMT = "GMT+8";
+	
+	public static String currentTime(){
+		
+		return currentTime( null ) ;
+	}
+	
+	public static String formatFromSeconds( Long seconds , String formater ){
+		if( seconds == null || seconds == 0 ){
+			return "" ;
+		}
+		Date date = new Date() ;
+		date.setTime( seconds * 1000 );
+		return TimeUtil.format( date , formater ) ;
+	}
+	
+	public static String currentTime( String pattern ){
+		String tempPattern =  pattern ;
+		if( StringUtil.isEmpty( tempPattern ) ) tempPattern = DEFAULT_PATTERM ;
+		formator.applyPattern( tempPattern );
+		return formator.format( getCurrentDate() ) ;
+	}
+	
+	public static long currentTimeSeconds(){
+		return  new Date().getTime() / 1000 ;
+	}
+	
+	public static long currentTimes( Date date  ){
+		Date temp = date ;
+		if( temp == null ) temp = getCurrentDate() ;
+		return temp.getTime()  ;
+	}
+	
+	public static Date getCurrentDate(){
+		return new Date() ;
+	}
+	
+	public static String add( String time , int count , int field ){
+		Date date = string2Date( time , DEFAULT_PATTERM ) ;
+		Calendar calendar = Calendar.getInstance() ;
+		calendar.setTime( date );
+		calendar.add( field , count );
+		return format( calendar.getTime() , DEFAULT_PATTERM ) ;
+	}
+	
+	public static Date string2Date( String source , String pattern ){
+		if( pattern == null ){
+			pattern = DEFAULT_PATTERM ;
+		}
+		formator.applyPattern( pattern );
+		Date date = null ;
+		try {
+			date = formator.parse( source ) ;
+		} catch (ParseException e) {
+			logger.error("TimeUtils has error , string to date is fail ... " );
+		}
+		return date ;
+	}
+	
+	public static Long string2TimeSeconds( String source , String pattern ){
+		Long times = 0l ;
+		try{
+			times = string2Date( source , pattern ).getTime() / 1000 ;
+		}catch(Exception e){
+			
+		}
+		return times ;
+	}
+	
+	public static String format( Date source , String pattern ){
+		if(StringUtil.isEmpty( pattern ) ){
+			pattern = DEFAULT_PATTERM;
+		}
+		if( source == null ) return currentTime( pattern ) ;
+		formator.applyPattern( pattern );
+		return formator.format( source ) ;
+	}
+	
+	public static String format( Date source  ){
+		if( source == null ) return "" ;
+		formator.applyPattern( DEFAULT_PATTERM );
+		return formator.format( source ) ;
+	}
+	
+	public static String format( String source , String sourcePattern , String targetPattern ){
+		if( StringUtil.isEmpty( source )  ) {
+			return null ;
+		}
+		if( StringUtil.isEmpty( sourcePattern ) ) {
+			sourcePattern = DEFAULT_PATTERM ;
+		}
+		if( StringUtil.isEmpty( targetPattern ) ){
+			targetPattern = DEFAULT_PATTERM ;
+		}
+		return  format( string2Date( source , sourcePattern ) , targetPattern ) ;
+	}
+
+
+	public static String format( String source){
+		if( StringUtil.isEmpty( source )  ) {
+			return null ;
+		}
+		return  format( string2Date( source , DEFAULT_PATTERM ) , DEFAULT_PATTERM_NEW ) ;
+	}
+
+	public static Date sumDate(Date source,Integer dayNum){
+		if( source==null||dayNum==null){
+			return null;
+		}
+		Calendar calendar= Calendar.getInstance();
+		calendar.setTime(source);
+		calendar.add(Calendar.DATE, dayNum);
+		return calendar.getTime();
+	}
+	/**
+	 * 计算 minute 分钟后的时间
+	 * 
+	 * @param date
+	 * @param minute
+	 * @return
+	 */
+	public static Date addMinute(Date date, int minute) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.MINUTE, minute);
+		return calendar.getTime();
+	}
+	
+	public static Date addTime( Date date , int num , int type ){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add( type , num );
+		return calendar.getTime() ;
+	}
+	
+	public static boolean after( Date date , Date cmp ){
+		Calendar calendar = Calendar.getInstance() ;
+		calendar.setTime( date );
+		return calendar.after( cmp ) ;
+	}
+	
+	public static boolean between( Date date , Date a , Date b ){
+		Calendar calendar = Calendar.getInstance() ;
+		calendar.setTime( date );
+		return calendar.before( b.getTime() ) && calendar.after( a.getTime() ) ;
+	}
+	
+	public static Date getDateStart( Date current ){
+		Calendar calendar = Calendar.getInstance( Locale.CHINA ) ;
+		calendar.setTime( current );
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		return calendar.getTime() ;
+	}
+	
+	public static Date getWeekStart( Date current ){
+		Calendar calendar = Calendar.getInstance( Locale.CHINA ) ;
+		calendar.setTime( current );
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.HOUR_OF_DAY , 0 ) ;
+		calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY );
+		return calendar.getTime() ;
+	}
+	
+	public static Date getMonthStart( Date current ){
+		Calendar calendar = Calendar.getInstance( Locale.CHINA ) ;
+		calendar.setTime( current );
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.HOUR_OF_DAY , 0 ) ;
+		calendar.set(Calendar.DAY_OF_MONTH , 1);
+		return calendar.getTime() ;
+	}
+	
+	public static String secToTime( long seconds ){
+		int day = (int) Math.ceil( seconds / ( 60 * 60 * 24 ) ) ;
+		String formatTime = "" ;
+		if( day > 0 ){
+			seconds -= day * ( 60 * 60 * 24 ) ;
+			formatTime+= day+"天" ;
+		}
+		int hours = (int) Math.ceil( seconds / (60 * 60) ) ;
+		if( hours > 0 ){
+			seconds -= hours * 60 * 60 ;
+			formatTime+= hours+"小时" ;
+		}
+		int minus = (int) Math.ceil( seconds / 60 ) ;
+		if( minus > 0 ){
+			seconds -= minus * 60 ;
+			formatTime+= minus+"分" ;
+		}
+		formatTime+= seconds+"秒" ;
+		return formatTime ;
+	}
+
+
+	public static Timestamp getCurLongDateTimestamp() {
+		String strTime = getCurLongDate();
+		Timestamp ts = Timestamp.valueOf(strTime);
+		return ts;
+	}
+
+
+	public static String getDifferTime(String startTime) {
+		if (startTime == null) {
+			return "0";
+		}
+		Date string2Date = string2Date(startTime, null);
+
+		long differTime = (new Date().getTime() - string2Date.getTime()) / (24 * 60 * 60 * 1000);
+		return differTime+"";
+	}
+
+	/**
+	 * 获得当前时长日期格式
+	 *
+	 * @return
+	 */
+	public static String getCurLongDate() {
+		return getDayTimeCurDate();
+	}
+
+	/**
+	 * 获得当前日期时间
+	 *
+	 * @return
+	 */
+	public static String getDayTimeCurDate() {
+		Date dd = new Date();
+		SimpleDateFormat format = new SimpleDateFormat(
+				ISO_EXPANDED_DATETIME_FORMAT);
+		format.setTimeZone(TimeZone.getTimeZone(TIMEZONE_GMT));
+		return format.format(dd);
+	}
+
+}

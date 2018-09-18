@@ -1,0 +1,68 @@
+package com.pop136.customerservice.controller.customer;
+
+import com.alibaba.fastjson.JSONObject;
+import com.pop136.core.mybatis.page.RemotePage;
+import com.pop136.customerservice.controller.BaseApiAction;
+import com.pop136.customerservice.entity.customer.FeedBack;
+import com.pop136.customerservice.service.customer.*;
+import com.pop136.customerservice.utils.JsonParseUtil;
+import com.pop136.customerservice.vo.customer.search.ContactSearchVo;
+import com.pop136.customerservice.vo.customer.search.FeedBackSearchVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 回访 controller
+ */
+@RestController
+@RequestMapping("/feedBack")
+public class FeedBackController extends BaseApiAction {
+
+  @Autowired
+  private FeedBackService feedBackService;
+
+
+  /**
+   * 获取回访记录
+   */
+  @RequestMapping("/list")
+  @ResponseBody
+  private String list(HttpServletRequest request, @RequestBody FeedBackSearchVo searchVo) {
+
+    List<FeedBack> feedBackList = feedBackService.getFeedBackList(searchVo);
+
+    List<Object> resultMap = getFeedBackInfo(feedBackList);
+
+
+    return success(resultMap, resultMap.size());
+  }
+
+  private List<Object> getFeedBackInfo(List<FeedBack> feedBacks) {
+    List<Object> resultList = new ArrayList<>();
+
+    if (feedBacks != null && !feedBacks.isEmpty()) {
+      for (FeedBack feedBack : feedBacks) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("createTime", feedBack.getCreatetime());//创建日期
+        result.put("contactName", feedBack.getContactname());//联系人
+        result.put("phone", feedBack.getPhonenumber());//联系人电话
+        result.put("serviceType", feedBack.getTypename());//服务方式
+        result.put("contactType", feedBack.getTypeid());//联络类型
+
+        result.put("level", feedBack.getCustomdict1() );//印象
+        result.put("serviceContent", feedBack.getServicecontentname());//服务内容
+        result.put("serviceInfo", feedBack.getRemark());//服务详细
+        result.put("owenrName", feedBack.getOwnername());//客服 联络人
+        resultList.add(result);
+      }
+    }
+    return resultList;
+  }
+
+}

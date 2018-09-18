@@ -1,0 +1,171 @@
+/*
+    #author     gaofeng
+    #date       2017/07/23
+    #purpose    群发短信
+*/
+
+require(['vue', 'msg', 'general', 'base-info', 'layui'], function (Vue, msg, general, global_info) {
+    $(function () {
+        var def = {
+            loading_ele: $('.js-loading-div'),
+            ajax_port: global_info.api_url,
+            msg_time: 1200,
+        };
+        
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                get_opt: {
+                    templateId: "",
+                    typeId: "",
+                    content: "",
+                    paramVos: [
+                        {"phoneNumber": ""},
+                    ]
+                },
+                template_all: [],                       //模板下拉数据
+                template_id: '',                        //当前模板
+                list_type: 1,                           //发送对象类型
+                list_data: [],                          //当前列表数据
+
+                lists: {                                //操作数据对象
+                    "1": [],
+                    "2": [],
+                    "3": [],
+                    customer_num: 0,
+                    user_num: 0,
+                    import_num: 0,
+                }
+            },
+            mounted() {
+                this.page();
+                layui.use('layer');
+                this.getTemplate();
+                this.getData();
+            },
+            methods: {
+                getTemplate: function () {                 //请求短信模板数据
+                    var self = this
+                    $.ajax({
+                        url: def.ajax_port + '/api/msgTemplate/getSelectList',
+                        type: 'get',
+                        success: function (data) {
+                            if (data && data.data) {
+                                self.template_all = data.data;
+                            } else {
+                                msg.msg({
+                                    'txt': '未请求到数据'
+                                }, def.msg_time);
+                            }
+                            def.loading_ele.fadeOut(400);
+                        },
+                        error: function () {
+                            def.loading_ele.fadeOut(400);
+                        }
+                    });
+                },
+                sendMessage: function () {
+                    var self = this;
+                    self.get_opt.typeId = self.list_type
+                    var opt = self.get_opt;
+                    var is_next = true;
+                    if (opt.templateId == '') {
+                        is_next = false;
+                        msg.msg({'txt': '请选择模板'}, def.msg_time);
+                        return
+                    }
+                    if (this.lists[this.list_type].length < 1) {
+                        is_next = false;
+                        msg.msg({'txt': '请添加收件人'}, def.msg_time);
+                        return
+                    }
+                    if (is_next = true) {
+                        general.fn.subAjax({
+                            url:def.ajax_port+'/api/msg/send',
+                            data:opt, 
+                            success:function(res){
+                                console.log(res)
+                                def.loading_ele.fadeOut(400);
+                            },
+                            error:function(){
+                                def.loading_ele.fadeOut(400);
+                            }
+
+                        })
+                    }
+
+                },
+
+                getData: function () {                       //获取客户列表
+                    this.list_data = [                       //客户列表
+                        {id: 1,company: '上海服装服务有限公司',tel: '13689889988',name: '张三'},
+                        {id: 2,company: '上海服装服务有限公司',tel: '13689889988',name: '张三'},
+                        {id: 3,company: '上海服装服务有限公司',tel: '13689889988',name: '张三'},
+                        {id: 4,company: '上海服装服务有限公司',tel: '13689889988',name: '张三'},
+                        {id: 5,company: '上海服装服务有限公司',tel: '13689889988',name: '张三'},
+                        {id: 6,company: '上海服装服务有限公司',tel: '13689889988',name: '张三'},
+                        {id: 7,company: '上海服装服务有限公司',tel: '13689889988', name: '张三'},
+                    ];
+                },
+                changeTempalte: function () {                //切换模板内容
+                    var self = this
+                    var result;
+                    var id = self.template_id;
+                    self.get_opt.templateId = id;
+                    if (id !== '') {
+                         self.template_all.forEach(function (item) {
+                            if(item.id==id){
+                                result=item
+                            }
+                        });
+                        self.get_opt.content = result.content
+                    } else {
+                        self.get_opt.content = ''
+                    }
+                },
+                changeType: function (e) {                     //切换类型
+                    if (this.list_type == 1) {
+                        this.lists[this.list_type] = [
+                            {id: 1,company: '上海服装服务有限公司',tel: '13689889988',name: '张三'},
+                            {id: 2,company: '上海服装服务有限公司',tel: '13689889988',name: '张三'}
+                        ]
+                    } else if (this.list_type == 2) {
+                        this.lists[this.list_type] = [{id: 3,company: '上海服装服务有限公司',tel: '13689889988',name: '张三'}]
+                    } else if (this.list_type == 3) {
+
+                    }
+                    this.list_data = this.lists[this.list_type];
+                },
+                uploadFunc: function () {
+                    var layer = layui.layer;
+                    layer.open({
+                        type: 0,
+                        title: '',
+                        area: ['500px', 'auto'],
+                        btn: ['取消', '确认上传'],
+                        content: $('#js-upload').html(),
+                        btn2: function (index, layero) {
+
+                        }
+                    });
+                },
+                page: function () {
+                    layui.use('laypage', function () {
+                        var laypage = layui.laypage;
+                        //执行一个laypage实例
+                        laypage.render({
+                            elem: 'laypage-section',
+                            count: 50,
+                            layout: ['prev', 'page', 'next', 'limit', 'count', 'skip'],
+                            jump: function (obj) {
+                                console.log(obj)
+                                var curr = obj.curr;
+                            }
+                        });
+                    });
+                },
+            },
+
+        });
+    })
+})

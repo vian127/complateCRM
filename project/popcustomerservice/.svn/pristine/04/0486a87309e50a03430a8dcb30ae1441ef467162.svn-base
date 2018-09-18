@@ -1,0 +1,245 @@
+package com.pop136.customerservice.controller.customer;
+
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
+import com.pop136.core.BeanUtil;
+import com.pop136.customerservice.controller.BaseApiAction;
+import com.pop136.customerservice.entity.customer.Contact;
+import com.pop136.customerservice.entity.customer.Customer;
+import com.pop136.customerservice.service.common.CustomerTagService;
+import com.pop136.customerservice.service.common.DataDictService;
+import com.pop136.customerservice.service.customer.*;
+import com.pop136.customerservice.service.customer.convert.ContactConvert;
+import com.pop136.customerservice.service.tag.TagContactService;
+import com.pop136.customerservice.service.user.UserRoleService;
+import com.pop136.customerservice.service.user.UserService;
+import com.pop136.customerservice.utils.BusinessException;
+import com.pop136.customerservice.utils.JsonParseUtil;
+import com.pop136.customerservice.vo.customer.param.ContactParamVo;
+import com.pop136.customerservice.vo.customer.param.ContactoAllParamVo;
+import com.pop136.customerservice.vo.customer.search.ContactSearchVo;
+import com.pop136.customerservice.vo.tag.TagValueVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.*;
+
+/**
+ * 联系人controller
+ */
+@RestController
+@RequestMapping("/contact")
+public class ContactController extends BaseApiAction {
+
+  @Autowired
+  private CustomerService customerService;
+
+  @Autowired
+  private DataDictService dataDictService;
+
+  @Autowired
+  private ContactService contactService;
+
+  @Autowired
+  private UserRoleService roleService;
+
+  @Autowired
+  private UserService userService;
+
+  @Autowired
+  private FeedBackService feedBackService;
+
+  @Autowired
+  private CustomerTagService tagService;
+
+  @Autowired
+  private TagContactService tagContactService;
+
+  @Autowired
+  private ContactServeService contactServeService;
+
+  @Autowired
+  private ContactServeProductService contactServeProductService;
+
+
+  /**
+   * 根据条件 获取联系人 列表
+   */
+  @RequestMapping(value = "/list",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String list(HttpServletRequest request, @RequestBody ContactSearchVo searchVo) {
+    List<Contact> list = contactService.getContactList(searchVo);
+
+    List<Object> result = new ArrayList<>();
+
+    for (Contact contact : list) {
+
+      Map<String, Object> contactInfo = contactService.getContactListInfo(contact);
+
+      result.add(contactInfo);
+    }
+
+    PageInfo<Contact> pageInfo = new PageInfo<>(list);//转换
+    return success(result, convertPage(list, pageInfo.getTotal()));
+//    return success(list, convertPage(list, pageInfo.getTotal()));
+  }
+
+
+  /**
+   * 根据条件 获取联系人 列表
+   */
+  @RequestMapping(value = "/send/list",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String sendList(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+    String phones = JsonParseUtil.parseRequiredStringValue(jsonObject, "phones");
+
+    List<Object> result = new ArrayList<>();
+
+    for (String phone : BeanUtil.StringToList(phones)) {
+      //获取 联系人
+      ContactSearchVo searchVo = new ContactSearchVo();
+      searchVo.setMobile(phone);
+
+      List<Contact> contacts = contactService.getContactList(searchVo);
+
+      if (contacts != null && !contacts.isEmpty()){
+
+        for (Contact contact : contacts) {
+          //本地联系人
+          Map<String, Object> contactInfo = contactService.getContactListInfo(contact);
+
+          result.add(contactInfo);
+        }
+
+      }else {
+        Map<String, Object> phoneMap = new HashMap<>();
+        phoneMap.put("mobile", phone);
+        result.add(phoneMap);
+
+      }
+
+    }
+
+    return success(result);
+  }
+
+
+
+
+
+  /**
+   * 根据条件 获取联系人 列表
+   */
+  @RequestMapping(value = "/count",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String count(HttpServletRequest request, @RequestBody ContactSearchVo searchVo) {
+    Map<String, Object> result = new HashMap<>();
+
+    String contactCount = contactService.getContactCount(searchVo);
+    result.put("count", contactCount);
+
+    return success(result);
+  }
+
+
+  /**
+   * 根据id 获取 客户联系人详细
+   */
+  @RequestMapping(value = "/info",
+          produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+          consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+          method = RequestMethod.POST)
+  @ResponseBody
+  public String info(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+
+    Map<String, Object> result = new HashMap<>();
+
+    String contactId = JsonParseUtil.parseRequiredStringValue(jsonObject, "id");
+
+    //获取 联系人基本信息
+    Contact contact = contactService.findBy("id", contactId, Contact.class);
+
+    if (contact == null) {
+      throw  new BusinessException("该联系人不存在");
+    }
+
+    Customer customer = customerService.findBy("id", contact.getCustomerid(), Customer.class);
+
+    List<TagValueVo> tagContacts = tagContactService.findTagValueByContactId(contact.getId());//联系人 标签信息
+
+    result.put("contactInfo", contactService.getContactInfo(contact, customer, tagContacts));//联系人信息(用户信息)
+    result.put("contactServiceInfo",contactService.getContactServiceInfo(contact, tagContacts));//联系人客服信息
+    result.put("manager", contactService.getContactManager(contact));//联系人管理信息
+
+    ContactConvert contactConvert = new ContactConvert();
+    result.put("customerInfo", contactConvert.convertCustomerInfo(customer));//客户信息
+
+    return success(result);
+  }
+
+
+  /**
+   * 修改/新增 联系人
+   * @param request
+   * @return
+   */
+  @RequestMapping(value = "/update",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  @Transactional
+  public String update(HttpServletRequest request, @RequestBody @Valid ContactoAllParamVo paramVo) {
+
+    Map<String, Object> result = new HashMap<>();
+    Contact contact = new Contact();
+
+    ContactParamVo contactParam = paramVo.getContactParam();
+
+    if (contactParam != null) {
+      //更新 联系人 操作
+      if (paramVo.getId() != null && !paramVo.getId().equals("")) {
+        contactParam.setId(paramVo.getId());//添加 id
+        contactService.convertContactParam(contactParam, contact);
+        contactService.update("id", contactParam.getId(), contact);
+
+        result.put("contactId", contactParam.getId());
+      }else{
+        //新增
+        contactService.convertContactParam(contactParam, contact);
+        contactService.create(contact, Contact.class);
+        paramVo.setId(contact.getId());//传递 联系人id
+
+        result.put("contactId", contact.getId());
+      }
+
+    }
+
+    if (paramVo.getTags() != null && !paramVo.getTags().isEmpty()){
+      //更新客户标签
+      contactService.updateContactTag(paramVo);
+    }
+
+    if (paramVo.getProductParams() != null && !paramVo.getProductParams().isEmpty()) {
+      //更新多 产品信息
+      contactService.updateContactServer(paramVo.getProductParams(), contact.getId());
+    }
+
+    return success(result);
+
+  }
+
+}

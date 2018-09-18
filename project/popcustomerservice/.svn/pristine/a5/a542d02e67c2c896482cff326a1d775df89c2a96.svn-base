@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">
+
+
+    <select id="findUserByNameAndPasswd" resultType="com.pop136.customerservice.vo.user.UserValueVo">
+        SELECT ac.id, ac.userid, ac.passwd, ur.id as userroleid
+        FROM  mp_account ac
+        inner join mp_user us on ac.userid = us.id
+        inner join mp_userrole ur on us.id = ur.userid
+        WHERE
+        1 = 1
+        AND
+        ac.name = #{name}
+        AND ac.passwd = #{passwd}
+        AND ac.deleteflag= 0 AND us.deleteflag=0 AND ur.deleteflag=0
+    </select>
+
+
+    <select id="finAccountById" resultType="com.pop136.customerservice.entity.user.Account">
+		SELECT a.id, a.name, a.passwd, a.userid, a.description, a.online, a.installtimes, a.lastinstalltime, a.email_address, a.email_account,
+		a.email_pwd, a.email_smtp, a.email_pop3, a.def_roleid, a.def_useicon, a.createtime, a.lastupdatetime, a.deleteflag, a.updateroleid, a.ispda, a.iscti,
+		a.ismacvalidate, a.macaddress, a.mobileismacvalidate, a.mobilemacaddress, a.cansystemremind, a.canmsremind, a.canmlremind, a.customdict1,
+		a.ulbstatus_power  FROM  mp_account a
+		where
+		1 = 1
+        AND
+		a.userid = #{id}
+        AND a.deleteflag= 0
+    </select>
+
+    <select id="findUserById" resultType="com.pop136.customerservice.entity.user.User">
+        SELECT a.id, a.name, a.code, a.sex, a.listleaveemp, a.createtime, a.lastupdatetime, a.deleteflag, a.updateroleid  FROM  mp_user a
+        where
+        1 = 1
+        AND
+        id = #{id}
+        AND a.deleteflag= 0
+    </select>
+
+    <select id="findFrameWorkById" resultType="com.pop136.customerservice.entity.user.FrameWork">
+        SELECT a.id as id, a.name as name, a.fatherid as fatherid FROM gp_framework a
+        where
+        1 = 1
+        AND
+        a.fatherid = #{id}
+        AND a.deleteflag= 0
+    </select>
+
+    <select id="getUserInfo"  resultType="com.pop136.customerservice.entity.user.User">
+        select a.*
+
+        from
+
+        mp_user a
+
+        LEFT  JOIN  mp_userrole r on a.id = r.userid
+
+        WHERE  a.deleteflag = 0
+
+        AND  r.id = #{roleId}
+
+    </select>
+
+</mapper>

@@ -1,0 +1,39 @@
+package com.pop136.customerservice.controller.tag;
+
+import com.pop136.customerservice.controller.BaseApiAction;
+import com.pop136.customerservice.service.common.TagService;
+import com.pop136.customerservice.vo.common.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+
+//import com.sun.xml.internal.rngom.ast.builder.CommentList;
+/**
+ * 标签 controller
+ */
+@RestController
+@RequestMapping("/tag")
+public class TagController extends BaseApiAction{
+
+	@Autowired
+	private TagService tagService;
+
+	@GetMapping(value = "/web/{views}/{page}",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public String client( @PathVariable("views")String views, @PathVariable("page")String page) {
+
+		List<Tag> customer = tagService.findTagList("customer", null);
+
+
+		return success(customer);
+		// 逻辑处理
+//		return "views/"+views+"/"+page;
+	}
+
+}

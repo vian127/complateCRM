@@ -1,0 +1,183 @@
+/*
+    #author     gaofeng
+    #date       2017/07/24
+    #purpose    群发-选择用户
+*/
+
+require(['vue', 'msg', 'general', 'layui', 'base-info'], function (Vue, msg, general, layui, global_info) {
+    $(function () {
+        var def = {
+            loading_ele: $('.js-loading-div'),
+            ajax_port: global_info.api_url,
+        };
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                ownerid: '728257', //用户id
+                get_opt: {},
+                list: [],
+                task_count: { //任务数量对象
+                    addCount: 222,
+                    selectCount: 333
+                },
+                collect: {
+                    orderStart:'',
+                    orderEnd:'',
+                    sex:'',
+                    area:'',
+                    tel:'',
+                    belog:'',
+                    name:'',
+                    id:'',
+                    contactStart:'',
+                    contactEnd:''
+                },
+                list_info: {
+                    is_show_select: false,
+                    checked_all: false
+                },
+                is_first: true, //是否第一次调用加载数据
+                is_set_date: false, //是否已经建立时间控件
+                layer_index: null, //弹出层对象
+                layer: null,
+
+            },
+            mounted: function () {
+                this.getNewData({
+                    page: 1,
+                    size: 10
+                });
+                this.init();
+            },
+            methods: {
+                getNewData: function (opt) {
+                    def.loading_ele.fadeIn(200);
+                    this.get_opt = opt;
+                    general.fn.subAjax({
+                        url: def.ajax_port + '/api/contact/list',
+                        data: opt,
+                        success: this.setData,
+                        error: function () {
+                            def.loading_ele.fadeOut(400);
+                        }
+                    })
+                },
+                setData: function (data) {
+                    var self = this;
+                    console.log(data)
+                    if (data != undefined && data.data != undefined) {
+                        this.list = data.data;
+                        this.setPage(data.extra.count);
+                    }
+                    def.loading_ele.fadeOut(400);
+                },
+                setPage: function (count) {
+                    var self = this;
+                    if (self.is_first == true) {
+                        self.is_first = false;
+                        layui.use('laypage', function () {
+                            var laypage = layui.laypage;
+                            //执行一个laypage实例
+                            laypage.render({
+                                elem: 'laypage-section',
+                                count: count,
+                                layout: ['prev', 'page', 'next', 'limit', 'count', 'skip'],
+                                jump: function (obj, first) {
+                                    if (obj.count * 1 <= obj.limit) {
+                                        $('#laypage-section').hide();
+                                    } else {
+                                        $('#laypage-section').show();
+                                    }
+                                    if (!first) {
+                                        self.get_opt.size = obj.limit;
+                                        self.get_opt.page = obj.curr;
+                                        self.getNewData(self.get_opt);
+                                    }
+                                }
+                            });
+                        });
+                    }
+                },
+                resetFunc:function(){
+                    for(var key in this.collect){
+                        this.collect[key]=''
+                    }
+                },
+                filterFunc: function () {                                       //确认筛选列表
+                    var opt = {};
+                    if(this.collect.orderStart!=''){
+                        if(this.collect.orderEnd==''){
+                            msg.msg({'txt': '结束时间不能为空'}, 1200);
+                            return
+                        }
+                    }
+                    if(this.collect.contactStart!=''){
+                        if(this.collect.contactEnd==''){
+                            msg.msg({'txt': '结束时间不能为空'}, 1200);
+                            return
+                        }
+                    }
+                    
+                    for (var key in this.collect) {
+                        if (this.collect[key] != "") {
+                            opt[key] = this.collect[key];
+                        }
+                    }
+                    opt.customerId = this.ownerid;
+                    opt.page = 1;
+                    opt.size = this.get_opt.size;
+                    this.is_first = true;
+                    this.getNewData(opt);
+                },
+                init:function(){
+                    this.dateTime('.js-orderStart');
+                    this.dateTime('.js-orderEnd');
+                    this.dateTime('.js-contactStart');
+                    this.dateTime('.js-contactEnd');
+                },
+
+                dateTime: function (selector) {                                     //日期控件
+                    var self = this
+                    layui.use('laydate', function () {
+                        var laydate = layui.laydate;
+                        laydate.render({
+                            elem: selector,
+                            done: function (value) {
+                                if(selector=='.js-orderStart'){
+                                    self.collect.orderStart=value;
+                                }else if(selector=='.js-orderEnd') {
+                                    self.collect.orderEnd = value
+                                }else if(selector=='.js-contactStart'){
+                                    self.collect.contactStart = value
+                                }else{
+                                    self.collect.contactEnd = value
+                                }
+                                if(self.collect.orderStart && self.collect.orderEnd ){
+                                    self.compareDate(self.collect.orderStart, self.collect.orderEnd,selector);
+                                }
+                                if(self.collect.contactStart && self.collect.contactEnd){
+                                    self.compareDate(self.collect.contactStart, self.collect.contactEnd,selector);
+                                }
+                            }
+                        });
+                    }); 
+                },
+                compareDate:function(start,end,selector){                           //日期对比
+                   var self=this
+                    starts = parseInt(start.replace(/-/g, ''));
+                    ends = parseInt(end.replace(/-/g, ''));
+                    if (ends < starts) {
+                        msg.msg({'txt': '结束时间不能小于开始时间'}, 1200);
+                        if(selector=='.js-orderStart' || selector=='.js-orderEnd'){
+                            self.collect.orderEnd='';
+                        }
+                        if(selector=='.js-contactStart' || selector=='.js-contactEnd'){
+                            self.collect.contactEnd='';
+                        }
+                    }
+                }
+            },
+        })
+    })
+})

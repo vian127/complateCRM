@@ -1,0 +1,15 @@
+@charset 'UTF-8';
+
+.page-name{padding: 8px 15px 15px;margin-bottom: 15px;border-bottom: 1px solid #aaa;}
+.form-section{margin-bottom: 20px;}
+.form-section label{margin-right: 8px}
+
+.step-box>h3{font-size: 16px;padding: 8px 15px 15px;margin-top: 15px;margin-bottom: 10px}
+.step-list{text-align: center;}
+.step-list>li{margin: 15px 0;}
+
+/*下拉显示*/
+.checked-list{min-width: 100%}
+.checked-list>li{display: inline-block;display: 4px 8px;background-color: #fff}
+.filter-div{display: none;z-index: 10;position: absolute;left: 50%;top: 40px;width: 200px;padding: 10px;margin-left: -105px;background-color: #fff;border:1px solid #aaa;}
+.filter-div:before{z-index: 10;position: absolute;left: 50%;top: -17px;display: block;content: "";border: 8px solid transparent;border-bottom-color: #aaa;}

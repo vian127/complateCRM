@@ -1,0 +1,48 @@
+package com.pop136.customerservice.vo.tag.search;
+
+import java.io.Serializable;
+
+public class TagValueSearchVo implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+
+  private String id;//客户标签id
+
+  private String tagId;//标签id
+
+  private String customerId;//客户id
+
+  private String contactId;//用户id
+
+  public String getContactId() {
+    return contactId;
+  }
+
+  public void setContactId(String contactId) {
+    this.contactId = contactId;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getTagId() {
+    return tagId;
+  }
+
+  public void setTagId(String tagId) {
+    this.tagId = tagId;
+  }
+
+  public String getCustomerId() {
+    return customerId;
+  }
+
+  public void setCustomerId(String customerId) {
+    this.customerId = customerId;
+  }
+}

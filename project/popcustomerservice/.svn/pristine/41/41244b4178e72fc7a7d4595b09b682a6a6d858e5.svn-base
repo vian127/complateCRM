@@ -1,0 +1,109 @@
+package com.pop136.customerservice.vo.customer;
+
+import java.io.Serializable;
+
+/**
+ *订单 列表
+ */
+public class OrderInfoVo implements Serializable{
+
+  private String CountTime;//计算时间
+
+  private String web;//用户
+
+  private String companyName;//联系方式
+
+  private String accountName;//账号
+
+  private String TotalPrice;//总金额
+
+  private String performance;//业绩金额
+
+  private String startTime ;//开始时间
+
+  private String endTime;//结束时间
+
+  private String salesman;//业务员
+
+  private String status;//状态
+
+  public String getCountTime() {
+    return CountTime;
+  }
+
+  public void setCountTime(String countTime) {
+    CountTime = countTime;
+  }
+
+  public String getWeb() {
+    return web;
+  }
+
+  public void setWeb(String web) {
+    this.web = web;
+  }
+
+  public String getCompanyName() {
+    return companyName;
+  }
+
+  public void setCompanyName(String companyName) {
+    this.companyName = companyName;
+  }
+
+  public String getAccountName() {
+    return accountName;
+  }
+
+  public void setAccountName(String accountName) {
+    this.accountName = accountName;
+  }
+
+  public String getTotalPrice() {
+    return TotalPrice;
+  }
+
+  public void setTotalPrice(String totalPrice) {
+    TotalPrice = totalPrice;
+  }
+
+  public String getPerformance() {
+    return performance;
+  }
+
+  public void setPerformance(String performance) {
+    this.performance = performance;
+  }
+
+  public String getStartTime() {
+    return startTime;
+  }
+
+  public void setStartTime(String startTime) {
+    this.startTime = startTime;
+  }
+
+  public String getEndTime() {
+    return endTime;
+  }
+
+  public void setEndTime(String endTime) {
+    this.endTime = endTime;
+  }
+
+  public String getSalesman() {
+    return salesman;
+  }
+
+  public void setSalesman(String salesman) {
+    this.salesman = salesman;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+}

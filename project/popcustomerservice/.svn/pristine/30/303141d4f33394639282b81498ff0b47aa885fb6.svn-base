@@ -1,0 +1,218 @@
+package com.pop136.customerservice.controller.customer;
+
+import com.alibaba.fastjson.JSONObject;
+import com.pop136.core.BeanUtil;
+import com.pop136.customerservice.controller.BaseApiAction;
+import com.pop136.customerservice.entity.customer.*;
+import com.pop136.customerservice.service.common.DataDictService;
+import com.pop136.customerservice.service.customer.*;
+import com.pop136.customerservice.utils.JsonParseUtil;
+import com.pop136.customerservice.utils.TimeUtil;
+import com.pop136.customerservice.vo.customer.*;
+import com.pop136.customerservice.vo.customer.param.ContactParamVo;
+import com.pop136.customerservice.vo.customer.search.ContactSearchVo;
+import com.pop136.customerservice.vo.customer.search.FeedBackSearchVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 联系人controller
+ */
+@RestController
+@RequestMapping("/contact")
+public class ContactController extends BaseApiAction {
+
+  @Autowired
+  private CustomerService customerService;
+
+  @Autowired
+  private DataDictService dataDictService;
+
+  @Autowired
+  private ContactService contactService;
+
+  @Autowired
+  private UserRoleService roleService;
+
+  @Autowired
+  private UserService userService;
+
+  @Autowired
+  private FeedBackService feedBackService;
+
+  @Autowired
+  private CustomerTagService tagService;
+
+  /**
+   * 根据id 获取 客户联系人详细
+   */
+  @RequestMapping(value = "/info",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String getContactInfo(HttpServletRequest request, @RequestBody JSONObject jsonObject) {
+    String id = JsonParseUtil.parseRequiredStringValue(jsonObject, "id");
+
+    //获取 联系人基本信息
+    Contact contact = contactService.findBy("id", id, Contact.class);
+
+    Map<String, Object> contactInfo = getContactInfo(contact);//联系人信息
+
+    FeedBackSearchVo searchVo = new FeedBackSearchVo();
+    searchVo.getContactId(id);
+    List<FeedBack> feedBacks = feedBackService.getFeedBackList(searchVo);
+
+    Map<String, Object> manager = getContactManager(contact, feedBacks);//联系人管理信息
+
+    Map<String, Object> customerInfo = getCustomerInfo(contact.getCustomerid());//客户信息
+
+    List<Object> feedBackIns = getFeedBackInfo(feedBacks, contact);//回访信息
+
+    return success(null);
+
+  }
+
+  /**
+   * 获取回访记录
+   * @param feedBacks
+   * @return
+   */
+  private List<Object> getFeedBackInfo(List<FeedBack> feedBacks, Contact contact) {
+
+    List<Object> resultList = new ArrayList<>();
+
+    if (feedBacks != null && !feedBacks.isEmpty()) {
+      for (FeedBack feedBack : feedBacks) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("createTime", feedBack.getCreatetime());//创建日期
+        result.put("contactName", feedBack.getContactname());//联系人
+        result.put("phone", contact.getMobile());//联系人电话
+        result.put("serviceType", feedBack.getTypename());//服务方式
+        result.put("contactType", feedBack.getTypeid());//联络类型
+
+        result.put("level", feedBack.getCustomdict1() );//印象
+        result.put("serviceContent", feedBack.getServicecontentname());//服务内容
+        result.put("serviceInfo", feedBack.getRemark());//服务详细
+        result.put("owenrName", feedBack.getOwnername());//客服 联络人
+        resultList.add(result);
+      }
+    }
+    return resultList;
+
+  }
+
+  /**
+   * 获取 客户信息
+   * @param customerid
+   * @return
+   */
+  private Map<String, Object> getCustomerInfo(String customerid) {
+    Customer customer = customerService.findBy("id", customerid, Customer.class);
+
+    Map<String, Object> result = new HashMap<>();
+    result.put("accountName", customer.getBankaccounts());//主账号
+    result.put("type", "主账号");//主账号
+    result.put("phone", customer.getPhone());//联系方式
+    result.put("loginDate", TimeUtil.getDifferTime(customer.getFounddate()));//未登录天数
+    result.put("crateDate", customer.getCreatetime());//创建时间
+    result.put("LastLoginDate", customer.getFounddate());//最后登陆时间
+    result.put("UpdatePassDate", customer.getLastupdatetime());//最后修改时间
+
+    return result;
+  }
+
+  /**
+   * 获取 联系人管理信息
+   * @param contact
+   * @return
+   */
+  private Map<String, Object> getContactManager(Contact contact, List<FeedBack> feedBacks) {
+
+    if (feedBacks == null || feedBacks.isEmpty()) {
+      return null;
+    }
+
+    FeedBack feedBack = feedBacks.get(0);
+    Map<String, Object> result = new HashMap<>();
+    result.put("source", contact.getCustomdict5());//来源
+
+    result.put("creatorId", contact.getCreatorid());//创建人
+    result.put("LastUpdater", contact.getLastmenderid());//最新修改人
+
+    result.put("LastContactDate", feedBack.getLastupdatetime());//最后联系时间
+    result.put("LastContactType", feedBack.getTypename());//最后联系方式
+    result.put("applicationDate", feedBack.getApplicationdate());//预约时间
+
+    return result;
+  }
+
+  /**
+   * 获取联系人 主信息
+   * @param contact
+   */
+  private Map<String, Object> getContactInfo(Contact contact) {
+    Map<String, Object> result = new HashMap<>();
+    result.put("main", contact.getIismain());//是否主联系人
+    result.put("name", contact.getName());//名称
+    result.put("role", "");//角色
+    result.put("duty", contact.getCustomdict1());//职务
+    result.put("status", contact.getStatusid());//状态
+    result.put("telephone", contact.getTelephone());//电话
+    result.put("mobile", contact.getMobile());
+    result.put("weChat", contact.getRelatecontactid5());//微信号
+    result.put("extensionPhone", contact.getExtensionphone());//分机号
+    result.put("qq", contact.getQq());//qq号
+    result.put("email", contact.getEmail());//邮箱
+    result.put("source", contact.getCustomdict5());//来源
+
+    return result;
+  }
+
+
+  /**
+   * 新增联系人
+   * @param request
+   * @param jsonObject
+   * @return
+   */
+  @RequestMapping(value = "/add",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String add(HttpServletRequest request, @RequestBody ContactParamVo paramVo) {
+
+    Contact contact = BeanUtil.convert(paramVo, Contact.class);
+
+
+    return success(null);
+  }
+
+
+  /**
+   * 修改联系人
+   * @param request
+   * @param jsonObject
+   * @return
+   */
+  @RequestMapping(value = "/update",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  public String update(HttpServletRequest request, @RequestBody ContactParamVo paramVo) {
+
+    contactService.update("id", paramVo.getId(), paramVo);
+
+    return success(null);
+  }
+
+}

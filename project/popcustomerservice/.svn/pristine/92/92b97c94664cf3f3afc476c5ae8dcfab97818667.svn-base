@@ -1,0 +1,39 @@
+package com.pop136.customerservice.response;
+
+import java.io.Serializable;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class PointContent  implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String show_type;
+	private String show_time;
+	private String show_integral;
+	public String getShow_type() {
+		return show_type;
+	}
+	public void setShow_type(String show_type) {
+		this.show_type = show_type;
+	}
+	public String getShow_time() {
+		return show_time;
+	}
+	public void setShow_time(String show_time) {
+		this.show_time = show_time;
+	}
+	public String getShow_integral() {
+		return show_integral;
+	}
+	public void setShow_integral(String show_integral) {
+		this.show_integral = show_integral;
+	}
+
+	
+	
+}

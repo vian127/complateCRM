@@ -1,0 +1,40 @@
+package com.pop136.customerservice.response;
+
+import java.io.Serializable;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class StoreList implements Serializable{
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String message;
+	private String code;
+	private List<StoreContent> content;
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public List<StoreContent> getContent() {
+		return content;
+	}
+	public void setContent(List<StoreContent> content) {
+		this.content = content;
+	}
+	
+	
+}

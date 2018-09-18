@@ -1,0 +1,28 @@
+package com.pop136.customerservice.mapper.agent.cusotmer;
+
+import com.pop136.core.mybatis.AbstractBaseMapper;
+import com.pop136.core.mybatis.annotation.Table;
+import com.pop136.core.mybatis.criteria.Condition;
+import com.pop136.core.mybatis.criteria.ConditionMapping;
+import com.pop136.customerservice.vo.customer.*;
+import com.pop136.customerservice.vo.customer.search.CustomerSearchVo;
+import com.pop136.customerservice.vo.customer.search.CustomerVo;
+import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Repository
+@Table("mp_contact")
+public class ContactMapper extends AbstractBaseMapper {
+  @Override
+  public void init() {
+    ConditionMapping mapping = new ConditionMapping( ) ;
+    mapping.put("name", new Condition("name" , Condition.SYMBOL.LIKE ) ) ;
+    super.putMapping( DEF_MAPPING_KEY , mapping);
+    super.setUnityFlterCondition( new Condition[]{ new Condition("deleteflag" , 0 , Condition.SYMBOL.EQ )});
+  }
+
+
+}

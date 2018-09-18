@@ -1,0 +1,23 @@
+package com.pop136.customerservice.service.integral;
+
+
+import com.pop136.customerservice.entity.integral.A524;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+@Service
+public interface IntegralService {
+	
+	/**
+	 * 增加一个产品分享
+	 * @param product
+	 */
+	void findProductList(A524 product);
+
+
+  List<A524> getProductList(Map<String, Object> paramMap);
+
+  A524 getProductInfo(String id);
+}

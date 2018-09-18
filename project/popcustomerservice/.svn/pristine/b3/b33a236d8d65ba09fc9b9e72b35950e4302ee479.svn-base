@@ -1,0 +1,297 @@
+<!-- 客户列表高级筛选模板 -->
+<div th:fragment="advanced_filter" class="advanced-filter-box js-advanced-filter-box">
+    <style th:inline="text">
+        .advanced-filter-box{display: none;padding: 20px 20px 0;}
+        .form-section>form>h3{font-size: 16px;padding-bottom: 10px;margin-bottom: 15px;border-bottom: 1px solid #aaa;}
+
+        .form-section .form-group{margin-bottom: 10px}
+        .form-section .form-group>label{width: 8em;}
+
+        .service-div>h3{font-size: 16px;margin-bottom: 15px;}
+        .service-div>div{margin-bottom: 10px;}
+    </style>
+    <div class="form-section form-inline">
+        <form class="clearfix">
+            <h3>高级筛选项</h3>
+            <div class="col-md-12">
+                <div class="form-group col-md-6">
+                    <label for="">服务开始时间</label>
+                    <input type="text" class='form-control js-date-area1' placeholder="请选择日期" v-model='collect.account'>
+                    ~
+                    <input type="text" class='form-control js-date-area2' placeholder="请选择日期" v-model='collect.account'>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="">领用人</label>
+                    <input type="text" class='form-control' placeholder="请输入领用人" v-model='collect.companyName'>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="">未访问天数</label>
+                    <input type="text" class='form-control' placeholder="请输入天数" v-model='collect.contactPhone'>
+                    ~
+                    <input type="text" class='form-control' placeholder="请输入天数" v-model='collect.account'>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="">未登录天数</label>
+                    <input type="text" class='form-control' placeholder="请输入天数" v-model='collect.contactPhone'>
+                    ~
+                    <input type="text" class='form-control' placeholder="请输入天数" v-model='collect.account'>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="">城市</label>
+                    <select name="" id="" class='form-control' v-model='collect.stage'>
+                        <option value="1">新客期</option>
+                        <option value="2">服务期</option>
+                        <option value="3">流转期</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="">企业类型</label>
+                    <select name="" id="" class='form-control' v-model='collect.stage'>
+                        <option value="1">新客期</option>
+                        <option value="2">服务期</option>
+                        <option value="3">流转期</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="">贸易类型</label>
+                    <select name="" id="" class='form-control' v-model='collect.stage'>
+                        <option value="1">新客期</option>
+                        <option value="2">服务期</option>
+                        <option value="3">流转期</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="">性别</label>
+                    <select name="" id="" class='form-control' v-model='collect.stage'>
+                        <option value="1">新客期</option>
+                        <option value="2">服务期</option>
+                        <option value="3">流转期</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="">行业类型</label>
+                    <select name="" id="" class='form-control' v-model='collect.stage'>
+                        <option value="1">新客期</option>
+                        <option value="2">服务期</option>
+                        <option value="3">流转期</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="">重点关注单品</label>
+                    <select name="" id="" class='form-control' v-model='collect.stage'>
+                        <option value="1">新客期</option>
+                        <option value="2">服务期</option>
+                        <option value="3">流转期</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="">重点开发季节</label>
+                    <select name="" id="" class='form-control' v-model='collect.stage'>
+                        <option value="1">新客期</option>
+                        <option value="2">服务期</option>
+                        <option value="3">流转期</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="">风格</label>
+                    <select name="" id="" class='form-control' v-model='collect.stage'>
+                        <option value="1">新客期</option>
+                        <option value="2">服务期</option>
+                        <option value="3">流转期</option>
+                    </select>
+                </div>
+            </div>    
+
+            <h3>客服选项</h3>
+            <div class="col-md-12">
+                <div class="form-group col-md-4">
+                    <label for="">发票项</label>
+                    <select name="" id="" class='form-control' v-model='collect.stage'>
+                        <option value="1">新客期</option>
+                        <option value="2">服务期</option>
+                        <option value="3">流转期</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="">客户关注项</label>
+                    <select name="" id="" class='form-control' v-model='collect.stage'>
+                        <option value="1">新客期</option>
+                        <option value="2">服务期</option>
+                        <option value="3">流转期</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="">其他关注项</label>
+                    <input type="text" class='form-control' placeholder="" v-model='collect.contactPhone'>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="">用户印象</label>
+                    <select name="" id="" class='form-control' v-model='collect.stage'>
+                        <option value="1">新客期</option>
+                        <option value="2">服务期</option>
+                        <option value="3">流转期</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="">最后一次联络类型</label>
+                    <select name="" id="" class='form-control' v-model='collect.stage'>
+                        <option value="1">新客期</option>
+                        <option value="2">服务期</option>
+                        <option value="3">流转期</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <label class="col-md-2" for="">多产品</label>
+                    <div class="col-md-10">
+                        <div class="col-md-4">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" value="1">APM
+                            </label>
+                            <select name="" id="" class='form-control' v-model='collect.stage'>
+                                <option value="1">新客期</option>
+                                <option value="2">服务期</option>
+                                <option value="3">流转期</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" value="1">书籍
+                            </label>
+                            <select name="" id="" class='form-control' v-model='collect.stage'>
+                                <option value="1">新客期</option>
+                                <option value="2">服务期</option>
+                                <option value="3">流转期</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" value="1">总裁班
+                            </label>
+                            <select name="" id="" class='form-control' v-model='collect.stage'>
+                                <option value="1">新客期</option>
+                                <option value="2">服务期</option>
+                                <option value="3">流转期</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" value="1">云图
+                            </label>
+                            <select name="" id="" class='form-control' v-model='collect.stage'>
+                                <option value="1">新客期</option>
+                                <option value="2">服务期</option>
+                                <option value="3">流转期</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" value="1">韩国行
+                            </label>
+                            <select name="" id="" class='form-control' v-model='collect.stage'>
+                                <option value="1">新客期</option>
+                                <option value="2">服务期</option>
+                                <option value="3">流转期</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" value="1">展会
+                            </label>
+                            <select name="" id="" class='form-control' v-model='collect.stage'>
+                                <option value="1">新客期</option>
+                                <option value="2">服务期</option>
+                                <option value="3">流转期</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="service-div col-md-12">
+                    <h3>服务详情</h3>
+                    <div class="col-md-4">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="1">基础项
+                        </label>
+                        <select name="" id="" class='form-control' v-model='collect.stage'>
+                            <option value="1">新客期</option>
+                            <option value="2">服务期</option>
+                            <option value="3">流转期</option>
+                        </select>
+                        <select name="" id="" class='form-control' v-model='collect.stage'>
+                            <option value="1">新客期</option>
+                            <option value="2">服务期</option>
+                            <option value="3">流转期</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="1">发票项
+                        </label>
+                        <select name="" id="" class='form-control' v-model='collect.stage'>
+                            <option value="1">新客期</option>
+                            <option value="2">服务期</option>
+                            <option value="3">流转期</option>
+                        </select>
+                        <select name="" id="" class='form-control' v-model='collect.stage'>
+                            <option value="1">新客期</option>
+                            <option value="2">服务期</option>
+                            <option value="3">流转期</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="1">赠品项
+                        </label>
+                        <select name="" id="" class='form-control' v-model='collect.stage'>
+                            <option value="1">新客期</option>
+                            <option value="2">服务期</option>
+                            <option value="3">流转期</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="1">登录使用项
+                        </label>
+                        <select name="" id="" class='form-control' v-model='collect.stage'>
+                            <option value="1">新客期</option>
+                            <option value="2">服务期</option>
+                            <option value="3">流转期</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="1">网站服务项
+                        </label>
+                        <select name="" id="" class='form-control' v-model='collect.stage'>
+                            <option value="1">新客期</option>
+                            <option value="2">服务期</option>
+                            <option value="3">流转期</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="1">推荐项
+                        </label>
+                        <select name="" id="" class='form-control' v-model='collect.stage'>
+                            <option value="1">新客期</option>
+                            <option value="2">服务期</option>
+                            <option value="3">流转期</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="1">备注
+                        </label>
+                        <textarea type="text" class='form-control' rows="5" cols="50" placeholder="备注信息" v-model='collect.account'></textarea>
+                    </div>
+                </div>
+                <!-- <div class="col-md-12 text-right">
+                    <button type="reset" class="btn btn-default">重置</button>
+                    <button type="button" class="btn btn-default" @click="closeFilterBox">取消</button>
+                    <button type="button" class="btn btn-default" @click="closeFilterBox">确认筛选</button>
+                </div> -->
+            </div>  
+        </form>
+    </div>
+</div>

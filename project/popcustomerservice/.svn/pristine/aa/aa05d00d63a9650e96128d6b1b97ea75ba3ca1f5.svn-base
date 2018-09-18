@@ -1,0 +1,41 @@
+package com.pop136.customerservice.response;
+
+import java.io.Serializable;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class StoreContent implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String integral;
+	private String storeName;
+	private String storeCode;
+	public String getIntegral() {
+		return integral;
+	}
+	public void setIntegral(String integral) {
+		this.integral = integral;
+	}
+	public String getStoreName() {
+		return storeName;
+	}
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+	public String getStoreCode() {
+		return storeCode;
+	}
+	public void setStoreCode(String storeCode) {
+		this.storeCode = storeCode;
+	}
+
+	
+	
+	
+
+}

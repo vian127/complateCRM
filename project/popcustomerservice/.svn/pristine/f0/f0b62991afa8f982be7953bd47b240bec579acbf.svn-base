@@ -1,0 +1,504 @@
+require.config({
+  paths: {
+    'ztree-core':'lib/ztree/jquery.ztree.core.min',
+    'ztree-excheck':'lib/ztree/jquery.ztree.excheck.min',
+    'ztree-exhide':'lib/ztree/jquery.ztree.exhide.min',
+    'city':'common/city'
+  },
+ 
+  shim: {
+    'ztree-excheck':{
+      deps:['css!lib/ztree/zTreeStyle.css','jquery','ztree-core']
+    },
+    'ztree-exhide':{
+      deps:['jquery','ztree-core']
+    }
+  }
+});
+  
+require(['jquery','vue','general','msg','layui','city','ztree-excheck','ztree-exhide'], function (jquery,Vue,general,msg,layui,citys) {
+    $(function (){
+
+        var def={
+            loading_ele:$('.js-loading-div'),
+            ajax_port:'http://localhost:8081',
+            msg_time:1200,                                                              //弹出框隐藏时间
+        };
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    tab_list:{                                                          //tab数据
+                        receive:null,
+                        assist:null,
+                        activity:null,
+                        call:{
+                            callIns:null,
+                            callOuts:null
+                        },
+                        service:null,
+                        ground:null,
+                        order:null,
+                        invoice:null,
+                        open:null,
+                        shop:null
+                    },
+                    location_obj:general.fn.getLocationParameter(),                     //浏览器参数
+                    user_info:{                                                         //用户信息
+                        customerInfo:{},
+                        customerTag:{},
+                        contactList:[]
+                    },                
+                    feedback_list:[],                                                   //回访记录列表
+                    province:citys,                                                     //当前省份数据                                       
+                    citys:[],                                                          //当前城市数据                                       
+                    districts:[],                                                       //当前地区数据    
+
+                    get_opt:{                                                           //回访信息参数
+                        customerId:'',
+                        page:1,
+                        size:10
+                    },                         
+                    is_first:true,
+                
+                material:{
+                  account:'123',
+                  id:'123',
+                  brand:'123',
+                  company:'123',  
+                  email:'123',
+                  pro:'1',
+                  city:'1',
+                  district:'1',
+                  addr:'123',
+                  telephone:'123',
+                  genre:'1',
+                  trade:'1',
+                  sex:'1',
+                  stage:'1',
+                  state:'1', 
+                  invoice:'1',
+                  limit:'全网',
+                },
+                visit:{
+                  person:'2',
+                  phone:'123',
+                  link:'2',
+                  stage:'2',
+                  result:'2',
+                  attention:'123',
+                  remark:'123',
+                  impress:'2',
+                  apm:'true',
+                  hasapm:'2',
+                  book:'true',
+                  hasbook:'2',
+                  ceo:'true',
+                  hasceo:'2',
+                  cloud:'true',
+                  hascloud:'2',
+                  seoul:'true',
+                  hasseoul:'2',
+                  exhibition:'true',
+                  hasexhibition:'2',
+                  first_visit:'true',
+                  perfect:'2',
+                  verify:[],
+                  invoice:'true',
+                  is_invoice:'2',
+                  invoice_all:[],
+                  present:'true',
+                  is_present:[],
+                  login:'true',
+                  is_login:[],
+                  sites:'true',
+                  login_status:'true',
+                  is_status:'2',
+                  intro:'',
+                  is_intro:'2',
+                  is_sites:[],
+                  recommend:'true',
+                  is_recommend:'2',
+                  mark:'true',
+                  is_mark:'123'
+                },
+                def:{
+                    trees:{
+                      industry:[
+                        { id:1, pId:0, name:'材质', open:false},
+                        { id:11, pId:1, name:'棉麻'},
+                        { id:12, pId:1, name:'丝绸'},
+                        { id:2, pId:0, name:'配饰', open:false},
+                        { id:21, pId:2, name:'手链'},
+                        { id:22, pId:2, name:'戒指'},
+                      ],
+                      style:[
+                        { id:1, pId:0, name:'流行', open:false},
+                        { id:11, pId:1, name:'坎肩'},
+                        { id:12, pId:1, name:'短袖'},
+                        { id:2, pId:0, name:'经典', open:false},
+                        { id:21, pId:2, name:'牛仔'},
+                        { id:22, pId:2, name:'麦子'},
+                      ],
+                      single:[
+                        { id:1, pId:0, name:'流行', open:false},
+                        { id:11, pId:1, name:'坎肩'},
+                        { id:12, pId:1, name:'短袖'},
+                        { id:2, pId:0, name:'经典', open:false},
+                        { id:21, pId:2, name:'牛仔'},
+                        { id:22, pId:2, name:'麦子'},
+                      ],
+                      season:[
+                        { id:1, pId:0, name:'流行', open:false},
+                        { id:11, pId:1, name:'坎肩'},
+                        { id:12, pId:1, name:'短袖'},
+                        { id:2, pId:0, name:'经典', open:false},
+                        { id:21, pId:2, name:'牛仔'},
+                        { id:22, pId:2, name:'麦子'},
+                      ],
+                      material:[
+                        { id:1, pId:0, name:'流行', open:false},
+                        { id:11, pId:1, name:'坎肩'},
+                        { id:12, pId:1, name:'短袖'},
+                        { id:2, pId:0, name:'经典', open:false},
+                        { id:21, pId:2, name:'牛仔'},
+                        { id:22, pId:2, name:'麦子'},
+                      ],
+                      process:[
+                        { id:1, pId:0, name:'流行', open:false},
+                        { id:11, pId:1, name:'坎肩'},
+                        { id:12, pId:1, name:'短袖'},
+                        { id:2, pId:0, name:'经典', open:false},
+                        { id:21, pId:2, name:'牛仔'},
+                        { id:22, pId:2, name:'麦子'},
+                      ],
+
+                    },
+                    trees_setting:{ 
+                            check: {
+                            enable: true
+                        },
+                        data:{
+                            simpleData: {
+                                enable: true
+                            }
+                        }
+                    }
+                },
+              } 
+            },
+            methods:{
+                getUserData:function(opt){                                                          //请求用户信息
+                    var self=this;
+                    general.fn.subAjax({
+                        url:def.ajax_port+'/api/customer/info',
+                        data:{id:self.location_obj.id},
+                        success:function(data){
+                            if(data && data.data){
+                                self.user_info=data.data;
+                                
+                                self.setSityData(self.user_info.customerInfo);
+                            }else{
+                                msg.msg({'txt':'未请求到数据'},def.msg_time);
+                            }
+                            def.loading_ele.fadeOut(400);
+                        },
+                        error:function(){
+                            def.loading_ele.fadeOut(400);
+                        }
+                    });
+                },
+                getUserTag:function(opt){                                                          //请求用户标签
+                    var self=this;
+                    general.fn.subAjax({
+                        url:def.ajax_port+'/api/datadict/getTag',
+                        data:{id:self.location_obj.id},
+                        success:function(data){
+                            if(data && data.data){
+                                self.user_info=data.data;
+                                self.setSityData(self.user_info.customerInfo);
+                            }else{
+                                msg.msg({'txt':'未请求到数据'},def.msg_time);
+                            }
+                            def.loading_ele.fadeOut(400);
+                        },
+                        error:function(){
+                            def.loading_ele.fadeOut(400);
+                        }
+                    });
+                },
+                setSityData:function(obj){                                                              //获取城市数据
+                    var self=this;
+                    this.getNowProvince(this.province,obj.province);                 
+                    this.getNowCity(this.citys,obj.city);                 
+                    this.getNowDistricts(this.districts,obj.district);                 
+                    
+                },
+                getNowProvince:function(data,val){                                                      //获取省份
+                    if(val!=undefined){
+                        for(var i=0,len=data.length;i<len;i++){
+                            if(val==data[i].id){
+                                this.citys=data[i]['citys'];
+                                break;
+                            }
+                        }
+                    }else{
+                        this.citys=data[0]['citys'];
+                    }
+                },
+                getNowCity:function(data,val){                                                          //获取城市
+                    if(val!=undefined){
+                        for(var i=0,len=data.length;i<len;i++){
+                            if(val==data[i].id){
+                                this.user_info.customerInfo.city=val;
+                                this.districts=data[i]['districts'];
+                                break;
+                            }
+                        }
+                    }else{
+                        this.user_info.customerInfo.city=data[0].id;
+                        this.districts=data[0]['districts'];
+                    }
+                },
+                getNowDistricts:function(data,val){                                                     //获取地区
+                    if(val!=undefined){
+                        this.user_info.customerInfo.district=val;
+                    }else{
+                        this.user_info.customerInfo.district=data[0].id;
+                    }
+                },
+                changeCitys:function(event,key){                                                        //选择城市
+                    var tag=event.target;
+                    var val=tag.value;
+                    if(key=='province'){
+                        this.getNowProvince(this.province,val);
+                        this.getNowCity(this.citys);
+                        this.getNowDistricts(this.districts);
+                    }else{
+                        this.getNowCity(this.citys,val);
+                        this.getNowDistricts(this.districts);
+                    }
+                },
+                getCity:function(){
+                    function abc(opt,index){
+                        $.ajax({
+                            url:def.ajax_port+'/api/datadict/getArea',
+                            contentType:'application/json',
+                            type:'post',
+                            data:JSON.stringify({'fatherid':opt.id}),
+                            async:false,
+                            success:function(data){
+                                if(data && data.data && data.data.length>0){
+                                    var ndata=data.data;
+                                    var now_data=[];
+                                    ndata.forEach(function(item){
+                                        now_data.push({
+                                            id:item.id,
+                                            name:item.name
+                                        });
+                                    });
+                                    opt['districts']=now_data;
+                                }
+                            }
+                        });
+                    };
+                    
+                },
+
+                getFeedbackData:function(opt){                                                          //请求回访列表数据
+                    var self=this;
+                    general.fn.subAjax({
+                        url:def.ajax_port+'/api/feedBack/list',
+                        data:opt,
+                        success:function(data){
+                            if(data && data.data){
+                                self.feedback_list=data.data || [];
+                                // 分页
+                                self.setPage(data.extra.count);
+                            }else{
+                                msg.msg({'txt':'未请求到数据'},def.msg_time);
+                            }
+                        }
+                    });
+                },
+                setPage:function(count){
+                    var self=this;
+                    if(self.is_first==true){
+                        self.is_first=false;
+                        layui.use('laypage', function(){
+                            var laypage = layui.laypage;
+                            //执行一个laypage实例
+                            laypage.render({
+                                elem: 'laypage-section'
+                                ,count: count
+                                ,layout: [ 'prev', 'page', 'next','limit','count', 'skip']
+                                ,jump: function(obj,first){
+                                    if(obj.count*1<=obj.limit){
+                                        $('#laypage-section').hide();
+                                    }else{
+                                        $('#laypage-section').show();
+                                    }
+                                    if(!first){
+                                        self.get_opt.size=obj.limit;
+                                        self.get_opt.page=obj.curr;
+                                        self.getFeedbackData(self.get_opt);
+                                    }
+                                    
+                                }
+                            });
+                        });
+                    }
+                },
+                getTabData:function(opt){                                                               //请求tab数据
+                    var self=this;
+                    general.fn.subAjax({
+                        url:def.ajax_port+'/api/customer/type',
+                        data:opt,
+                        success:function(data){
+                            if(data && data.data){
+                                self.tab_list[opt.type]=data.data;
+                            }else{
+                                msg.msg({'txt':'未请求到数据'},def.msg_time);
+                            }
+                            def.loading_ele.fadeOut(400);
+                        },
+                        error:function(){
+                            def.loading_ele.fadeOut(400);
+                        }
+                    });
+                },
+                
+                // 保存资料
+                saveMaterial:function(){
+                    var data = this.user_info.customerInfo;
+                    var opt={};
+                    for(var key in data){
+                        if(data[key]!=''){
+                            opt[key]=data[key];
+                        }
+                    }
+
+                    console.log(opt);
+                    // if(data.id==''){
+                    //   txt='客户ID不能为空!';
+                    //   msg.msg({txt:txt},1000)
+                    //   return
+                    // }else if(data.company==''){
+                    //   txt='公司名称不能为空!';
+                    //   msg.msg({txt:txt},1000)
+                    //   return
+                    // }else if(data.pro==''){
+                    //   txt='城市不能为空！';
+                    //   msg.msg({txt:txt},1000)
+                    //   return
+                    // }else if(data.city==''){
+                    //   txt='城市不能为空！';
+                    //   msg.msg({txt:txt},1000)
+                    //   return
+                    // }else if(data.district==''){
+                    //   txt='城市不能为空！';
+                    //   msg.msg({txt:txt},1000)
+                    //   return
+                    // }
+                    def.loading_ele.fadeIn(200);
+                    general.fn.subAjax({
+                        url:def.ajax_port+'/api/customer/update',
+                        type:'post',
+                        data:opt,
+                        success:function(data){
+                            msg.msg({'txt':'保存成功！'},def.msg_time);
+                            def.loading_ele.fadeOut(400);
+                        },
+                        error:function(){
+                            def.loading_ele.fadeOut(400);
+                        }
+                    });
+                },
+                //回访记录
+                visitRecord:function(){
+                    var data =this.visit;
+                    console.log(data)
+                },
+                bindFunc:function(){                                                        //事件绑定
+                    var self=this,d=self.def;
+                    // 点击获取焦点
+                    $('.js-checked-list').on('click',function(e){
+                        var $self=$(this),tag_ele=$self.siblings('.js-filter-div');
+                        var id=tag_ele.attr('data-id');
+                        if(d.trees[id]==undefined){
+                          var key=$self.attr('data-key') || '';
+                          if(key!=''){
+                            $.fn.zTree.init(tag_ele.children('.js-trees-ele'), d.trees_setting, d.trees[key]);
+                            d.trees[id]=$.fn.zTree.getZTreeObj(id);
+                          }
+                        }
+                        tag_ele.show();
+                        e.stopPropagation();
+                    });
+
+
+                    // 隐藏下拉选择层
+                    $('.js-filter-div').on('click',function(e){
+                        e.stopPropagation();
+                    });
+                    $('#page-wrapper').on('click',function(){
+                        $('.js-filter-div').hide();
+                    });
+                  
+                    
+                    // 确定筛选项
+                    $('.js-add-checked').on('click',function(){
+                        var id=$(this).parents('.js-filter-div').attr('data-id') || '';
+                        var ztree_obj=d.trees[id];
+                        var checked_obj=ztree_obj.getCheckedNodes();
+                        $(this).parents('.js-filter-div').hide();
+                        setFilterDom($(this).parents('.js-filter-div').siblings('.js-checked-list'),checked_obj);
+                    });
+                    // 取消筛选项
+                    $('.js-cancel-checked').on('click',function(){
+                        $(this).parents('.js-filter-div').hide();
+                    });
+
+                    // tab表格栏
+                    $('.js-tab-list>li.js-tab-item').on('click',function(){
+                        var index = $(this).index();
+                        var key=$(this).attr('data-key');
+                        if(self.tab_list[key]==null || (self.tab_list[key].callIns==null && self.tab_list[key].callOuts==null)){
+                            def.loading_ele.fadeIn(200);
+                            self.getTabData({
+                                customerId:'1345318',
+                                type:key
+                            });
+                        }
+                        $(this).addClass('stats-active').siblings().removeClass('stats-active')
+                        $('.js-stats-info>div').eq(index).show().siblings().hide();
+                    });
+
+                    $('.js-tab-list>li.js-tab-item').eq(0).click();
+
+                    function setFilterDom(tag,data){
+                        var _html='';
+                        data.forEach(function(item,index){
+                            if(index==0){
+                                _html+='<li>'+item.name+'</li>';
+                            }else{
+                                _html+=',<li>'+item.name+'</li>';
+                            }
+                        });
+                        tag.html(_html);
+                    };
+
+                },
+            },
+            mounted:function(){
+                this.getUserData();
+                this.get_opt.customerId=this.location_obj.id;
+                this.getFeedbackData(this.get_opt);
+                this.bindFunc();
+            }
+        }); 
+    });
+})
+
+
+      

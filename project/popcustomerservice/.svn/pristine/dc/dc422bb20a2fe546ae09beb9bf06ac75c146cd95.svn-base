@@ -1,0 +1,223 @@
+/*
+    #author     lut000
+    #date       2017/07/25
+    #porpuse    联系人详情
+*/
+require(['vue','msg','general','layui'], function (Vue,msg,general) {
+    $(function () {
+        var def={
+            loading_ele:$('.js-loading-div'),
+            ajax_port:'http://localhost:8081',
+            msg_time:1200,
+        };
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    user_info:{
+                        name:'',
+                        dutyId:'',
+                        role:'',
+                        statusId:0,
+                        mobile:'',
+                        telephone:'',
+                        isWeChat:0,
+                        main:'',
+                    },                                                                  //账号列表信息
+                    customer_info:[],                                                   //账户信息
+                    service_info:{
+                        impression:{},
+                        products:[]
+                    },                                                    //客服信息
+                    management_info:{},                                                 //用户管理信息
+                    location_obj:general.fn.getLocationParameter(),                     //浏览器参数
+                    feedback_list:[],                                                   //回访记录
+                    get_opt:{                                                           //回访列表参数
+                        contactId:'',
+                        customerId:'',
+                        size:10,
+                        page:1
+                    },
+                    is_first:true
+                }
+            },
+            components:{  
+                'feedback-template':{                                                   //回复记录模板
+                    props:['feedback_data'],
+                    template:'#feedback-table'
+                }
+            },
+            methods:{
+                getUserData:function(opt){
+                    var self=this;
+                    console.log(opt)
+                    general.fn.subAjax({
+                        url:def.ajax_port+'/api/contact/info',
+                        data:opt, 
+                        success:function(data){
+                            if(data && data.data){
+                                self.user_info=data.data.contactInfo || {};
+                                self.customer_info=data.data.customerInfo || [];
+                                self.management_info=data.data.manager || {};
+                                self.service_info=data.data.contactServiceInfo || {
+                                    impression:{},
+                                    products:[]
+                                };
+                            }else{
+                                msg.msg({'txt':'未请求到数据'},def.msg_time);
+                            }
+                            def.loading_ele.fadeOut(400);
+                        },
+                        error:function(){
+                            def.loading_ele.fadeOut(400);
+                        }
+                    });
+                },
+                getfeedbackData:function(opt){                                                          //请求回访列表数据
+                    var self=this;
+                    general.fn.subAjax({
+                        url:def.ajax_port+'/api/feedBack/list',
+                        data:opt,
+                        success:function(data){
+                            if(data && data.data){
+                                self.feedback_list=data.data || [];
+                                // 分页
+                                self.setPage(data.extra.count);
+                            }else{
+                                msg.msg({'txt':'未请求到数据'},def.msg_time);
+                            }
+                        }
+                    });
+                },
+                setPage:function(count){
+                    var self=this;
+                    if(self.is_first==true){
+                        self.is_first=false;
+                        layui.use('laypage', function(){
+                            var laypage = layui.laypage;
+                            //执行一个laypage实例
+                            laypage.render({
+                                elem: 'laypage-section'
+                                ,count: count
+                                ,layout: [ 'prev', 'page', 'next','limit','count', 'skip']
+                                ,jump: function(obj,first){
+                                    if(obj.count*1<=obj.limit){
+                                        $('#laypage-section').hide();
+                                    }else{
+                                        $('#laypage-section').show();
+                                    }
+                                    if(!first){
+                                        self.get_opt.size=obj.limit;
+                                        self.get_opt.page=obj.curr;
+                                        self.getfeedbackData(self.get_opt);
+                                    }
+                                }
+                            });
+                        });
+                    }
+                },
+                saveFunc:function(e){
+                    var data=this.user_info;
+                    var msg_txt={'name':'请输入姓名','duty':'请选择职务','role':'请选择角色','status':'请选择状态'};
+                    var return_data={},contact_param={},product_params=[];
+                    var is_next=true;
+                    for(var key in data){
+                        switch(key){
+                            case 'name':
+                            case 'dutyId':
+                            case 'role':
+                            case 'statusId':
+                                if(data[key]==''){
+                                    is_next=false;
+                                    msg.msg({'txt':msg_txt[key]},def.msg_time);
+                                }
+                                break;
+                            case 'mobile':
+                            case 'telephone':
+                                if(data['mobile']=='' && data['telephone']==''){
+                                    is_next=false;
+                                    msg.msg({'txt':'移动电话和工作电话必须输入一个'},def.msg_time);
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        if(is_next==false){
+                            break;
+                        }
+                        if(data[key]!=""){
+                            if(key=='dutyId'){
+                                contact_param['duty']=data[key];
+                            }else{
+                                contact_param[key]=data[key];
+                            }
+                        }
+                    }
+                    return_data.contactParam=contact_param;
+                    return_data.impressionId=this.service_info.impression.impressionId;
+
+                    this.service_info.products.forEach(function(item){
+                        product_params.push({
+
+                            productId:item.productId,
+                            productStatusId:item.productStatusId,
+                            status:item.status
+                        })
+                    });
+                    return_data.productParams=product_params;
+                    console.log(return_data);
+                    if(is_next==true){
+                        def.loading_ele.fadeIn(200);
+                        general.fn.subAjax({
+                            url:def.ajax_port+'/api/contact/update',
+                            data:return_data,
+                            success:function(data){
+                                msg.msg({'txt':'保存成功！'},1200);
+                                def.loading_ele.fadeOut(400);
+                            },
+                            error:function(){
+                                def.loading_ele.fadeOut(400);
+                            }
+                        });
+                    }
+
+                },
+                init:function(){
+                    if(this.location_obj.type!=1){
+                        this.getUserData({id:this.location_obj.contactid});
+                        this.get_opt.contactId=this.location_obj.contactid;
+                        this.get_opt.customerId=this.location_obj.customerid;
+                        this.getfeedbackData(this.get_opt);
+                    }else{
+                        def.loading_ele.fadeOut(400);
+                    }
+                    this.bindFunc();
+                },
+                bindFunc:function(){
+                    $('.js-slide-btn').on('click', function () {
+                        var $this=$(this);
+                        var status=$(this).attr('data-slide') || 2;
+                        if(status==2){
+                            $(this).attr('data-slide',1);
+                            $(this).children('button').text('+');
+                            $(this).addClass('slide-up');
+                        }else{
+                            $(this).attr('data-slide',2);
+                            $(this).children('button').text('-');
+                            $(this).removeClass('slide-up');
+                        }
+                        $(this).parent().next().toggle();
+                    });
+                },
+                checkFunc:function(e,index){
+                    var tag=e.target,is_checked=tag.checked;
+                    this.service_info.products[index]['status']=is_checked==true?1:0;
+                }
+            },
+            mounted:function(){
+                
+                this.init();
+            }
+        });
+    })
+})

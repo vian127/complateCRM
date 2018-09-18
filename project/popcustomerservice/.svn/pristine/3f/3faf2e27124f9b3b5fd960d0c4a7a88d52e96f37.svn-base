@@ -1,0 +1,56 @@
+package com.pop136.customerservice.response;
+
+import java.io.Serializable;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class PointList implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String message;
+	private String code;
+	private String integral;
+	
+	private List<PointContent> content;
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(String integral) {
+		this.integral = integral;
+	}
+
+	public List<PointContent> getContent() {
+		return content;
+	}
+
+	public void setContent(List<PointContent> content) {
+		this.content = content;
+	}	
+	
+	
+	
+}

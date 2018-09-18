@@ -1,0 +1,76 @@
+package com.pop136.customerservice.config.ds;
+
+import javax.sql.DataSource;
+
+import com.pop136.core.mybatis.UniversalSqlSessionFactoryBuilder;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+
+import com.alibaba.druid.pool.DruidDataSource;
+
+@Configuration
+//扫描 Mapper 接口并容器管理
+@MapperScan(basePackages = AccountDataSourceConfig.PACKAGE, sqlSessionFactoryRef = "accountSqlSessionFactory", sqlSessionTemplateRef  ="SqlSessionTemplate")
+public class AccountDataSourceConfig {
+	
+    // 精确到 master 目录，以便跟其他数据源隔离
+    static final String PACKAGE = "com.pop136.customerservice.mapper.agent";
+    static final String MAPPER_LOCATION = "classpath:mapper/agent/**/*.xml";
+    static final String CONFIGLOCATION = "classpath:mybatis-config.xml";
+ 
+    @Value("${account.datasource.url}")
+    private String url;
+ 
+    @Value("${account.datasource.username}")
+    private String user;
+ 
+    @Value("${account.datasource.password}")
+    private String password;
+ 
+    @Value("${account.datasource.driverClassName}")
+    private String driverClass;
+ 
+    @Bean(name = "accountDataSource")
+    @Primary
+    public DataSource accountDataSource() {
+        DruidDataSource dataSource = new DruidDataSource();
+        dataSource.setDriverClassName(driverClass);
+        dataSource.setUrl(url);
+        dataSource.setUsername(user);
+        dataSource.setPassword(password);
+        return dataSource;
+    }
+ 
+    @Bean(name = "accountTransactionManager")
+    @Primary
+    public DataSourceTransactionManager masterTransactionManager() {
+        return new DataSourceTransactionManager(accountDataSource());
+    }
+ 
+    @Bean(name = "accountSqlSessionFactory")
+    @Primary
+    public SqlSessionFactory accountSqlSessionFactory(@Qualifier("accountDataSource") DataSource accountDataSource)
+            throws Exception {
+        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+        sessionFactory.setDataSource(accountDataSource);
+        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()
+                .getResources(AccountDataSourceConfig.MAPPER_LOCATION));
+        sessionFactory.setSqlSessionFactoryBuilder(new UniversalSqlSessionFactoryBuilder());
+        return sessionFactory.getObject();
+    }
+
+    @Bean(name = "SqlSessionTemplate")
+    @Primary
+    public SqlSessionTemplate testSqlSessionTemplate(@Qualifier("accountSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
+      return new SqlSessionTemplate(sqlSessionFactory);
+    }
+}

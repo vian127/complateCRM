@@ -1,0 +1,57 @@
+package com.pop136.customerservice.vo.customer.search;
+
+import com.pop136.customerservice.vo.common.Page;
+
+public class FeedBackSearchVo extends Page {
+
+  private String contactId;//联系人
+
+  private String customerId;//客户id
+
+  private String accountName;//主账号
+
+  private String companyName;//公司名
+
+  private String contactPhone;//联系方式
+
+
+  public String getContactId(String id) {
+    return contactId;
+  }
+
+  public void setContactId(String contactId) {
+    this.contactId = contactId;
+  }
+
+  public String getCustomerId() {
+    return customerId;
+  }
+
+  public void setCustomerId(String customerId) {
+    this.customerId = customerId;
+  }
+
+  public String getAccountName() {
+    return accountName;
+  }
+
+  public void setAccountName(String accountName) {
+    this.accountName = accountName;
+  }
+
+  public String getCompanyName() {
+    return companyName;
+  }
+
+  public void setCompanyName(String companyName) {
+    this.companyName = companyName;
+  }
+
+  public String getContactPhone() {
+    return contactPhone;
+  }
+
+  public void setContactPhone(String contactPhone) {
+    this.contactPhone = contactPhone;
+  }
+}

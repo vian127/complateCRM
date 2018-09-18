@@ -1,0 +1,42 @@
+package com.pop136.customerservice.controller.integral;
+
+import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
+
+@Component
+public class integralContent implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String integral;//积分
+	private String storeName;//店铺名称
+	private String storeCode;//店铺code
+
+	public String getIntegral() {
+		return integral;
+	}
+
+	public void setIntegral(String integral) {
+		this.integral = integral;
+	}
+
+	public String getStoreName() {
+		return storeName;
+	}
+
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+
+	public String getStoreCode() {
+		return storeCode;
+	}
+
+	public void setStoreCode(String storeCode) {
+		this.storeCode = storeCode;
+	}
+}

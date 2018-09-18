@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CustomerMapper">
+    
+
+    <select id="getCustomerList" parameterType="com.pop136.customerservice.vo.customer.search.CustomerSearchVo"
+            resultType="com.pop136.customerservice.vo.customer.search.CustomerVo">
+    SELECT
+    a.bankaccounts as accountName, a.name as companyName, a.id, a.customeractiveenddate as expireDate,
+    a.lastcalloutdate as returnDate , a.founddate as loginDate , a.lastactivitydate as activityDate,
+    u.name as receiveName, MAX (o.begindate) as receiveDate
+
+        <if test="receiveStatus != null and receiveStatus != '' ">
+            , o.msgtype as receiveStatus
+        </if>
+    FROM
+    mp_customer a
+    LEFT JOIN mp_userrole r on a.ownerroleid = r.id
+    LEFT JOIN mp_user u on u.id = r.userid
+    LEFT JOIN mp_msgowner o on a.id = o.customerid
+    <if test="webSource != null or serviceStage != null or tagIds != null">
+        LEFT JOIN ss_tagvalue_customer tag on tag.customerid = a.id
+    </if>
+
+    <if test="qq != null or weChat != null">
+    LEFT JOIN mp_contact c on a.id = c.customerid
+    </if>
+
+    <if test="productIds != null and productIds.size > 0 ">
+        LEFT JOIN ss_contactserve_product p on a.id = p.customerid
+    </if>
+
+    WHERE
+    a.deleteflag = '0'
+
+    <if test="ownerId != null and ownerId != ''">
+        AND a.ownerroleid = #{ownerId}
+    </if>
+
+    <if test="ownerIds != null and ownerIds != ''">
+        AND a.ownerroleid IN (${ownerIds})
+    </if>
+
+    <if test="id != null and id != '' ">
+        and a.id = #{id}
+    </if>
+
+    <if test="account != null and account != '' ">
+        and a.bankaccounts = #{account}
+    </if>
+
+    <if test="companyName != null and companyName != '' ">
+        and a.name LIKE  '%'+#{companyName}+'%'
+    </if>
+
+    <if test="contactPhone != null and contactPhone != '' ">
+        and a.phone = #{contactPhone}
+    </if>
+
+    <if test="provinceId != null and provinceId != '' ">
+        and a.countryid = #{provinceId}
+    </if>
+
+    <if test="cityId != null and cityId != '' ">
+        and a.provinceid = #{cityId}
+    </if>
+
+    <if test="districtId != null and districtId != '' ">
+        and a.cityid = #{districtId}
+    </if>
+
+    <if test="webSource != null and webSource != '' ">
+       AND tag.tagvalid = #{webSource}
+    </if>
+
+    <if test="serviceStage != null and serviceStage != '' ">
+       AND tag.tagvalid = #{serviceStage}
+    </if>
+
+    <if test="receiveName != null and receiveName != '' ">
+       AND u.name like '%'+#{receiveName}+'%'
+    </if>
+
+    <if test="qq != null and qq != '' ">
+       AND c.qq = #{qq}
+    </if>
+
+    <if test="bank != null and bank != '' ">
+       AND a.bank = #{bank}
+    </if>
+    <if test="email != null and email != '' ">
+       AND a.email = #{email}
+    </if>
+    <if test="weChat != null and weChat != '' ">
+       AND c.relatecontactid5 = #{weChat}
+    </if>
+
+    <if test="tagIds != null and tagIds.size > 0 ">
+        AND  tag.tagvalid IN
+        <foreach collection="tagIds" item="item"  index="index"  open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </if>
+
+    <if test="productIds != null and productIds.size > 0 ">
+        AND  p.productid IN
+        <foreach collection="productIds" item="item"  index="index"  open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </if>
+
+    <if test="serviceStartDate != null and serviceStartDate != '' ">
+       AND a.lastactivitydate &gt; #{serviceStartDate }
+    </if>
+
+    <if test="serviceEndDate != null and serviceEndDate != '' ">
+       AND a.lastactivitydate &gt; #{serviceEndDate }
+    </if>
+
+    <if test="loginPage != null and loginPage != '' ">
+       AND a.founddate &gt; #{loginPage.startTime}
+       AND a.founddate &lt;= #{loginPage.endTime}
+    </if>
+        GROUP BY a.bankaccounts ,
+        a.name ,
+        a.id,
+        a.customeractiveenddate ,
+        a.lastcalloutdate,
+        a.founddate,
+        a.lastactivitydate,
+        u.name ,
+        o.msgtype,a.lastupdatetime
+    ORDER  by a.lastupdatetime DESC
+    </select>
+
+    <select id="getCustomerCount"  parameterType="com.pop136.customerservice.vo.customer.search.CustomerSearchVo"
+    resultType="java.lang.String">
+        SELECT
+        count(*)
+        FROM
+        mp_customer a
+        LEFT JOIN mp_userrole r on a.ownerroleid = r.id
+        LEFT JOIN mp_user u on u.id = r.userid
+        <if test="webSource != null and webSource != '' ">
+            LEFT JOIN ss_tagvalue_customer tag on tag.customerid = a.id
+        </if>
+        <if test="serviceStage != null and serviceStage != ''">
+            LEFT JOIN ss_tagvalue_customer tag on tag.customerid = a.id
+        </if>
+        <if test="qq != null and qq != '' ">
+            LEFT JOIN mp_contact c on a.id = c.customerid
+        </if>
+        WHERE
+        a.deleteflag = '0'
+        AND a.ownerroleid = #{ownerId}
+
+        <if test="id != null and id != '' ">
+            and a.id = #{id}
+        </if>
+
+        <if test="account != null and account != '' ">
+            and a.bankaccounts = #{account}
+        </if>
+
+        <if test="companyName != null and companyName != '' ">
+            and a.name LIKE  '%'+#{companyName}+'%'
+        </if>
+
+        <if test="contactPhone != null and contactPhone != '' ">
+            and a.phone = #{contactPhone}
+        </if>
+
+        <if test="webSource != null and webSource != '' ">
+            AND tag.tagvalid = #{webSource}
+        </if>
+
+        <if test="serviceStage != null and serviceStage != '' ">
+            AND tag.tagvalid = #{serviceStage}
+        </if>
+
+        <if test="receiveName != null and receiveName != '' ">
+            AND u.name like '%'+#{receiveName}+'%'
+        </if>
+
+        <if test="qq != null and qq != '' ">
+            AND c.qq = #{qq}
+        </if>
+    </select>
+
+
+    <select id="getReceiveInfoByCustomerId" resultType="com.pop136.customerservice.vo.customer.ReceiveInfoVo">
+    SELECT
+		u.name as designateName, j.name as staffName, a.begindate as startTime, a.enddate as endTime,
+		a.msgtype as msgType, a.customerid as customerId
+	FROM
+		mp_msgowner a
+    LEFT JOIN mp_userrole b on a.userroleid = b.id
+    LEFT JOIN mp_user u on u.id = b.userid
+    LEFT JOIN mp_userrole c on a.ownerroleid = c.id
+    LEFT JOIN mp_user j on j.id = c.userid
+	WHERE
+		a.id != '0'
+	AND a.objectid = #{customerId}
+	AND (
+		a.msgtype = '0'
+		OR a.msgtype = '2'
+	)
+	AND a.source != '1'
+	ORDER BY
+		a.source DESC,
+		a.lastupdatetime DESC
+  </select>
+
+
+
+  <select id="getAssistInfoByCustomerId" resultType="com.pop136.customerservice.vo.customer.AssistInfoVo">
+   SELECT
+        a.customerid AS customerId, u.name as handlerName , u1.name as assistantName, u2.name as assistantName2,
+        a.begindate as startTime, a.enddate as endTime
+    FROM
+        mp_customerowner a
+    LEFT JOIN mp_userrole b on a.userroleid = b.id
+    LEFT JOIN mp_user u on b.userid = u.id
+    LEFT JOIN mp_userrole c on a.ownerroleid = c.id
+    LEFT JOIN mp_user u1 on c.userid = u1.id
+    LEFT JOIN mp_userrole d on a.assistid = d.id
+    LEFT JOIN mp_user u2 on d.userid = u2.id
+
+    WHERE
+        a.deleteflag = 0
+    AND a.objectid = #{customerId}
+    ORDER BY
+        a.lastupdatetime DESC
+
+  </select>
+
+
+  <select id="getActivityInfoByCustomerId" resultType="com.pop136.customerservice.vo.customer.ActivityInfoVo">
+   SELECT
+    a.notes as remark,
+    g.name as roll,
+    a.contactname as name,
+    a.typename as type,
+    a.endtime as time,
+    a.statusid as status,
+    u.name as staffName
+    FROM
+        mp_timeactivity a
+    LEFT JOIN gp_datadict g ON g.id = a.customfield2
+    LEFT JOIN mp_userrole b on a.ownerid = b.id
+    LEFT JOIN mp_user u on b.userid = u.id
+    WHERE
+        a.customerid = #{customerId}
+    AND a.deleteflag IN (0, 10)
+    ORDER BY
+	a.startdate DESC,
+	a.starttime DESC
+
+  </select>
+
+
+  <select id="getCallInByCustomerId" resultType="com.pop136.customerservice.vo.customer.CallInfoVo">
+    SELECT
+	a.content as remark, a.ncreatetime as time,u.name as staffName
+    FROM
+        mp_callin a
+    LEFT JOIN mp_userrole m on a.ncreateroleid = m.id
+    LEFT JOIN mp_user u ON m.userid = u.id
+    WHERE
+        a.deleteflag = '0'
+    AND a.customerid = #{customerId}
+    ORDER BY
+	a.createtime DESC
+
+  </select>
+
+
+  <select id="getCallOutByCustomerId" resultType="com.pop136.customerservice.vo.customer.CallInfoVo">
+    SELECT
+	a.ncreatetime as time , u.name as staffName, a.contactname as name, a.content as remark, g.name as type,
+	 g1.name as result, a.wavfile as record
+
+    FROM
+    mp_callout a
+    LEFT JOIN gp_datadict g on a.customfield5 = g.id
+    LEFT JOIN gp_datadict g1 on a.donestatus2 = g1.id
+    LEFT JOIN mp_userrole m on a.ncreateroleid = m.id
+    LEFT JOIN mp_user u ON m.userid = u.id
+
+    WHERE
+    a.deleteflag = '0'
+    AND a.customerid = #{customerId}
+    ORDER BY
+    a.createtime DESC
+
+  </select>
+
+
+  <select id="getServiceByCustomerId" parameterType="java.util.Map" resultType="com.pop136.customerservice.vo.customer.ServiceInfoVo">
+    SELECT
+	a.createtime as time,
+	a.contactname as name,
+	a.typename as contactType,
+	a.servicecontentname as content,
+	a.remark as remark,
+	a.contentmentname as satisfaction,
+	g1.name as level,
+	g.name as contactResult,
+	a.statusname as contactStatus,
+	a.wavfile as record,
+	g2.name as groundType,
+	g3.name as visitCount ,
+	a.groundremark as groundRemark,
+	u.name as staffName
+
+    FROM
+        mp_feedback a
+        LEFT JOIN mp_userrole m on a.creatorroleid = m.id
+	    LEFT JOIN mp_user u ON m.userid = u.id
+        LEFT JOIN gp_datadict g on a.customdict5 = g.id
+        LEFT JOIN gp_datadict g1 on a.customdict1 = g1.id
+        LEFT JOIN gp_datadict g2 on a.groundtypeid = g2.id
+	    LEFT JOIN gp_datadict g3 on a.visittimesid = g3.id
+    WHERE
+        a.deleteflag = '0'
+    AND a.customerid = #{customerId}
+    AND a.groundflag = #{groundFlag}
+    ORDER BY
+        a.createtime DESC
+
+  </select>
+
+
+  <select id="getOrderByCustomerId"  resultType="com.pop136.customerservice.vo.customer.OrderInfoVo">
+    SELECT
+	a.returndate as CountTime, g.name as web, a.customername as companyName, m.bankaccounts as accountName,
+	a.amount as TotalPrice, amount.amount as performance, a.begindate as startTime , a.enddate as endTime,
+	u.name as salesman , a.statusname as status
+    FROM
+        mp_customeractive a
+        LEFT JOIN gp_datadict g on a.customdict1 = g.id
+        LEFT JOIN mp_customer m on m.id = a.customerid
+        LEFT JOIN mp_customeractiveamount amount on amount.customeractiveid = a.id
+        LEFT JOIN mp_userrole r on r.id = a.ownerroleid
+        LEFT JOIN mp_user u on u.id = r.userid
+
+    WHERE
+        a.deleteflag = '0'
+    AND a.typeid = '580858'
+    AND a.customerid = #{customerId}
+    ORDER BY
+        a.typeid DESC,
+        a.activetime DESC
+
+  </select>
+
+
+  <select id="getInvoiceByCustomerId"  resultType="com.pop136.customerservice.vo.customer.InvoiceInfoVo">
+    SELECT
+    a.nofollow_invoice as status,
+	a.invoice_type as type, a.invoice_title as title, a.invoice_content as content, a.mailing_address as address,
+    a.contact as contactName, a.contact_way as contactWay
+    FROM
+        mp_customerinvoice a
+    WHERE
+     a.deleteflag = '0'
+    AND
+    user_id = #{customerId}
+
+  </select>
+
+
+  <select id="getInvoiceLogByCustomerId"  resultType="com.pop136.customerservice.vo.customer.InvoiceLogInfoVo">
+    SELECT
+	a.invoice_num as invoiceNum , a.mailing_address as address ,
+    a.contact as contactName, a.contact_way as contactWay , a.statusname as status,
+    a.invoice_property as property, a.express_num as expressNum, a.express_company as expressCompany,
+    a.createtime as crateTime
+    FROM
+        v_mp_customerinvoicelog a
+    WHERE
+        a.customerid = #{customerId}
+    AND a.deleteflag = '0'
+
+  </select>
+
+
+  <select id="getShangPaiByCustomerId"  resultType="com.pop136.customerservice.vo.customer.ShangpainfoVo">
+    SELECT
+	user_account as acountName,
+	cellphone as phone,
+	area as area,
+	brand as brand,
+	sex as sex,
+	status as status,
+	updatetime as updateTime,
+	info as remark
+    FROM
+        mp_customershangpai a
+    WHERE
+        a.deleteflag = '0'
+    AND a.user_id = #{customerId}
+
+  </select>
+
+
+  <select id="getApmBookInfo"  resultType="com.pop136.customerservice.entity.customer.CustomerApm">
+    SELECT
+	MAX (bookdate) as bookDate,
+	count(BookNo) as count,
+	BookNo as bookNo
+    FROM
+	(
+		SELECT
+			a.id,
+			d.bookdate,
+			d.bookname,
+			e.BookNo
+		FROM
+			mp_customer AS a
+		LEFT JOIN mp_customeractive AS b ON b.customerid = a.id
+		LEFT JOIN fct_custactivebook AS c ON c.orderid = b.id
+		LEFT JOIN mp_book AS d ON d.bookid = c.bookid
+		AND d.deleteflag = 0
+		LEFT JOIN dim_Book AS e ON e.BookNoId = d.BookNoId
+		WHERE
+			a.id = #{customerId}
+		AND d.seriesid = 'Series1005'
+	) AS tt
+    GROUP BY
+	BookNo
+
+  </select>
+
+
+
+
+
+
+
+</mapper>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="CRM" />
+    <meta name="description" content="CRM" />
+    <title>群发短信</title>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/common/form-list.css}" />
+</head>
+
+<body>
+    <!-- view -->
+    <div id="wrapper">
+        <!-- header -->
+        <div class="header" th:include="./views/common/header :: headertpl"></div>
+        <div id="page-wrapper">
+            <!-- content -->
+            <div class="content container-fluid" id='app'>
+                <!-- 页面位置 -->
+                <div class="page-header-section">
+                    <h3>群发信息</h3>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-12 text-right">
+                        <button type='button' class="btn btn-primary" title="确认发送">确认发送</button>
+                    </div>
+                </div>
+                <!-- 表单部分 -->
+                <div class="form-section form-inline">
+                    <form class='js-form'>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <font class='warn-color'>*</font>
+                                <label for="">模板</label>
+                                <select name="" id="" class='form-control'>
+                                    <option value="1">模板A</option>
+                                    <option value="1">模板B</option>
+                                    <option value="1">模板C</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="">短信内容</label>
+                                <textarea name="" id="" cols="100%" rows="2" class='form-control'></textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="">发送对象类型</label>
+                                <select name="" id="" class='form-control'>
+                                    <option value="1">客户</option>
+                                    <option value="2">用户</option>
+                                    <option value="3">导入号码</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <font class='warn-color'>*</font>
+                                <label for="">发送对象</label>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <label>已添加
+                                        <u>11</u>个发送对象</label>
+                                    <label>已选中
+                                        <u>123</u>个发送对象</label>
+                                </div>
+                                <div class="col-md-3 text-right">
+                                    <button type='button' title="添加客户" class="btn btn-default">添加客户</button>
+                                    <button type='button' title="删除选中" class="btn btn-primary">删除选中</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- 列表 -->
+                <div class="col-md-12">
+                    <table class='table table-bordered table-hover js-list-table'>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox">
+                                </th>
+                                <th>客户名称</th>
+                                <th>号码</th>
+                                <th>用户名称</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr align='center' v-for='item in taskTb'>
+                                <td>
+                                    <input type="checkbox">
+                                </td>
+                                <td v-text='item.company'></td>
+                                <td v-text='item.tel'></td>
+                                <td v-text='item.name'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="laypage-section" class='text-right'></div>
+                </div>
+            </div>
+            <!-- footer -->
+            <div class="footer" th:include="./views/common/footer :: footertpl"></div>
+        </div>
+    </div>
+
+    <!-- 共用模块 -->
+    <div th:include="./views/common/common :: commontpl"></div>
+    <!-- JS Scripts-->
+
+    <script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/marketing/masstext.js}"></script>
+</body>
+
+</html>

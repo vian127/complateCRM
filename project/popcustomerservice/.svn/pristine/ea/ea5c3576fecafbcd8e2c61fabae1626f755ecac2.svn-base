@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FeedBackMapper">
+
+
+  <select id="getFeedBackList"  resultType="com.pop136.customerservice.entity.customer.FeedBack"
+   parameterType="com.pop136.customerservice.vo.customer.search.FeedBackSearchVo">
+    SELECT * FROM (
+    SELECT
+      ROW_NUMBER()over(order by a.createtime DESC)as row_num, a.*
+
+      FROM mp_feedback a
+
+      <if test="customerId != null || accountName != null ">
+      LEFT  JOIN  mp_customer b on a.customerid = b.id
+      </if>
+
+      <if test="contactId != null and contactId != '' ">
+      LEFT  JOIN  mp_contact c on a.contactid = c.id
+      </if>
+
+     WHERE
+      a.deleteflag = '0'
+
+      <if test="contactId != null and contactId != '' ">
+          and a.contactid = #{contactId}
+      </if>
+
+      <if test="customerId != null and customerId != ''">
+         and a.customerid = #{customerId}
+      </if>
+
+      <if test="accountName != null and accountName != '' ">
+         and b.bankaccounts like '%'+#{accountName}+'%'
+      </if>
+
+      <if test="phone != null and phone != '' ">
+         and a.phonenumber = #{phone}
+      </if>
+
+      <if test="ownerName != null and ownerName != '' ">
+         and a.ownername = #{ownerName}
+      </if>
+
+      <if test="startDate != null and  startDate != '' ">
+         and a.createtime BETWEEN #{startDate} AND  #{endDate}
+      </if>
+
+      ) result
+
+      <if test="page != null">
+          where result.row_num &gt; #{page} and result.row_num &lt;= #{size}
+      </if>
+
+  </select>
+
+
+    <select id="getFeedBackCount" parameterType="com.pop136.customerservice.vo.customer.search.FeedBackSearchVo"
+    resultType="java.lang.String">
+        SELECT  count(*)
+
+        FROM mp_feedback a
+
+        <if test="customerId != null || accountName != null ">
+            LEFT  JOIN  mp_customer b on a.customerid = b.id
+        </if>
+
+        <if test="contactId != null and contactId != '' ">
+            LEFT  JOIN  mp_contact c on a.contactid = c.id
+        </if>
+
+        WHERE
+        a.deleteflag = '0'
+
+        <if test="contactId != null and contactId != '' ">
+            and a.contactid = #{contactId}
+        </if>
+
+        <if test="customerId != null and customerId != ''">
+            and a.customerid = #{customerId}
+        </if>
+
+        <if test="accountName != null and accountName != '' ">
+            and b.bankaccounts like '%'+#{accountName}+'%'
+        </if>
+
+        <if test="phone != null and phone != '' ">
+            and a.phonenumber = #{phone}
+        </if>
+
+        <if test="ownerName != null and ownerName != '' ">
+            and a.ownername = #{ownerName}
+        </if>
+
+        <if test="startDate != null and  startDate != '' ">
+            and a.createtime BETWEEN #{startDate} AND  #{endDate}
+        </if>
+
+    </select>
+
+</mapper>

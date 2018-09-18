@@ -1,0 +1,103 @@
+/*
+    #author     gaofeng
+    #date       2018/07/23
+    #purpose    发送批次详情
+*/
+
+require(['vue', 'msg','general','base-info', 'layui'], function (Vue, msg,general,global_info) {
+    $(function () {
+        var def = {
+            loading_ele: $('.js-loading-div'),
+            ajax_port:global_info.api_url,
+        };
+        
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    send_info:{},                                                   //当前页面数据  
+                    get_opt:{                                                       //请求参数                        
+                        page:1,
+                        size:10
+                    },
+                    location_obj:general.fn.getLocationParameter(),                 //浏览器参数
+                    count: {                                                        //发送信息对象数据
+                        successNum: 111
+                    },
+                  
+                    collect: {                                                      //筛选数据
+                        phoneNumber: '',
+                        status:'',
+                    },
+                    is_first:true,                                                 //是否第一次调用加载数据               
+                }
+            },
+            mounted() {
+                this.getSendData(this.get_opt);
+            },
+            methods: {
+                getSendData:function(opt){
+                    def.loading_ele.fadeIn(200);
+                    var id=this.location_obj.id;
+                    general.fn.subAjax({
+                        url:def.ajax_port+'/api/msg/info/'+id,
+                        data:opt,
+                        success:this.setSendData,
+                        error:function(){
+                            def.loading_ele.fadeOut(400);
+                        }
+                    })
+                },
+                setSendData:function(data){                                         //请求数据列表
+                    var self=this;
+                    if(data && data.data){
+                        console.log(data)
+                        self.send_info=data.data;
+                        if(self.is_first==true){
+                            self.is_first=false;
+                            layui.use('laypage', function(){
+                                var laypage = layui.laypage;
+                                //执行一个laypage实例
+                                laypage.render({
+                                    elem: 'laypage-section'
+                                    ,count: data.extra.count
+                                    ,layout: [ 'prev', 'page', 'next','limit','count', 'skip']
+                                    ,jump: function(obj,first){
+                                        if(obj.count<=obj.limit){
+                                            $('#laypage-section').hide();
+                                        }else{
+                                            $('#laypage-section').show();
+                                        }
+                                        if(!first){
+                                            self.get_opt.size=obj.limit;
+                                            self.get_opt.page=obj.curr;
+                                            self.getSendData(self.get_opt);
+                                        } 
+                                    }
+                                });
+                            });
+                        }
+                    }  
+                    def.loading_ele.fadeOut(400);   
+                },
+                resetFunc:function(){                                       //重置
+                    for(var key in this.collect){
+                        this.collect[key]=""
+                    }
+                },
+                filterFunc: function () {                                   //筛选数据
+                   var opt={};
+                   for(var key in this.collect){
+                       if(this.collect[key]!=""){
+                           opt[key]=this.collect[key];
+                       }
+                   }
+                    opt.page=1;
+                    opt.size=this.get_opt.size;
+                    this.is_first=true;
+                    this.getSendData(opt);   
+                },
+            }, 
+        })
+    })
+})

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FeedBackTagCustomerMapper">
+
+
+  <select id="findTagCustomerList" parameterType="com.pop136.customerservice.vo.tag.search.TagValueSearchVo"
+          resultType="com.pop136.customerservice.entity.tag.TagCustomer">
+   SELECT
+      a.customerid, a.id , a.tagid , a.tagvalid
+
+      FROM ss_tagvalue_customer a
+
+     WHERE
+      a.deleteflag = '0'
+
+    <if test="customerId != null and customerId != '' ">
+      and a.customerid = #{customerId}
+    </if>
+    <if test="tagId != null and tagId != '' ">
+      and a.tagid = #{tagId}
+    </if>
+
+  </select>
+
+
+  <select id="findTagValueByCustomerId" resultType="com.pop136.customerservice.vo.tag.TagValueVo">
+   SELECT
+      tagid as tagId,  tagname as tagName,
+      id, code, value, module, customerid as customerId, fromcode as fromCode
+      FROM v_ss_feedback_tagvalue_customer
+     WHERE
+          customerid = #{customerId}
+
+  </select>
+
+
+  <select id="findTagValueBySearch" resultType="com.pop136.customerservice.vo.tag.TagValueVo">
+   SELECT
+      tagid as tagId,  tagname as tagName,
+      id, code, value, module, customerid as customerId, fromcode as fromCode
+      FROM v_ss_feedback_tagvalue_customer
+     WHERE
+
+      1 = 1
+      <if test="customerId != null and customerId != '' ">
+          and customerid = #{customerId}
+      </if>
+
+      <if test="tagId != null and tagId != '' ">
+          and tagid = #{tagId}
+      </if>
+  </select>
+
+
+  <delete id="clearCustomerTag" >
+   DELETE
+
+   FROM sslog_feedback_tagvalue_customer
+
+    WHERE customerid = #{customerId}
+
+  </delete>
+
+
+    <insert id="batchInsertCustomertLog" parameterType="java.util.List">
+      INSERT  INTO  sslog_feedback_tagvalue_customer
+
+      (id, tagid, customerid, createtime) values
+
+      <foreach collection="list" item="item"  separator=","   index="">
+          ( #{item.id} , #{item.tagid}, #{item.customerid}, #{item.createtime}
+          )
+      </foreach>
+
+    </insert>
+
+</mapper>

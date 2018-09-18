@@ -1,0 +1,10 @@
+@charset 'UTF-8';
+/*----------bootstrap 覆盖----------*/
+.row>div {margin-bottom:20px;}
+.form-section>div{margin-bottom:20px;}
+
+.col-md-12>label.slide-btn{font-size: 16px;margin-bottom: 0px;position: relative;padding-left: 30px;}
+.col-md-12>label.slide-btn>button{position: absolute;left: 0px;top:-10px;display: inline-block;width: 30px;height: 30px;font-size: 30px;font-weight: normal;cursor: pointer;}
+.col-md-12>label.slide-up>button{top:-6px;}
+
+.section-title{padding-top: 4px;padding-bottom: 4px;margin: 10px auto 20px;background-color: #ddd;}

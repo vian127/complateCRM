@@ -1,0 +1,700 @@
+package com.pop136.customerservice.entity.integral;
+
+import com.pop136.customerservice.entity.BaseEntity;
+
+import java.math.BigDecimal;
+import java.util.Date;
+
+public class A524 extends BaseEntity {
+    private String id;
+
+    private String name;
+
+    private String englishname;
+
+    private String voucherid;
+
+    private Integer type;
+
+    private Integer sortidx;
+
+    private String shortname;
+
+    private String a50100CId;
+
+    private String model;
+
+    private String typeDdId;
+
+    private String statusDdId;
+
+    private BigDecimal price;
+
+    private BigDecimal sellcost;
+
+    private BigDecimal buyprice;
+
+    private BigDecimal buycost;
+
+    private BigDecimal discount;
+
+    private BigDecimal grossweight;
+
+    private BigDecimal weight;
+
+    private String barcode;
+
+    private String unit;
+
+    private String brand;
+
+    private String smallpicture;
+
+    private String picture1;
+
+    private String picture2;
+
+    private String picture3;
+
+    private String picture4;
+
+    private String picture5;
+
+    private BigDecimal factor1;
+
+    private BigDecimal factor2;
+
+    private BigDecimal factor3;
+
+    private BigDecimal factor4;
+
+    private BigDecimal factor5;
+
+    private String customfield1;
+
+    private String customfield2;
+
+    private String customfield3;
+
+    private String customfield4;
+
+    private String customfield5;
+
+    private BigDecimal awardfactor1;
+
+    private BigDecimal awardfactor2;
+
+    private BigDecimal awardfactor3;
+
+    private BigDecimal awardfactor4;
+
+    private BigDecimal awardfactor5;
+
+    private String isfatherDdId;
+
+    private String fatherid;
+
+    private BigDecimal stockquantity;
+
+    private BigDecimal sellquantity;
+
+    private BigDecimal clickquantity;
+
+    private BigDecimal followquantity;
+
+    private String ownerRoleid;
+
+    private String ownerRolename;
+
+    private String creatorRoleid;
+
+    private String creatorRolename;
+
+    private Date createTime;
+
+    private Date lastupdateTime;
+
+    private String menderRoleid;
+
+    private String menderRolename;
+
+    private Integer deleteflag;
+
+    private String grpcode;
+
+    private String orgcode;
+
+    private String loccode;
+
+    private String regcode;
+
+    private String depcode;
+
+    private String a50100CName;
+
+    private String typeDdName;
+
+    private String statusDdName;
+
+    private String isfatherDdName;
+
+    private String fathername;
+
+    private String remark;
+
+    private String specification;
+
+  public String getSpecification() {
+    return specification;
+  }
+
+  public void setSpecification(String specification) {
+    this.specification = specification;
+  }
+
+  @Override
+  public String getId() {
+    return id;
+  }
+
+  @Override
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getEnglishname() {
+    return englishname;
+  }
+
+  public void setEnglishname(String englishname) {
+    this.englishname = englishname;
+  }
+
+  public String getVoucherid() {
+    return voucherid;
+  }
+
+  public void setVoucherid(String voucherid) {
+    this.voucherid = voucherid;
+  }
+
+  public Integer getType() {
+    return type;
+  }
+
+  public void setType(Integer type) {
+    this.type = type;
+  }
+
+  public Integer getSortidx() {
+    return sortidx;
+  }
+
+  public void setSortidx(Integer sortidx) {
+    this.sortidx = sortidx;
+  }
+
+  public String getShortname() {
+    return shortname;
+  }
+
+  public void setShortname(String shortname) {
+    this.shortname = shortname;
+  }
+
+  public String getA50100CId() {
+    return a50100CId;
+  }
+
+  public void setA50100CId(String a50100CId) {
+    this.a50100CId = a50100CId;
+  }
+
+  public String getModel() {
+    return model;
+  }
+
+  public void setModel(String model) {
+    this.model = model;
+  }
+
+  public String getTypeDdId() {
+    return typeDdId;
+  }
+
+  public void setTypeDdId(String typeDdId) {
+    this.typeDdId = typeDdId;
+  }
+
+  public String getStatusDdId() {
+    return statusDdId;
+  }
+
+  public void setStatusDdId(String statusDdId) {
+    this.statusDdId = statusDdId;
+  }
+
+  public BigDecimal getPrice() {
+    return price;
+  }
+
+  public void setPrice(BigDecimal price) {
+    this.price = price;
+  }
+
+  public BigDecimal getSellcost() {
+    return sellcost;
+  }
+
+  public void setSellcost(BigDecimal sellcost) {
+    this.sellcost = sellcost;
+  }
+
+  public BigDecimal getBuyprice() {
+    return buyprice;
+  }
+
+  public void setBuyprice(BigDecimal buyprice) {
+    this.buyprice = buyprice;
+  }
+
+  public BigDecimal getBuycost() {
+    return buycost;
+  }
+
+  public void setBuycost(BigDecimal buycost) {
+    this.buycost = buycost;
+  }
+
+  public BigDecimal getDiscount() {
+    return discount;
+  }
+
+  public void setDiscount(BigDecimal discount) {
+    this.discount = discount;
+  }
+
+  public BigDecimal getGrossweight() {
+    return grossweight;
+  }
+
+  public void setGrossweight(BigDecimal grossweight) {
+    this.grossweight = grossweight;
+  }
+
+  public BigDecimal getWeight() {
+    return weight;
+  }
+
+  public void setWeight(BigDecimal weight) {
+    this.weight = weight;
+  }
+
+  public String getBarcode() {
+    return barcode;
+  }
+
+  public void setBarcode(String barcode) {
+    this.barcode = barcode;
+  }
+
+  public String getUnit() {
+    return unit;
+  }
+
+  public void setUnit(String unit) {
+    this.unit = unit;
+  }
+
+  public String getBrand() {
+    return brand;
+  }
+
+  public void setBrand(String brand) {
+    this.brand = brand;
+  }
+
+  public String getSmallpicture() {
+    return smallpicture;
+  }
+
+  public void setSmallpicture(String smallpicture) {
+    this.smallpicture = smallpicture;
+  }
+
+  public String getPicture1() {
+    return picture1;
+  }
+
+  public void setPicture1(String picture1) {
+    this.picture1 = picture1;
+  }
+
+  public String getPicture2() {
+    return picture2;
+  }
+
+  public void setPicture2(String picture2) {
+    this.picture2 = picture2;
+  }
+
+  public String getPicture3() {
+    return picture3;
+  }
+
+  public void setPicture3(String picture3) {
+    this.picture3 = picture3;
+  }
+
+  public String getPicture4() {
+    return picture4;
+  }
+
+  public void setPicture4(String picture4) {
+    this.picture4 = picture4;
+  }
+
+  public String getPicture5() {
+    return picture5;
+  }
+
+  public void setPicture5(String picture5) {
+    this.picture5 = picture5;
+  }
+
+  public BigDecimal getFactor1() {
+    return factor1;
+  }
+
+  public void setFactor1(BigDecimal factor1) {
+    this.factor1 = factor1;
+  }
+
+  public BigDecimal getFactor2() {
+    return factor2;
+  }
+
+  public void setFactor2(BigDecimal factor2) {
+    this.factor2 = factor2;
+  }
+
+  public BigDecimal getFactor3() {
+    return factor3;
+  }
+
+  public void setFactor3(BigDecimal factor3) {
+    this.factor3 = factor3;
+  }
+
+  public BigDecimal getFactor4() {
+    return factor4;
+  }
+
+  public void setFactor4(BigDecimal factor4) {
+    this.factor4 = factor4;
+  }
+
+  public BigDecimal getFactor5() {
+    return factor5;
+  }
+
+  public void setFactor5(BigDecimal factor5) {
+    this.factor5 = factor5;
+  }
+
+  public String getCustomfield1() {
+    return customfield1;
+  }
+
+  public void setCustomfield1(String customfield1) {
+    this.customfield1 = customfield1;
+  }
+
+  public String getCustomfield2() {
+    return customfield2;
+  }
+
+  public void setCustomfield2(String customfield2) {
+    this.customfield2 = customfield2;
+  }
+
+  public String getCustomfield3() {
+    return customfield3;
+  }
+
+  public void setCustomfield3(String customfield3) {
+    this.customfield3 = customfield3;
+  }
+
+  public String getCustomfield4() {
+    return customfield4;
+  }
+
+  public void setCustomfield4(String customfield4) {
+    this.customfield4 = customfield4;
+  }
+
+  public String getCustomfield5() {
+    return customfield5;
+  }
+
+  public void setCustomfield5(String customfield5) {
+    this.customfield5 = customfield5;
+  }
+
+  public BigDecimal getAwardfactor1() {
+    return awardfactor1;
+  }
+
+  public void setAwardfactor1(BigDecimal awardfactor1) {
+    this.awardfactor1 = awardfactor1;
+  }
+
+  public BigDecimal getAwardfactor2() {
+    return awardfactor2;
+  }
+
+  public void setAwardfactor2(BigDecimal awardfactor2) {
+    this.awardfactor2 = awardfactor2;
+  }
+
+  public BigDecimal getAwardfactor3() {
+    return awardfactor3;
+  }
+
+  public void setAwardfactor3(BigDecimal awardfactor3) {
+    this.awardfactor3 = awardfactor3;
+  }
+
+  public BigDecimal getAwardfactor4() {
+    return awardfactor4;
+  }
+
+  public void setAwardfactor4(BigDecimal awardfactor4) {
+    this.awardfactor4 = awardfactor4;
+  }
+
+  public BigDecimal getAwardfactor5() {
+    return awardfactor5;
+  }
+
+  public void setAwardfactor5(BigDecimal awardfactor5) {
+    this.awardfactor5 = awardfactor5;
+  }
+
+  public String getIsfatherDdId() {
+    return isfatherDdId;
+  }
+
+  public void setIsfatherDdId(String isfatherDdId) {
+    this.isfatherDdId = isfatherDdId;
+  }
+
+  public String getFatherid() {
+    return fatherid;
+  }
+
+  public void setFatherid(String fatherid) {
+    this.fatherid = fatherid;
+  }
+
+  public BigDecimal getStockquantity() {
+    return stockquantity;
+  }
+
+  public void setStockquantity(BigDecimal stockquantity) {
+    this.stockquantity = stockquantity;
+  }
+
+  public BigDecimal getSellquantity() {
+    return sellquantity;
+  }
+
+  public void setSellquantity(BigDecimal sellquantity) {
+    this.sellquantity = sellquantity;
+  }
+
+  public BigDecimal getClickquantity() {
+    return clickquantity;
+  }
+
+  public void setClickquantity(BigDecimal clickquantity) {
+    this.clickquantity = clickquantity;
+  }
+
+  public BigDecimal getFollowquantity() {
+    return followquantity;
+  }
+
+  public void setFollowquantity(BigDecimal followquantity) {
+    this.followquantity = followquantity;
+  }
+
+  public String getOwnerRoleid() {
+    return ownerRoleid;
+  }
+
+  public void setOwnerRoleid(String ownerRoleid) {
+    this.ownerRoleid = ownerRoleid;
+  }
+
+  public String getOwnerRolename() {
+    return ownerRolename;
+  }
+
+  public void setOwnerRolename(String ownerRolename) {
+    this.ownerRolename = ownerRolename;
+  }
+
+  public String getCreatorRoleid() {
+    return creatorRoleid;
+  }
+
+  public void setCreatorRoleid(String creatorRoleid) {
+    this.creatorRoleid = creatorRoleid;
+  }
+
+  public String getCreatorRolename() {
+    return creatorRolename;
+  }
+
+  public void setCreatorRolename(String creatorRolename) {
+    this.creatorRolename = creatorRolename;
+  }
+
+  public Date getCreateTime() {
+    return createTime;
+  }
+
+  public void setCreateTime(Date createTime) {
+    this.createTime = createTime;
+  }
+
+  public Date getLastupdateTime() {
+    return lastupdateTime;
+  }
+
+  public void setLastupdateTime(Date lastupdateTime) {
+    this.lastupdateTime = lastupdateTime;
+  }
+
+  public String getMenderRoleid() {
+    return menderRoleid;
+  }
+
+  public void setMenderRoleid(String menderRoleid) {
+    this.menderRoleid = menderRoleid;
+  }
+
+  public String getMenderRolename() {
+    return menderRolename;
+  }
+
+  public void setMenderRolename(String menderRolename) {
+    this.menderRolename = menderRolename;
+  }
+
+  public Integer getDeleteflag() {
+    return deleteflag;
+  }
+
+  public void setDeleteflag(Integer deleteflag) {
+    this.deleteflag = deleteflag;
+  }
+
+  public String getGrpcode() {
+    return grpcode;
+  }
+
+  public void setGrpcode(String grpcode) {
+    this.grpcode = grpcode;
+  }
+
+  public String getOrgcode() {
+    return orgcode;
+  }
+
+  public void setOrgcode(String orgcode) {
+    this.orgcode = orgcode;
+  }
+
+  public String getLoccode() {
+    return loccode;
+  }
+
+  public void setLoccode(String loccode) {
+    this.loccode = loccode;
+  }
+
+  public String getRegcode() {
+    return regcode;
+  }
+
+  public void setRegcode(String regcode) {
+    this.regcode = regcode;
+  }
+
+  public String getDepcode() {
+    return depcode;
+  }
+
+  public void setDepcode(String depcode) {
+    this.depcode = depcode;
+  }
+
+  public String getA50100CName() {
+    return a50100CName;
+  }
+
+  public void setA50100CName(String a50100CName) {
+    this.a50100CName = a50100CName;
+  }
+
+  public String getTypeDdName() {
+    return typeDdName;
+  }
+
+  public void setTypeDdName(String typeDdName) {
+    this.typeDdName = typeDdName;
+  }
+
+  public String getStatusDdName() {
+    return statusDdName;
+  }
+
+  public void setStatusDdName(String statusDdName) {
+    this.statusDdName = statusDdName;
+  }
+
+  public String getIsfatherDdName() {
+    return isfatherDdName;
+  }
+
+  public void setIsfatherDdName(String isfatherDdName) {
+    this.isfatherDdName = isfatherDdName;
+  }
+
+  public String getFathername() {
+    return fathername;
+  }
+
+  public void setFathername(String fathername) {
+    this.fathername = fathername;
+  }
+
+  public String getRemark() {
+    return remark;
+  }
+
+  public void setRemark(String remark) {
+    this.remark = remark;
+  }
+}

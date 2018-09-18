@@ -1,0 +1,71 @@
+/*
+    #author     gaofeng
+    #date       2017/07/24
+    #purpose    回访详情页
+*/
+
+require(['vue', 'msg', 'general', 'layui'], function (Vue, msg, general) {
+    $(function () {
+        var def = {
+            loading_ele: $('.js-loading-div'),
+            ajax_port: 'http://192.168.3.133:8081',
+            msg_time: 1200,
+        };
+
+        var vm = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    get_opt: {},
+                    location_obj: general.fn.getLocationParameter(),
+                    feedback_info:{},
+                    manage_info:{},
+                }
+
+            },
+            mounted() {
+                this.getRecordData({id:this.location_obj.id})
+                this.bindFunc();
+            },
+            methods: {
+                getRecordData: function (opt) {
+                    var self = this;
+                    general.fn.subAjax({
+                        url: def.ajax_port + '/api/feedBack/info',
+                        data: opt,
+                        success:function(data){
+                            console.log(data)
+                            if(data && data.data){
+                                self.feedback_info=data.data.feedBackInfo || {};
+                                self.manage_info=data.data.manage || {};
+                            }else{
+                                msg.msg({'txt':'未请求到数据'},def.msg_time);
+                            }
+                            def.loading_ele.fadeOut(400);
+                        },
+                        error:function(){
+                            def.loading_ele.fadeOut(400);
+                        }
+                    })  
+                },
+                bindFunc: function () {
+                    $('.js-slide-btn').on('click', function () {
+                        var $this = $(this);
+                        var status = $(this).attr('data-slide') || 2;
+                        if (status == 2) {
+                            $(this).attr('data-slide', 1);
+                            $(this).children('button').text('+');
+                            $(this).addClass('slide-up');
+                        } else {
+                            $(this).attr('data-slide', 2);
+                            $(this).children('button').text('-');
+                            $(this).removeClass('slide-up');
+                        }
+                        $(this).parent().next().toggle();
+                    });
+                }
+            },
+        })
+       
+    })
+})

@@ -1,0 +1,308 @@
+package com.pop136.customerservice.entity.customer;
+
+import java.util.Date;
+
+/**
+ * 客户 发票日志
+ */
+public class CustomerInvoiceLog {
+    private Double returnamount;
+
+    private Integer orderstatusid;
+
+    private String orderstatusname;
+
+    private String id;
+
+    private String orderId;
+
+    private String orderName;
+
+    private String customerid;
+
+    private String customername;
+
+    private Integer statusid;
+
+    private String statusname;
+
+    private Integer invoiceType;
+
+    private String invoiceTitle;
+
+    private Integer invoiceContent;
+
+    private String mailingAddress;
+
+    private String contact;
+
+    private String contactWay;
+
+    private String invoiceNum;
+
+    private Integer invoiceStatus;
+
+    private Integer invoiceProperty;
+
+    private String expressNum;
+
+    private String expressCompany;
+
+    private Date createtime;
+
+    private Date updatetime;
+
+    private Date lastupdatetime;
+
+    private Integer importid;
+
+    private Date importdate;
+
+    private Integer deleteflag;
+
+    private String grpcode;
+
+    private String orgcode;
+
+    private String loccode;
+
+    public Double getReturnamount() {
+        return returnamount;
+    }
+
+    public void setReturnamount(Double returnamount) {
+        this.returnamount = returnamount;
+    }
+
+    public Integer getOrderstatusid() {
+        return orderstatusid;
+    }
+
+    public void setOrderstatusid(Integer orderstatusid) {
+        this.orderstatusid = orderstatusid;
+    }
+
+    public String getOrderstatusname() {
+        return orderstatusname;
+    }
+
+    public void setOrderstatusname(String orderstatusname) {
+        this.orderstatusname = orderstatusname;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getOrderName() {
+        return orderName;
+    }
+
+    public void setOrderName(String orderName) {
+        this.orderName = orderName;
+    }
+
+    public String getCustomerid() {
+        return customerid;
+    }
+
+    public void setCustomerid(String customerid) {
+        this.customerid = customerid;
+    }
+
+    public String getCustomername() {
+        return customername;
+    }
+
+    public void setCustomername(String customername) {
+        this.customername = customername;
+    }
+
+    public Integer getStatusid() {
+        return statusid;
+    }
+
+    public void setStatusid(Integer statusid) {
+        this.statusid = statusid;
+    }
+
+    public String getStatusname() {
+        return statusname;
+    }
+
+    public void setStatusname(String statusname) {
+        this.statusname = statusname;
+    }
+
+    public Integer getInvoiceType() {
+        return invoiceType;
+    }
+
+    public void setInvoiceType(Integer invoiceType) {
+        this.invoiceType = invoiceType;
+    }
+
+    public String getInvoiceTitle() {
+        return invoiceTitle;
+    }
+
+    public void setInvoiceTitle(String invoiceTitle) {
+        this.invoiceTitle = invoiceTitle;
+    }
+
+    public Integer getInvoiceContent() {
+        return invoiceContent;
+    }
+
+    public void setInvoiceContent(Integer invoiceContent) {
+        this.invoiceContent = invoiceContent;
+    }
+
+    public String getMailingAddress() {
+        return mailingAddress;
+    }
+
+    public void setMailingAddress(String mailingAddress) {
+        this.mailingAddress = mailingAddress;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getContactWay() {
+        return contactWay;
+    }
+
+    public void setContactWay(String contactWay) {
+        this.contactWay = contactWay;
+    }
+
+    public String getInvoiceNum() {
+        return invoiceNum;
+    }
+
+    public void setInvoiceNum(String invoiceNum) {
+        this.invoiceNum = invoiceNum;
+    }
+
+    public Integer getInvoiceStatus() {
+        return invoiceStatus;
+    }
+
+    public void setInvoiceStatus(Integer invoiceStatus) {
+        this.invoiceStatus = invoiceStatus;
+    }
+
+    public Integer getInvoiceProperty() {
+        return invoiceProperty;
+    }
+
+    public void setInvoiceProperty(Integer invoiceProperty) {
+        this.invoiceProperty = invoiceProperty;
+    }
+
+    public String getExpressNum() {
+        return expressNum;
+    }
+
+    public void setExpressNum(String expressNum) {
+        this.expressNum = expressNum;
+    }
+
+    public String getExpressCompany() {
+        return expressCompany;
+    }
+
+    public void setExpressCompany(String expressCompany) {
+        this.expressCompany = expressCompany;
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
+    }
+
+    public Date getLastupdatetime() {
+        return lastupdatetime;
+    }
+
+    public void setLastupdatetime(Date lastupdatetime) {
+        this.lastupdatetime = lastupdatetime;
+    }
+
+    public Integer getImportid() {
+        return importid;
+    }
+
+    public void setImportid(Integer importid) {
+        this.importid = importid;
+    }
+
+    public Date getImportdate() {
+        return importdate;
+    }
+
+    public void setImportdate(Date importdate) {
+        this.importdate = importdate;
+    }
+
+    public Integer getDeleteflag() {
+        return deleteflag;
+    }
+
+    public void setDeleteflag(Integer deleteflag) {
+        this.deleteflag = deleteflag;
+    }
+
+    public String getGrpcode() {
+        return grpcode;
+    }
+
+    public void setGrpcode(String grpcode) {
+        this.grpcode = grpcode;
+    }
+
+    public String getOrgcode() {
+        return orgcode;
+    }
+
+    public void setOrgcode(String orgcode) {
+        this.orgcode = orgcode;
+    }
+
+    public String getLoccode() {
+        return loccode;
+    }
+
+    public void setLoccode(String loccode) {
+        this.loccode = loccode;
+    }
+}

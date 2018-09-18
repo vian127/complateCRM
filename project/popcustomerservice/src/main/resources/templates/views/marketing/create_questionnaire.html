@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="CRM" />
+    <meta name="description" content="CRM" />
+    <title>创建/编辑调查问卷</title>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/base.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common/common.css}" />
+    <link rel='stylesheet' type='text/css' th:href="@{https://fonts.googleapis.com/css?family=Open+Sans}" />
+    <link rel='stylesheet' type='text/css' th:href="@{/css/common/form-list.css}" />
+</head>
+
+<body>
+    <!-- view -->
+    <div id="wrapper">
+        <!-- header -->
+        <div class="header" th:include="./views/common/header :: headertpl"></div>
+        <div id="page-wrapper">
+            <!-- content -->
+            <div class="content container-fluid" id='app'>
+                <!-- 页面位置 -->
+                <div class="page-header-section">
+                    <h3>创建/编辑调查问卷</h3>
+                </div>
+                <div class="col-md-12 text-right form-section">
+                    <button type='button' class="btn btn-default" title="取消">取消</button>
+                    <button type='button' class="btn btn-primary" title="保存">保存</button>
+                </div>
+                <!-- 表单部分 -->
+                <div class="form-section form-inline">
+                    <form class='js-form'>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4 form-group">
+                                    <label for="">问卷名称</label>
+                                    <input type="text" placeholder="请输入问卷名称" class='form-control'>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="">状态</label>
+                                    <select name="" id="" class='form-control' v-model='taskFilter.status'>
+                                        <option value="1">启用</option>
+                                        <option value="2">停用</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 form-group">
+                                    <label for="">问卷说明</label>
+                                    <textarea name="" id="" cols="80%" rows="5" class='form-control' style='resize:none'></textarea>
+                                    <div class="col-md-12 text-right">
+                                        <button type='button' class="btn btn-primary" title="预览问卷">预览问卷</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class=" col-md-12 form-group">
+                                    <label for="">开场白</label>
+                                    <textarea name="" id="" cols="100%" rows="5" class='form-control'></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 form-group">
+                                    <label for="">结束语</label>
+                                    <textarea name="" id="" cols="100%" rows="5" class='form-control'></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <h4 class='form-section'>题目列表</h4>
+                    <table class='table table-bordered table-hover js-list-table'>
+                        <thead>
+                            <tr>
+                                <th>排序</th>
+                                <th>操作</th>
+                                <th>题目名称</th>
+                                <th>题型</th>
+                                <th>选项</th>
+                                <th>必填</th>
+                                <th>题目说明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr align='center' v-for='(item,index) in taskTb'>
+                                <td v-text='index'></td>
+                                <td>
+                                    <a href="#">查看</a>
+                                </td>
+                                <td v-text="item.title"></td>
+                                <td v-text='item.types'></td>
+                                <td v-text='item.option'></td>
+                                <td v-text='item.required'></td>
+                                <td v-text='item.explain'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-section form-inline">
+                    <form class='js-form'>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6 form-group">
+                                    <label for="">题目名称</label>
+                                    <input type="text" placeholder="请输入题目名称" class='form-control'>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button type='button' class="btn btn-primary" title="保存题目">保存题目</button>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 form-group">
+                                    <label for="">题目说明</label>
+                                    <textarea name="" id="" cols="100%" rows="5" class='form-control'></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class=" col-md-12 form-group">
+                                    <label for="">题型</label>
+                                    <select name="" id="" class='form-control'>
+                                        <option value="1">单选</option>
+                                        <option value="2">多选</option>
+                                        <option value="3">文本</option>
+                                    </select>
+                                    <input type="checkbox">其他
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 form-group">
+                                    <label for="">选项</label>
+                                    <input type="text" class='form-control'>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-12 form-group">
+                                    <label for="">必填</label>
+                                    <select name="" id="">
+                                        <option value="1">是</option>
+                                        <option value="2">否</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- footer -->
+            <div class="footer" th:include="./views/common/footer :: footertpl"></div>
+        </div>
+    </div>
+
+    <!-- 共用模块 -->
+    <div th:include="./views/common/common :: commontpl"></div>
+    <!-- JS Scripts-->
+
+    <script type="text/javascript" th:src="@{/js/lib/require/require.js}"></script>
+    <script type="text/javascript" th:src="@{/js/common/main.js}"></script>
+    <script type="text/javascript" th:src="@{/js/marketing/create_questionnaire.js}"></script>
+</body>
+
+</html>

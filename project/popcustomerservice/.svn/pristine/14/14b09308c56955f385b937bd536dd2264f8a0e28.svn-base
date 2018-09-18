@@ -1,0 +1,6 @@
+@charset 'UTF-8';
+
+.btn-div>button{margin-left: 5px;}
+
+.checked-section{font-size: 16px;margin-bottom: 15px;}
+.checked-section>span{font-weight: bold;margin: 0 10px}

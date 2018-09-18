@@ -1,0 +1,106 @@
+package com.pop136.customerservice.entity.marketing;
+
+import java.util.Date;
+
+public class MsgSend {
+    private String id;
+
+    private String templateid;
+
+    private String phonenumber;
+
+    private Integer statusid;
+
+    private String createtime;
+
+    private Integer typeid;
+
+    private String booktime;
+
+    private String remark;
+
+    private String sendtime;
+
+    private String content;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTemplateid() {
+        return templateid;
+    }
+
+    public void setTemplateid(String templateid) {
+        this.templateid = templateid;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public Integer getStatusid() {
+        return statusid;
+    }
+
+    public void setStatusid(Integer statusid) {
+        this.statusid = statusid;
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getBooktime() {
+        return booktime;
+    }
+
+    public void setBooktime(String booktime) {
+        this.booktime = booktime;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getSendtime() {
+        return sendtime;
+    }
+
+    public void setSendtime(String sendtime) {
+        this.sendtime = sendtime;
+    }
+
+    public Integer getTypeid() {
+        return typeid;
+    }
+
+    public void setTypeid(Integer typeid) {
+        this.typeid = typeid;
+    }
+
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+}

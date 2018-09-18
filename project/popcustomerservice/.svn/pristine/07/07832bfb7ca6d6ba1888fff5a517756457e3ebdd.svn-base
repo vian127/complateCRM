@@ -1,0 +1,33 @@
+package com.pop136.customerservice.service.customer;
+
+import com.pop136.customerservice.entity.customer.FeedBack;
+import com.pop136.customerservice.mapper.agent.cusotmer.ContactMapper;
+import com.pop136.customerservice.mapper.agent.cusotmer.FeedBackMapper;
+import com.pop136.customerservice.service.AbstractBaseService;
+import com.pop136.customerservice.vo.customer.search.ContactSearchVo;
+import com.pop136.customerservice.vo.customer.search.FeedBackSearchVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class FeedBackService extends AbstractBaseService {
+
+  @Autowired
+  private FeedBackMapper feedBackMapper;
+
+
+  public void init() {
+    setMapper(feedBackMapper);
+  }
+
+
+  public List<FeedBack> getFeedBackList(FeedBackSearchVo searchVo) {
+    return feedBackMapper.getFeedBackList(searchVo);
+  }
+
+  public String getFeedBackCount(FeedBackSearchVo searchVo) {
+    return feedBackMapper.getFeedBackCount(searchVo);
+  }
+}

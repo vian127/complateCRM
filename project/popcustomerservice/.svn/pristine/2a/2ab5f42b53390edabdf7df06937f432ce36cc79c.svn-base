@@ -1,0 +1,206 @@
+package com.pop136.customerservice.response;
+
+import java.io.Serializable;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class MaterialContent implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
+	private String show_time;
+   	private String d_end_time;
+	private String mediaurl;
+	private String typeName;
+	private List<String> show_picurl;
+	private String remark;
+	private String title;
+	private String storeName;
+	private double cashdiscount; 
+	private String id;
+	private double guideprice;
+	private String address;
+	private String a47900_id;
+	private String c_cluesource_dd_id;
+	private String url;
+	private String typeCode;
+	private String picurl;
+	private String c_a41200_c_id;
+	private double money;
+	private String storePrice;
+	private String subtitle;
+	private String d_create_time;
+	private String d_start_time;
+	private String belonger_phone;
+	private String storeCode;
+	private String integral;
+
+
+	public String getShow_time() {
+		return show_time;
+	}
+	public void setShow_time(String show_time) {
+		this.show_time = show_time;
+	}
+	public String getMediaurl() {
+		return mediaurl;
+	}
+	public void setMediaurl(String mediaurl) {
+		this.mediaurl = mediaurl;
+	}
+	public String getA47900_id() {
+		return a47900_id;
+	}
+	public void setA47900_id(String a47900_id) {
+		this.a47900_id = a47900_id;
+	}
+	public String getTypeName() {
+		return typeName;
+	}
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public String getTypeCode() {
+		return typeCode;
+	}
+	public void setTypeCode(String typeCode) {
+		this.typeCode = typeCode;
+	}
+	public String getPicurl() {
+		return picurl;
+	}
+	public void setPicurl(String picurl) {
+		this.picurl = picurl;
+	}
+	public String getStorePrice() {
+		return storePrice;
+	}
+	public void setStorePrice(String storePrice) {
+		this.storePrice = storePrice;
+	}
+	public String getStoreName() {
+		return storeName;
+	}
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+	public String getD_create_time() {
+		return d_create_time;
+	}
+	public void setD_create_time(String d_create_time) {
+		this.d_create_time = d_create_time;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public List<String> getShow_picurl() {
+		return show_picurl;
+	}
+	public void setShow_picurl(List<String> show_picurl) {
+		this.show_picurl = show_picurl;
+	}
+	public String getStoreCode() {
+		return storeCode;
+	}
+	public void setStoreCode(String storeCode) {
+		this.storeCode = storeCode;
+	}
+	public String getD_end_time() {
+		return d_end_time;
+	}
+	public void setD_end_time(String d_end_time) {
+		this.d_end_time = d_end_time;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public double getCashdiscount() {
+		return cashdiscount;
+	}
+	public void setCashdiscount(double cashdiscount) {
+		this.cashdiscount = cashdiscount;
+	}
+	public double getGuideprice() {
+		return guideprice;
+	}
+	public void setGuideprice(double guideprice) {
+		this.guideprice = guideprice;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+
+	public String getC_cluesource_dd_id() {
+		return c_cluesource_dd_id;
+	}
+	public void setC_cluesource_dd_id(String c_cluesource_dd_id) {
+		this.c_cluesource_dd_id = c_cluesource_dd_id;
+	}
+	public String getC_a41200_c_id() {
+		return c_a41200_c_id;
+	}
+	public void setC_a41200_c_id(String c_a41200_c_id) {
+		this.c_a41200_c_id = c_a41200_c_id;
+	}
+	public double getMoney() {
+		return money;
+	}
+	public void setMoney(double money) {
+		this.money = money;
+	}
+	public String getSubtitle() {
+		return subtitle;
+	}
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
+	}
+	public String getD_start_time() {
+		return d_start_time;
+	}
+	public void setD_start_time(String d_start_time) {
+		this.d_start_time = d_start_time;
+	}
+	public String getBelonger_phone() {
+		return belonger_phone;
+	}
+	public void setBelonger_phone(String belonger_phone) {
+		this.belonger_phone = belonger_phone;
+	}
+	public String getIntegral() {
+		return integral;
+	}
+	public void setIntegral(String integral) {
+		this.integral = integral;
+	}
+	
+	
+
+}

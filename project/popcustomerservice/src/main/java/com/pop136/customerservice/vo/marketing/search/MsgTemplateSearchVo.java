@@ -1,0 +1,72 @@
+package com.pop136.customerservice.vo.marketing.search;
+
+import com.pop136.customerservice.vo.common.Page;
+
+import java.io.Serializable;
+
+/**
+ * 模版  search
+ */
+public class MsgTemplateSearchVo extends Page{
+
+  private String id;//id
+
+  private String name;//模版名称
+
+  private String sign;//模版签名
+
+  private String content;//N内容
+
+  private String creater;//创建人
+
+  private String createrId;//创建人id
+
+  public String getCreaterId() {
+    return createrId;
+  }
+
+  public void setCreaterId(String createrId) {
+    this.createrId = createrId;
+  }
+
+  public String getCreater() {
+    return creater;
+  }
+
+  public void setCreater(String creater) {
+    this.creater = creater;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getSign() {
+    return sign;
+  }
+
+  public void setSign(String sign) {
+    this.sign = sign;
+  }
+
+  public String getContent() {
+    return content;
+  }
+
+  public void setContent(String content) {
+    this.content = content;
+  }
+
+}

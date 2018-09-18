@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+
+    <properties>
+    <!-- 
+        <property name="filenameLog">D://logs/common.log</property>
+        <property name="errorLog">D://logs/error.log</property>
+        <property name="log_pattern"> %d %-5p [%c] %m%n</property>
+        -->
+        <property name="filenameLog">/data/log/manager/common.log</property>
+        <property name="errorLog">/data/log/manager/error.log</property>
+        <property name="log_pattern"> %d %-5p [%c] %m%n</property>        
+        
+    </properties>
+
+    <Appenders>
+        <!--添加一个控制台追加器-->
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${log_pattern}" />
+        </Console>
+        <!--添加一个文本追加器，文件位于根目录下，名为log.log-->
+        <File name="common_log" fileName="${filenameLog}" >
+        </File>
+
+        <File name="error_log" fileName="${errorLog}">
+        </File>
+
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console" />
+        </Root>
+        <Logger name="org.springframework" level="info" additivity="false">
+            <AppenderRef ref="common_log" />
+            <AppenderRef ref="error_log" />
+        </Logger>
+
+    </Loggers>
+</Configuration>
+

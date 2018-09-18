@@ -1,0 +1,112 @@
+package com.pop136.customerservice.controller.marketing;
+
+import com.pop136.core.webservice.client.SMSClient;
+import com.pop136.customerservice.controller.BaseApiAction;
+import com.pop136.customerservice.entity.marketing.MsgBatch;
+import com.pop136.customerservice.entity.marketing.MsgTemplate;
+import com.pop136.customerservice.service.marketing.MsgBatchService;
+import com.pop136.customerservice.service.marketing.MsgSendService;
+import com.pop136.customerservice.service.marketing.MsgTemplateService;
+import com.pop136.customerservice.vo.customer.search.FeedBackSearchVo;
+import com.pop136.customerservice.vo.marketing.param.MsgParamVo;
+import com.pop136.customerservice.vo.marketing.param.MsgSendParamVo;
+import com.pop136.customerservice.vo.marketing.search.MsgBatchSearchVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 短信 controller
+ */
+@RestController
+@RequestMapping("/msg")
+public class MsgController extends BaseApiAction {
+
+
+  @Autowired
+  private MsgSendService sendService;
+
+  @Autowired
+  private MsgBatchService batchService;
+
+  @Autowired
+  private MsgTemplateService templateService;
+
+
+  /**
+   * 批次列表
+   */
+  @RequestMapping(value = "/list",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  private String list(HttpServletRequest request, @RequestBody MsgBatchSearchVo searchVo) {
+
+    List<MsgBatch> batchList =  batchService.getBatchList(searchVo);
+
+    List<Object> batchInfo = new ArrayList<>();
+
+    if (batchList != null && !batchList.isEmpty()) {
+
+      for (MsgBatch msgBatch : batchList) {
+
+        batchInfo.add(convertBatchInfo(msgBatch));
+      }
+
+    }
+
+    return success(batchInfo, convertPage(batchInfo, batchService.getBatchCount(searchVo)) );
+  }
+
+
+
+
+
+  /**
+   * 创建 短信模版
+   */
+  @RequestMapping(value = "/send",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  private String send(HttpServletRequest request, @RequestBody MsgSendParamVo paramVo) {
+
+    Map<String, Object> result =  sendService.sendNote(paramVo);
+
+    return success(null);
+  }
+
+
+  /**
+   * 转换 批次信息
+   * @param msgBatch
+   * @return
+   */
+  private Map<String, Object> convertBatchInfo(MsgBatch msgBatch) {
+    Map<String, Object> result = new HashMap<>();
+
+    MsgTemplate template = templateService.findBy("id", msgBatch.getTemplateid(), MsgTemplate.class);
+
+    result.put("id", msgBatch.getId());
+    result.put("template", template == null ? null : template.getName());
+    result.put("templateId", msgBatch.getTemplateid());
+
+    result.put("content", msgBatch.getContent());
+    result.put("sendTime", msgBatch.getSendtime());
+    result.put("sendNum", msgBatch.getSendnumber());
+    result.put("totalNum", msgBatch.getTotalnumber());
+
+    result.put("createrId", msgBatch.getCreatorroleid());
+    result.put("creater", msgBatch.getCreatorroleid());
+    return result;
+  }
+
+}

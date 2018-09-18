@@ -1,0 +1,46 @@
+package com.pop136.customerservice.mapper.agent.tag;
+
+import com.pop136.core.mybatis.AbstractBaseMapper;
+import com.pop136.core.mybatis.annotation.Table;
+import com.pop136.core.mybatis.criteria.Condition;
+import com.pop136.core.mybatis.criteria.ConditionMapping;
+import com.pop136.customerservice.entity.tag.TagContact;
+import com.pop136.customerservice.entity.tag.TagContactLog;
+import com.pop136.customerservice.entity.tag.TagCustomer;
+import com.pop136.customerservice.entity.tag.TagCustomerLog;
+import com.pop136.customerservice.vo.tag.TagValueVo;
+import com.pop136.customerservice.vo.tag.search.TagValueSearchVo;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+/**
+ * 客户回访 标签
+ */
+@Repository
+@Table("ss_feedback_tagvalue_customer")
+public class FeedBackTagCustomerMapper extends AbstractBaseMapper {
+
+    public void init() {
+        ConditionMapping mapping = new ConditionMapping( ) ;
+        super.putMapping( DEF_MAPPING_KEY , mapping);
+        super.setUnityFlterCondition( new Condition[]{ new Condition("deleteflag" , 0 , Condition.SYMBOL.EQ )});
+    }
+
+
+    public List<TagValueVo> findTagValueById(String id) {
+        return sqlTemplate.selectList("FeedBackTagCustomerMapper.findTagValueById", id);
+    }
+
+    public List<TagCustomer> findTagCustomerList(TagValueSearchVo searchVo) {
+        return sqlTemplate.selectList("FeedBackTagCustomerMapper.findTagCustomerList", searchVo);
+    }
+
+    public void batchInsertCustomertLog(List<TagCustomerLog> tagCustomerLogs) {
+        sqlTemplate.update("FeedBackTagContactMapper.batchInsertCustomertLog", tagCustomerLogs);
+    }
+
+    public void clearCustomerTag(String customerId) {
+        sqlTemplate.update("FeedBackTagContactMapper.clearCustomerTag", customerId);
+    }
+}

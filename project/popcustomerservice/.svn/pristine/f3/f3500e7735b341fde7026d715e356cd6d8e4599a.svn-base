@@ -1,0 +1,183 @@
+package com.pop136.customerservice.controller.integral;
+
+import com.pop136.customerservice.entity.integral.A524;
+import com.pop136.customerservice.service.integral.IntegralService;
+import com.pop136.customerservice.utils.WebServiceUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.*;
+
+@Controller
+@RequestMapping("/integral")
+public class IntegralController {
+
+
+	@Autowired
+	public IntegralService integralService;
+
+	private static final int pageSize = 10;
+
+	private static final String ossUrl = "http://7xt9pc.com1.z0.glb.clouddn.com/";
+
+	/**
+	 * 获取积分商品列表
+	 * 
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping("/list")
+	public IntegeralPage List(@RequestBody Map<String, Object> params) {
+		String searchpara = (String) params.get("searchpara");// 检索条件
+		int page = (int) params.get("page");
+
+		int currPage = page == 0 ? 1 : new Integer(page);
+		IntegeralPage integeralPage = new IntegeralPage();
+
+		String userid = "";
+		/*U031 account = UserLocal.get();
+		if (account == null) {
+			account = new U031();
+			account.setId("1");
+		}
+		userid = StringUtil.checkString(account.getId());*/
+
+		// 获取个人积分信息
+		String integral;
+		if (!userid.equals("1")) {
+			integral = getUserIntegral(userid);
+		} else {
+			integral = "100";
+		}
+
+		// Convert JSON string from file to Object
+
+		try {
+			Map<String, Object> paramMap = new HashMap<>();
+
+			paramMap.put("currPage", currPage <= 1 ? 0 : (currPage - 1) * pageSize);
+			paramMap.put("size", pageSize);
+			if (searchpara != null && searchpara.equals("1")) {
+				paramMap.put("searchpara", integral);
+			}
+			List<A524> productList = integralService.getProductList(paramMap);
+
+			List<Commodity> commodities = new ArrayList<>();
+			for (A524 a524 : productList) {
+				Commodity commodity = new Commodity();
+				BeanUtils.copyProperties(a524, commodity);// 转换参数
+				commodity.setSmallpicture(concatImageDomain(commodity.getSmallpicture()));
+				commodities.add(commodity);
+			}
+			integeralPage.setIntegeral(integral);// 添加积分
+			integeralPage.setList(commodities);
+			integeralPage.setError_code("200");
+			integeralPage.setCode("200");
+			integeralPage.setRows(commodities.size());
+			integeralPage.setError_msg("Successful");
+			integeralPage.setMessage("Successful");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return integeralPage;
+	}
+
+	/**
+	 * 获取 用户积分
+	 * 
+	 * @return
+	 */
+	private String getUserIntegral(String accountId) {
+
+		Map<String, String> paraMap = new HashMap<>();
+		String url = "http://121.41.13.95:8484/MjkPcV2/managers/getManagersToStore.bk";
+		paraMap.put("currPage", String.valueOf(1));
+		paraMap.put("pageSize", String.valueOf(pageSize));
+		paraMap.put("accountId", accountId);
+		
+		IntegrallList integrallList = WebServiceUtil.getObjectByAPI(url, paraMap, IntegrallList.class);
+
+		String integral = null;
+		if (integrallList != null && integrallList.getContent().size() > 0) {
+			integralContent content = integrallList.getContent().get(0);
+			integral = content.getIntegral();
+		}		
+/*		try {
+			IntegrallList integrallList = mapper.readValue(responseBody.getBody(), IntegrallList.class);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+*/		return integral;
+	}
+
+	/**
+	 * 获取商品详细 根据id
+	 * 
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping("/getInfo")
+	public CommdityPage getInfo(@RequestBody Map<String, Object> params) {
+		String id = (String) params.get("id");
+		Commodity commodity = new Commodity();
+		CommdityPage commdityPage = new CommdityPage();
+		try {
+			A524 a524 = integralService.getProductInfo(id);
+			convertCommdity(commodity, a524);
+
+			commdityPage.setCommodity(commodity);
+			commdityPage.setError_code("200");
+			commdityPage.setCode("200");
+			commdityPage.setError_msg("Successful");
+			commdityPage.setMessage("Successful");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return commdityPage;
+	}
+
+	/**
+	 * 转换 详情参数
+	 * 
+	 * @param commodity
+	 * @param a524
+	 */
+	private void convertCommdity(Commodity commodity, A524 a524) {
+		BeanUtils.copyProperties(a524, commodity);
+		ArrayList<String> pictureS = new ArrayList<>();
+
+		pictureS.add(concatImageDomain(commodity.getPicture1()));
+		pictureS.add(concatImageDomain(commodity.getPicture2()));
+		pictureS.add(concatImageDomain(commodity.getPicture3()));
+		pictureS.add(concatImageDomain(commodity.getPicture4()));
+		pictureS.add(concatImageDomain(commodity.getPicture5()));
+		commodity.setPictureList(pictureS);// 添加图片集合
+
+		pictureS.removeAll(Collections.singleton(null));
+
+		commodity.setSmallpicture(concatImageDomain(commodity.getSmallpicture()));
+
+		commodity.setCustomfields(commodity.getCustomfield1());// 添加描述详细
+
+	}
+
+	/**
+	 * 转换图片地址
+	 */
+	public String concatImageDomain(String relativeImage) {
+
+		if (StringUtils.isBlank(relativeImage)) {
+			return null;
+		}
+		// 判断环境，如果是云环境则使用服务器命名规则 .
+		return ossUrl + relativeImage;
+	}
+
+}

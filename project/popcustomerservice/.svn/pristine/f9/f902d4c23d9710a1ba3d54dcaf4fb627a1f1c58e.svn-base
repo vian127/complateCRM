@@ -1,0 +1,57 @@
+package com.pop136.customerservice.service.common;
+
+import com.pop136.customerservice.entity.tag.TagModule;
+import com.pop136.customerservice.entity.view.TagMappingVo;
+import com.pop136.customerservice.mapper.agent.common.TagMappingMapper;
+import com.pop136.customerservice.service.AbstractBaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by XH on 2018-7-25.
+ */
+public class TagService extends AbstractBaseService {
+
+    @Autowired
+    private TagMappingMapper tagMappingMapper;
+
+    @Autowired
+    private TagMappingVo tagVo;
+
+    public void init() {
+        setMapper(tagMappingMapper);
+    }
+
+    public List<TagMappingVo> findTagList(String module, String customerid)
+    {
+
+        List<TagMappingVo> returnTagList;
+
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("module",module);
+        List<TagModule> tagModuleList = tagMappingMapper.findTagListByModule(param);
+
+        for(TagModule tag: tagModuleList)
+        {
+            tagVo.setId(tag.getId());
+            tagVo.setModule(module);
+            Map<String, Object> param2 = new HashMap<String, Object>();
+            param.put("tagid",tag.getId());
+            List<TagMappingVo> tagMappingList = tagMappingMapper.findTagListByTagId(param2);
+            for(TagMappingVo tagMapping : tagMappingList)
+            {
+                tagVo.setCode(tagMapping.getCode());
+                tagVo.setLang(tagMapping.getLang());
+                tagVo.setNlevel(tagMapping.getNlevel());
+                tagVo.setSortnum(tagMapping.getSortnum());
+                tagVo.setTagattribute(tagMapping.getTagattribute());
+                tagVo.setTagcate(tagMapping.getTagcate());
+                tagVo.setTagname(tagMapping.getTagname());
+            }
+        }
+        return tagMappingMapper.findAll();
+    }
+}

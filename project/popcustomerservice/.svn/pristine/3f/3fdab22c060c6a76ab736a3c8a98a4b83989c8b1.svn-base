@@ -1,0 +1,19 @@
+package com.pop136.customerservice.service.customer;
+
+import com.pop136.customerservice.mapper.agent.cusotmer.ContactMapper;
+import com.pop136.customerservice.service.AbstractBaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ContactService extends AbstractBaseService {
+
+  @Autowired
+  private ContactMapper contactMapper;
+
+
+  public void init() {
+    setMapper(contactMapper);
+  }
+
+}

@@ -1,0 +1,9 @@
+@charset 'UTF-8';
+.dis-bottom {margin-bottom:10px;}
+.assign-selcet {width:80%;}
+.dialog-batch {display:none;}
+.expert h4{height:30px;line-height:30px;}
+.expert>div {margin-bottom: 10px;}
+.expert .form-control { display: inline-block;width:38%;}
+.layui-layer-btn .layui-layer-btn1{background-color: #1E9FFF;color:#fff;border: none;}
+.dis-top{margin-top: 20px;}

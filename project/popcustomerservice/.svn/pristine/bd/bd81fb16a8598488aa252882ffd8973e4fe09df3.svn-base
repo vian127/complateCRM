@@ -1,0 +1,19 @@
+package com.pop136.customerservice.service.customer;
+
+import com.pop136.customerservice.mapper.agent.cusotmer.CustomerTagMapper;
+import com.pop136.customerservice.service.AbstractBaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CustomerTagService extends AbstractBaseService {
+
+  @Autowired
+  private CustomerTagMapper customerTag;
+
+
+  public void init() {
+    setMapper(customerTag);
+  }
+
+}

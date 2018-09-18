@@ -1,0 +1,42 @@
+package com.pop136.customerservice.controller.marketing;
+
+import com.pop136.core.webservice.client.SMSClient;
+import com.pop136.customerservice.controller.BaseApiAction;
+import com.pop136.customerservice.vo.customer.search.FeedBackSearchVo;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * 短信 controller
+ */
+@RestController
+@RequestMapping("/msg")
+public class MsgController extends BaseApiAction {
+
+
+  /**
+   * 创建 短信模版
+   */
+  @RequestMapping(value = "/send",
+      produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+      method = RequestMethod.POST)
+  @ResponseBody
+  private String send(HttpServletRequest request, @RequestBody FeedBackSearchVo searchVo) {
+
+
+    SMSClient smsClient = new SMSClient();
+
+    try {
+      smsClient.sendSms("iek-7107","Mffg37dhGd34Bfd","13764362715","测试账号,退订回td");
+    } catch (Exception e) {
+
+
+    }
+    return success(null);
+  }
+
+
+}

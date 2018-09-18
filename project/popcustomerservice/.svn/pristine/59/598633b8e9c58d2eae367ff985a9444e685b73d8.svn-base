@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TagCustomerMapper">
+
+
+  <select id="findTagCustomerList" parameterType="com.pop136.customerservice.vo.tag.search.TagCustomerSearchVo"
+          resultType="com.pop136.customerservice.entity.tag.TagCustomer">
+   SELECT
+      a.customerid, a.id , a.tagid
+
+      FROM ss_tagvalue_customer a
+
+     WHERE
+      a.deleteflag = '0'
+
+    <if test="customerId != null">
+      and a.customerid = #{customerId}
+    </if>
+
+  </select>
+
+
+
+  <delete id="clearTagCustomerById" >
+   DELETE
+
+   FROM ss_tagvalue_customer
+
+    WHERE customerid = #{customerId}
+
+  </delete>
+
+
+    <insert id="batchInsertLog" parameterType="java.util.List">
+      INSERT  INTO  sslog_tagvalue_customer
+
+      (id, tagid, customerid, createtime) values
+
+      <foreach collection="list" item="item"  separator=","   index="">
+          ( #{item.id} , #{item.tagid}, #{item.customerid}, #{item.createtime}
+          )
+      </foreach>
+
+    </insert>
+
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FeedBackMapper">
+
+
+  <select id="getFeedBackList"  resultType="com.pop136.customerservice.entity.customer.FeedBack"
+   parameterType="com.pop136.customerservice.vo.customer.search.FeedBackSearchVo">
+    SELECT * FROM (
+    SELECT
+      ROW_NUMBER()over(order by a.createtime DESC)as row_num,* FROM mp_feedback a
+
+     WHERE
+      deleteflag = '0'
+
+      <if test="contactId != null">
+          and contactid = #{contactId}
+      </if>
+      <if test="customerId != null">
+         and customerid = #{customerId}
+      </if>
+      ) result
+
+      <if test="page != null">
+          where result.row_num &gt; #{page} and result.row_num &lt;= #{size}
+      </if>
+
+  </select>
+
+
+    <select id="getFeedBackCount" parameterType="com.pop136.customerservice.vo.customer.search.FeedBackSearchVo"
+    resultType="java.lang.String">
+        SELECT  count(*)
+
+        FROM  mp_feedback
+
+        WHERE
+
+        deleteflag = '0'
+
+        <if test="contactId != null">
+            and contactid = #{contactId}
+        </if>
+        <if test="customerId != null">
+            and customerid = #{customerId}
+        </if>
+
+    </select>
+
+</mapper>

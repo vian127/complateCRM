@@ -1,0 +1,42 @@
+/*
+    #author     gaofeng
+    #date       2017/07/24
+    #purpose    模板编辑
+*/
+
+require(['vue', 'msg', 'layui'], function (Vue, msg) {
+    $(function () {
+        var def = {
+            loading_ele: $('.js-loading-div')
+        };
+        def.loading_ele.fadeOut(400);
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                content: '',
+            },
+            mounted() {
+                // this.editTemplate();
+            },
+            methods: {
+                filterFunc: function () { //确认筛选列表
+                    console.log(this.content)
+                    
+                },
+                // editTemplate: function () {
+                //     self = this
+                //     console.log(this)
+                //     layui.use('layedit', function () {
+                //         var layedit = layui.layedit;
+                //         var index = layedit.build('js-edit', {
+                //             height: 150
+                //         }); //建立编辑器
+                //         self.content=layedit.getText(index)
+                //     });
+
+
+                // }
+            },
+        })
+    })
+})

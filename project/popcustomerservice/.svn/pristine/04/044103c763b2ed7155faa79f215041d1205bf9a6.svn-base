@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TagMappingMapper">
+
+  <select id="findDistinctTagListByModule"  resultType="com.pop136.customerservice.vo.common.Tag">
+    SELECT DISTINCT [id] ,[name],[tagcate],[taggroup],[tagseries],[tagclassification] ,[tagsection]
+    ,[sortnum] ,[module]
+    FROM v_ss_tag a
+    WHERE a.module LIKE #{module} and a.tagcate =  #{tagcate} order by a.sortnum
+  </select>
+
+  <select id="findTagListByModule"  resultType="com.pop136.customerservice.vo.common.Tag">
+    SELECT DISTINCT [id] ,[name],[tagcate],[taggroup],[tagseries],[tagclassification] ,[tagsection]
+    ,[sortnum] ,[module]
+    FROM v_ss_tag a
+    WHERE a.module LIKE #{module} and a.tagcate =  #{tagcate}
+    <if test="tagids != null and tagids.size > 0 ">
+      AND  a.id IN
+      <foreach collection="tagids" item="item"  index="index"  open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+
+    order by a.sortnum
+  </select>
+
+  <select id="findTagValueListByModule"  resultType="com.pop136.customerservice.entity.view.TagValueVo">
+  SELECT [tagid],[tagname],[tagcate],[tagattribute]
+          ,[id],[code],[value],[description],[module]
+        ,[children] as haschild,[sortnum]
+    FROM v_ss_tagvalue as a
+    WHERE a.module LIKE #{module} and a.tagcate =  #{tagcate}  and ( a.nlevel = 1) order by a.sortnum
+  </select>
+
+  <select id="findValueMappingListByModule"  resultType="com.pop136.customerservice.entity.view.TagValueMappingVo">
+  SELECT [id],[tagid],[fromtagvalid],[fromcode],[fromvalue]
+        ,[totagvalid],[tocode], [tovalue],[sortnum], module
+    FROM [v_ss_tagvaluemapping] as a
+      WHERE a.module LIKE #{module} order by a.sortnum
+  </select>
+
+  <select id="findChildrenTagListByModule"  resultType="com.pop136.customerservice.entity.view.TagMappingVo">
+    SELECT a.tagid ,a.tagname,a.tagcate,a.tagattribute, a.id,a.code, a.value ,a.module, a.lang, a.nlevel, a.description
+    a.children, a.sortnum, a.totagid, a.tocode , a.tovalue , a.todescription, a.tosortnum
+    FROM v_ss_tagmapping a
+    WHERE a.module LIKE #{module} and a.children = 'Y' order by a.sortnum
+  </select>
+
+</mapper>

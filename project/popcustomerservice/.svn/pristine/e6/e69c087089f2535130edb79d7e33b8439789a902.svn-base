@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DataDictMapper">
+
+
+  <select id="findAreaList"  resultType="com.pop136.customerservice.vo.common.DatadictVo">
+      SELECT  id, stype, name, fatherid
+      FROM  gp_area  a
+
+      where a.id != '0'  AND a.stype = 'GBK_AREA'  AND a.fatherid = #{fatherid}  AND a.deleteflag = '0'  order by a.sortnum asc
+
+  </select>
+
+
+  <select id="findTagList"  resultType="com.pop136.customerservice.vo.common.DatadictVo" parameterType="java.util.Map">
+      SELECT  id, stype, name, fatherid
+      FROM  gp_datadict  a
+
+      where a.id != '0'  AND
+
+      a.stype = #{stype}  AND a.fatherid = #{fatherid}  AND a.deleteflag = '0'  order by a.sortnum asc
+
+  </select>
+
+</mapper>

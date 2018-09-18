@@ -1,0 +1,147 @@
+package com.pop136.customerservice.vo.Customer;
+
+/**
+ *客服
+ */
+public class ServiceInfoVo {
+
+  private String time;//时间
+
+  private String name;//用户
+
+  private String contactType;//联系方式
+
+  private String content;//内容
+
+  private String remark;//备注
+
+  private String level;//级别
+
+  private String satisfaction ;//满意度
+
+  private String contactResult;//联系结果
+
+  private String contactStatus;//联系状态
+
+  private String record;//录音
+
+  private String groundType;//地勤类型
+
+  private String visitCount;//摆放次数
+
+  private String groundRemark;//地勤备注
+
+  private String staffName;//地勤备注
+
+  public String getGroundType() {
+    return groundType;
+  }
+
+  public void setGroundType(String groundType) {
+    this.groundType = groundType;
+  }
+
+  public String getVisitCount() {
+    return visitCount;
+  }
+
+  public void setVisitCount(String visitCount) {
+    this.visitCount = visitCount;
+  }
+
+  public String getGroundRemark() {
+    return groundRemark;
+  }
+
+  public void setGroundRemark(String groundRemark) {
+    this.groundRemark = groundRemark;
+  }
+
+  public String getStaffName() {
+    return staffName;
+  }
+
+  public void setStaffName(String staffName) {
+    this.staffName = staffName;
+  }
+
+  public String getTime() {
+    return time;
+  }
+
+  public void setTime(String time) {
+    this.time = time;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getContactType() {
+    return contactType;
+  }
+
+  public void setContactType(String contactType) {
+    this.contactType = contactType;
+  }
+
+  public String getContent() {
+    return content;
+  }
+
+  public void setContent(String content) {
+    this.content = content;
+  }
+
+  public String getRemark() {
+    return remark;
+  }
+
+  public void setRemark(String remark) {
+    this.remark = remark;
+  }
+
+  public String getLevel() {
+    return level;
+  }
+
+  public void setLevel(String level) {
+    this.level = level;
+  }
+
+  public String getSatisfaction() {
+    return satisfaction;
+  }
+
+  public void setSatisfaction(String satisfaction) {
+    this.satisfaction = satisfaction;
+  }
+
+  public String getContactResult() {
+    return contactResult;
+  }
+
+  public void setContactResult(String contactResult) {
+    this.contactResult = contactResult;
+  }
+
+  public String getContactStatus() {
+    return contactStatus;
+  }
+
+  public void setContactStatus(String contactStatus) {
+    this.contactStatus = contactStatus;
+  }
+
+  public String getRecord() {
+    return record;
+  }
+
+  public void setRecord(String record) {
+    this.record = record;
+  }
+}
